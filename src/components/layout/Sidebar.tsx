@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   House,
   Car,
@@ -10,7 +10,9 @@ import {
   CalendarDays,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
+import { useAuthContext } from "@/context/AuthContext";
 
 const NAV_ITEMS = [
   { to: "/", label: "Home", icon: House },
@@ -29,6 +31,8 @@ function isActive(pathname: string, to: string): boolean {
 
 export default function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isSignedIn, isPremium, signOut } = useAuthContext();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -113,21 +117,55 @@ export default function Sidebar() {
           </ul>
         </nav>
 
-        {/* Bottom section — Sign In */}
+        {/* Bottom section — Auth */}
         <div className="shrink-0 border-t border-[#2a2a2a] p-3 lg:p-4">
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all hover:bg-[#1a1a1a] md:justify-center md:px-0 lg:justify-start lg:px-3">
-            {/* Avatar placeholder */}
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#242424] border border-[#2a2a2a]">
-              <svg className="h-4 w-4 text-[#606060]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+          {isSignedIn && user ? (
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 md:justify-center md:px-0 lg:justify-start lg:px-3">
+                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#2a2a2a] ${isPremium ? "bg-accent-red/20" : "bg-[#242424]"}`}>
+                  <span className={`font-mono text-xs font-bold ${isPremium ? "text-accent-red" : "text-text-muted"}`}>
+                    {user.avatar ?? user.displayName.charAt(0)}
+                  </span>
+                </div>
+                <div className="text-left md:hidden lg:block min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <p className="font-body text-xs font-bold text-text-primary truncate">{user.displayName}</p>
+                    {isPremium && (
+                      <span className="rounded-full bg-accent-red/10 px-1.5 py-0.5 font-body text-[8px] font-bold uppercase tracking-wider text-accent-red">
+                        PRO
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-body text-[10px] text-text-muted truncate">{user.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => { signOut(); setMobileOpen(false); navigate("/"); }}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-[#1a1a1a] hover:text-white transition-all md:justify-center md:px-0 lg:justify-start lg:px-3 cursor-pointer"
+                title="Sign out"
+              >
+                <LogOut size={16} className="shrink-0" />
+                <span className="font-body text-xs md:hidden lg:inline">Sign Out</span>
+              </button>
             </div>
-            <div className="text-left md:hidden lg:block">
-              <p className="font-body text-xs font-bold text-accent-red">Sign In</p>
-              <p className="font-body text-[10px] text-text-muted">Join the community</p>
-            </div>
-          </button>
+          ) : (
+            <Link
+              to="/sign-in"
+              onClick={() => setMobileOpen(false)}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all hover:bg-[#1a1a1a] md:justify-center md:px-0 lg:justify-start lg:px-3"
+            >
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#242424] border border-[#2a2a2a]">
+                <svg className="h-4 w-4 text-[#606060]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div className="text-left md:hidden lg:block">
+                <p className="font-body text-xs font-bold text-accent-red">Sign In</p>
+                <p className="font-body text-[10px] text-text-muted">Join the community</p>
+              </div>
+            </Link>
+          )}
         </div>
       </aside>
     </>

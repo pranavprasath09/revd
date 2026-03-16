@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import Button from "@/components/ui/Button";
+import { useAuthContext } from "@/context/AuthContext";
 
 interface PremiumGateProps {
   feature: string;
@@ -7,6 +9,13 @@ interface PremiumGateProps {
 }
 
 export default function PremiumGate({ feature, children }: PremiumGateProps) {
+  const { isPremium, isSignedIn } = useAuthContext();
+
+  // Premium users see content directly
+  if (isPremium) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="relative overflow-hidden rounded-xl">
       {/* Blurred content */}
@@ -42,9 +51,17 @@ export default function PremiumGate({ feature, children }: PremiumGateProps) {
             <span className="font-mono font-semibold text-text-primary">$50/year</span>
           </p>
 
-          <Button variant="primary" size="md" className="w-full">
-            Upgrade to Premium
-          </Button>
+          {isSignedIn ? (
+            <Button variant="primary" size="md" className="w-full">
+              Upgrade to Premium
+            </Button>
+          ) : (
+            <Link to="/sign-in" className="w-full">
+              <Button variant="primary" size="md" className="w-full">
+                Sign In to Unlock
+              </Button>
+            </Link>
+          )}
 
           <p className="font-body mt-3 text-[11px] text-text-muted">
             Cancel anytime. 7-day free trial.
