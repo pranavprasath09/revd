@@ -1,0 +1,88 @@
+{
+  "carId": "ford-mustang-gt500-s550",
+  "make": "Ford",
+  "model": "Mustang GT500",
+  "generation": "S550",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Air Filter",
+      "description": "Drop-in performance filter for the factory airbox. A simple upgrade that ensures the supercharged 5.2L Predator engine breathes freely.",
+      "difficulty": "Beginner",
+      "costEstimate": "$50–$100",
+      "isPremium": false,
+      "partNumbers": "K&N 33-5029, aFe 30-10283",
+      "installNotes": "Open factory airbox, swap filter. No tools required. Reoil every 25,000 miles. 5 minute job."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "The GT500's supercharged V8 deserves to be heard. An aftermarket catback adds volume and aggression while improving exhaust flow.",
+      "difficulty": "Beginner",
+      "costEstimate": "$800–$2,000",
+      "isPremium": false,
+      "partNumbers": "Borla ATAK 140837, Corsa Xtreme 21043",
+      "installNotes": "Bolt-on replacement from the rear of the active valve mid-pipe. Retains factory active exhaust valve functionality. No cutting. 1 hour on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the GT500 by 20–25mm for improved aerodynamics and handling. The factory MagneRide adaptive dampers remain fully functional.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$500",
+      "isPremium": true,
+      "partNumbers": "Ford Performance M-5300-Y, Eibach Pro-Kit 35145.140",
+      "installNotes": "MagneRide-compatible springs required. Standard springs will damage the adaptive dampers. Spring compressor needed. Alignment after install. 2 hour job."
+    },
+    {
+      "id": "mod-4",
+      "name": "Supercharger Pulley Swap",
+      "description": "A smaller supercharger pulley increases boost pressure for significant power gains. The Predator engine responds extremely well to more boost.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$200–$500",
+      "isPremium": true,
+      "partNumbers": "Lethal Performance LP-GT500-PK, VMP Performance VMP-24-10-0600",
+      "installNotes": "Remove factory supercharger pulley with a puller tool. Press on smaller pulley. Must retune for increased boost. Add 2–3 psi of boost. Gains 50–80hp with tune. 2 hour job."
+    },
+    {
+      "id": "mod-5",
+      "name": "Heat Exchanger Upgrade",
+      "description": "The factory supercharger heat exchanger struggles to keep intake temps down in hot weather. An upgraded unit maintains consistent power output.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "VMP Performance VMP-24-10-0200, Lethal Performance dual-pass",
+      "installNotes": "Drain coolant from the supercharger cooling circuit. Swap the heat exchanger behind the front bumper. Refill with 50/50 coolant mix. 2–3 hour install. Critical for track use."
+    },
+    {
+      "id": "mod-6",
+      "name": "ECU Calibration",
+      "description": "A custom ECU tune optimizes the Predator engine's fueling, timing, and boost curve for maximum power with supporting mods.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$800",
+      "isPremium": true,
+      "partNumbers": "Lund Racing Custom Tune, Palm Beach Dyno Remote Tune",
+      "installNotes": "Flash via SCT or HP Tuners device. Custom tune from a GT500-specialized tuner is strongly recommended over off-the-shelf maps. Requires datalogging and 2–3 revision cycles."
+    },
+    {
+      "id": "mod-7",
+      "name": "Carbon Fiber Driveshaft",
+      "description": "A carbon fiber driveshaft reduces rotating mass for quicker revving and slightly improved acceleration. Also handles higher power levels than the stock aluminum unit.",
+      "difficulty": "Advanced",
+      "costEstimate": "$800–$1,500",
+      "isPremium": false,
+      "partNumbers": "DSS?"" Carbon Fiber Shaft, The Driveshaft Shop FDSH30-C",
+      "installNotes": "Support the transmission and unbolt the factory driveshaft at both ends. Install new shaft with factory bolts. Torque to spec. Professional install recommended due to vehicle weight."
+    },
+    {
+      "id": "mod-8",
+      "name": "Drag Pack Setup",
+      "description": "Convert the GT500 for drag strip duty with drag radials, a line lock, and suspension adjustments for maximum straight-line traction.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": true,
+      "partNumbers": "Mickey Thompson ET Street SS 305/35R20, BMR Drag Kit TCA064",
+      "installNotes": "Install drag radials on rear. Lower front springs for weight transfer. Stiffen rear suspension to plant the rear. Enable factory line lock via FORScan. Practice launches at 3500 RPM."
+    }
+  ]
+}

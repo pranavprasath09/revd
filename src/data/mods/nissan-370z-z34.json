@@ -1,0 +1,88 @@
+{
+  "carId": "nissan-370z-z34",
+  "make": "Nissan",
+  "model": "370Z",
+  "generation": "Z34",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Cold Air Intake",
+      "description": "Dual intake system feeds both banks of the VQ37VHR V6 with cooler, denser air for improved throttle response and a more aggressive induction note.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": false,
+      "partNumbers": "Stillen Gen 3 Ultra Long Tube, K&N 69-7078TS",
+      "installNotes": "Remove stock airboxes (one per bank). Install new intake tubes and filters. Route away from exhaust heat. 30 minutes. No tune required."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "Unleash the VQ37 V6 exhaust note with a performance catback. The VQ series is known for its excellent exhaust sound when uncorked.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,500",
+      "isPremium": false,
+      "partNumbers": "Invidia Gemini HS08Z34GEM, Tomei Expreme Ti 440016",
+      "installNotes": "Bolt-on from the Y-pipe back. Dual exit design. Hangs on factory mounts. No cutting required. 1 hour on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Drop the Z34 by 20–30mm for a sportier look and improved handling while maintaining daily comfort on stock dampers.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "Swift Spec-R Springs, Eibach Pro-Kit E10-63-020-02-22",
+      "installNotes": "Spring compressor required. Replace all four corners. Alignment mandatory after install. May need to trim rear bump stops slightly for optimal ride quality."
+    },
+    {
+      "id": "mod-4",
+      "name": "Test Pipes / High-Flow Cats",
+      "description": "Replace the restrictive factory catalytic converters with test pipes or high-flow cats for significant exhaust flow improvement and power gains.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$200–$500",
+      "isPremium": true,
+      "partNumbers": "Berk Technology BT1208, ISR Performance test pipes",
+      "installNotes": "Access from below on a lift. Pre-soak bolts. Test pipes will trigger CEL — O2 sensor spacers or UpRev tune required to suppress. Significant power gain in the mid-range."
+    },
+    {
+      "id": "mod-5",
+      "name": "ECU Tune (UpRev)",
+      "description": "UpRev ECU tune optimizes VVT timing, fueling, and throttle maps for the VQ37VHR. Gains of 15–20hp with bolt-on mods, plus improved throttle feel.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$800",
+      "isPremium": true,
+      "partNumbers": "UpRev Osiris License, Consult III+ cable",
+      "installNotes": "Requires UpRev tuner with cable and laptop. Read stock ECU, apply base tune, then customize. Best results with custom dyno tune. Eliminates rev hang and improves throttle tip-in."
+    },
+    {
+      "id": "mod-6",
+      "name": "Coilover Suspension",
+      "description": "Fully adjustable coilovers transform the Z34 chassis with precise ride height, damping, and spring rate control for street or track use.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": true,
+      "partNumbers": "KW V3 35285010, Fortune Auto 500 Series",
+      "installNotes": "Full strut replacement at all corners. Set initial drop to 20mm. 8k/6k spring rates work well for street/track. Full alignment and corner balance recommended."
+    },
+    {
+      "id": "mod-7",
+      "name": "Twin Turbo Kit",
+      "description": "A twin-turbo kit transforms the VQ37VHR from a strong NA engine to a 500+ hp monster. The factory bottom end handles moderate boost well.",
+      "difficulty": "Advanced",
+      "costEstimate": "$5,000–$9,000",
+      "isPremium": true,
+      "partNumbers": "AAM Competition Twin Turbo Kit, Fast Intentions TT Kit",
+      "installNotes": "Comprehensive kit includes twin turbos, manifolds, intercooler, fuel system, and oil lines. Requires standalone ECU or UpRev advanced tune. Upgraded clutch mandatory. Budget 30+ hours for install and tuning."
+    },
+    {
+      "id": "mod-8",
+      "name": "Lightweight Wheels",
+      "description": "Reduce unsprung weight with forged wheels for sharper handling response. The Z34 benefits noticeably from lighter wheels given its sports car focus.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,500–$4,000",
+      "isPremium": false,
+      "partNumbers": "Rays CE28N 19x9.5/19x10.5, Enkei PF01 19x9.5",
+      "installNotes": "Direct bolt-on. 19-inch wheels are standard fitment. Staggered setup recommended. 275/35R19 front and 295/30R19 rear is optimal for grip. Torque to 80 ft-lbs."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "carId": "ford-mustang-gt-s550",
+  "make": "Ford",
+  "model": "Mustang GT",
+  "generation": "S550",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Cold Air Intake",
+      "description": "Feed the 5.0L Coyote V8 cooler, denser air with a performance intake. Adds a satisfying V8 induction roar under throttle.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$400",
+      "isPremium": false,
+      "partNumbers": "K&N 63-2588, aFe Momentum GT 54-73203",
+      "installNotes": "Remove stock airbox and intake tube. Install new system with provided hardware. Ensure MAF sensor is properly seated. 20 minutes. No tune required for basic intakes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Axle-Back Exhaust",
+      "description": "Replace the stock mufflers for an aggressive Coyote V8 bark. Active exhaust-equipped cars can retain valve control with some systems.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$1,000",
+      "isPremium": false,
+      "partNumbers": "Borla S-Type 11953, Flowmaster Outlaw 817800",
+      "installNotes": "Unbolt stock mufflers at the mid-pipe flange. New mufflers hang on factory hangers. No cutting needed. 30 minutes on jack stands. Active exhaust wiring retains mode switching on supported kits."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Drop the S550 by 25–30mm to close the factory wheel gap and improve cornering grip with a lower center of gravity.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "Ford Performance M-5300-X, Eibach Pro-Kit E10-35-029-06-22",
+      "installNotes": "Spring compressor required. Swap all four corners. MagneRide-equipped cars need springs specifically designed for the electronic dampers. Alignment mandatory."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune (Coyote Flash)",
+      "description": "A Coyote V8 tune optimizes fuel and ignition timing for 20–30hp gains, improved throttle response, and adjustable rev limits.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$600",
+      "isPremium": true,
+      "partNumbers": "Cobb AccessPort AP3-FOR-003, SCT X4 7015",
+      "installNotes": "Flash via OBD-II port. Select tune matching your mod level and fuel grade. 91 or 93 octane maps available. Save stock tune before flashing. Pairs well with intake and exhaust."
+    },
+    {
+      "id": "mod-5",
+      "name": "Long Tube Headers",
+      "description": "Long tube headers are the single best bolt-on for the Coyote V8, adding 25–40hp and completely transforming the exhaust sound.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,800",
+      "isPremium": true,
+      "partNumbers": "Kooks 1151H421, American Racing Headers MT5-15134300LSWC",
+      "installNotes": "Remove factory exhaust manifolds. Installation requires lifting the engine slightly for clearance. Include off-road or high-flow catted H/X-pipe. Retune required. 6+ hour install."
+    },
+    {
+      "id": "mod-6",
+      "name": "Supercharger Kit",
+      "description": "A roots-type or twin-screw supercharger adds 200–300hp to the Coyote V8, pushing the S550 well into the 600–700hp range on pump gas.",
+      "difficulty": "Advanced",
+      "costEstimate": "$6,000–$8,000",
+      "isPremium": true,
+      "partNumbers": "Roush R2650 Phase 2 422184, Whipple Gen 5 3.0L WK-2626B-STG2",
+      "installNotes": "Full kit includes supercharger, intercooler, fuel system upgrades, and calibration. Requires premium fuel. Upgraded half shafts recommended. MT-82 manual transmission is the weak link — consider upgraded clutch and trans."
+    },
+    {
+      "id": "mod-7",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers deliver precise handling for road course, autocross, or drag racing. The S550 platform transforms with proper suspension setup.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,200–$3,000",
+      "isPremium": false,
+      "partNumbers": "KW V3 35230067, BMR Koni Single Adjustable",
+      "installNotes": "Full strut replacement. MagneRide cars need specific kits or MagneRide delete. Set ride height 20mm below stock for street. Stiffer rear springs help rotation. Full alignment required."
+    },
+    {
+      "id": "mod-8",
+      "name": "Differential Upgrade",
+      "description": "The factory open differential is the S550 GT's biggest weakness. An upgraded LSD transforms traction and corner exit behavior.",
+      "difficulty": "Advanced",
+      "costEstimate": "$800–$2,000",
+      "isPremium": true,
+      "partNumbers": "Ford Performance M-4204-M Trak-Lok, Wavetrac ATB Diff",
+      "installNotes": "Remove rear differential cover and stock carrier. Install new LSD unit. Set backlash and preload to spec. Refill with 75W-140 synthetic gear oil with friction modifier. 4+ hours."
+    }
+  ]
+}

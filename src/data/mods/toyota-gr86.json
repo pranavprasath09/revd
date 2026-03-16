@@ -1,0 +1,88 @@
+{
+  "carId": "toyota-gr86",
+  "make": "Toyota",
+  "model": "GR86",
+  "generation": "ZN8",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Air Intake",
+      "description": "An upgraded intake for the FA24 engine improves throttle response and adds a satisfying induction sound during spirited driving.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "aFe Takeda Momentum GT 56-70046D, K&N 69-8621TS",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. Ensure MAF sensor is properly seated in the new housing. 15 minutes. No tune needed."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "The stock exhaust is very quiet. An aftermarket catback adds character and volume to the FA24 boxer engine without excessive drone.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": false,
+      "partNumbers": "Invidia N1 HS22GR8GST, GReddy Supreme SP",
+      "installNotes": "Bolt-on from the over-pipe back. Dual exit matches factory bumper cutouts. No cutting or welding. 45 minutes on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Drop the GR86 by 20–25mm to reduce the factory wheel gap and improve handling with lower center of gravity.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": true,
+      "partNumbers": "Swift Spec-R Springs 4T914, Eibach Pro-Kit E10-72-014-02-22",
+      "installNotes": "Spring compressor required. Swap all four corners. Rear springs are straightforward. Front requires unbolting the strut assembly. Alignment required after install."
+    },
+    {
+      "id": "mod-4",
+      "name": "Performance Header (UEL)",
+      "description": "An unequal-length header adds the classic boxer rumble while improving exhaust scavenging for mid-range power gains on the FA24.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$900",
+      "isPremium": true,
+      "partNumbers": "Tomei Expreme UEL 412108, ACE 350 Header",
+      "installNotes": "Access from below. Remove heat shields and unbolt stock manifold. Apply anti-seize to all studs. Requires tune to optimize and clear CEL from removed secondary cat. 3 hour install."
+    },
+    {
+      "id": "mod-5",
+      "name": "ECU Tune (EcuTek/OFT)",
+      "description": "An ECU tune optimizes fueling, ignition timing, and throttle mapping for the FA24. Addresses the stock torque dip and adds 15–25hp with bolt-ons.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$700",
+      "isPremium": true,
+      "partNumbers": "EcuTek ProECU License, Openflash Tablet OFT2",
+      "installNotes": "Flash via OBD-II port. Select map matching your hardware (intake + header + exhaust). Eliminates the factory rev hang and improves throttle response. Requires 93 octane."
+    },
+    {
+      "id": "mod-6",
+      "name": "Adjustable Coilovers",
+      "description": "Full coilover suspension for the GR86 with ride height and damping adjustment. Transforms the already excellent chassis into a track weapon.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": true,
+      "partNumbers": "KW V3 35258003, Fortune Auto 500 Series FA500-86",
+      "installNotes": "Full strut replacement at all corners. Set initial drop to 20mm. Swift springs in 7k/5k rates work well for street/track dual duty. Alignment and corner balance recommended."
+    },
+    {
+      "id": "mod-7",
+      "name": "Forced Induction (Supercharger)",
+      "description": "A centrifugal supercharger adds 60–100hp to the FA24 while maintaining the linear power delivery. The factory engine handles boost well with proper tuning.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$6,500",
+      "isPremium": true,
+      "partNumbers": "Edelbrock E-Force 15175, Jackson Racing C38-86 Kit",
+      "installNotes": "Full kit includes supercharger, intercooler, fuel injectors, and ECU tune. Oil catch can recommended. Upgraded clutch needed for manual cars. 10+ hour install. Maintain stock compression."
+    },
+    {
+      "id": "mod-8",
+      "name": "Lightweight Wheels and Tires",
+      "description": "Lightweight forged wheels reduce unsprung mass for sharper turn-in and acceleration. The GR86 is incredibly sensitive to wheel weight changes.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": false,
+      "partNumbers": "Enkei RPF1 17x9 +35, Rays 57DR 17x9 +38, Michelin PS4S 245/40R17",
+      "installNotes": "Direct bolt-on with factory hub-centric rings for some brands. 17x9 with 245-width tires is the sweet spot. Ensure no fender rubbing at your ride height. Torque lugs to 89 ft-lbs."
+    }
+  ]
+}

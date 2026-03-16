@@ -1,0 +1,88 @@
+{
+  "carId": "subaru-wrx-sti-gd",
+  "make": "Subaru",
+  "model": "WRX STI",
+  "generation": "GD",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Cold Air Intake",
+      "description": "A performance intake for the EJ257 boxer turbo engine improves turbo spool sound and airflow. The iconic Subaru boxer rumble becomes more pronounced.",
+      "difficulty": "Beginner",
+      "costEstimate": "$150–$300",
+      "isPremium": false,
+      "partNumbers": "COBB SF Intake System 715100, K&N 69-8001TS",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. Route into the fender well for cooler air. Requires Cobb AccessPort tune for COBB intake. 20 minutes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "Unleash the boxer rumble with a turbo-back or catback exhaust. The unequal-length headers give Subarus their distinctive sound.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$1,000",
+      "isPremium": false,
+      "partNumbers": "Invidia Q300 HS02STIG3S, Tomei Expreme Ti 440016",
+      "installNotes": "Bolt-on from the downpipe flange back. Single or dual exit options. No cutting required. 45 minutes on jack stands. Pairs well with a catless downpipe."
+    },
+    {
+      "id": "mod-3",
+      "name": "Up-Pipe and Downpipe",
+      "description": "Replace the factory catted up-pipe and restrictive downpipe for dramatically improved exhaust flow and turbo response.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$700",
+      "isPremium": true,
+      "partNumbers": "Invidia Catless Downpipe, COBB Catted Downpipe 512101",
+      "installNotes": "The up-pipe connects the headers to the turbo — the factory unit has a catalytic converter that restricts flow. Remove both up-pipe and downpipe for full benefit. Retune required. 3+ hours."
+    },
+    {
+      "id": "mod-4",
+      "name": "Cobb AccessPort Tune",
+      "description": "The AccessPort is the gold standard for Subaru tuning. Stage 1 adds 30–40hp on 93 octane. Stage 2 with downpipe adds even more.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$700",
+      "isPremium": true,
+      "partNumbers": "COBB AccessPort V3 AP3-SUB-004, COBB Stage 2 map",
+      "installNotes": "Flash via OBD-II port. Start with Stage 1 on 93 octane. Stage 2 requires catless or catted downpipe. Custom protune strongly recommended over OTS maps for EJ257 reliability. Log DAM and knock."
+    },
+    {
+      "id": "mod-5",
+      "name": "Top-Mount Intercooler Upgrade",
+      "description": "Replace the undersized factory TMIC with a larger unit for significantly lower intake temps. The stock TMIC heat soaks extremely quickly.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "GrimmSpeed TMIC 090002, Process West Verticooler",
+      "installNotes": "Unbolt factory TMIC from the turbo outlet. New unit uses factory mounting points but may require slightly modified charge pipe routing. Recalibrate tune after install. 1–2 hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers transform the GD STI's handling with precise ride height and damping control for street or rally-style driving.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 35245001, Fortune Auto 500 Series GD",
+      "installNotes": "Full strut replacement at all corners. Set ride height 20mm below stock for street. The GD platform responds well to stiff front / compliant rear spring rate bias. Full alignment required."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbo (VF39/VF43 Swap)",
+      "description": "Swap the stock VF39 turbo for a larger unit like the VF43 or aftermarket hybrid for higher power potential on the EJ257.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,000–$3,000",
+      "isPremium": true,
+      "partNumbers": "Blouch Dominator 2.5XT-R, FP Green turbo",
+      "installNotes": "Remove factory turbo from exhaust manifold. Bolt-on replacement uses stock up-pipe and oil/coolant lines. Requires larger injectors (1000cc+), fuel pump upgrade, and custom tune. 8+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Built EJ257 Short Block",
+      "description": "The EJ257 is known for ringland failure at higher power levels. A built short block with forged internals makes the engine reliable to 500+ hp.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,500–$7,000",
+      "isPremium": true,
+      "partNumbers": "IAG Stage 2.5 Closed Deck Short Block, Manley pistons 632100C-4",
+      "installNotes": "Full engine-out rebuild. Remove, disassemble, machine block (closed deck preferred), install forged pistons, rods, bearings. New gaskets, timing belt, and seals throughout. 40+ hours. Custom tune mandatory."
+    }
+  ]
+}

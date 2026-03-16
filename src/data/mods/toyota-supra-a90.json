@@ -1,0 +1,88 @@
+{
+  "carId": "toyota-supra-a90",
+  "make": "Toyota",
+  "model": "Supra",
+  "generation": "A90",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "A high-flow intake for the B58 engine improves turbo spool sound and provides a small bump in airflow. The stock airbox is already well-designed.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": false,
+      "partNumbers": "aFe Momentum GT 54-76901, HKS Super Flow Intake",
+      "installNotes": "Remove stock airbox lid and filter. Install new intake tube and filter assembly. Ensure MAF sensor housing matches diameter. 20 minute install."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "Unlock the B58 inline-6 exhaust note with an aftermarket catback. The stock exhaust is very quiet — an aftermarket system transforms the character.",
+      "difficulty": "Beginner",
+      "costEstimate": "$800–$2,000",
+      "isPremium": false,
+      "partNumbers": "HKS Hi-Power Spec-L 31019-AT003, AWE Track Edition",
+      "installNotes": "Bolt-on from the mid-pipe flange back. Dual exit matches factory bumper cutouts. No cutting required. 1 hour on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the A90 Supra 20–30mm for a more aggressive stance and sharper turn-in. The factory adaptive dampers remain fully functional.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$450",
+      "isPremium": true,
+      "partNumbers": "H&R 28662-1, Swift Spec-R Springs 4T912",
+      "installNotes": "Spring compressor needed. Swap at all four corners. Adaptive damper coding not required. Alignment mandatory. Slight rubbing possible at full drop on aggressive wheel setups."
+    },
+    {
+      "id": "mod-4",
+      "name": "B58 ECU Tune (MHD/Bootmod3)",
+      "description": "Flash the B58 ECU for 80–100hp gains on stock hardware. The B58 responds incredibly well to tuning with massive headroom in the factory fuel system.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "MHD Flasher A90 license, Bootmod3 Stage 1 license",
+      "installNotes": "Flash via OBD-II Bluetooth adapter using phone app. Start with Stage 1 on 93 octane. The B58 has factory overbuilt fuel system that supports Stage 1 with no hardware changes. Log boost and AFR."
+    },
+    {
+      "id": "mod-5",
+      "name": "Performance Downpipe",
+      "description": "Replace the restrictive factory catalytic converter with a high-flow catted or catless downpipe for significantly faster turbo spool and 30–40hp gains when tuned.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "VRSF B58 Downpipe, HKS Metal Catalyzer 33005-AT004",
+      "installNotes": "Access from below on a lift. Pre-soak turbo outlet bolts. Must retune after install. O2 sensor spacer or software fix needed for catless to avoid CEL. 2 hour install."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Intercooler",
+      "description": "A larger intercooler prevents heat soak during spirited driving or track sessions. The stock unit is adequate for daily use but falls short under sustained load.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$1,000",
+      "isPremium": true,
+      "partNumbers": "CSF 8209, Wagner Tuning 200001099",
+      "installNotes": "Remove front bumper and crash bar. Stock intercooler unbolts from charge pipe connections. New unit uses factory mounting points with minor bracket adjustments. 2–3 hours."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbocharger",
+      "description": "Swap the stock turbo for a larger unit to push the B58 beyond 500whp. The factory engine internals support this power level reliably.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,500–$6,000",
+      "isPremium": true,
+      "partNumbers": "Pure Turbos Stage 2, Vargas Turbo VTT GC 6466",
+      "installNotes": "Turbo access requires removing the intake manifold and heat shields. Upgraded fuel injectors and HPFP recommended. Custom tune mandatory. Upgraded clutch on manual cars. 15+ hour job."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Fully adjustable coilovers transform the A90 from GT car to precision track tool with adjustable ride height, damping, and spring rates.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 35208013, Ohlins Road & Track BMS MN02S1",
+      "installNotes": "Full strut replacement at all corners. Adaptive damper delete via coding. Set initial height 20mm below stock. Mid-range damping for street. Alignment and corner balance required."
+    }
+  ]
+}

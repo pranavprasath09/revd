@@ -1,0 +1,88 @@
+{
+  "carId": "audi-rs3-8v",
+  "make": "Audi",
+  "model": "RS3",
+  "generation": "8V",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Intake",
+      "description": "Feed the legendary 2.5L 5-cylinder TFSI engine cleaner, denser air while amplifying the unique 5-cylinder induction sound.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$400",
+      "isPremium": false,
+      "partNumbers": "Eventuri EVE-8VRS3-CF-INT, APR CI-100037",
+      "installNotes": "Remove stock airbox. Install carbon fiber or aluminum intake system. The RS3 intake path is unique — ensure proper MAF sensor positioning. 20 minutes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Performance Exhaust (Valved)",
+      "description": "A valved exhaust system lets the 5-cylinder sing at full volume or stay quiet for neighbors. The RS3's exhaust note is one of its best features.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": false,
+      "partNumbers": "Milltek SSXAU773, Akrapovic S-AU/TI/13",
+      "installNotes": "Bolt-on from the downpipe flange back. Valved systems connect to factory exhaust mode switch or Bluetooth controller. Dual or quad exit options. 1.5 hours."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the RS3 by 15–20mm for a more aggressive stance. The Magnetic Ride suspension remains fully functional with compatible springs.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$500",
+      "isPremium": true,
+      "partNumbers": "H&R 28690-1, Eibach Pro-Kit E10-15-023-01-22",
+      "installNotes": "Must use Magnetic Ride-compatible springs. Standard springs will damage the MR dampers. Spring compressor required. Alignment after install."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune (Stage 1)",
+      "description": "The 2.5 TFSI responds phenomenally to tuning. Stage 1 adds 60–80hp with no hardware changes, making the RS3 a sub-4-second 0–60 car.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$1,000",
+      "isPremium": true,
+      "partNumbers": "APR Stage 1 ECU+TCU, Unitronic Stage 1+",
+      "installNotes": "Flash at an APR dealer or via portable flasher. TCU (transmission control unit) tune for DSG is highly recommended — transforms shift speed and removes torque limiting. Requires 93 octane."
+    },
+    {
+      "id": "mod-5",
+      "name": "Performance Downpipe",
+      "description": "A high-flow downpipe unleashes the 2.5 TFSI turbo for significantly faster spool and 20–30hp gains when paired with a Stage 2 tune.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "Milltek Large Bore Downpipe, Wagner Tuning Catted DP",
+      "installNotes": "Access from below on a lift. Pre-soak turbo-to-downpipe bolts. Must retune to Stage 2 after install. Catless will trigger CEL without software fix. 2 hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Intercooler",
+      "description": "The factory intercooler is adequate for daily use but heat soaks under sustained load. An upgrade maintains consistent power in warm conditions.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$1,000",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning 200001082, Forge Motorsport FMINT-RS3",
+      "installNotes": "Remove front bumper and crash bar. The RS3's intercooler is larger than other MQB cars but still benefits from an upgrade at Stage 2+. Transfer charge pipe connections. 3 hours."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbocharger",
+      "description": "The stock turbo limits the RS3 around 500hp. A hybrid or larger turbo pushes the 2.5L 5-cylinder beyond 600hp — the engine bottom end handles it.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$6,000",
+      "isPremium": true,
+      "partNumbers": "TTE700 Hybrid Turbo, Pure Turbos PURE700",
+      "installNotes": "Hybrid turbos use the stock manifold and housing. Requires upgraded HPFP, injectors, and custom tune. DSG tune must be updated for higher torque. Upgraded clutch packs for DSG at 600+ hp. 15+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers provide precise handling control for the RS3's AWD chassis. Magnetic Ride delete is included in most kits.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": false,
+      "partNumbers": "KW V3 35281036, Ohlins Road & Track BMS MI31",
+      "installNotes": "Full strut replacement. Magnetic Ride module delete or bypass required. Set ride height 15–20mm below stock. The RS3 handles best with slightly stiffer rear to reduce understeer. Full alignment required."
+    }
+  ]
+}

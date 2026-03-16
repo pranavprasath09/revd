@@ -1,0 +1,88 @@
+{
+  "carId": "porsche-911-991",
+  "make": "Porsche",
+  "model": "911",
+  "generation": "991",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Drop-In Performance Air Filter",
+      "description": "High-flow drop-in filter for the stock airbox provides a small bump in airflow without any fitment concerns or CEL risk.",
+      "difficulty": "Beginner",
+      "costEstimate": "$60–$120",
+      "isPremium": false,
+      "partNumbers": "K&N 33-2484, BMC FB640/08",
+      "installNotes": "Pop open the airbox lid, swap the paper filter for the performance filter. No tools needed. Reoil every 25,000 miles."
+    },
+    {
+      "id": "mod-2",
+      "name": "Sport Exhaust (Valved)",
+      "description": "A valved exhaust system lets you switch between a refined cruise mode and full race-car volume at the press of a button, perfect for the 991's flat-6.",
+      "difficulty": "Beginner",
+      "costEstimate": "$2,000–$5,000",
+      "isPremium": false,
+      "partNumbers": "AWE SwitchPath 3010-43012, Akrapovic Slip-On ME-PO/TI/4",
+      "installNotes": "Unbolt rear mufflers at the mid-pipe flange. Hang new system on factory mounts. Connect valve wiring to factory sport exhaust switch. 1.5 hour install."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the 991 by 15–20mm for a more planted look and sharper handling. Compatible with both PASM and standard suspension.",
+      "difficulty": "Beginner",
+      "costEstimate": "$350–$600",
+      "isPremium": true,
+      "partNumbers": "H&R 29076-2, Eibach E10-72-013-01-22",
+      "installNotes": "Spring swap at all four corners with spring compressor. PASM remains functional. Alignment required after install. Ride quality stays close to stock."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Software Tune",
+      "description": "Optimize engine mapping for the 991.1 3.4/3.8L NA or 991.2 3.0T engines. Gains of 20–30hp on NA cars, 40–60hp on turbo models.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,500",
+      "isPremium": true,
+      "partNumbers": "Cobb AP3-POR-003, GIAC Performance Calibration",
+      "installNotes": "Flash via OBD-II port. 991.2 turbo models see the biggest gains. Use 93+ octane. Save stock map before flashing. Remove tune before dealer visits."
+    },
+    {
+      "id": "mod-5",
+      "name": "Upgraded Sway Bars",
+      "description": "Stiffer front and rear anti-roll bars reduce body roll in corners and allow fine-tuning of understeer/oversteer balance for track driving.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$1,000",
+      "isPremium": true,
+      "partNumbers": "SuperPro RC0045FZ-22 (front), GMG Racing adjustable rear",
+      "installNotes": "Remove factory sway bars and endlinks. Install new bars with provided bushings. Rear bar typically comes with adjustable endlinks for rate tuning. 3 hour install on a lift."
+    },
+    {
+      "id": "mod-6",
+      "name": "Big Brake Kit",
+      "description": "Upgrade to larger diameter rotors and 6-piston front calipers for substantially shorter stopping distances and better brake feel on track.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$3,000–$6,000",
+      "isPremium": true,
+      "partNumbers": "AP Racing CP9660 Radi-CAL, Brembo GT 1Q2.9509A",
+      "installNotes": "Requires 20-inch wheels minimum for caliper clearance. Replace rotors and calipers as a set. Full brake fluid flush with DOT 4 racing fluid. Professional install recommended."
+    },
+    {
+      "id": "mod-7",
+      "name": "Full Coilover Kit",
+      "description": "Replace the entire suspension with fully adjustable coilovers for precise ride height, damping, and spring rate control. The ultimate handling upgrade.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$8,000",
+      "isPremium": false,
+      "partNumbers": "Ohlins Road & Track POS MI20, KW Clubsport 3-way",
+      "installNotes": "Full strut replacement at all four corners. Requires PASM delete coding on equipped cars. Set ride height to factory or 10mm lower. Corner balance and alignment mandatory."
+    },
+    {
+      "id": "mod-8",
+      "name": "Turbo Upgrade Kit (991.2)",
+      "description": "Upgraded turbochargers for the 991.2 3.0T engine, pushing power from the stock 370–450hp range to 550–650hp with supporting mods.",
+      "difficulty": "Advanced",
+      "costEstimate": "$6,000–$12,000",
+      "isPremium": true,
+      "partNumbers": "TPC Racing Stage 2 Turbo Kit, Pure Turbos 991.2",
+      "installNotes": "Engine must be partially removed for turbo access. Requires upgraded fuel injectors, HPFP, intercooler, and custom ECU calibration. Clutch upgrade mandatory on manual cars. 30+ hour professional job."
+    }
+  ]
+}

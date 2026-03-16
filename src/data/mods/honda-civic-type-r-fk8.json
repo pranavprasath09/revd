@@ -1,0 +1,88 @@
+{
+  "carId": "honda-civic-type-r-fk8",
+  "make": "Honda",
+  "model": "Civic Type R",
+  "generation": "FK8",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Intake System",
+      "description": "Replace the stock airbox with a performance intake for improved turbo spool and a more audible whoosh from the K20C1 turbo engine.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "PRL Motorsports Cobra Intake, Mishimoto MMAI-CTR-17",
+      "installNotes": "Remove stock airbox and accordion hose. Install new intake tube and filter. Ensure MAF sensor connector is secure. 15 minutes. No tune required for stock turbo."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust System",
+      "description": "A performance catback adds volume and character to the K20C1 turbo engine while reducing backpressure for small power gains.",
+      "difficulty": "Beginner",
+      "costEstimate": "$600–$1,500",
+      "isPremium": false,
+      "partNumbers": "Invidia Q300 HS17CTR3GM, AWE Track Edition 3020-42076",
+      "installNotes": "Bolt-on from the rear of the front pipe. Triple-exit design matches factory bumper openings. No cutting required. 1 hour on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the FK8 by 20–25mm for reduced body roll and a more aggressive stance. The adaptive dampers remain fully functional.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "Swift Spec-R Springs, Eibach Pro-Kit E10-40-036-01-22",
+      "installNotes": "Spring compressor required. Dual-axis front struts make this slightly more involved than typical. Alignment mandatory. No coding needed for adaptive damper compatibility."
+    },
+    {
+      "id": "mod-4",
+      "name": "Hondata FlashPro Tune",
+      "description": "The FlashPro is the gold standard for K20C1 tuning. Stage 1 adds 30–40hp with stock hardware. Full custom tunes can push 350+ whp with supporting mods.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$700–$900",
+      "isPremium": true,
+      "partNumbers": "Hondata FlashPro FK8, USB cable included",
+      "installNotes": "Plug into OBD-II port and flash via laptop. Start with a conservative base map on 93 octane. Log data runs to verify AFR and knock levels. Custom dyno tune recommended for Stage 2+."
+    },
+    {
+      "id": "mod-5",
+      "name": "Front-Mount Intercooler",
+      "description": "The stock intercooler is undersized for track use. A front-mount upgrade drops intake temps by 30–50 degrees F and prevents heat soak during hard driving.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$700–$1,200",
+      "isPremium": true,
+      "partNumbers": "PRL Motorsports Street Intercooler, Mishimoto MMINT-CTR-17",
+      "installNotes": "Remove front bumper and stock intercooler. New unit bolts to factory mounting points. Larger core with stock-style charge pipes. Retune recommended for optimal results. 3 hour install."
+    },
+    {
+      "id": "mod-6",
+      "name": "Performance Downpipe",
+      "description": "Replace the restrictive stock downpipe with a high-flow catted or catless unit for faster turbo spool and 15–25hp gains when tuned.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "PRL Motorsports 76mm Downpipe, Invidia HS17CTR1DON",
+      "installNotes": "Access from below. Pre-soak turbo-to-downpipe bolts with penetrant. Must retune with Hondata after install. Catless will trigger CEL without tune. 2 hour install on a lift."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbocharger",
+      "description": "Swap the stock turbo for a larger unit capable of supporting 400–500whp. The stock K20C1 bottom end can handle this power level reliably.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$5,000",
+      "isPremium": true,
+      "partNumbers": "PRL Motorsports P600 Drop-In Turbo, Garrett G25-550",
+      "installNotes": "Drop-in turbo upgrades use the stock manifold and plumbing. Requires upgraded fuel injectors, HPFP, and custom Hondata tune. Upgraded clutch mandatory. Budget 12+ hours for install and tuning."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Purpose-built coilovers designed for the FK8's unique dual-axis front strut geometry, offering track-ready handling without compromising street manners.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": false,
+      "partNumbers": "Fortune Auto 500 Series, KW V3 35250037",
+      "installNotes": "Must use FK8-specific coilovers that accommodate the dual-axis strut. Standard coilovers will not fit correctly. Set ride height 15–20mm below stock. Full alignment mandatory."
+    }
+  ]
+}

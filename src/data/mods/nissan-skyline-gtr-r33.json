@@ -1,0 +1,88 @@
+{
+  "carId": "nissan-skyline-gtr-r33",
+  "make": "Nissan",
+  "model": "Skyline GT-R",
+  "generation": "R33",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Boost Controller",
+      "description": "Increase boost on the RB26DETT twin-turbo setup safely with an electronic boost controller. The easiest and most cost-effective power upgrade.",
+      "difficulty": "Beginner",
+      "costEstimate": "$150–$350",
+      "isPremium": false,
+      "partNumbers": "HKS EVC 7 45003-AK012, GReddy Profec",
+      "installNotes": "Install inline with the wastegate vacuum line. Set base boost to factory 10 psi, then increase in 1 psi increments. Monitor knock with a detonation sensor. Stock ceramics handle 14 psi."
+    },
+    {
+      "id": "mod-2",
+      "name": "Turbo-Back Exhaust",
+      "description": "Full 3-inch turbo-back exhaust system for the RB26DETT. Dramatically improves exhaust flow and delivers the iconic straight-six turbo note.",
+      "difficulty": "Beginner",
+      "costEstimate": "$600–$1,500",
+      "isPremium": false,
+      "partNumbers": "Tomei Expreme Ti 440003, HKS Super Turbo 31029-AN002",
+      "installNotes": "Replace from downpipe to rear exit. 3-inch diameter minimum. Bolt-on with factory hanger locations. 2 hour install on a lift."
+    },
+    {
+      "id": "mod-3",
+      "name": "Front-Mount Intercooler",
+      "description": "Replace the factory side-mount intercoolers with a large front-mount unit for dramatically reduced intake temperatures under sustained boost.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$1,200",
+      "isPremium": true,
+      "partNumbers": "GReddy Type 29R, HKS R-Type FMIC Kit",
+      "installNotes": "Remove side-mount intercoolers and route new piping to the FMIC. May require trimming of front bumper support. Use silicone couplers and T-bolt clamps. 4+ hours."
+    },
+    {
+      "id": "mod-4",
+      "name": "Upgraded Fuel Injectors",
+      "description": "The factory 444cc injectors limit power around 350hp. Larger injectors are essential for any serious power build on the RB26DETT.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "DeatschWerks 740cc 17U-01-0740-6, Nismo 740cc 16600-RR544",
+      "installNotes": "Remove fuel rail and swap all 6 injectors. Apply fresh O-rings. Requires ECU retune to match new flow rates. Combine with fuel pump upgrade for full benefit."
+    },
+    {
+      "id": "mod-5",
+      "name": "Coilover Suspension",
+      "description": "Modern coilovers bring the R33 chassis into the 21st century with adjustable ride height and damping. Critical for getting the heavy GT-R to handle.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": true,
+      "partNumbers": "HKS Hipermax IV GT 80230-AN007, BC Racing BR Series",
+      "installNotes": "Full strut replacement at all corners. Set ride height 20–30mm below stock. ATTESA AWD benefits from balanced ride height front to rear. Full alignment required."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Turbochargers",
+      "description": "Replace the factory ceramic T28 turbos with ball-bearing steel-wheel units for faster spool, higher power ceiling, and better reliability at elevated boost.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,000–$5,000",
+      "isPremium": true,
+      "partNumbers": "Garrett GT2860RS (bolt-on), Tomei ARMS M7960",
+      "installNotes": "Remove factory turbos from exhaust manifold. Bolt-on replacements use stock manifold. Transfer oil and coolant lines. New gaskets essential. Retune required. 10+ hours."
+    },
+    {
+      "id": "mod-7",
+      "name": "Standalone ECU",
+      "description": "A standalone ECU replaces the factory unit for full engine management control, required for builds targeting 400+ hp on the RB26.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": true,
+      "partNumbers": "Link G4X PlugIn ECU, Haltech Elite 2500",
+      "installNotes": "Plug-in ECU is the simplest path. Configure base maps for RB26 and refine on dyno. Handles boost control, ATTESA integration, and launch control. 8+ hours for install and base tune."
+    },
+    {
+      "id": "mod-8",
+      "name": "Upgraded Brake System",
+      "description": "The R33 GT-R is heavy and needs upgraded brakes for track use. Larger rotors and multi-piston calipers provide the stopping power to match the engine output.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$4,000",
+      "isPremium": false,
+      "partNumbers": "Brembo GT 1B2.8055A, Project Mu SCR-PRO rotors",
+      "installNotes": "Requires 18-inch wheels for caliper clearance. Replace front and rear as a set for balanced braking. Bleed with high-temp DOT 4 fluid. Bed pads with 20 moderate stops."
+    }
+  ]
+}

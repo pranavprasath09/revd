@@ -1,0 +1,88 @@
+{
+  "carId": "ford-focus-rs-mk3",
+  "make": "Ford",
+  "model": "Focus RS",
+  "generation": "Mk3",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Intake",
+      "description": "A performance intake for the 2.3L EcoBoost engine improves turbo induction sound and provides marginally better airflow.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "Mishimoto MMAI-RS-16, Mountune 2363-CAIS-AA",
+      "installNotes": "Remove stock airbox and accordion hose. Install new intake pipe and filter. Ensure MAF sensor housing matches stock diameter. 20 minutes. No tune required."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "Open up the 2.3L EcoBoost exhaust note with a performance catback. The stock system is extremely quiet for a performance car.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": false,
+      "partNumbers": "Mountune Cat-Back 2536-CBE-AB, Borla S-Type 140731",
+      "installNotes": "Bolt-on from the downpipe flange back. Dual exit matches factory bumper valance. Hangs on factory rubber mounts. No cutting required. 1 hour install."
+    },
+    {
+      "id": "mod-3",
+      "name": "Intercooler Upgrade",
+      "description": "The Focus RS intercooler is undersized and heat soaks rapidly. An upgraded unit is essential for consistent power, especially in warm climates.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$900",
+      "isPremium": true,
+      "partNumbers": "Mountune Intercooler 2363-IC-AA, Mishimoto MMINT-RS-16",
+      "installNotes": "Remove front bumper and stock intercooler. New unit uses factory mounting points. Larger core provides 30–50°F reduction in charge air temps. 2–3 hour install."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune (Mountune/Cobb)",
+      "description": "The EcoBoost 2.3L responds incredibly well to tuning. Stage 1 adds 40–50hp with no hardware changes. Mountune tunes preserve the factory warranty.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$700",
+      "isPremium": true,
+      "partNumbers": "Cobb AccessPort AP3-FOR-004, Mountune m365 Tune",
+      "installNotes": "Flash via OBD-II with Cobb AccessPort or Mountune mTune. Start with Stage 1 on 93 octane. Mountune tunes are dealer-approved and warranty-safe. Log boost and knock data."
+    },
+    {
+      "id": "mod-5",
+      "name": "Performance Downpipe",
+      "description": "Replace the restrictive factory downpipe with a high-flow catted or catless unit for faster turbo spool and significant power gains when tuned.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "Mountune High Flow Sports Cat, Depo Racing Catless DP",
+      "installNotes": "Access from below. The factory downpipe is tight against the subframe. Pre-soak all bolts. Must retune after install. Catless requires tune to suppress CEL. 2 hours on a lift."
+    },
+    {
+      "id": "mod-6",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers provide precise ride height and damping control for the RS's sophisticated AWD chassis. Transforms track capability.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,200–$2,500",
+      "isPremium": true,
+      "partNumbers": "KW V3 35230089, Fortune Auto 500 Series RS",
+      "installNotes": "Full strut replacement at all corners. The RS rear uses a unique independent rear suspension. Ensure coilovers are RS-specific. Set ride height 15mm below stock. Full alignment required."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbocharger",
+      "description": "The stock turbo runs out of efficiency around 380hp. A hybrid or upgraded turbo supports 400–500hp on the 2.3L EcoBoost platform.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,000–$4,000",
+      "isPremium": true,
+      "partNumbers": "Mountune MRX Turbo, ATP GTX2867R GEN2 bolt-on kit",
+      "installNotes": "Remove intake manifold and turbo heat shield for access. Upgraded unit bolts to factory exhaust manifold. Requires larger injectors, HPFP internals, and custom tune. 12+ hour job."
+    },
+    {
+      "id": "mod-8",
+      "name": "Rear Motor Mount Insert",
+      "description": "Fill the factory rear motor mount void with a polyurethane insert to dramatically reduce wheel hop and improve power transfer under hard launches.",
+      "difficulty": "Beginner",
+      "costEstimate": "$30–$60",
+      "isPremium": false,
+      "partNumbers": "Boomba Racing RMM Insert, Mountune RMM Insert 2363-RMM-AA",
+      "installNotes": "Jack up the engine slightly, slide the insert into the mount void, lower the engine. 10 minute install. Slight increase in NVH (vibration) at idle is normal and minimal."
+    }
+  ]
+}

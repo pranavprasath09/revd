@@ -1,0 +1,88 @@
+{
+  "carId": "mazda-mx5-na",
+  "make": "Mazda",
+  "model": "MX-5 Miata",
+  "generation": "NA",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Cold Air Intake",
+      "description": "A simple intake upgrade for the 1.6L or 1.8L engine improves throttle response and adds a pleasant intake sound at high RPM.",
+      "difficulty": "Beginner",
+      "costEstimate": "$100–$250",
+      "isPremium": false,
+      "partNumbers": "K&N 69-9000TS, Racing Beat CAI",
+      "installNotes": "Remove stock airbox. Route new intake away from exhaust heat toward the fender well. Ensure no vacuum leaks at the throttle body connection. 20 minutes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Performance Exhaust",
+      "description": "The stock exhaust is very restrictive. An aftermarket system adds a sweet high-RPM rasp to the small-displacement engine.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$700",
+      "isPremium": false,
+      "partNumbers": "Racing Beat REV8 Exhaust, GReddy SP2",
+      "installNotes": "Bolt-on from the catalytic converter back. Single exit design. Hang on factory mounts. Expect a 5–8hp gain from reduced backpressure. 45 minutes."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs / Sway Bars",
+      "description": "Lower the NA Miata by 20–25mm and upgrade sway bars for significantly improved handling. The NA responds massively to suspension changes.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$500",
+      "isPremium": true,
+      "partNumbers": "Racing Beat Spring Kit, Flyin' Miata sway bars FM-SB-NA",
+      "installNotes": "Springs require a compressor. Sway bars bolt to factory locations. A thicker rear bar reduces understeer. Alignment mandatory after springs. Transforms the car's cornering ability."
+    },
+    {
+      "id": "mod-4",
+      "name": "Performance Header",
+      "description": "A tubular exhaust header is one of the best power-per-dollar mods for the NA Miata. Gains of 8–12hp on the 1.8L engine.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$250–$600",
+      "isPremium": true,
+      "partNumbers": "Racing Beat Header 55211, ISR Performance RS header",
+      "installNotes": "Remove stock cast iron manifold (heavy). Install tubular header with new gasket. Apply anti-seize to all studs. Some headers require clearancing of the steering shaft. 2–3 hours."
+    },
+    {
+      "id": "mod-5",
+      "name": "Coilover Suspension",
+      "description": "Proper coilovers transform the NA Miata into an autocross or track day weapon. Adjustable ride height and damping for every skill level.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$2,000",
+      "isPremium": true,
+      "partNumbers": "Flyin' Miata V-Maxx Classic, Ohlins Road & Track MI20",
+      "installNotes": "Full strut replacement. The NA is light enough that softer spring rates (350 lb front / 225 lb rear) work well for street. Set ride height 15–20mm below stock. Alignment critical."
+    },
+    {
+      "id": "mod-6",
+      "name": "ECU Tune (MegaSquirt)",
+      "description": "Replace the factory ECU with a MegaSquirt standalone for full engine management control. Essential for forced induction builds.",
+      "difficulty": "Advanced",
+      "costEstimate": "$500–$1,000",
+      "isPremium": true,
+      "partNumbers": "MegaSquirt PnP Gen 2, DIYAutoTune MS3X",
+      "installNotes": "Plug-and-play version wires into factory harness. Requires laptop tuning with TunerStudio software. Base maps available for NA 1.6 and 1.8. Professional dyno tune recommended. 4+ hours for install and base tune."
+    },
+    {
+      "id": "mod-7",
+      "name": "Turbo Kit",
+      "description": "A turbo kit doubles the NA Miata's power output, transforming it from a momentum car into a genuinely fast sports car while retaining its lightweight character.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,500–$5,000",
+      "isPremium": true,
+      "partNumbers": "Flyin' Miata FM II Turbo Kit, CX Racing Turbo Kit NA",
+      "installNotes": "Full kit includes turbo, manifold, intercooler, oil lines, and piping. Requires standalone ECU or tunable stock ECU. Lower compression pistons recommended for reliability above 200hp. Budget 20+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Roll Bar",
+      "description": "A proper roll bar adds critical safety for a convertible used on track. Also significantly stiffens the chassis for improved handling.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$900",
+      "isPremium": false,
+      "partNumbers": "Hard Dog Sport M2 Hard Core, Blackbird Fabworx NA",
+      "installNotes": "Bolts to factory mounting points behind the seats. Some models require drilling. Fits with soft top up or down. Required for most HPDE and track day organizations. 3–4 hours."
+    }
+  ]
+}

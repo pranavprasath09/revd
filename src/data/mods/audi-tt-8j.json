@@ -1,0 +1,88 @@
+{
+  "carId": "audi-tt-8j",
+  "make": "Audi",
+  "model": "TT",
+  "generation": "8J",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "An upgraded intake for the 2.0T FSI or TFSI engine improves turbo spool sound and provides a small increase in airflow.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "K&N 69-9756TFK, APR Carbonio CI-100035-B",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. The 8J shares the MQB platform intake design with the Golf. 15 minutes. No tune required."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "A performance catback adds character to the 2.0T engine and reduces backpressure for small gains when tuned.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": false,
+      "partNumbers": "Milltek SSXAU261, AWE Touring 3015-32028",
+      "installNotes": "Bolt-on from the downpipe flange back. Dual exit or quad tip options. No cutting required. Hangs on factory mounts. 1 hour on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the TT by 20–25mm for a sportier stance and reduced body roll. The TT already has a low center of gravity.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "H&R 28817-1, Eibach Pro-Kit E10-15-007-04-22",
+      "installNotes": "Spring compressor needed. Replace all four corners. Magnetic ride-equipped cars need specific springs. Alignment required. Expect 20mm front, 25mm rear drop."
+    },
+    {
+      "id": "mod-4",
+      "name": "APR ECU Tune",
+      "description": "APR Stage 1 tune adds 60–80hp to the 2.0T with zero hardware changes. The 2.0T platform responds incredibly well to software tuning.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$800",
+      "isPremium": true,
+      "partNumbers": "APR Stage 1 ECU Upgrade, Unitronic Stage 1",
+      "installNotes": "Flash via OBD-II at an APR dealer, or via Cobb AccessPort with Unitronic. Requires 93 octane. Massive torque increase in the mid-range. Stage 2 requires downpipe."
+    },
+    {
+      "id": "mod-5",
+      "name": "Performance Downpipe",
+      "description": "A 3-inch downpipe replaces the restrictive factory unit for faster turbo spool and significant power gains when paired with Stage 2 tune.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "CTS Turbo CTS-EXH-DP-0003, USP Motorsports Catted DP",
+      "installNotes": "Access from below on a lift. Pre-soak turbo-to-downpipe bolts. O2 sensor spacer needed for catless to prevent CEL. Must retune to Stage 2 after install. 2 hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Intercooler",
+      "description": "Replace the small factory intercooler with a larger front-mount unit for consistent power delivery and reduced heat soak.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning 200001034, CTS Turbo FMIC",
+      "installNotes": "Remove front bumper cover. Unbolt stock intercooler and transfer charge pipe connections. New unit uses factory mounting points. 2–3 hours. Critical for Stage 2+ tunes."
+    },
+    {
+      "id": "mod-7",
+      "name": "Turbo Upgrade (K04)",
+      "description": "Upgrade from the stock K03 turbo to a K04 for significantly higher boost capability. Pushes the 2.0T to 300+ hp.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": true,
+      "partNumbers": "BorgWarner K04-064, Frankenturbo F23T",
+      "installNotes": "Remove stock turbo and exhaust manifold. K04 is a bolt-on replacement. Requires upgraded injectors, HPFP internals, intercooler, and K04-specific tune. Upgraded clutch on manual cars. 10+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers for precise ride height and damping control. The TT's short wheelbase makes it very responsive to suspension tuning.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 35210075, ST Suspension XTA Plus 3 18210875",
+      "installNotes": "Full strut replacement at all corners. Magnetic ride cars need MR delete module. Set ride height 20mm below stock for a balanced look. Full alignment required."
+    }
+  ]
+}

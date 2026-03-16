@@ -1,0 +1,88 @@
+{
+  "carId": "porsche-911-997",
+  "make": "Porsche",
+  "model": "911",
+  "generation": "997",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Air Filter",
+      "description": "Drop-in high-flow air filter replacement for the stock airbox. Adds a subtle intake growl and marginal power gains with zero fitment issues.",
+      "difficulty": "Beginner",
+      "costEstimate": "$50–$100",
+      "isPremium": false,
+      "partNumbers": "K&N 33-2786, BMC FB159/01",
+      "installNotes": "Open airbox lid, remove stock paper filter, drop in replacement. No tools required. Clean and re-oil every 30,000 miles."
+    },
+    {
+      "id": "mod-2",
+      "name": "Sport Exhaust System",
+      "description": "Replace the rear mufflers with a sport exhaust for the legendary flat-6 wail. Valved systems let you toggle between quiet and loud modes.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,500–$4,000",
+      "isPremium": false,
+      "partNumbers": "Fabspeed Maxflo, AWE SwitchPath 3010-42012",
+      "installNotes": "Unbolt factory mufflers from mid-pipe flanges. New system hangs on factory mounts. Valved systems wire into factory PSE switch. 1–2 hour install."
+    },
+    {
+      "id": "mod-3",
+      "name": "Sport Springs",
+      "description": "Lower the 997 by 20–25mm for improved turn-in response and reduced body roll while maintaining Porsche's factory ride quality philosophy.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$500",
+      "isPremium": true,
+      "partNumbers": "H&R 29170-1, Eibach Pro-Kit E10-72-008-01-22",
+      "installNotes": "Compress and swap springs on all four corners. PASM-equipped cars require no additional coding. Get four-wheel alignment after install. Expect 20mm front, 25mm rear drop."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune (Cobb AccessPort)",
+      "description": "Flash the ECU via Cobb AccessPort for optimized fueling and ignition maps, adding 15–25hp to the 3.6L or 3.8L flat-6.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$900",
+      "isPremium": true,
+      "partNumbers": "Cobb AP3-POR-002, Cobb Stage 1 OTS map",
+      "installNotes": "Plug AccessPort into OBD-II port, follow on-screen prompts to read stock ECU then flash Stage 1 map. Requires 93 octane. Uninstall before dealer service to avoid detection."
+    },
+    {
+      "id": "mod-5",
+      "name": "GT3 Throttle Body Upgrade",
+      "description": "The 997 GT3 throttle body is a direct bolt-on upgrade that increases airflow to the engine, particularly effective at high RPM.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,500",
+      "isPremium": true,
+      "partNumbers": "Porsche 997.110.316.52 (GT3 TB), IPD Plenum 75mm",
+      "installNotes": "Remove intake plenum and swap throttle body. GT3 unit is 82mm vs stock 76mm. Combine with IPD plenum for full benefit. ECU adaptation required — drive 100 miles for relearn."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Brake Pads and Rotors",
+      "description": "Track-rated brake pads and slotted rotors for consistent braking performance under repeated heavy use. Essential for HPDE and track day use.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$2,000",
+      "isPremium": true,
+      "partNumbers": "StopTech 126.37036SL rotors, Pagid RSC1 pads",
+      "installNotes": "Jack car and remove wheels. Slide off old rotors (set screws may need impact driver). Install new rotors and pads. Bleed with Motul RBF 600 fluid. Bed in over 20 moderate stops."
+    },
+    {
+      "id": "mod-7",
+      "name": "Full Coilover Suspension",
+      "description": "Track-focused coilover system with adjustable ride height, compression, and rebound damping for the serious 997 track enthusiast.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$6,000",
+      "isPremium": false,
+      "partNumbers": "KW Clubsport 2-way, Ohlins Road & Track BMS MI30",
+      "installNotes": "Full strut and spring replacement at all corners. Disable PASM in ECU coding. Set initial damping to mid-range. Professional corner balancing mandatory for track use."
+    },
+    {
+      "id": "mod-8",
+      "name": "Forced Induction Kit (Supercharger)",
+      "description": "Bolt-on supercharger kit adds 100–150hp to the naturally aspirated flat-6, delivering linear power delivery that suits the 911 character perfectly.",
+      "difficulty": "Advanced",
+      "costEstimate": "$8,000–$14,000",
+      "isPremium": true,
+      "partNumbers": "VF Engineering VFK84-02, ESS Tuning VT1-550",
+      "installNotes": "Comprehensive kit includes supercharger, intercooler, fuel system upgrades, and ECU reflash. 20+ hour professional install recommended. Upgraded clutch required. Maintain strict service intervals."
+    }
+  ]
+}

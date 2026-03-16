@@ -1,0 +1,88 @@
+{
+  "carId": "toyota-supra-a80",
+  "make": "Toyota",
+  "model": "Supra",
+  "generation": "A80",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Boost Controller",
+      "description": "A manual or electronic boost controller lets you safely increase boost pressure on the stock CT20 twin-turbo setup for immediate power gains.",
+      "difficulty": "Beginner",
+      "costEstimate": "$100–$300",
+      "isPremium": false,
+      "partNumbers": "GReddy Profec B Spec II, HKS EVC 7",
+      "installNotes": "Tap into the wastegate vacuum line. Start at stock boost (10 psi) and increase in 1 psi increments. Monitor knock with a wideband gauge. Stock internals handle 15 psi safely."
+    },
+    {
+      "id": "mod-2",
+      "name": "Downpipe and Front Pipe",
+      "description": "Replace the restrictive factory downpipe and front pipe for dramatically improved exhaust flow and turbo spool on the 2JZ-GTE.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$800",
+      "isPremium": false,
+      "partNumbers": "HKS 33005-AT001, Blitz NUR-Spec downpipe",
+      "installNotes": "Unbolt from the turbo outlet and catalytic converter. New pipe bolts directly in place. 1.5 hour job on a lift. Significant power gain when combined with a boost increase."
+    },
+    {
+      "id": "mod-3",
+      "name": "Catback Exhaust",
+      "description": "A full catback exhaust system reduces backpressure and gives the 2JZ its signature deep, smooth inline-6 turbo exhaust note.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,500",
+      "isPremium": true,
+      "partNumbers": "HKS Hi-Power 31006-AT018, GReddy Revolution RS",
+      "installNotes": "Bolt-on from the mid-pipe back. Single or dual exit options available. Hangs on factory mounts. No cutting required. 1 hour install."
+    },
+    {
+      "id": "mod-4",
+      "name": "Single Turbo Conversion",
+      "description": "Replace the sequential twin-turbo setup with a single, larger turbocharger. The most popular A80 Supra mod, unlocking 500–800hp potential.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$2,500–$5,000",
+      "isPremium": true,
+      "partNumbers": "Precision 6766 turbo kit, CX Racing Single Turbo Kit",
+      "installNotes": "Remove factory twins and exhaust manifold. Install new manifold and single turbo. Requires fuel system upgrades (injectors + fuel pump), ECU tune, and upgraded intercooler piping. 15+ hour install."
+    },
+    {
+      "id": "mod-5",
+      "name": "Upgraded Fuel System",
+      "description": "Larger injectors and a higher-flow fuel pump are essential for supporting increased boost and power beyond 400hp on the 2JZ-GTE.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$1,200",
+      "isPremium": true,
+      "partNumbers": "DeatschWerks 1000cc injectors DW17U-01-0550-6, Walbro 255LPH GSS342",
+      "installNotes": "Drop the fuel tank to replace the in-tank pump. Swap injectors in the fuel rail — apply fresh O-rings. Requires ECU retune to calibrate new injector flow rates."
+    },
+    {
+      "id": "mod-6",
+      "name": "Standalone ECU",
+      "description": "Replace the factory ECU with a standalone engine management system for full control over fueling, ignition, and boost. Required for big-power 2JZ builds.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,500–$3,000",
+      "isPremium": true,
+      "partNumbers": "Haltech Elite 2500, AEM Infinity 506",
+      "installNotes": "Wire standalone ECU into factory harness using a PnP adapter or custom harness. Requires professional dyno tuning for all load points. Disable factory immobilizer. Budget 10+ hours for install and base tune."
+    },
+    {
+      "id": "mod-7",
+      "name": "Built 2JZ Bottom End",
+      "description": "Forged pistons, rods, and upgraded head studs prepare the legendary 2JZ for 800–1500hp builds. The cast iron block itself handles tremendous power.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$8,000",
+      "isPremium": true,
+      "partNumbers": "Brian Crower BC6058 rods, CP Pistons SC7463, ARP 203-4205 head studs",
+      "installNotes": "Full engine-out rebuild. Machine block, install forged internals, deck block, and torque head studs to spec. Requires new bearings, gaskets, and timing belt. 40+ hours including machine work."
+    },
+    {
+      "id": "mod-8",
+      "name": "Upgraded Transmission (T56 Swap)",
+      "description": "The factory Getrag V160 is strong but expensive to replace. A T56 Magnum swap provides a cost-effective 6-speed solution rated for 700+ lb-ft.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$6,000",
+      "isPremium": false,
+      "partNumbers": "Tremec T56 Magnum, Collins Adapter Kit MK-T56",
+      "installNotes": "Requires adapter plate, custom driveshaft, and clutch hydraulic conversion. Shifter location is close to factory. Budget 20+ hours. Far cheaper than replacing a broken V160."
+    }
+  ]
+}

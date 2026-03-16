@@ -1,0 +1,88 @@
+{
+  "carId": "nissan-skyline-gtr-r34",
+  "make": "Nissan",
+  "model": "Skyline GT-R",
+  "generation": "R34",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Boost Controller",
+      "description": "The simplest and most effective first mod for the R34 GT-R. Safely raise boost on the RB26DETT for an instant 30–50hp increase.",
+      "difficulty": "Beginner",
+      "costEstimate": "$150–$350",
+      "isPremium": false,
+      "partNumbers": "HKS EVC 7 45003-AK012, GReddy Profec B Spec II",
+      "installNotes": "Install inline with the wastegate control solenoid. Start at stock boost and raise in 1 psi increments. Monitor knock and AFR. Stock turbos max around 16 psi before efficiency drops."
+    },
+    {
+      "id": "mod-2",
+      "name": "Full Exhaust System",
+      "description": "A 3-inch turbo-back exhaust system transforms the RB26DETT sound from muted to legendary. Essential for any power build.",
+      "difficulty": "Beginner",
+      "costEstimate": "$800–$2,000",
+      "isPremium": false,
+      "partNumbers": "HKS Hi-Power 409 31006-AN022, Tomei Expreme Ti R34",
+      "installNotes": "Full replacement from downpipe to tips. 3-inch diameter is ideal. Titanium systems save 5–8kg. Bolt-on to factory hangers. 2 hour install."
+    },
+    {
+      "id": "mod-3",
+      "name": "Front-Mount Intercooler",
+      "description": "Upgrade from the factory side-mount intercoolers to a large FMIC for significantly lower intake temps and consistent power delivery.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$1,200",
+      "isPremium": true,
+      "partNumbers": "HKS R-Type FMIC 13001-AN013, GReddy V-Layout FMIC Kit",
+      "installNotes": "Remove factory side-mount units. Route piping to front-mount core. The V-layout design preserves some factory look. Use silicone couplers with T-bolt clamps. 4+ hours."
+    },
+    {
+      "id": "mod-4",
+      "name": "Fuel System Upgrade",
+      "description": "Larger injectors and a high-flow fuel pump remove the fueling bottleneck that limits the RB26 at higher boost levels.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$1,000",
+      "isPremium": true,
+      "partNumbers": "Nismo 740cc injectors, DeatschWerks DW300 fuel pump",
+      "installNotes": "Swap all 6 injectors at the fuel rail. Drop tank to replace fuel pump. Fresh O-rings on all injector connections. ECU retune mandatory to calibrate new flow rates."
+    },
+    {
+      "id": "mod-5",
+      "name": "Upgraded Turbochargers",
+      "description": "Replace the factory ceramic T28 turbos with stronger ball-bearing units for faster spool, higher power potential, and elimination of the ceramic wheel failure risk.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,500–$6,000",
+      "isPremium": true,
+      "partNumbers": "Garrett GT2860RS (bolt-on), HKS GTIII-SS 11004-AN013",
+      "installNotes": "Remove factory turbos from the exhaust manifold. Bolt-on replacements use stock manifold and plumbing. Transfer oil and water lines. New gaskets required throughout. Retune mandatory. 10+ hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Standalone ECU",
+      "description": "Full standalone engine management for the RB26DETT. Required for high-power builds and provides complete control over fueling, ignition, boost, and ATTESA.",
+      "difficulty": "Advanced",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": true,
+      "partNumbers": "Link G4X PlugIn R34 GTR, Motec M150 with R34 PnP harness",
+      "installNotes": "Plug-in units are simplest. Configure RB26 base map and tune on dyno. Set up boost control, launch control, anti-lag if desired. ATTESA integration via CAN bus. Professional tuning essential."
+    },
+    {
+      "id": "mod-7",
+      "name": "Built Engine Internals",
+      "description": "Forged pistons, rods, and upgraded head studs prepare the RB26 for 600+ hp. The cast iron block is incredibly strong but stock internals limit boost.",
+      "difficulty": "Advanced",
+      "costEstimate": "$5,000–$10,000",
+      "isPremium": true,
+      "partNumbers": "Nitto 2.8L stroker kit, Brian Crower BC6238 rods, ARP 202-4308 head studs",
+      "installNotes": "Full engine-out rebuild. Machine block, install forged internals, deck block, and torque head studs to spec. Address all gaskets, bearings, and timing belt. Budget 50+ hours including machine work."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Modern adjustable coilovers unlock the R34's chassis potential with precise ride height and damping control, essential for handling the increased power.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": false,
+      "partNumbers": "Ohlins Road & Track, HKS Hipermax IV GT 80230-AN008",
+      "installNotes": "Full strut replacement at all corners. Match front and rear ride heights for proper ATTESA AWD balance. Set damping to mid-range for street. Full alignment mandatory."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "carId": "mercedes-amg-a45-w176",
+  "make": "Mercedes-AMG",
+  "model": "A45",
+  "generation": "W176",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "An upgraded intake for the M133 2.0L turbo-four. Improves turbo spool sound and provides better airflow to the most powerful production 4-cylinder.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": false,
+      "partNumbers": "Eventuri EVE-A45-CF-INT, BMC CRF614/01",
+      "installNotes": "Remove stock airbox. Install carbon fiber intake assembly. The M133 intake path is tight — ensure heat shielding is in place. 20 minutes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Performance Exhaust",
+      "description": "The A45 is quiet from factory. A performance exhaust adds aggression to the turbocharged four-cylinder and reduces backpressure.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": false,
+      "partNumbers": "Remus Cat-Back, Fi Exhaust Valvetronic",
+      "installNotes": "Bolt-on from the downpipe back. Quad tip design matches the factory rear diffuser. Valved systems use Bluetooth controller or AMG mode button. 1.5 hours."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the A45 by 20–25mm for a sportier stance. The AMG adaptive dampers remain fully functional with compatible springs.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$450",
+      "isPremium": true,
+      "partNumbers": "H&R 28788-1, Eibach Pro-Kit E10-25-036-01-22",
+      "installNotes": "Ensure springs are compatible with AMG adaptive dampers. Spring compressor required. All four corners. Alignment mandatory after install."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune (Stage 1)",
+      "description": "The M133 engine responds extremely well to tuning. Stage 1 adds 50–70hp, making the A45 one of the fastest hot hatches in a straight line.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$1,000",
+      "isPremium": true,
+      "partNumbers": "Eurocharged Stage 1, RaceChip GTS Black",
+      "installNotes": "Flash via OBD-II or piggyback module. TCU tune recommended for the 7-speed DCT to improve shift speed and remove torque limitations. Requires 93+ octane."
+    },
+    {
+      "id": "mod-5",
+      "name": "Performance Downpipe",
+      "description": "A high-flow downpipe reduces turbo backpressure for faster spool and significant power gains when combined with a Stage 2 tune.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning Catted DP, Milltek Large Bore DP",
+      "installNotes": "Access from below. Pre-soak turbo outlet bolts. The M133 downpipe is tight against the subframe. Must retune to Stage 2. Catless needs software fix for CEL. 2–3 hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Upgraded Intercooler",
+      "description": "The factory intercooler heat soaks rapidly on the high-output M133 engine. An upgraded unit maintains consistent power output in all conditions.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$900",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning 200001058, Forge Motorsport FMINT-A45",
+      "installNotes": "Remove front bumper and stock intercooler. Larger core with aluminum end tanks. Transfer charge pipe connections. 2–3 hours. Critical for Stage 2+ tunes and warm climate driving."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbocharger",
+      "description": "Replace the stock IHI turbo with a hybrid or larger unit for power beyond the M133's stock turbo limit of approximately 420hp.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,500–$5,000",
+      "isPremium": true,
+      "partNumbers": "TTE480 Hybrid Turbo, Pure Turbos PURE500",
+      "installNotes": "Hybrid turbos use the stock manifold with upgraded compressor and turbine wheels. Requires HPFP upgrade, larger injectors, intercooler, and custom tune. DCT clutch service recommended. 12+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers provide precise ride height and damping control for the A45's AWD chassis, transforming handling on street and track.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,200–$2,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 35225019, ST Suspension XTA 18225019",
+      "installNotes": "Full strut replacement. Adaptive damper delete or bypass required. Set ride height 15–20mm below stock. The A45 benefits from slightly stiffer rear springs to reduce understeer. Full alignment required."
+    }
+  ]
+}

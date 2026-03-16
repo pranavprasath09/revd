@@ -1,0 +1,88 @@
+{
+  "carId": "bmw-3-series-f30",
+  "make": "BMW",
+  "model": "3 Series",
+  "generation": "F30",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Intake",
+      "description": "Replace the stock airbox with a performance intake system for improved turbo spool and induction sound on the B48 or N55 engine.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": false,
+      "partNumbers": "Injen SP1120P, aFe Magnum FORCE 54-12202",
+      "installNotes": "Remove stock airbox assembly. Attach new intake tube with included silicone coupler. Ensure MAF sensor housing aligns correctly. 20 minute job."
+    },
+    {
+      "id": "mod-2",
+      "name": "Axle-Back Exhaust",
+      "description": "Upgrade the rear muffler section for a sportier exhaust note while keeping the factory mid-pipe and catalytic converter for emissions compliance.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$800",
+      "isPremium": false,
+      "partNumbers": "AWE Touring 3010-32028, Dinan D660-0046",
+      "installNotes": "Unbolt rear muffler from mid-pipe flange. Slide new exhaust onto factory hangers. No cutting or welding. 45 minutes on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Performance Lowering Springs",
+      "description": "Lower the F30 by 20–30mm for a sportier stance and reduced body roll. Compatible with adaptive dampers when properly coded.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$450",
+      "isPremium": true,
+      "partNumbers": "H&R 28816-4, Eibach E10-20-031-01-22",
+      "installNotes": "Spring compressor required. If equipped with adaptive suspension, use BimmerCode to adjust ride height sensor calibration. Alignment mandatory after install."
+    },
+    {
+      "id": "mod-4",
+      "name": "MHD Flash Tune (N55/B58)",
+      "description": "Flash the ECU via the OBD-II port using the MHD app for significant power gains. Stage 1 adds 40–60hp on the N55 with no other hardware required.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "MHD Flasher license (Android device required), Vgate iCar Pro BLE adapter",
+      "installNotes": "Download MHD app, connect via Bluetooth OBD adapter. Read stock DME first, then flash Stage 1 map. Requires 93 octane. Stage 2 requires downpipe and intercooler."
+    },
+    {
+      "id": "mod-5",
+      "name": "Upgraded Front-Mount Intercooler",
+      "description": "A larger intercooler dramatically reduces charge air temperatures under sustained boost, preventing power loss from heat soak on hot days or track sessions.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$900",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning 200001069, CSF 8218",
+      "installNotes": "Remove front bumper cover and crash bar. Unbolt stock intercooler, transfer charge pipe connections to new unit. May require minor bracket modification. 2–3 hours."
+    },
+    {
+      "id": "mod-6",
+      "name": "Catless Downpipe",
+      "description": "A catless or high-flow catted downpipe reduces exhaust backpressure at the turbo outlet for faster spool and 20–30hp gains when paired with a tune.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "VRSF N55 Downpipe, CTS Turbo CTS-EXH-DP-0024",
+      "installNotes": "Access from below on a lift. Pre-soak turbo-to-downpipe bolts with penetrant. O2 sensor extender or software coding needed to suppress CEL. Requires tune for full benefit."
+    },
+    {
+      "id": "mod-7",
+      "name": "Upgraded Turbo (N55)",
+      "description": "Swap the stock turbo for a larger hybrid unit capable of supporting 400–500hp. The factory N55 turbo runs out of breath around 350hp.",
+      "difficulty": "Advanced",
+      "costEstimate": "$2,500–$5,000",
+      "isPremium": true,
+      "partNumbers": "Vargas Turbo VTT GC 6258, Pure Turbos PURE Stage 2",
+      "installNotes": "Requires removal of exhaust manifold and turbo assembly. Upgraded fuel injectors (index 12+), HPFP, and custom MHD Stage 2+ tune required. Upgraded clutch strongly recommended. 15+ hour job."
+    },
+    {
+      "id": "mod-8",
+      "name": "Adjustable Coilovers",
+      "description": "Full coilover system with adjustable ride height and damping for the ultimate in handling setup, from daily comfort to full track attack.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 352200AE, BC Racing BR Series F30",
+      "installNotes": "Replace full strut assemblies at all four corners. Set initial ride height 20mm below stock. Adjust damping to mid-range for street. Full alignment and corner balance recommended."
+    }
+  ]
+}

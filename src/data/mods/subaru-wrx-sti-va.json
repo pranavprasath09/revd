@@ -1,0 +1,88 @@
+{
+  "carId": "subaru-wrx-sti-va",
+  "make": "Subaru",
+  "model": "WRX STI",
+  "generation": "VA",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "A high-flow intake for the EJ257 provides improved turbo induction sound and slightly better airflow to the top-mount intercooler.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "COBB SF Intake 715300, Mishimoto MMAI-STI-15",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. COBB intake requires matched AccessPort map. 20 minute install."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "The VA STI sounds great stock, but an aftermarket catback adds volume and deeper tones while reducing backpressure.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": false,
+      "partNumbers": "Invidia R400 HS15STIGM4SS, Tomei Expreme Ti Type-80",
+      "installNotes": "Bolt-on from the mid-pipe flange. Quad tip design matches factory bumper diffuser. No cutting required. 45 minutes on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Catted Downpipe",
+      "description": "A high-flow catted downpipe reduces exhaust restriction while maintaining emissions compliance. Essential for Stage 2 tuning.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$600",
+      "isPremium": true,
+      "partNumbers": "COBB GESi Catted Downpipe 512102, Invidia Catted DP",
+      "installNotes": "Access from below on a lift. The turbo-to-downpipe connection is tight. Pre-soak bolts. Must retune with COBB Stage 2 map or custom protune after install. 2 hours."
+    },
+    {
+      "id": "mod-4",
+      "name": "Cobb AccessPort Tune",
+      "description": "The AccessPort V3 provides OTS maps and custom tuning support. Stage 1 is safe on stock hardware; Stage 2 with downpipe is the sweet spot.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$700",
+      "isPremium": true,
+      "partNumbers": "COBB AccessPort V3 AP3-SUB-005, COBB Stage 2 map pack",
+      "installNotes": "Flash via OBD-II. Start with Stage 1 on 93 octane. Monitor DAM (Dynamic Advance Multiplier) and Fine Knock Learn values. Custom protune from a reputable EJ tuner strongly recommended for long-term reliability."
+    },
+    {
+      "id": "mod-5",
+      "name": "Top-Mount Intercooler Upgrade",
+      "description": "Replace the stock TMIC with a larger core for drastically reduced charge temps. The factory unit heat soaks after 2–3 hard pulls.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "GrimmSpeed TMIC 090070, Process West Verticooler VA",
+      "installNotes": "Unbolt stock TMIC and Y-pipe. New unit drops into factory location. Recalibrate boost targets in tune after install. 1–2 hours. Significant improvement in back-to-back pull consistency."
+    },
+    {
+      "id": "mod-6",
+      "name": "Flex Fuel Kit",
+      "description": "A flex fuel kit allows running E85 ethanol fuel for significantly more power and knock resistance. The EJ257 loves E85.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$200–$500",
+      "isPremium": true,
+      "partNumbers": "COBB Flex Fuel Kit 343001, Delicious Tuning Flex Fuel Kit",
+      "installNotes": "Install ethanol content sensor inline with the fuel feed line. Wire sensor to AccessPort or standalone ECU. Requires E85-specific tune. E85 adds 30–50hp over 93 octane at the same boost. Fuel economy drops 30%."
+    },
+    {
+      "id": "mod-7",
+      "name": "Built EJ257 Short Block",
+      "description": "Forged internals address the EJ257's Achilles heel — ringland failure. A built short block supports 500+ hp reliably.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,500–$7,000",
+      "isPremium": true,
+      "partNumbers": "IAG Stage 2.5 Closed Deck Block, Manley H-Tuff rods",
+      "installNotes": "Full engine-out rebuild. Closed deck block is ideal for high boost. Forged pistons, rods, bearings, and ARP head studs. New gaskets and seals throughout. Custom tune mandatory. 40+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers unlock the VA STI's chassis potential with precise ride height and damping adjustments for street or track.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": false,
+      "partNumbers": "KW V3 35245005, Fortune Auto 500 Series VA",
+      "installNotes": "Full strut replacement at all corners. Electronic damper cars (if equipped) need damper delete wiring. Set initial drop to 20mm. Full alignment required."
+    }
+  ]
+}

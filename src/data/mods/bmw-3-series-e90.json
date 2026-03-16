@@ -1,0 +1,88 @@
+{
+  "carId": "bmw-3-series-e90",
+  "make": "BMW",
+  "model": "3 Series",
+  "generation": "E90",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "High-Flow Air Intake",
+      "description": "Upgrade the stock intake with a high-flow filter and larger diameter intake tube for better airflow to the N54 or N52 engine.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "aFe 54-11472, BMS Burger Motorsports Intake",
+      "installNotes": "20 minute install. Remove stock airbox and accordion hose. Attach new intake pipe to throttle body. Ensure MAF sensor is properly seated."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "Free up exhaust flow and unlock a sportier tone from the N54 twin-turbo or N52 inline-6 with a full cat-back exhaust system.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": false,
+      "partNumbers": "Borla 140276, AWE Touring 3015-32024",
+      "installNotes": "Bolt-on from rear of catalytic converters. Hangs on factory mounts. No cutting required. 1–2 hour install on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the E90 by 25–35mm for improved handling and reduced body roll while maintaining a comfortable ride on stock dampers.",
+      "difficulty": "Beginner",
+      "costEstimate": "$250–$450",
+      "isPremium": true,
+      "partNumbers": "H&R 29076-1, Eibach Pro-Kit E10-20-014-02-22",
+      "installNotes": "Spring compressor required. Replace all four corners simultaneously. Get alignment within 48 hours of install. May need to trim rear bump stops 10mm."
+    },
+    {
+      "id": "mod-4",
+      "name": "N54 JB4 Piggyback Tune",
+      "description": "The JB4 piggyback module intercepts boost control signals to safely increase turbo boost pressure, adding 60–80hp to the N54 twin-turbo engine.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$500",
+      "isPremium": true,
+      "partNumbers": "Burger Motorsports JB4 N54, BMS Data Cable",
+      "installNotes": "Taps into the TMAP and boost solenoid harness. Start on Map 1 (low boost) for 1000 miles before moving to Map 5. Requires 93 octane. Pairs well with a downpipe."
+    },
+    {
+      "id": "mod-5",
+      "name": "Upgraded Intercooler",
+      "description": "Replace the undersized stock intercooler on the N54 with a larger front-mount unit to reduce intake temps and prevent heat soak during spirited driving.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$900",
+      "isPremium": true,
+      "partNumbers": "Wagner Tuning 200001012, VRSF 10903050",
+      "installNotes": "Remove front bumper and stock intercooler. New unit bolts to factory mounting points. Reuse stock charge pipes or upgrade simultaneously. 2–3 hour install."
+    },
+    {
+      "id": "mod-6",
+      "name": "Catless Downpipes",
+      "description": "Remove the restrictive factory catalytic converters with catless or high-flow catted downpipes for massive turbo spool improvement and power gains.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$300–$700",
+      "isPremium": true,
+      "partNumbers": "VRSF 10302010, CTS Turbo CTS-EXH-DP-0004",
+      "installNotes": "Access from below on a lift. Soak bolts in penetrant overnight. O2 sensor spacers may be needed to prevent CEL. Gains 20–30hp when paired with a tune."
+    },
+    {
+      "id": "mod-7",
+      "name": "N54 Single Turbo Conversion",
+      "description": "Replace the twin-turbo setup with a single, larger turbocharger for significantly higher power potential, capable of supporting 500–700hp builds.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$6,000",
+      "isPremium": true,
+      "partNumbers": "Vargas Turbo Technologies VTT Stage 2, Precision 6266 turbo kit",
+      "installNotes": "Requires custom exhaust manifold, upgraded fuel system (injectors + LPFP + HPFP), custom tune via MHD or Cobb. Upgraded clutch mandatory. Budget 20+ hours for install and tuning."
+    },
+    {
+      "id": "mod-8",
+      "name": "Upgraded Brake Kit",
+      "description": "Install larger rotors and multi-piston calipers for dramatically improved braking performance, essential for track use or high-power builds.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$3,500",
+      "isPremium": false,
+      "partNumbers": "StopTech 83.135.4700, AP Racing CP9440",
+      "installNotes": "Requires minimum 18-inch wheels for caliper clearance. Bleed system with DOT 4 racing fluid. Bed in pads with 10 moderate stops from 60mph."
+    }
+  ]
+}

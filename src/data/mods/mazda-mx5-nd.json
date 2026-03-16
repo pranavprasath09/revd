@@ -1,0 +1,88 @@
+{
+  "carId": "mazda-mx5-nd",
+  "make": "Mazda",
+  "model": "MX-5 Miata",
+  "generation": "ND",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "An upgraded intake for the Skyactiv 2.0L engine improves throttle response and adds a more audible induction note during spirited driving.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": false,
+      "partNumbers": "K&N 69-6033TS, Goodwin Racing RoadsterSport Intake",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. Ensure MAF sensor housing diameter matches stock. 15 minutes. No tune needed."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "The stock ND exhaust is quiet. A performance catback adds character to the Skyactiv engine while keeping drone to a minimum for top-down cruising.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$1,000",
+      "isPremium": false,
+      "partNumbers": "Goodwin Racing RoadsterSport 3 Exhaust, Cobalt by Racing Beat",
+      "installNotes": "Bolt-on from the mid-pipe back. Single exit center or dual exit options. Hangs on factory mounts. 30 minutes on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the ND by 15–20mm to close the wheel gap and sharpen handling without compromising ride quality for daily driving.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$400",
+      "isPremium": true,
+      "partNumbers": "Eibach Pro-Kit E10-55-019-01-22, CorkSport 4-130-10",
+      "installNotes": "Spring compressor required. All four corners. The ND is already low — be careful not to go too aggressive to avoid scraping. Alignment mandatory."
+    },
+    {
+      "id": "mod-4",
+      "name": "Performance Header",
+      "description": "A tubular header replaces the stock cast manifold for improved exhaust flow and a noticeable increase in mid-range and top-end power.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$800",
+      "isPremium": true,
+      "partNumbers": "Goodwin Racing Race Header, CorkSport 4-509-10",
+      "installNotes": "Remove stock manifold heat shield and exhaust manifold. Install new header with fresh gasket. O2 sensor relocator may be needed. Tune recommended to optimize. 3 hours."
+    },
+    {
+      "id": "mod-5",
+      "name": "ECU Tune (CARB-Legal)",
+      "description": "A CARB-legal ECU tune optimizes timing and fueling for the Skyactiv engine. Gains of 10–15hp while maintaining emissions compliance.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$700",
+      "isPremium": true,
+      "partNumbers": "OVTune ND Skyactiv, CorkSport Power Series Calibration",
+      "installNotes": "Flash via OBD-II port. Select map matching your mod level. Improves throttle response and removes rev hang. CARB-legal tunes safe for smog testing in California. Requires 91+ octane."
+    },
+    {
+      "id": "mod-6",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers make the already brilliant ND chassis even sharper. Essential for competitive autocross or track day use.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": true,
+      "partNumbers": "Ohlins Road & Track MI50, KW V3 35255001",
+      "installNotes": "Full strut replacement at all corners. The ND is light (2,300 lbs) so spring rates of 6k/4k work well for street/track. Set ride height 10–15mm below stock. Alignment critical."
+    },
+    {
+      "id": "mod-7",
+      "name": "Supercharger Kit",
+      "description": "A supercharger kit adds 40–60% more power to the Skyactiv engine, addressing the ND's only real weakness — a lack of power.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$6,000",
+      "isPremium": true,
+      "partNumbers": "Edelbrock E-Force ND, Kraftwerks ND Supercharger Kit",
+      "installNotes": "Full kit includes supercharger, intercooler, fuel system upgrades, and ECU calibration. Low boost setup maintains factory reliability. Clutch upgrade needed on manual cars. 10+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Lightweight Wheels",
+      "description": "The ND Miata is incredibly light and sensitive to unsprung weight. Lightweight forged wheels dramatically sharpen handling response.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,200–$3,000",
+      "isPremium": false,
+      "partNumbers": "Enkei RPF1 16x7 +43, Rays 57DR 16x7 +38",
+      "installNotes": "Direct bolt-on. 16x7 is ideal for ND — saves weight over stock 17s. Pair with 205/50R16 tires for optimal grip. Hub-centric rings may be needed. Torque to 80 ft-lbs."
+    }
+  ]
+}

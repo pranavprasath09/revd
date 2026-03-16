@@ -1,0 +1,88 @@
+{
+  "carId": "mercedes-amg-c63-w205",
+  "make": "Mercedes-AMG",
+  "model": "C63",
+  "generation": "W205",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Air Filters",
+      "description": "Drop-in performance filters for the M177 twin-turbo V8's dual airboxes. Simple upgrade that ensures maximum airflow to both turbochargers.",
+      "difficulty": "Beginner",
+      "costEstimate": "$80–$150",
+      "isPremium": false,
+      "partNumbers": "K&N 33-5039 (pair), BMC FB845/20 (pair)",
+      "installNotes": "Open both airbox lids and swap paper filters for performance filters. Two filters required — one per bank. No tools needed. 10 minutes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Performance Exhaust (Valved)",
+      "description": "Let the M177 4.0L twin-turbo V8 sing with a valved exhaust system. Switch between civilized and full-race volume at the touch of a button.",
+      "difficulty": "Beginner",
+      "costEstimate": "$2,000–$5,000",
+      "isPremium": false,
+      "partNumbers": "Akrapovic Evolution S-ME/TI/5, Fi Exhaust Valvetronic",
+      "installNotes": "Bolt-on from the mid-pipe back. Valved systems wire into factory AMG exhaust mode button. Dual or quad exit options. Titanium systems save significant weight. 2 hours."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the W205 C63 by 15–20mm for a sportier stance. AMG Ride Control (adaptive dampers) remain fully functional.",
+      "difficulty": "Beginner",
+      "costEstimate": "$300–$500",
+      "isPremium": true,
+      "partNumbers": "H&R 28862-1, Eibach E10-25-040-01-22",
+      "installNotes": "AMG Ride Control-compatible springs required. Spring compressor needed. Alignment after install. The C63 looks significantly better with the factory wheel gap closed."
+    },
+    {
+      "id": "mod-4",
+      "name": "ECU Tune",
+      "description": "A Stage 1 tune adds 60–100hp to the M177 twin-turbo V8 with no hardware changes. The C63 becomes a genuine supercar killer.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,500",
+      "isPremium": true,
+      "partNumbers": "Eurocharged Stage 1, Weistec ECU Tune W.3",
+      "installNotes": "Flash via OBD-II or bench flash. The M177 has significant headroom from factory. Requires 93+ octane. TCU (transmission) tune recommended for improved shift behavior. Save stock calibration first."
+    },
+    {
+      "id": "mod-5",
+      "name": "Downpipes",
+      "description": "Replace the factory catalytic converters with high-flow catted or catless downpipes for reduced turbo backpressure and faster spool.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,800",
+      "isPremium": true,
+      "partNumbers": "Weistec Downpipes, RENNtech Catless Downpipes",
+      "installNotes": "Access from below. Two downpipes — one per turbo. Pre-soak all bolts. O2 sensor coding needed for catless. Must retune for full benefit. 3+ hours on a lift."
+    },
+    {
+      "id": "mod-6",
+      "name": "Intake Upgrade (Full System)",
+      "description": "Replace the complete intake system with carbon fiber intakes for maximum airflow. Significant improvement over the restrictive factory airbox lids.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$800–$1,500",
+      "isPremium": true,
+      "partNumbers": "Weistec Carbon Fiber Intake, Eventuri EVE-C63-CF-INT",
+      "installNotes": "Remove factory airboxes completely. Install carbon fiber intake housings with performance filters. Ensure heat shielding is intact to prevent hot air ingestion. 1 hour. Pairs well with tune."
+    },
+    {
+      "id": "mod-7",
+      "name": "Turbo Upgrade",
+      "description": "Upgraded turbochargers push the M177 beyond 650hp. The factory engine block and internals handle this power level with a proper tune.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$8,000",
+      "isPremium": true,
+      "partNumbers": "Weistec W.4 Turbo Upgrade, Pure Turbos C63",
+      "installNotes": "Engine must be partially removed for turbo access. Requires upgraded intercooler, fuel system upgrades, and custom tune. Transmission may need upgraded clutch packs. 20+ hour professional job."
+    },
+    {
+      "id": "mod-8",
+      "name": "Coilover Suspension",
+      "description": "Adjustable coilovers replace the factory air suspension (if equipped) or standard springs for precise ride height and damping control.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$2,000–$4,000",
+      "isPremium": false,
+      "partNumbers": "KW V3 35225053, Ohlins Road & Track BMS MI40",
+      "installNotes": "Airmatic-equipped cars require conversion — air suspension delete and coilover installation. Standard suspension cars are straightforward. Full alignment and corner balance required."
+    }
+  ]
+}

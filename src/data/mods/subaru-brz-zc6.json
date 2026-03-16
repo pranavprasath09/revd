@@ -1,0 +1,88 @@
+{
+  "carId": "subaru-brz-zc6",
+  "make": "Subaru",
+  "model": "BRZ",
+  "generation": "ZC6",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Performance Intake",
+      "description": "An upgraded intake for the FA20 boxer engine improves throttle response and adds the distinctive boxer induction sound.",
+      "difficulty": "Beginner",
+      "costEstimate": "$150–$300",
+      "isPremium": false,
+      "partNumbers": "K&N 69-8619TS, aFe Takeda Momentum 56-70046",
+      "installNotes": "Remove stock airbox. Install new intake tube and filter. Ensure MAF sensor is properly seated. 15 minutes. No tune required for most intakes."
+    },
+    {
+      "id": "mod-2",
+      "name": "Catback Exhaust",
+      "description": "The stock BRZ exhaust is quiet and restrictive. An aftermarket catback improves the boxer sound and provides minor power gains.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$1,000",
+      "isPremium": false,
+      "partNumbers": "Invidia N1 HS12SSTGTT, Perrin PSP-EXT-360",
+      "installNotes": "Bolt-on from the over-pipe back. Dual exit or single exit options. Hangs on factory mounts. No cutting. 45 minutes on jack stands."
+    },
+    {
+      "id": "mod-3",
+      "name": "Lowering Springs",
+      "description": "Lower the BRZ by 20–25mm for a more aggressive stance and improved cornering with a lower center of gravity.",
+      "difficulty": "Beginner",
+      "costEstimate": "$200–$350",
+      "isPremium": true,
+      "partNumbers": "Swift Spec-R Springs 4T905, Eibach Pro-Kit E10-72-014-01-22",
+      "installNotes": "Spring compressor required. Replace all four corners. Front requires removing the strut assembly. Alignment required. Ride quality remains comfortable for daily use."
+    },
+    {
+      "id": "mod-4",
+      "name": "UEL Header",
+      "description": "An unequal-length header adds the classic Subaru boxer rumble while improving exhaust flow for mid-range torque gains on the FA20.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$400–$900",
+      "isPremium": true,
+      "partNumbers": "Tomei Expreme UEL 412106, ACE 350 Header",
+      "installNotes": "Access from below. Remove heat shields and stock manifold. Anti-seize on all studs. Requires ECU tune to optimize timing and clear secondary cat CEL. Gains 10–15hp mid-range. 3 hours."
+    },
+    {
+      "id": "mod-5",
+      "name": "ECU Tune (EcuTek/OFT)",
+      "description": "An ECU tune addresses the stock torque dip, improves throttle response, and adds 15–25hp when paired with header and exhaust modifications.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$500–$700",
+      "isPremium": true,
+      "partNumbers": "EcuTek ProECU License, Openflash Tablet OFT2",
+      "installNotes": "Flash via OBD-II. Select map matching your hardware level. Eliminates the factory torque dip between 3500–4500 RPM. Requires 93 octane. Custom dyno tune recommended for best results."
+    },
+    {
+      "id": "mod-6",
+      "name": "Coilover Suspension",
+      "description": "The BRZ's chassis is its greatest asset. Proper coilovers with adjustable damping make it one of the best-handling cars under $50K.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": true,
+      "partNumbers": "KW V3 35245003, Fortune Auto 500 Series",
+      "installNotes": "Full strut replacement. 7k/5k spring rates are ideal for dual-purpose street/track. Set ride height 15–20mm below stock. The BRZ is extremely responsive to suspension changes. Full alignment mandatory."
+    },
+    {
+      "id": "mod-7",
+      "name": "Forced Induction (Turbo Kit)",
+      "description": "A turbo kit addresses the BRZ's main weakness — a lack of power. Expect 250–300whp from a bolt-on kit on stock internals.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,500–$6,000",
+      "isPremium": true,
+      "partNumbers": "Jackson Racing C38 Supercharger, Full-Race Turbo Kit",
+      "installNotes": "Comprehensive kit includes turbo/supercharger, intercooler, fuel system upgrades, and oil lines. Requires custom EcuTek tune. Stock internals handle 300whp on proper tune. Upgraded clutch needed. 12+ hours."
+    },
+    {
+      "id": "mod-8",
+      "name": "Lightweight Wheels and Tires",
+      "description": "The BRZ weighs only 2,800 lbs — every pound of unsprung weight reduction is immediately felt in acceleration and handling response.",
+      "difficulty": "Beginner",
+      "costEstimate": "$1,200–$3,000",
+      "isPremium": false,
+      "partNumbers": "Enkei RPF1 17x9 +35, Rays 57DR 17x9 +38, Michelin PS4S 245/40R17",
+      "installNotes": "Direct bolt-on. 17x9 with 245-width tires is the sweet spot. Some fender rolling may be needed at lower ride heights. Torque lugs to 89 ft-lbs."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "carId": "honda-s2000-ap1",
+  "make": "Honda",
+  "model": "S2000",
+  "generation": "AP1",
+  "mods": [
+    {
+      "id": "mod-1",
+      "name": "Cold Air Intake",
+      "description": "Replace the stock airbox with a short ram or cold air intake to improve airflow to the F20C VTEC engine and enhance the legendary high-RPM intake howl.",
+      "difficulty": "Beginner",
+      "costEstimate": "$150–$300",
+      "isPremium": false,
+      "partNumbers": "Injen SP1305P, K&N 69-1009TS",
+      "installNotes": "Remove stock airbox and intake resonator. Install new intake pipe and filter. Route away from exhaust heat. 20 minute job. Adds 5–8hp at redline."
+    },
+    {
+      "id": "mod-2",
+      "name": "Header Upgrade",
+      "description": "A 4-2-1 header is the single best bolt-on mod for the S2000 F20C. Unlocks significant top-end power where VTEC engagement makes the biggest difference.",
+      "difficulty": "Beginner",
+      "costEstimate": "$400–$1,200",
+      "isPremium": false,
+      "partNumbers": "PLM Tri-Y header, Toda Racing 18100-F20-001",
+      "installNotes": "Unbolt stock exhaust manifold from below. Apply anti-seize to all studs. Install new header gasket. 2 hour install on jack stands. Expect 10–15hp gain at the top end."
+    },
+    {
+      "id": "mod-3",
+      "name": "Aftermarket Exhaust",
+      "description": "A full catback exhaust complements the header upgrade and gives the F20C a sharper, more aggressive tone that screams at 9,000 RPM.",
+      "difficulty": "Beginner",
+      "costEstimate": "$500–$1,200",
+      "isPremium": true,
+      "partNumbers": "Greddy Revolution RS, HKS Hi-Power 32003-AH007",
+      "installNotes": "Bolt-on from the catalytic converter back. Single exit design. Hang on factory mounts. No cutting required. Pairs perfectly with a header for full exhaust flow improvement."
+    },
+    {
+      "id": "mod-4",
+      "name": "Adjustable Coilovers",
+      "description": "The S2000 already has excellent chassis balance — coilovers with adjustable damping and ride height let you fine-tune it to perfection for street or track.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,000–$2,500",
+      "isPremium": true,
+      "partNumbers": "Ohlins DFV Road & Track HAO 04, KW V3 35250003",
+      "installNotes": "Full strut replacement at all four corners. Set ride height to 15mm below stock for street, 25mm for track. Front camber adjustment available via top mounts. Alignment critical."
+    },
+    {
+      "id": "mod-5",
+      "name": "Hondata FlashPro ECU Tune",
+      "description": "The FlashPro unlocks real-time ECU tuning, VTEC point adjustment, and rev limit changes. Essential for extracting maximum power from bolt-on mods.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$600–$800",
+      "isPremium": true,
+      "partNumbers": "Hondata FlashPro S2000, USB cable included",
+      "installNotes": "Connect to the ECU via OBD-II port. Flash a base map matching your mod setup. For best results, get a custom dyno tune. Can adjust VTEC engagement point, fuel, and ignition timing."
+    },
+    {
+      "id": "mod-6",
+      "name": "Hardtop Conversion",
+      "description": "Replace the soft top with a hard top for improved chassis rigidity, reduced wind noise, and a cleaner coupe-like appearance.",
+      "difficulty": "Intermediate",
+      "costEstimate": "$1,500–$4,000",
+      "isPremium": false,
+      "partNumbers": "Honda OEM Hardtop (discontinued — used market), Spoon Sports Carbon Hardtop",
+      "installNotes": "Remove soft top mechanism. Hardtop attaches to four factory mounting points with no drilling. Add rear window defroster wiring if equipped. OEM hardtops are rare and hold value."
+    },
+    {
+      "id": "mod-7",
+      "name": "Individual Throttle Bodies (ITBs)",
+      "description": "Individual throttle bodies give each cylinder its own throttle plate for razor-sharp throttle response and an intoxicating induction sound at high RPM.",
+      "difficulty": "Advanced",
+      "costEstimate": "$3,000–$5,000",
+      "isPremium": true,
+      "partNumbers": "Toda Racing Sports Injection Kit, TWM Performance ITB Kit",
+      "installNotes": "Remove intake manifold and install ITB assembly. Requires standalone ECU or Hondata with ITB-specific calibration. Custom fuel map mandatory. Idle tuning requires patience. 15+ hour project."
+    },
+    {
+      "id": "mod-8",
+      "name": "Forced Induction (Supercharger)",
+      "description": "A centrifugal supercharger adds 80–120hp to the F20C while maintaining the linear power delivery and high-RPM character the engine is famous for.",
+      "difficulty": "Advanced",
+      "costEstimate": "$4,000–$7,000",
+      "isPremium": true,
+      "partNumbers": "Kraftwerks C30-94 Supercharger Kit, ScienceofSpeed Supercharger",
+      "installNotes": "Full kit includes supercharger, intercooler, fuel system upgrades, and ECU reflash. Upgraded clutch required. Retorque supercharger belt at 500 miles. Maintain stock compression for reliability."
+    }
+  ]
+}
