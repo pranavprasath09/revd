@@ -5,7 +5,12 @@
     "model": "3 Series",
     "generation": "E46",
     "years": "1998–2006",
-    "bodyStyles": ["Sedan", "Coupe", "Convertible", "Touring"],
+    "bodyStyles": [
+      "Sedan",
+      "Coupe",
+      "Convertible",
+      "Touring"
+    ],
     "engines": [
       {
         "code": "M54B25",
@@ -13,7 +18,10 @@
         "configuration": "Inline-6",
         "power": "192hp",
         "torque": "245Nm",
-        "variants": ["325i", "325Ci"]
+        "variants": [
+          "325i",
+          "325Ci"
+        ]
       },
       {
         "code": "S54B32",
@@ -21,7 +29,9 @@
         "configuration": "Inline-6",
         "power": "338hp",
         "torque": "365Nm",
-        "variants": ["M3"]
+        "variants": [
+          "M3"
+        ]
       }
     ],
     "performance": {
@@ -38,8 +48,13 @@
     },
     "reliabilityScore": 72,
     "popularityScore": 95,
-    "tags": ["European", "Track", "Daily", "Drift"],
-    "heroImage": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Daily",
+      "Drift"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
     "slug": "bmw-3-series-e46"
   },
   {
@@ -48,7 +63,12 @@
     "model": "3 Series",
     "generation": "E90",
     "years": "2005–2013",
-    "bodyStyles": ["Sedan", "Coupe", "Convertible", "Touring"],
+    "bodyStyles": [
+      "Sedan",
+      "Coupe",
+      "Convertible",
+      "Touring"
+    ],
     "engines": [
       {
         "code": "N52B30",
@@ -56,7 +76,9 @@
         "configuration": "Inline-6",
         "power": "258hp",
         "torque": "300Nm",
-        "variants": ["330i"]
+        "variants": [
+          "330i"
+        ]
       },
       {
         "code": "S65B40",
@@ -64,7 +86,9 @@
         "configuration": "V8",
         "power": "414hp",
         "torque": "400Nm",
-        "variants": ["M3"]
+        "variants": [
+          "M3"
+        ]
       }
     ],
     "performance": {
@@ -81,8 +105,13 @@
     },
     "reliabilityScore": 65,
     "popularityScore": 88,
-    "tags": ["European", "Track", "Daily", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Daily",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1540066019607-e5f69323a8dc?w=800&q=80",
     "slug": "bmw-3-series-e90"
   },
   {
@@ -91,7 +120,10 @@
     "model": "3 Series",
     "generation": "F30",
     "years": "2012–2019",
-    "bodyStyles": ["Sedan", "Touring"],
+    "bodyStyles": [
+      "Sedan",
+      "Touring"
+    ],
     "engines": [
       {
         "code": "B48B20",
@@ -99,7 +131,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "252hp",
         "torque": "350Nm",
-        "variants": ["330i"]
+        "variants": [
+          "330i"
+        ]
       },
       {
         "code": "S55B30",
@@ -107,7 +141,9 @@
         "configuration": "Inline-6 Twin-Turbo",
         "power": "425hp",
         "torque": "550Nm",
-        "variants": ["M3"]
+        "variants": [
+          "M3"
+        ]
       }
     ],
     "performance": {
@@ -124,8 +160,13 @@
     },
     "reliabilityScore": 68,
     "popularityScore": 85,
-    "tags": ["European", "Daily", "Tuner", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Daily",
+      "Tuner",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
     "slug": "bmw-3-series-f30"
   },
   {
@@ -134,7 +175,11 @@
     "model": "911",
     "generation": "997",
     "years": "2004–2012",
-    "bodyStyles": ["Coupe", "Cabriolet", "Targa"],
+    "bodyStyles": [
+      "Coupe",
+      "Cabriolet",
+      "Targa"
+    ],
     "engines": [
       {
         "code": "MA1.01",
@@ -142,7 +187,9 @@
         "configuration": "Flat-6",
         "power": "345hp",
         "torque": "390Nm",
-        "variants": ["Carrera S"]
+        "variants": [
+          "Carrera S"
+        ]
       },
       {
         "code": "MA1.70",
@@ -150,7 +197,9 @@
         "configuration": "Flat-6",
         "power": "500hp",
         "torque": "460Nm",
-        "variants": ["GT3 RS"]
+        "variants": [
+          "GT3 RS"
+        ]
       }
     ],
     "performance": {
@@ -167,8 +216,14 @@
     },
     "reliabilityScore": 78,
     "popularityScore": 92,
-    "tags": ["European", "Track", "Luxury", "Legend", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Luxury",
+      "Legend",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
     "slug": "porsche-911-997"
   },
   {
@@ -177,7 +232,11 @@
     "model": "911",
     "generation": "991",
     "years": "2011–2019",
-    "bodyStyles": ["Coupe", "Cabriolet", "Targa"],
+    "bodyStyles": [
+      "Coupe",
+      "Cabriolet",
+      "Targa"
+    ],
     "engines": [
       {
         "code": "MA1.03",
@@ -185,7 +244,9 @@
         "configuration": "Flat-6 Twin-Turbo",
         "power": "420hp",
         "torque": "500Nm",
-        "variants": ["Carrera S"]
+        "variants": [
+          "Carrera S"
+        ]
       },
       {
         "code": "MA1.75",
@@ -193,7 +254,9 @@
         "configuration": "Flat-6",
         "power": "500hp",
         "torque": "460Nm",
-        "variants": ["GT3"]
+        "variants": [
+          "GT3"
+        ]
       }
     ],
     "performance": {
@@ -210,8 +273,14 @@
     },
     "reliabilityScore": 82,
     "popularityScore": 94,
-    "tags": ["European", "Track", "Luxury", "Legend", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Luxury",
+      "Legend",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80",
     "slug": "porsche-911-991"
   },
   {
@@ -220,7 +289,9 @@
     "model": "Cayman",
     "generation": "987",
     "years": "2005–2012",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "MA1.20",
@@ -228,7 +299,9 @@
         "configuration": "Flat-6",
         "power": "265hp",
         "torque": "300Nm",
-        "variants": ["Cayman"]
+        "variants": [
+          "Cayman"
+        ]
       },
       {
         "code": "MA1.21",
@@ -236,7 +309,9 @@
         "configuration": "Flat-6",
         "power": "320hp",
         "torque": "370Nm",
-        "variants": ["Cayman S"]
+        "variants": [
+          "Cayman S"
+        ]
       }
     ],
     "performance": {
@@ -253,8 +328,13 @@
     },
     "reliabilityScore": 80,
     "popularityScore": 82,
-    "tags": ["European", "Track", "Lightweight", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Lightweight",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80",
     "slug": "porsche-cayman-987"
   },
   {
@@ -263,7 +343,9 @@
     "model": "S2000",
     "generation": "AP1",
     "years": "1999–2009",
-    "bodyStyles": ["Roadster"],
+    "bodyStyles": [
+      "Roadster"
+    ],
     "engines": [
       {
         "code": "F20C",
@@ -271,7 +353,9 @@
         "configuration": "Inline-4",
         "power": "240hp",
         "torque": "208Nm",
-        "variants": ["AP1"]
+        "variants": [
+          "AP1"
+        ]
       },
       {
         "code": "F22C1",
@@ -279,7 +363,9 @@
         "configuration": "Inline-4",
         "power": "237hp",
         "torque": "220Nm",
-        "variants": ["AP2"]
+        "variants": [
+          "AP2"
+        ]
       }
     ],
     "performance": {
@@ -296,8 +382,14 @@
     },
     "reliabilityScore": 88,
     "popularityScore": 90,
-    "tags": ["JDM", "Track", "Roadster", "NA", "Legend"],
-    "heroImage": "https://images.unsplash.com/photo-1611016186353-652a28517ab2?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Roadster",
+      "NA",
+      "Legend"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&q=80",
     "slug": "honda-s2000-ap1"
   },
   {
@@ -306,7 +398,9 @@
     "model": "Civic Type R",
     "generation": "FK8",
     "years": "2017–2021",
-    "bodyStyles": ["Hatchback"],
+    "bodyStyles": [
+      "Hatchback"
+    ],
     "engines": [
       {
         "code": "K20C1",
@@ -314,7 +408,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "306hp",
         "torque": "400Nm",
-        "variants": ["Type R"]
+        "variants": [
+          "Type R"
+        ]
       }
     ],
     "performance": {
@@ -331,8 +427,13 @@
     },
     "reliabilityScore": 85,
     "popularityScore": 88,
-    "tags": ["JDM", "Track", "Turbo", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1679603308850-6bd0a03e9e53?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Turbo",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=800&q=80",
     "slug": "honda-civic-type-r-fk8"
   },
   {
@@ -341,7 +442,9 @@
     "model": "Supra",
     "generation": "A80",
     "years": "1993–2002",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "2JZ-GTE",
@@ -349,7 +452,9 @@
         "configuration": "Inline-6 Twin-Turbo",
         "power": "320hp",
         "torque": "427Nm",
-        "variants": ["Turbo"]
+        "variants": [
+          "Turbo"
+        ]
       },
       {
         "code": "2JZ-GE",
@@ -357,7 +462,9 @@
         "configuration": "Inline-6",
         "power": "220hp",
         "torque": "284Nm",
-        "variants": ["SZ"]
+        "variants": [
+          "SZ"
+        ]
       }
     ],
     "performance": {
@@ -374,8 +481,14 @@
     },
     "reliabilityScore": 85,
     "popularityScore": 99,
-    "tags": ["JDM", "Track", "Tuner", "Legend", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Tuner",
+      "Legend",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&q=80",
     "slug": "toyota-supra-a80"
   },
   {
@@ -384,7 +497,9 @@
     "model": "Supra",
     "generation": "A90",
     "years": "2019–present",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "B58B30",
@@ -392,7 +507,9 @@
         "configuration": "Inline-6 Turbo",
         "power": "382hp",
         "torque": "500Nm",
-        "variants": ["3.0"]
+        "variants": [
+          "3.0"
+        ]
       },
       {
         "code": "B48B20",
@@ -400,7 +517,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "255hp",
         "torque": "400Nm",
-        "variants": ["2.0"]
+        "variants": [
+          "2.0"
+        ]
       }
     ],
     "performance": {
@@ -417,8 +536,13 @@
     },
     "reliabilityScore": 80,
     "popularityScore": 87,
-    "tags": ["JDM", "Track", "Turbo", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1621993202323-eb4e81f5eb68?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Turbo",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&q=80",
     "slug": "toyota-supra-a90"
   },
   {
@@ -427,7 +551,9 @@
     "model": "GR86",
     "generation": "ZN8",
     "years": "2021–present",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "FA24",
@@ -435,7 +561,9 @@
         "configuration": "Flat-4",
         "power": "228hp",
         "torque": "250Nm",
-        "variants": ["GR86"]
+        "variants": [
+          "GR86"
+        ]
       }
     ],
     "performance": {
@@ -452,8 +580,14 @@
     },
     "reliabilityScore": 82,
     "popularityScore": 86,
-    "tags": ["JDM", "Track", "Lightweight", "Daily", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1669473830964-0e0e2b586496?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Lightweight",
+      "Daily",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&q=80",
     "slug": "toyota-gr86"
   },
   {
@@ -462,7 +596,10 @@
     "model": "370Z",
     "generation": "Z34",
     "years": "2009–2020",
-    "bodyStyles": ["Coupe", "Roadster"],
+    "bodyStyles": [
+      "Coupe",
+      "Roadster"
+    ],
     "engines": [
       {
         "code": "VQ37VHR",
@@ -470,7 +607,11 @@
         "configuration": "V6",
         "power": "332hp",
         "torque": "366Nm",
-        "variants": ["Base", "Sport", "Touring"]
+        "variants": [
+          "Base",
+          "Sport",
+          "Touring"
+        ]
       },
       {
         "code": "VQ37VHR",
@@ -478,7 +619,9 @@
         "configuration": "V6",
         "power": "350hp",
         "torque": "374Nm",
-        "variants": ["Nismo"]
+        "variants": [
+          "Nismo"
+        ]
       }
     ],
     "performance": {
@@ -495,8 +638,14 @@
     },
     "reliabilityScore": 78,
     "popularityScore": 80,
-    "tags": ["JDM", "Track", "Daily", "NA", "Drift"],
-    "heroImage": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Daily",
+      "NA",
+      "Drift"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1611821064430-0d40291d0f0b?w=800&q=80",
     "slug": "nissan-370z-z34"
   },
   {
@@ -505,7 +654,9 @@
     "model": "Skyline GT-R",
     "generation": "R32",
     "years": "1989–1994",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "RB26DETT",
@@ -513,7 +664,9 @@
         "configuration": "Inline-6 Twin-Turbo",
         "power": "276hp",
         "torque": "368Nm",
-        "variants": ["GT-R"]
+        "variants": [
+          "GT-R"
+        ]
       }
     ],
     "performance": {
@@ -530,8 +683,14 @@
     },
     "reliabilityScore": 70,
     "popularityScore": 94,
-    "tags": ["JDM", "Track", "Legend", "AWD", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Legend",
+      "AWD",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=800&q=80",
     "slug": "nissan-skyline-gtr-r32"
   },
   {
@@ -540,7 +699,9 @@
     "model": "Skyline GT-R",
     "generation": "R33",
     "years": "1995–1998",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "RB26DETT",
@@ -548,7 +709,9 @@
         "configuration": "Inline-6 Twin-Turbo",
         "power": "276hp",
         "torque": "368Nm",
-        "variants": ["GT-R"]
+        "variants": [
+          "GT-R"
+        ]
       }
     ],
     "performance": {
@@ -565,8 +728,14 @@
     },
     "reliabilityScore": 72,
     "popularityScore": 88,
-    "tags": ["JDM", "Track", "Legend", "AWD", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1611651338412-8403fa8b3153?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Legend",
+      "AWD",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=800&q=80",
     "slug": "nissan-skyline-gtr-r33"
   },
   {
@@ -575,7 +744,9 @@
     "model": "Skyline GT-R",
     "generation": "R34",
     "years": "1999–2002",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "RB26DETT",
@@ -583,7 +754,9 @@
         "configuration": "Inline-6 Twin-Turbo",
         "power": "276hp",
         "torque": "392Nm",
-        "variants": ["GT-R"]
+        "variants": [
+          "GT-R"
+        ]
       }
     ],
     "performance": {
@@ -600,8 +773,14 @@
     },
     "reliabilityScore": 75,
     "popularityScore": 98,
-    "tags": ["JDM", "Track", "Legend", "AWD", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1630046029587-48e903429171?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Legend",
+      "AWD",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=800&q=80",
     "slug": "nissan-skyline-gtr-r34"
   },
   {
@@ -610,7 +789,10 @@
     "model": "Mustang GT",
     "generation": "S550",
     "years": "2015–2023",
-    "bodyStyles": ["Coupe", "Convertible"],
+    "bodyStyles": [
+      "Coupe",
+      "Convertible"
+    ],
     "engines": [
       {
         "code": "Coyote 5.0 Gen 3",
@@ -618,7 +800,9 @@
         "configuration": "V8",
         "power": "460hp",
         "torque": "569Nm",
-        "variants": ["GT"]
+        "variants": [
+          "GT"
+        ]
       },
       {
         "code": "EcoBoost 2.3",
@@ -626,7 +810,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "310hp",
         "torque": "475Nm",
-        "variants": ["EcoBoost"]
+        "variants": [
+          "EcoBoost"
+        ]
       }
     ],
     "performance": {
@@ -643,8 +829,13 @@
     },
     "reliabilityScore": 73,
     "popularityScore": 90,
-    "tags": ["Muscle", "Track", "Daily", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1584345604476-8ec5f82d661f?w=800&h=500&fit=crop",
+    "tags": [
+      "Muscle",
+      "Track",
+      "Daily",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80",
     "slug": "ford-mustang-gt-s550"
   },
   {
@@ -653,7 +844,9 @@
     "model": "Mustang Shelby GT500",
     "generation": "S550",
     "years": "2020–2022",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "Predator 5.2",
@@ -661,7 +854,9 @@
         "configuration": "V8 Supercharged",
         "power": "760hp",
         "torque": "847Nm",
-        "variants": ["GT500"]
+        "variants": [
+          "GT500"
+        ]
       }
     ],
     "performance": {
@@ -678,8 +873,13 @@
     },
     "reliabilityScore": 65,
     "popularityScore": 91,
-    "tags": ["Muscle", "Track", "Legend", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1612544448445-b8232cff3b6c?w=800&h=500&fit=crop",
+    "tags": [
+      "Muscle",
+      "Track",
+      "Legend",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1547744152-14d985cb937f?w=800&q=80",
     "slug": "ford-mustang-shelby-gt500-s550"
   },
   {
@@ -688,7 +888,9 @@
     "model": "Focus RS",
     "generation": "Mk3",
     "years": "2016–2018",
-    "bodyStyles": ["Hatchback"],
+    "bodyStyles": [
+      "Hatchback"
+    ],
     "engines": [
       {
         "code": "EcoBoost 2.3",
@@ -696,7 +898,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "350hp",
         "torque": "440Nm",
-        "variants": ["RS"]
+        "variants": [
+          "RS"
+        ]
       }
     ],
     "performance": {
@@ -713,8 +917,14 @@
     },
     "reliabilityScore": 60,
     "popularityScore": 82,
-    "tags": ["European", "Track", "AWD", "Turbo", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1551830820-330a71b99659?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "AWD",
+      "Turbo",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1612544448445-b8232cff3b6c?w=800&q=80",
     "slug": "ford-focus-rs-mk3"
   },
   {
@@ -723,7 +933,9 @@
     "model": "WRX STI",
     "generation": "GD",
     "years": "2004–2007",
-    "bodyStyles": ["Sedan"],
+    "bodyStyles": [
+      "Sedan"
+    ],
     "engines": [
       {
         "code": "EJ257",
@@ -731,7 +943,9 @@
         "configuration": "Flat-4 Turbo",
         "power": "300hp",
         "torque": "392Nm",
-        "variants": ["STI"]
+        "variants": [
+          "STI"
+        ]
       }
     ],
     "performance": {
@@ -748,8 +962,14 @@
     },
     "reliabilityScore": 58,
     "popularityScore": 91,
-    "tags": ["JDM", "Track", "AWD", "Turbo", "Legend"],
-    "heroImage": "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "AWD",
+      "Turbo",
+      "Legend"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=800&q=80",
     "slug": "subaru-wrx-sti-gd"
   },
   {
@@ -758,7 +978,9 @@
     "model": "WRX STI",
     "generation": "VA",
     "years": "2014–2021",
-    "bodyStyles": ["Sedan"],
+    "bodyStyles": [
+      "Sedan"
+    ],
     "engines": [
       {
         "code": "EJ257",
@@ -766,7 +988,9 @@
         "configuration": "Flat-4 Turbo",
         "power": "310hp",
         "torque": "393Nm",
-        "variants": ["STI"]
+        "variants": [
+          "STI"
+        ]
       }
     ],
     "performance": {
@@ -783,8 +1007,14 @@
     },
     "reliabilityScore": 55,
     "popularityScore": 86,
-    "tags": ["JDM", "Track", "AWD", "Turbo", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1636761358774-0cdfa0a6c553?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "AWD",
+      "Turbo",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=800&q=80",
     "slug": "subaru-wrx-sti-va"
   },
   {
@@ -793,7 +1023,9 @@
     "model": "BRZ",
     "generation": "ZC6",
     "years": "2012–2020",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "FA20D",
@@ -801,7 +1033,9 @@
         "configuration": "Flat-4",
         "power": "205hp",
         "torque": "212Nm",
-        "variants": ["BRZ"]
+        "variants": [
+          "BRZ"
+        ]
       }
     ],
     "performance": {
@@ -818,8 +1052,14 @@
     },
     "reliabilityScore": 82,
     "popularityScore": 80,
-    "tags": ["JDM", "Track", "Lightweight", "Daily", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Lightweight",
+      "Daily",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?w=800&q=80",
     "slug": "subaru-brz-zc6"
   },
   {
@@ -828,7 +1068,9 @@
     "model": "MX-5 Miata",
     "generation": "NA",
     "years": "1989–1997",
-    "bodyStyles": ["Roadster"],
+    "bodyStyles": [
+      "Roadster"
+    ],
     "engines": [
       {
         "code": "B6ZE",
@@ -836,7 +1078,9 @@
         "configuration": "Inline-4",
         "power": "116hp",
         "torque": "136Nm",
-        "variants": ["Base"]
+        "variants": [
+          "Base"
+        ]
       },
       {
         "code": "BP-ZE",
@@ -844,7 +1088,9 @@
         "configuration": "Inline-4",
         "power": "130hp",
         "torque": "152Nm",
-        "variants": ["1.8"]
+        "variants": [
+          "1.8"
+        ]
       }
     ],
     "performance": {
@@ -861,8 +1107,15 @@
     },
     "reliabilityScore": 92,
     "popularityScore": 93,
-    "tags": ["JDM", "Track", "Roadster", "Lightweight", "NA", "Legend"],
-    "heroImage": "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Roadster",
+      "Lightweight",
+      "NA",
+      "Legend"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
     "slug": "mazda-mx5-na"
   },
   {
@@ -871,7 +1124,10 @@
     "model": "MX-5 Miata",
     "generation": "ND",
     "years": "2015–present",
-    "bodyStyles": ["Roadster", "RF"],
+    "bodyStyles": [
+      "Roadster",
+      "RF"
+    ],
     "engines": [
       {
         "code": "Skyactiv-G 2.0",
@@ -879,7 +1135,10 @@
         "configuration": "Inline-4",
         "power": "181hp",
         "torque": "205Nm",
-        "variants": ["Club", "Grand Touring"]
+        "variants": [
+          "Club",
+          "Grand Touring"
+        ]
       }
     ],
     "performance": {
@@ -896,8 +1155,15 @@
     },
     "reliabilityScore": 93,
     "popularityScore": 88,
-    "tags": ["JDM", "Track", "Roadster", "Lightweight", "Daily", "NA"],
-    "heroImage": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Roadster",
+      "Lightweight",
+      "Daily",
+      "NA"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
     "slug": "mazda-mx5-nd"
   },
   {
@@ -906,7 +1172,9 @@
     "model": "RX-7",
     "generation": "FD",
     "years": "1992–2002",
-    "bodyStyles": ["Coupe"],
+    "bodyStyles": [
+      "Coupe"
+    ],
     "engines": [
       {
         "code": "13B-REW",
@@ -914,7 +1182,10 @@
         "configuration": "Twin-Rotor Twin-Turbo",
         "power": "276hp",
         "torque": "314Nm",
-        "variants": ["Type R", "Spirit R"]
+        "variants": [
+          "Type R",
+          "Spirit R"
+        ]
       }
     ],
     "performance": {
@@ -931,8 +1202,14 @@
     },
     "reliabilityScore": 45,
     "popularityScore": 95,
-    "tags": ["JDM", "Track", "Legend", "Turbo", "Lightweight"],
-    "heroImage": "https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=800&h=500&fit=crop",
+    "tags": [
+      "JDM",
+      "Track",
+      "Legend",
+      "Turbo",
+      "Lightweight"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1493238792000-8113da705763?w=800&q=80",
     "slug": "mazda-rx7-fd"
   },
   {
@@ -941,7 +1218,10 @@
     "model": "TT",
     "generation": "8J",
     "years": "2006–2014",
-    "bodyStyles": ["Coupe", "Roadster"],
+    "bodyStyles": [
+      "Coupe",
+      "Roadster"
+    ],
     "engines": [
       {
         "code": "EA888 2.0 TFSI",
@@ -949,7 +1229,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "211hp",
         "torque": "350Nm",
-        "variants": ["TT 2.0T"]
+        "variants": [
+          "TT 2.0T"
+        ]
       },
       {
         "code": "EA113 2.5 TFSI",
@@ -957,7 +1239,9 @@
         "configuration": "Inline-5 Turbo",
         "power": "340hp",
         "torque": "450Nm",
-        "variants": ["TT RS"]
+        "variants": [
+          "TT RS"
+        ]
       }
     ],
     "performance": {
@@ -974,8 +1258,13 @@
     },
     "reliabilityScore": 70,
     "popularityScore": 72,
-    "tags": ["European", "Daily", "AWD", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Daily",
+      "AWD",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&q=80",
     "slug": "audi-tt-8j"
   },
   {
@@ -984,7 +1273,10 @@
     "model": "RS3",
     "generation": "8V",
     "years": "2015–2020",
-    "bodyStyles": ["Sedan", "Sportback"],
+    "bodyStyles": [
+      "Sedan",
+      "Sportback"
+    ],
     "engines": [
       {
         "code": "EA855 2.5 TFSI",
@@ -992,7 +1284,9 @@
         "configuration": "Inline-5 Turbo",
         "power": "400hp",
         "torque": "480Nm",
-        "variants": ["RS3"]
+        "variants": [
+          "RS3"
+        ]
       }
     ],
     "performance": {
@@ -1009,8 +1303,14 @@
     },
     "reliabilityScore": 72,
     "popularityScore": 84,
-    "tags": ["European", "Track", "AWD", "Turbo", "Daily"],
-    "heroImage": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "AWD",
+      "Turbo",
+      "Daily"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&q=80",
     "slug": "audi-rs3-8v"
   },
   {
@@ -1019,7 +1319,9 @@
     "model": "Golf GTI",
     "generation": "Mk7",
     "years": "2014–2021",
-    "bodyStyles": ["Hatchback"],
+    "bodyStyles": [
+      "Hatchback"
+    ],
     "engines": [
       {
         "code": "EA888 Gen3 2.0 TSI",
@@ -1027,7 +1329,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "230hp",
         "torque": "350Nm",
-        "variants": ["GTI Performance"]
+        "variants": [
+          "GTI Performance"
+        ]
       }
     ],
     "performance": {
@@ -1044,8 +1348,13 @@
     },
     "reliabilityScore": 76,
     "popularityScore": 88,
-    "tags": ["European", "Daily", "Tuner", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Daily",
+      "Tuner",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1471444928139-48c5bf5173f8?w=800&q=80",
     "slug": "vw-golf-gti-mk7"
   },
   {
@@ -1054,7 +1363,9 @@
     "model": "Golf R",
     "generation": "Mk7",
     "years": "2014–2021",
-    "bodyStyles": ["Hatchback"],
+    "bodyStyles": [
+      "Hatchback"
+    ],
     "engines": [
       {
         "code": "EA888 Gen3 2.0 TSI",
@@ -1062,7 +1373,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "300hp",
         "torque": "380Nm",
-        "variants": ["Golf R"]
+        "variants": [
+          "Golf R"
+        ]
       }
     ],
     "performance": {
@@ -1079,8 +1392,14 @@
     },
     "reliabilityScore": 74,
     "popularityScore": 85,
-    "tags": ["European", "Daily", "AWD", "Turbo", "Tuner"],
-    "heroImage": "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Daily",
+      "AWD",
+      "Turbo",
+      "Tuner"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1542282088-fe8426682b8f?w=800&q=80",
     "slug": "vw-golf-r-mk7"
   },
   {
@@ -1089,7 +1408,11 @@
     "model": "C63",
     "generation": "W205",
     "years": "2015–2021",
-    "bodyStyles": ["Sedan", "Coupe", "Cabriolet"],
+    "bodyStyles": [
+      "Sedan",
+      "Coupe",
+      "Cabriolet"
+    ],
     "engines": [
       {
         "code": "M177 4.0 V8",
@@ -1097,7 +1420,9 @@
         "configuration": "V8 Twin-Turbo",
         "power": "476hp",
         "torque": "650Nm",
-        "variants": ["C63"]
+        "variants": [
+          "C63"
+        ]
       },
       {
         "code": "M177 4.0 V8",
@@ -1105,7 +1430,9 @@
         "configuration": "V8 Twin-Turbo",
         "power": "510hp",
         "torque": "700Nm",
-        "variants": ["C63 S"]
+        "variants": [
+          "C63 S"
+        ]
       }
     ],
     "performance": {
@@ -1122,8 +1449,13 @@
     },
     "reliabilityScore": 62,
     "popularityScore": 89,
-    "tags": ["European", "Track", "Luxury", "Turbo"],
-    "heroImage": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "Luxury",
+      "Turbo"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
     "slug": "mercedes-amg-c63-w205"
   },
   {
@@ -1132,7 +1464,9 @@
     "model": "A45",
     "generation": "W176",
     "years": "2013–2018",
-    "bodyStyles": ["Hatchback"],
+    "bodyStyles": [
+      "Hatchback"
+    ],
     "engines": [
       {
         "code": "M133 2.0",
@@ -1140,7 +1474,9 @@
         "configuration": "Inline-4 Turbo",
         "power": "381hp",
         "torque": "475Nm",
-        "variants": ["A45 AMG"]
+        "variants": [
+          "A45 AMG"
+        ]
       }
     ],
     "performance": {
@@ -1157,8 +1493,14 @@
     },
     "reliabilityScore": 60,
     "popularityScore": 78,
-    "tags": ["European", "Track", "AWD", "Turbo", "Luxury"],
-    "heroImage": "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&h=500&fit=crop",
+    "tags": [
+      "European",
+      "Track",
+      "AWD",
+      "Turbo",
+      "Luxury"
+    ],
+    "heroImage": "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80",
     "slug": "mercedes-amg-a45-w176"
   }
 ]

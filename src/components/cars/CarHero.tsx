@@ -35,6 +35,7 @@ export default function CarHero({ car }: CarHeroProps) {
           alt={`${car.years} ${car.make} ${car.model} ${car.generation}`}
           className="h-full w-full object-cover"
           loading="eager"
+          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
           width={1400}
           height={600}
         />

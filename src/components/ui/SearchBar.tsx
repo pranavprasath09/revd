@@ -84,6 +84,8 @@ export default function SearchBar({ cars, placeholder = "Search cars..." }: Sear
                 <img
                   src={car.heroImage}
                   alt={`${car.make} ${car.model}`}
+                  loading="lazy"
+                  onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
                   className="h-10 w-14 rounded-lg object-cover"
                 />
                 <div>

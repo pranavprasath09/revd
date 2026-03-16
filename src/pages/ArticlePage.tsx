@@ -106,7 +106,8 @@ export default function ArticlePage() {
             <img
               src={article.image}
               alt={article.title}
-              loading="eager"
+              loading="lazy"
+              onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
               className="h-full w-full object-cover"
             />
           </div>

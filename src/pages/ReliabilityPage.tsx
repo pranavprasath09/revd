@@ -274,27 +274,34 @@ export default function ReliabilityPage() {
         description={pageDescription}
         canonicalUrl={`https://revhub.com/reliability/${make}/${model}`}
       />
+      {/* Hero section with car image */}
+      {car && (
+        <div className="relative h-48 sm:h-64 overflow-hidden">
+          <img
+            src={car.heroImage}
+            alt={`${displayMake} ${displayModel} ${displayGen}`}
+            loading="eager"
+            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-bg-base/80 to-transparent" />
+        </div>
+      )}
+
       <PageWrapper>
-        {/* Breadcrumb + back link */}
-        <div className="mb-6">
-          <Link
-            to={`/cars/${make}/${model}`}
-            className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-text-secondary transition-colors"
-          >
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+        {/* Breadcrumb */}
+        <div className={car ? "-mt-16 relative z-10 mb-6" : "mb-6"}>
+          <div className="flex items-center gap-3 text-sm">
+            <Link
+              to="/reliability"
+              className="font-body text-text-muted hover:text-accent-red transition-colors"
             >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back to {displayMake} {displayModel}
-          </Link>
+              Reliability
+            </Link>
+            <span className="text-text-muted">/</span>
+            <span className="font-body text-text-secondary">{displayMake} {displayModel}</span>
+          </div>
         </div>
 
         {/* Page header */}
@@ -305,11 +312,26 @@ export default function ReliabilityPage() {
           <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
             {displayMake} {displayModel}
           </h1>
-          {displayGen && (
-            <p className="font-body mt-1.5 text-lg text-text-secondary font-medium">
-              {displayGen} Generation
-            </p>
-          )}
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            {displayGen && (
+              <span className="font-body text-lg text-text-secondary font-medium">
+                {displayGen} Generation
+              </span>
+            )}
+            {car && (
+              <>
+                <span className="text-text-muted">·</span>
+                <span className="font-mono text-sm text-text-muted">{car.years}</span>
+                <span className="text-text-muted">·</span>
+                <Link
+                  to={`/cars/${make}/${model}/${car.years.split("–")[0]}`}
+                  className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
+                >
+                  View full specs →
+                </Link>
+              </>
+            )}
+          </div>
         </header>
 
         {/* No reliability data state */}
@@ -433,6 +455,51 @@ export default function ReliabilityPage() {
                 </ul>
               </section>
             )}
+
+            {/* Related reports */}
+            <section className="mt-8">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="section-label">Other Reports</h2>
+                <Link
+                  to="/reliability"
+                  className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
+                >
+                  Browse all →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {(carsData as Car[])
+                  .filter((c) => c.slug !== car!.slug && findReliabilityData(c.slug))
+                  .slice(0, 3)
+                  .map((c) => {
+                    const rd = findReliabilityData(c.slug)!;
+                    return (
+                      <Link
+                        key={c.id}
+                        to={`/reliability/${c.make.toLowerCase()}/${c.model.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="card-corner group flex items-center gap-4 rounded-xl border border-white/5 bg-bg-surface p-4 transition-all hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+                      >
+                        <img
+                          src={c.heroImage}
+                          alt={`${c.make} ${c.model}`}
+                          loading="lazy"
+                          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
+                          className="h-14 w-20 rounded-lg object-cover"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-display text-base uppercase tracking-wide text-text-primary group-hover:text-accent-red transition-colors truncate">
+                            {c.make} {c.model}
+                          </p>
+                          <p className="font-mono text-xs text-text-muted">{c.generation}</p>
+                        </div>
+                        <span className={`font-mono text-lg font-bold ${rd.overallScore >= 75 ? "text-emerald-400" : rd.overallScore >= 50 ? "text-amber-400" : "text-red-400"}`}>
+                          {rd.overallScore}
+                        </span>
+                      </Link>
+                    );
+                  })}
+              </div>
+            </section>
           </>
         )}
       </PageWrapper>

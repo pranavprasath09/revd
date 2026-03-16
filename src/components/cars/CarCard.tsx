@@ -21,6 +21,7 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
           src={car.heroImage}
           alt={`${car.years} ${car.make} ${car.model} ${car.generation}`}
           loading="lazy"
+          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {/* Permanent red gradient overlay at bottom */}

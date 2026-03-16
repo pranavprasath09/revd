@@ -81,6 +81,7 @@ export default function LeftPanel() {
               src={FEATURED_CAR.heroImage}
               alt={`${FEATURED_CAR.make} ${FEATURED_CAR.model}`}
               loading="lazy"
+              onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
