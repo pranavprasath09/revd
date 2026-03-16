@@ -1,4 +1,4 @@
-# CLAUDE.md — RevHub Master Prompt
+# CLAUDE.md — RevD Master Prompt
 # Drop this file in the root of your project repo.
 # Claude Code reads it automatically on every session.
 
@@ -21,7 +21,7 @@ You write production-grade code with zero tolerance for technical debt.
 
 ---
 
-## PRODUCT: RevHub
+## PRODUCT: RevD
 
 **Vision**: The world's first truly modern all-in-one automotive enthusiast platform.
 One destination to research any car, read fresh news, find mod guides, check
@@ -117,7 +117,7 @@ opinionated. Built for someone who genuinely loves cars.
 Every page must have:
 ```jsx
 // Use react-helmet-async or Vite plugin for SSR meta
-<title>{pageTitle} | RevHub</title>
+<title>{pageTitle} | RevD</title>
 <meta name="description" content={pageDescription} />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={pageDescription} />
