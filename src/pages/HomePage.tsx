@@ -3,6 +3,8 @@ import SEOHead from "@/components/ui/SEOHead";
 import AnimatedHero from "@/components/ui/AnimatedHero";
 import CarCard from "@/components/cars/CarCard";
 import ArticleCard from "@/components/news/ArticleCard";
+import LeftPanel from "@/components/layout/LeftPanel";
+import RightPanel from "@/components/layout/RightPanel";
 import carsData from "@/data/cars.json";
 import newsData from "@/data/news.json";
 import type { Car } from "@/types/car";
@@ -45,72 +47,84 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Cars */}
-      <section className="mx-auto max-w-7xl px-4 py-24">
-        <div className="flex items-end justify-between">
-          <h2 className="section-label">Featured Cars</h2>
-          <Link
-            to="/cars"
-            className="hidden items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
-          >
-            View all
-            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
-          </Link>
+      {/* Dashboard layout: Left Panel — Main Content — Right Panel */}
+      <div className="flex gap-6 px-4 py-12 2xl:px-8">
+        {/* Left Panel */}
+        <LeftPanel />
+
+        {/* Center content */}
+        <div className="min-w-0 flex-1">
+          {/* Featured Cars */}
+          <section>
+            <div className="flex items-end justify-between">
+              <h2 className="section-label">Featured Cars</h2>
+              <Link
+                to="/cars"
+                className="hidden items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
+              >
+                View all
+                <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3">
+              {cars.slice(0, 6).map((car, i) => (
+                <CarCard key={car.id} car={car} index={i} />
+              ))}
+            </div>
+
+            <div className="mt-8 text-center sm:hidden">
+              <Link
+                to="/cars"
+                className="inline-block rounded-full bg-accent-red px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+              >
+                View All Cars
+              </Link>
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="my-12">
+            <div className="h-px bg-gradient-to-r from-transparent via-accent-red/20 to-transparent" />
+          </div>
+
+          {/* Latest News */}
+          <section>
+            <div className="flex items-end justify-between">
+              <h2 className="section-label">Latest News</h2>
+              <Link
+                to="/news"
+                className="hidden items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
+              >
+                All news
+                <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+              {articles.slice(0, 4).map((article) => (
+                <ArticleCard key={article.id} article={article} />
+              ))}
+            </div>
+
+            <div className="mt-8 text-center sm:hidden">
+              <Link
+                to="/news"
+                className="inline-block rounded-full border border-white/15 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-bg-elevated"
+              >
+                All News
+              </Link>
+            </div>
+          </section>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cars.slice(0, 6).map((car, i) => (
-            <CarCard key={car.id} car={car} index={i} />
-          ))}
-        </div>
-
-        <div className="mt-10 text-center sm:hidden">
-          <Link
-            to="/cars"
-            className="inline-block rounded-full bg-accent-red px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            View All Cars
-          </Link>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-accent-red/20 to-transparent" />
+        {/* Right Panel */}
+        <RightPanel />
       </div>
-
-      {/* Latest News */}
-      <section className="mx-auto max-w-7xl px-4 py-24">
-        <div className="flex items-end justify-between">
-          <h2 className="section-label">Latest News</h2>
-          <Link
-            to="/news"
-            className="hidden items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
-          >
-            All news
-            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
-          </Link>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {articles.slice(0, 4).map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
-        </div>
-
-        <div className="mt-10 text-center sm:hidden">
-          <Link
-            to="/news"
-            className="inline-block rounded-full border border-white/15 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-bg-elevated"
-          >
-            All News
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

@@ -80,7 +80,7 @@ export default function CarsPage() {
       />
 
       {/* Sticky filter bar */}
-      <div className="sticky top-16 z-30 border-b border-border bg-bg-base/95 backdrop-blur-md">
+      <div className="sticky top-14 z-30 border-b border-border bg-bg-base/95 backdrop-blur-md md:top-0">
         <PageWrapper>
           <div className="py-5">
             {/* Header row */}

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import Navbar from "@/components/layout/Navbar";
+import { Routes, Route } from "react-router-dom";
+import Sidebar from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
 import LoadingState from "@/components/ui/LoadingState";
 
@@ -14,27 +14,28 @@ const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
 const ComparePage = lazy(() => import("@/pages/ComparePage"));
 
 export default function App() {
-  const location = useLocation();
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      {/* Add pt-16 for fixed navbar, except on home where hero is full-screen */}
-      <main className={`flex-1 ${location.pathname !== "/" ? "pt-16" : ""}`}>
-        <Suspense fallback={<LoadingState />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/cars" element={<CarsPage />} />
-            <Route path="/cars/:make/:model/:year" element={<CarDetailPage />} />
-            <Route path="/news" element={<NewsPage />} />
-            <Route path="/news/:slug" element={<ArticlePage />} />
-            <Route path="/mods/:make/:model" element={<ModsPage />} />
-            <Route path="/reliability/:make/:model" element={<ReliabilityPage />} />
-            <Route path="/compare" element={<ComparePage />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
+    <div className="min-h-screen flex">
+      <Sidebar />
+
+      {/* Main content area — offset for sidebar */}
+      <div className="flex min-h-screen flex-1 flex-col pt-14 md:pt-0 md:pl-16 lg:pl-[240px]">
+        <main className="flex-1">
+          <Suspense fallback={<LoadingState />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/cars" element={<CarsPage />} />
+              <Route path="/cars/:make/:model/:year" element={<CarDetailPage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/news/:slug" element={<ArticlePage />} />
+              <Route path="/mods/:make/:model" element={<ModsPage />} />
+              <Route path="/reliability/:make/:model" element={<ReliabilityPage />} />
+              <Route path="/compare" element={<ComparePage />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
