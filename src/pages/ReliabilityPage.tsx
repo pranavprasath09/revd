@@ -268,7 +268,7 @@ export default function ReliabilityPage() {
   }
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title={pageTitle}
         description={pageDescription}
@@ -299,7 +299,7 @@ export default function ReliabilityPage() {
 
         {/* Page header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
             Reliability Report
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-none">
@@ -403,7 +403,7 @@ export default function ReliabilityPage() {
               <section className="rounded-xl border border-border bg-bg-surface p-6 sm:p-8">
                 <div className="flex items-center gap-2.5 mb-4">
                   <svg
-                    className="h-5 w-5 text-accent"
+                    className="h-5 w-5 text-accent-red"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -423,7 +423,7 @@ export default function ReliabilityPage() {
                 <ul className="space-y-3">
                   {reliabilityData.buyingTips.map((tip, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-red" aria-hidden="true" />
                       <span className="text-sm leading-relaxed text-text-secondary">
                         {tip}
                       </span>
@@ -435,6 +435,6 @@ export default function ReliabilityPage() {
           </>
         )}
       </PageWrapper>
-    </>
+    </div>
   );
 }

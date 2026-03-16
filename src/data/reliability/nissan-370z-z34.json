@@ -1,0 +1,62 @@
+{
+  "carId": "nissan-370z-z34",
+  "make": "Nissan",
+  "model": "370Z",
+  "generation": "Z34",
+  "overallScore": 78,
+  "summary": "The 370Z is a fundamentally reliable sports car. The VQ37VHR engine is strong and durable, and the chassis is simple. Main concerns are the oil gallery gasket and CSC on manual cars.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Oil Gallery Gasket Leak",
+      "description": "The oil gallery gasket between the engine block and oil cooler can fail, causing a significant oil leak. Can lead to oil starvation if not addressed.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Concentric Slave Cylinder (CSC) Failure",
+      "description": "The manual transmission's concentric slave cylinder is located inside the bellhousing and can fail, requiring transmission removal to replace.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$2,000",
+      "mileageRange": "50,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Timing Chain Guide Wear",
+      "description": "The VQ37 timing chain guides can wear over time, causing a rattling noise on cold start. Rarely catastrophic but should be monitored.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Clutch Pedal Position Sensor Issues",
+      "description": "The clutch pedal position sensor can fail, causing the SynchroRev Match system to malfunction or the car to not start.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$100–$300",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Window Regulator Failure",
+      "description": "The power window regulators can fail, causing the windows to stop working or drop into the door panel.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$400",
+      "mileageRange": "60,000–100,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Check underneath for oil gallery gasket leaks — look for oil dripping from the driver's side of the engine near the oil filter",
+    "Test the clutch feel on manual cars — the CSC is a known weakness. A soft or spongy pedal may indicate CSC wear",
+    "The VQ37VHR is best maintained with 5W-30 synthetic oil changed every 5,000 miles — verify service history",
+    "The 370Z was sold from 2009–2020 with minimal changes — later models have minor updates but are fundamentally identical",
+    "Check for accident history — the 370Z is affordable and commonly driven hard by young enthusiasts"
+  ]
+}

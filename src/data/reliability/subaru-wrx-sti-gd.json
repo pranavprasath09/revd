@@ -1,0 +1,62 @@
+{
+  "carId": "subaru-wrx-sti-gd",
+  "make": "Subaru",
+  "model": "WRX STI",
+  "generation": "GD",
+  "overallScore": 62,
+  "summary": "The GD STI's EJ257 engine is powerful but has a well-documented Achilles heel: ringland failure. With proper tuning and maintenance, reliability improves significantly, but the risk is always present.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Ringland Failure",
+      "description": "The EJ257's #4 cylinder piston ringland is prone to cracking under boost, especially on 93 octane with aggressive tuning. This is the most common EJ257 failure mode.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$3,000–$6,000 (rebuild with forged internals)",
+      "mileageRange": "40,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Head Gasket Failure",
+      "description": "The EJ257 uses multi-layer steel head gaskets that can fail, causing coolant and oil mixing. Often accompanies or precedes ringland failure.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Turbo Bearing Failure",
+      "description": "The factory VF39 turbo can develop shaft play and bearing failure, especially if oil changes are neglected. Oil starvation during cold starts accelerates wear.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$800–$2,000",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Throwout Bearing Noise",
+      "description": "The throwout bearing develops a chirping noise when the clutch pedal is released. Annoying but not immediately dangerous. Replacement requires transmission removal.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Boost Leak / Vacuum Line Deterioration",
+      "description": "The numerous vacuum and boost lines deteriorate with age, causing boost leaks, rough idle, and inconsistent boost delivery.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$50–$200",
+      "mileageRange": "60,000–100,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Ask about tuning history — a poorly tuned EJ257 is far more likely to suffer ringland failure. Custom protuned cars fare better than OTS maps",
+    "Check for white smoke on cold start — this can indicate head gasket seepage",
+    "Oil change history is critical — the EJ257 needs quality synthetic oil every 3,000–4,000 miles. Neglect kills these engines",
+    "Listen for knock on a cold start and under boost — any audible knock is a serious concern",
+    "Budget for a timing belt service if not documented within the last 60,000 miles — the EJ257 is an interference engine"
+  ]
+}

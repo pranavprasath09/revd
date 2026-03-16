@@ -1,0 +1,62 @@
+{
+  "carId": "subaru-wrx-sti-va",
+  "make": "Subaru",
+  "model": "WRX STI",
+  "generation": "VA",
+  "overallScore": 64,
+  "summary": "The VA STI carries forward the EJ257 engine with all its strengths and weaknesses. The same ringland and head gasket concerns persist, but the updated chassis and technology are improvements.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Ringland Failure",
+      "description": "The EJ257 piston ringland cracking issue persists in the VA generation. The #4 cylinder runs hottest and is most susceptible, especially under high boost.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$3,000–$6,000",
+      "mileageRange": "40,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Head Gasket Seepage",
+      "description": "The multi-layer steel head gaskets can develop external oil seepage or internal coolant/oil mixing. Monitor coolant levels and oil condition closely.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Clutch Throwout Bearing",
+      "description": "The throwout bearing develops a chirping noise, especially in cooler weather. Replacement requires transmission removal.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Intercooler Heat Soak",
+      "description": "The factory top-mount intercooler heat soaks rapidly during spirited driving, leading to power inconsistency and potentially dangerous knock on hot intake air.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$400–$800 (upgraded TMIC)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-5",
+      "name": "Infotainment Lag",
+      "description": "The factory Starlink infotainment system is slow and prone to freezing. Bluetooth connectivity issues are common.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$0 (software update) / $500+ (aftermarket head unit)",
+      "mileageRange": "All mileages"
+    }
+  ],
+  "buyingTips": [
+    "The EJ257's ringland issue is the defining concern — ask about tuning, maintenance history, and any prior engine work",
+    "A custom protune from a reputable Subaru tuner is far safer than Cobb OTS maps — ask what tune is loaded",
+    "Check for oil consumption — burn 1 quart per 3,000 miles is not unusual but more than that is concerning",
+    "The VA STI was the final EJ-powered STI — consider whether you want the character of the EJ or the reliability of the FA engine in the base WRX",
+    "Verify timing belt service history — the EJ257 requires belt replacement every 60,000 miles"
+  ]
+}

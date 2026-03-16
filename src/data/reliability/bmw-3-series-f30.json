@@ -1,0 +1,62 @@
+{
+  "carId": "bmw-3-series-f30",
+  "make": "BMW",
+  "model": "3 Series",
+  "generation": "F30",
+  "overallScore": 70,
+  "summary": "The F30 improved on the E90's reliability with the refined N55 and later B48/B58 engines, but still carries typical BMW maintenance costs and some notable weak points.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "N55 Charge Pipe Failure",
+      "description": "The factory plastic charge pipe on the N55 engine cracks under boost pressure, causing sudden loss of power and a loud pop. A well-known weak point.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$150–$400",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Oil Filter Housing Gasket Leak",
+      "description": "The oil filter housing gasket is a chronic leak point on the N55. Oil drips onto the serpentine belt area and can cause further component damage.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$600",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Electric Water Pump Failure",
+      "description": "The electric water pump can fail without warning, leading to overheating. Improved over the E90 generation but still a known failure point.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Timing Chain Guide Wear (B48)",
+      "description": "Early B48 engines can develop timing chain stretch and guide wear, causing a rattling noise on cold start and eventual timing issues.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Coolant Loss (Expansion Tank)",
+      "description": "The plastic coolant expansion tank can crack and leak, especially in cold climates. Gradual coolant loss may go unnoticed until overheating occurs.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$400",
+      "mileageRange": "50,000–90,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "B58 engine (340i) is the most reliable engine option — it addressed most N55 issues and is overbuilt",
+    "Check for the charge pipe recall on N55 models — a $20 aluminum replacement eliminates the issue permanently",
+    "Inspect under the car for oil drips from the oil filter housing area — a very common leak",
+    "Verify maintenance history — F30s with strict BMW maintenance intervals (every 15K miles) often need earlier oil changes",
+    "Test the iDrive system thoroughly — electronic gremlins with the infotainment are common on higher-mileage cars"
+  ]
+}

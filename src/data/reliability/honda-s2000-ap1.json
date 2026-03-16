@@ -1,0 +1,62 @@
+{
+  "carId": "honda-s2000-ap1",
+  "make": "Honda",
+  "model": "S2000",
+  "generation": "AP1",
+  "overallScore": 85,
+  "summary": "The S2000 is exceptionally reliable for a high-revving sports car. The F20C engine is nearly bulletproof when maintained. Issues are minor and age-related rather than design flaws.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Soft Top Wear",
+      "description": "The cloth convertible top deteriorates with age and UV exposure. The rear plastic window yellows and cracks, reducing visibility.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$800–$2,000",
+      "mileageRange": "Age-related (8–15 years)"
+    },
+    {
+      "id": "issue-2",
+      "name": "Snap Oversteer (AP1)",
+      "description": "Not a reliability issue but a handling characteristic — the AP1's short wheelbase and aggressive rear toe settings can cause sudden oversteer when lifting off throttle mid-corner.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$400 (alignment adjustment)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-3",
+      "name": "Timing Chain Tensioner Noise",
+      "description": "The timing chain tensioner can develop a rattle on cold start. Rarely leads to failure but should be inspected on high-mileage cars.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$600",
+      "mileageRange": "100,000–150,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Clutch Master Cylinder Failure",
+      "description": "The clutch master cylinder can develop internal leaks, causing soft or spongy clutch pedal feel and difficulty shifting.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$400",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Differential Whine",
+      "description": "The rear differential can develop a whine at highway speeds on higher-mileage cars. The Torsen LSD wears over time with spirited driving.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,500",
+      "mileageRange": "100,000–150,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "The F20C engine is incredibly durable — look for consistent oil changes with Honda-spec or equivalent oil",
+    "Inspect the soft top carefully — replacement is expensive and a yellowed rear window is the first sign of age",
+    "Check for accident history — the S2000 is commonly wrecked by inexperienced drivers. Get a thorough frame inspection",
+    "AP1 vs AP2 — the AP2 (2004+) has a detuned engine but improved handling and interior. Both are excellent",
+    "Low-mileage examples command premium prices — this car is only appreciating in value"
+  ]
+}

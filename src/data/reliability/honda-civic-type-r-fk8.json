@@ -1,0 +1,62 @@
+{
+  "carId": "honda-civic-type-r-fk8",
+  "make": "Honda",
+  "model": "Civic Type R",
+  "generation": "FK8",
+  "overallScore": 82,
+  "summary": "The FK8 Type R benefits from Honda's engineering reputation. The K20C1 turbo engine is robust, but early cars had some build quality concerns and the dual-axis strut design is unique.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "1st/2nd Gear Grind",
+      "description": "Some FK8s develop grinding when shifting into 1st or 2nd gear, particularly when cold. Often related to synchronizer wear or fluid degradation.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$100–$200 (fluid change) / $1,500–$3,000 (synchro rebuild)",
+      "mileageRange": "20,000–60,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Turbo Bearing Noise",
+      "description": "A small number of FK8s develop turbo bearing whine at higher mileage. Honda extended warranty coverage on early production units.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Infotainment System Glitches",
+      "description": "The touchscreen infotainment system can be laggy, freeze, or develop Bluetooth connectivity issues. Software updates help but don't fully resolve.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (software update)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-4",
+      "name": "Clutch Damper Spring Noise",
+      "description": "The clutch pedal can develop a spring noise or rattling sound from the dual-mass flywheel damper. Annoying but not harmful.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$50–$150 (damper delete kit)",
+      "mileageRange": "10,000–40,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Paint Quality",
+      "description": "The FK8's paint — particularly Championship White — is thin and chips easily. Rock chips on the front bumper and hood are extremely common.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$2,000 (PPF protection)",
+      "mileageRange": "Immediate"
+    }
+  ],
+  "buyingTips": [
+    "The K20C1 engine is very strong — regular oil changes with 0W-20 synthetic every 5,000 miles is key",
+    "Test shifting thoroughly — pay attention to 1st and 2nd gear engagement when cold and hot",
+    "Check if the car has been modified and returned to stock — the FK8 tuning community is active and detuned cars are common",
+    "Look for paint protection film (PPF) on the front end — the thin paint chips very easily",
+    "Verify no track abuse — look for excessive brake dust buildup, cracked rotors, and uneven tire wear patterns"
+  ]
+}

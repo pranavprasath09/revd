@@ -16,9 +16,9 @@ export default function PremiumGate({ feature, children }: PremiumGateProps) {
       <div className="absolute inset-0 flex items-center justify-center bg-bg-base/60 backdrop-blur-md">
         <div className="mx-4 flex max-w-sm flex-col items-center rounded-2xl border border-border/60 bg-bg-surface/80 px-8 py-10 text-center shadow-2xl shadow-black/40 backdrop-blur-xl">
           {/* Lock icon */}
-          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
+          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-accent-red/10">
             <svg
-              className="h-7 w-7 text-accent"
+              className="h-7 w-7 text-accent-red"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

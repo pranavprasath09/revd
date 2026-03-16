@@ -1,0 +1,62 @@
+{
+  "carId": "nissan-skyline-gtr-r32",
+  "make": "Nissan",
+  "model": "Skyline GT-R",
+  "generation": "R32",
+  "overallScore": 68,
+  "summary": "The R32 GT-R is a 35+ year old car, so reliability concerns are largely age-related. The RB26DETT engine is extremely strong when maintained, but the ATTESA AWD system and aging electronics need attention.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Ceramic Turbo Wheel Failure",
+      "description": "The factory T28 turbos use ceramic exhaust wheels that become brittle with age and heat cycles. They can shatter at high boost, sending debris into the engine.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "Age-related (any mileage on original turbos)"
+    },
+    {
+      "id": "issue-2",
+      "name": "ATTESA AWD System Issues",
+      "description": "The ATTESA ET-S electronic AWD system uses aging sensors, solenoids, and an electronic control unit that can malfunction, causing the car to stay in RWD mode.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-3",
+      "name": "Wiring Harness Deterioration",
+      "description": "The 35+ year old wiring harness becomes brittle and develops insulation cracks, causing intermittent electrical faults throughout the car.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$3,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-4",
+      "name": "Rust (Japanese Import Cars)",
+      "description": "R32 GT-Rs are Japanese domestic market cars. Many have rust in the wheel arches, rocker panels, and trunk floor from Japanese road salt.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$1,000–$5,000+",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-5",
+      "name": "Oil Pump Drive Collar",
+      "description": "The RB26 oil pump drive collar can spin on the crank, causing sudden loss of oil pressure and catastrophic engine failure.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$600 (preventive)",
+      "mileageRange": "Any mileage (especially modified cars)"
+    }
+  ],
+  "buyingTips": [
+    "Inspect thoroughly for rust — especially wheel arches, rocker panels, trunk floor, and under the rear seats",
+    "Verify the ceramic turbos haven't shattered — a boost test and visual inspection are essential",
+    "Check the ATTESA AWD system — engage AWD and verify front wheel engagement with a diagnostic tool",
+    "The RB26DETT engine is extremely strong but requires quality oil (5W-30 synthetic) and regular maintenance",
+    "Budget for age-related restoration — any R32 GT-R will need rubber seals, hoses, bushings, and possibly wiring work"
+  ]
+}

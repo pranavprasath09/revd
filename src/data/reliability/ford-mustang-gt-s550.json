@@ -1,0 +1,62 @@
+{
+  "carId": "ford-mustang-gt-s550",
+  "make": "Ford",
+  "model": "Mustang GT",
+  "generation": "S550",
+  "overallScore": 76,
+  "summary": "The S550 Mustang GT's 5.0L Coyote V8 is robust and well-proven. The engine is reliable, but the MT-82 manual transmission is a known weakness. The 10-speed auto is the stronger choice.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "MT-82 Manual Transmission Issues",
+      "description": "The Getrag MT-82 6-speed manual develops grinding, missed shifts, and difficulty engaging gears. It's the weakest link in the Mustang GT package.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$500 (fluid + shifter) / $2,000–$4,000 (rebuild/replace)",
+      "mileageRange": "20,000–60,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Coyote Tick (Injector Noise)",
+      "description": "The direct injection system on the Coyote V8 creates a ticking noise that sounds concerning but is normal. Louder on cold starts.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (normal operation)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-3",
+      "name": "Oil Consumption (Gen 2 Coyote)",
+      "description": "2015–2017 Gen 2 Coyote engines can consume oil at elevated rates. The Gen 3 Coyote (2018+) largely resolved this with improved oil control rings.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$0 (monitor) / $2,000+ (ring replacement)",
+      "mileageRange": "30,000–80,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Rear Axle Whine",
+      "description": "The factory open differential can develop a whine at highway speeds. More common on 2015–2017 models. Often a fluid change helps.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$100–$400",
+      "mileageRange": "30,000–70,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "A10 Transmission Shudder",
+      "description": "The 10-speed automatic can develop a shudder or harsh shift in certain gears. Usually resolved with a transmission software update.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$0–$200 (software update)",
+      "mileageRange": "20,000–50,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "The 10-speed automatic is a better transmission than the MT-82 manual — seriously consider the auto if you want reliability",
+    "2018+ (Gen 3 Coyote) is a significant improvement — more power, better oil consumption, and improved transmission options",
+    "The Coyote tick is NORMAL — don't let the ticking noise scare you away from an otherwise healthy engine",
+    "Performance Pack models get a Torsen LSD, Brembo brakes, and better cooling — strongly preferred over base GT",
+    "Check for signs of abuse — burnouts, drag racing, and drifting take their toll on the drivetrain and tires"
+  ]
+}

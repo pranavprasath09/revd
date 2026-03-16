@@ -1,0 +1,53 @@
+{
+  "carId": "toyota-gr86",
+  "make": "Toyota",
+  "model": "GR86",
+  "generation": "ZN8",
+  "overallScore": 80,
+  "summary": "The second-generation GR86 with the FA24 engine is proving reliable in early ownership. It addressed the oil consumption issues of the first-gen FA20 and has more power. Still too early for long-term data.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Valve Spring Recall",
+      "description": "Toyota issued a stop-sale and recall for certain 2022 GR86s due to valve springs that could fracture and damage the engine. Verify recall completion.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (recall repair)",
+      "mileageRange": "0–20,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Throwout Bearing Noise",
+      "description": "Some manual transmission GR86s develop throwout bearing chirping when the clutch pedal is released. Annoying but typically not immediately harmful.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "15,000–40,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Infotainment Screen Issues",
+      "description": "The 8-inch touchscreen can be slow to respond, occasionally freeze, or lose Apple CarPlay connection. Software updates improve but don't fully fix.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (software update)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-4",
+      "name": "Oil Temperature Concerns (Track Use)",
+      "description": "Oil temperatures can climb rapidly during sustained track use. The FA24 benefits from an oil cooler for frequent track day participants.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$800 (aftermarket oil cooler)",
+      "mileageRange": "All mileages (track use)"
+    }
+  ],
+  "buyingTips": [
+    "Verify the valve spring recall has been completed — this is the most critical item for 2022 models",
+    "The FA24 engine is a significant improvement over the first-gen FA20 — more power, better torque curve, and less prone to oil consumption",
+    "Listen for throwout bearing noise with the clutch pedal out — slight chirping is common but should not be severe",
+    "If you plan to track the car, budget for an oil cooler — the FA24 runs hot under sustained high-RPM driving",
+    "Check tire wear patterns — the GR86's rear-drive layout and enthusiast ownership means many are driven hard"
+  ]
+}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import SearchBar from "@/components/ui/SearchBar";
+import AnimatedHero from "@/components/ui/AnimatedHero";
 import CarCard from "@/components/cars/CarCard";
 import ArticleCard from "@/components/news/ArticleCard";
 import carsData from "@/data/cars.json";
@@ -11,70 +11,59 @@ import type { Article } from "@/types/news";
 const cars = carsData as Car[];
 const articles = newsData as Article[];
 
+const STATS = [
+  { value: "30+", label: "Cars" },
+  { value: "100+", label: "Mod Guides" },
+  { value: "24/7", label: "Fresh News" },
+  { value: "Free", label: "To Start" },
+];
+
 export default function HomePage() {
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title="The Modern Automotive Enthusiast Platform"
         description="Research any car, read fresh news, find mod guides, check reliability, and connect with other enthusiasts. All in one place."
       />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden px-4 pb-20 pt-24 sm:pb-28 sm:pt-32">
-        {/* Gradient glow behind hero text */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-1/3 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/8 blur-[120px]" />
-          <div className="absolute left-1/3 top-1/2 h-[300px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-[80px]" />
-        </div>
+      {/* Animated Hero */}
+      <AnimatedHero />
 
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            The Enthusiast Platform
-          </p>
-          <h1 className="text-editorial text-4xl font-black text-text-primary sm:text-6xl md:text-7xl">
-            Every car. Every mod.{" "}
-            <span className="bg-gradient-to-r from-accent to-red-400 bg-clip-text text-transparent">
-              One platform.
-            </span>
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg">
-            Specs, reliability, mod guides, and news for the cars you love.
-            Built by enthusiasts, for enthusiasts.
-          </p>
-
-          <div className="mt-10 w-full sm:mt-12">
-            <SearchBar cars={cars} placeholder="Search any car — try 'Supra' or 'BMW E46'" />
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm text-text-muted">
-            <span className="text-xs uppercase tracking-wider">Popular:</span>
-            {["BMW E46", "Supra A80", "MX-5 Miata"].map((term) => (
-              <Link
-                key={term}
-                to="/cars"
-                className="rounded-full border border-border bg-bg-surface/60 px-3 py-1 text-xs font-medium text-text-secondary backdrop-blur-sm transition-all hover:border-accent/40 hover:text-text-primary"
-              >
-                {term}
-              </Link>
-            ))}
-          </div>
+      {/* Stats bar */}
+      <section className="border-y border-white/5 bg-bg-surface/50 backdrop-blur-sm">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 divide-x divide-white/5 sm:grid-cols-4">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="px-6 py-6 text-center">
+              <p className="text-2xl font-black tracking-tight text-text-primary sm:text-3xl">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-[11px] font-bold uppercase tracking-widest text-text-muted">
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Featured Cars */}
-      <section className="mx-auto max-w-7xl px-4 pb-20">
+      <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">Collection</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent-red">
+              Collection
+            </p>
             <h2 className="mt-1 text-editorial text-2xl font-extrabold text-text-primary sm:text-4xl">
               Featured Cars
             </h2>
           </div>
           <Link
             to="/cars"
-            className="hidden text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent sm:block"
+            className="hidden items-center gap-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
           >
-            View all &rarr;
+            View all
+            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
           </Link>
         </div>
 
@@ -87,52 +76,55 @@ export default function HomePage() {
         <div className="mt-8 text-center sm:hidden">
           <Link
             to="/cars"
-            className="inline-block rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+            className="inline-block rounded-xl bg-accent-red px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
-            View all cars &rarr;
+            View all cars
           </Link>
         </div>
       </section>
 
       {/* Divider */}
       <div className="mx-auto max-w-7xl px-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </div>
 
       {/* Latest News */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">Editorial</p>
-              <h2 className="mt-1 text-editorial text-2xl font-extrabold text-text-primary sm:text-4xl">
-                Latest News
-              </h2>
-            </div>
-            <Link
-              to="/news"
-              className="hidden text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent sm:block"
-            >
-              All news &rarr;
-            </Link>
+      <section className="mx-auto max-w-7xl px-4 py-20">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent-red">
+              Editorial
+            </p>
+            <h2 className="mt-1 text-editorial text-2xl font-extrabold text-text-primary sm:text-4xl">
+              Latest News
+            </h2>
           </div>
+          <Link
+            to="/news"
+            className="hidden items-center gap-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:text-accent-red sm:inline-flex"
+          >
+            All news
+            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {articles.slice(0, 4).map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </div>
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {articles.slice(0, 4).map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
 
-          <div className="mt-8 text-center sm:hidden">
-            <Link
-              to="/news"
-              className="inline-block rounded-xl border border-border px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:bg-bg-elevated"
-            >
-              All news &rarr;
-            </Link>
-          </div>
+        <div className="mt-8 text-center sm:hidden">
+          <Link
+            to="/news"
+            className="inline-block rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:bg-bg-elevated"
+          >
+            All news
+          </Link>
         </div>
       </section>
-    </>
+    </div>
   );
 }

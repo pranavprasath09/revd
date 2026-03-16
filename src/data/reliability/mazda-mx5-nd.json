@@ -1,0 +1,53 @@
+{
+  "carId": "mazda-mx5-nd",
+  "make": "Mazda",
+  "model": "MX-5 Miata",
+  "generation": "ND",
+  "overallScore": 88,
+  "summary": "The ND Miata continues the tradition of simplicity and reliability. The Skyactiv 2.0L engine is proven and efficient. Very few significant issues have been reported in the ownership community.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Weak Air Conditioning",
+      "description": "The ND Miata's AC system struggles to cool the cabin in hot weather, especially with the top down. The small compressor and cabin insulation are factors.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (design limitation)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-2",
+      "name": "Soft Top Mechanism (RF)",
+      "description": "The RF (Retractable Fastback) model's power hard top mechanism can develop slow operation or intermittent faults as it ages.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Clutch Chatter",
+      "description": "Some ND Miatas develop clutch chatter during engagement, particularly from a cold start. Often goes away as the clutch warms up.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$0 (monitor) / $800–$1,500 (clutch replacement)",
+      "mileageRange": "30,000–60,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Infotainment Connectivity Issues",
+      "description": "The Mazda Connect infotainment system can have Bluetooth pairing issues and occasional lag. Software updates help.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (software update)",
+      "mileageRange": "All mileages"
+    }
+  ],
+  "buyingTips": [
+    "The ND is one of the most reliable sports cars you can buy — very few mechanical concerns",
+    "2019+ models received the more powerful 181hp 2.0L engine — a worthwhile upgrade over the earlier 155hp version",
+    "The soft top model is lighter and simpler than the RF — but the RF looks stunning and is quieter at highway speeds",
+    "Check the soft top for proper operation and any signs of wear if buying a used cloth-top model",
+    "The ND Miata depreciates slowly — well-maintained examples hold their value exceptionally well"
+  ]
+}

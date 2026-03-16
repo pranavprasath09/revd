@@ -1,0 +1,62 @@
+{
+  "carId": "vw-golf-r-mk7",
+  "make": "Volkswagen",
+  "model": "Golf R",
+  "generation": "Mk7",
+  "overallScore": 76,
+  "summary": "The Mk7 Golf R shares the GTI's excellent EA888 Gen 3 engine with a larger IS38 turbo and Haldex AWD. It's similarly reliable but adds the complexity of the AWD system and higher stress from more power.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Haldex AWD Pump and Filter",
+      "description": "The Haldex coupling requires fluid and filter changes every 20,000 miles. Neglected maintenance leads to pump failure and loss of AWD functionality.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$400 (service) / $1,000–$2,000 (pump replacement)",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Carbon Buildup on Intake Valves",
+      "description": "Direct injection carbon buildup is common across all EA888 engines. The Golf R's higher boost levels may accelerate the process slightly.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$700 (walnut blasting)",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "DSG Clutch Pack Wear",
+      "description": "The DSG clutch packs can wear under high-torque situations, especially on tuned cars. Shuddering during low-speed maneuvers is the first sign.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Water Pump Failure",
+      "description": "Same water pump issue as the GTI. The electric water pump can fail and cause coolant leaks. VW extended warranty coverage on affected models.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$800",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Intercooler Cracking (Plastic End Tanks)",
+      "description": "The factory intercooler has plastic end tanks that can crack under boost pressure, especially on tuned cars. Causes boost loss and coolant ingestion.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$900 (upgraded intercooler)",
+      "mileageRange": "30,000–70,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Haldex fluid and filter changes every 20,000 miles are critical — verify service records include this",
+    "The plastic intercooler end tanks are the Golf R's biggest weakness — upgraded aluminum intercoolers solve this permanently",
+    "DSG fluid changes every 40,000 miles prevent expensive mechatronic and clutch pack issues",
+    "Carbon cleaning at 50,000 miles is recommended — plan for it as part of ownership",
+    "Many Golf Rs have been tuned — ask directly about modification history and check for aftermarket parts"
+  ]
+}

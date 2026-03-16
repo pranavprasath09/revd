@@ -1,0 +1,62 @@
+{
+  "carId": "audi-rs3-8v",
+  "make": "Audi",
+  "model": "RS3",
+  "generation": "8V",
+  "overallScore": 75,
+  "summary": "The RS3's 2.5L 5-cylinder TFSI engine is remarkably robust for its power output. The engine itself is overbuilt, but the DSG transmission and supporting systems need attention at higher power levels.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Carbon Buildup on Intake Valves",
+      "description": "The direct injection 2.5 TFSI accumulates carbon on the intake valves. Power loss, rough idle, and misfires develop gradually over time.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$800 (walnut blasting)",
+      "mileageRange": "40,000–70,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "DSG Mechatronic Unit Issues",
+      "description": "The 7-speed DSG transmission's mechatronic unit can develop shifting hesitation or faults. More common on early 8V models.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Magnetic Ride Damper Failure",
+      "description": "The MagneRide adaptive dampers can develop leaks or lose their adaptive capability. All four corners are typically affected over time.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Haldex AWD Pump Failure",
+      "description": "The Haldex AWD coupling requires regular fluid changes. Neglected fluid leads to pump wear and eventual AWD system failure.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,500",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Thermostat Housing Crack",
+      "description": "The plastic thermostat housing can crack and leak coolant. A common VAG platform issue across multiple models.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$500",
+      "mileageRange": "40,000–80,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "The 2.5 TFSI engine is genuinely overbuilt — it handles significant power increases with proper supporting mods",
+    "DSG fluid change every 40,000 miles is essential — many owners skip it and pay the price",
+    "Haldex fluid change is equally important — the AWD system needs fresh fluid every 20,000 miles",
+    "2018+ (facelift) models are preferred — they received a revised engine and DSG with improved reliability",
+    "Carbon cleaning should be done at 40,000–50,000 miles — prevention is far cheaper than treating symptoms"
+  ]
+}

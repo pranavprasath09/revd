@@ -1,0 +1,62 @@
+{
+  "carId": "toyota-supra-a90",
+  "make": "Toyota",
+  "model": "Supra",
+  "generation": "A90",
+  "overallScore": 78,
+  "summary": "The A90 Supra uses BMW's B58 engine, which is proving to be very reliable. Most concerns relate to the BMW-sourced electrical and interior components rather than the powertrain.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "B58 Coolant Loss",
+      "description": "Some A90 Supras experience gradual coolant loss without visible leaks. Often traced to the expansion tank or small hose connections at the rear of the engine.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$600",
+      "mileageRange": "20,000–50,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Differential Noise (Early 2020 Models)",
+      "description": "Some early 2020 models developed differential whine or clunking. Toyota issued a TSB and replaced differentials under warranty.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "10,000–30,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Infotainment Quirks",
+      "description": "The BMW-sourced iDrive infotainment can have connectivity issues, occasional freezes, and incompatibility with some phones' Bluetooth profiles.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (software update)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-4",
+      "name": "ZF8 Transmission Shudder",
+      "description": "The ZF 8-speed automatic can develop a slight shudder or hesitation at low speeds. Often resolved with a transmission software update or fluid change.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$500",
+      "mileageRange": "30,000–60,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Fuel Pump Recall",
+      "description": "Toyota issued a recall for certain fuel pump assemblies that could fail and cause stalling. Verify recall has been completed.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$0 (recall repair)",
+      "mileageRange": "All mileages"
+    }
+  ],
+  "buyingTips": [
+    "The B58 engine is proving extremely reliable — it shares DNA with the BMW 340i/M340i and is well-understood",
+    "Verify all recalls have been completed — the fuel pump recall is the most critical",
+    "Check for aftermarket ECU tunes — the B58 responds so well to tuning that many owners flash and reflash. Look for signs",
+    "The 2021+ models received a manual transmission option and numerous improvements — later model years are preferred",
+    "Maintenance follows the BMW schedule — use BMW-spec oil and follow recommended intervals despite the Toyota badge"
+  ]
+}

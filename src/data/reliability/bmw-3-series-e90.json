@@ -1,0 +1,71 @@
+{
+  "carId": "bmw-3-series-e90",
+  "make": "BMW",
+  "model": "3 Series",
+  "generation": "E90",
+  "overallScore": 65,
+  "summary": "The E90 introduced more complex engines (N54/N55 turbo) that deliver impressive performance but come with higher maintenance costs and more failure-prone components than the E46.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "N54 High-Pressure Fuel Pump Failure",
+      "description": "The N54 twin-turbo engine's HPFP is notorious for failing, causing long crank times, rough running, and limp mode. BMW extended warranty coverage due to the volume of failures.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "30,000–80,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "N54 Wastegate Rattle",
+      "description": "The twin-turbo wastegate actuators wear and develop a rattling noise at idle. Does not always affect performance but worsens over time.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,200–$2,500",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Oil Filter Housing Gasket Leak",
+      "description": "The oil filter housing gasket hardens and leaks oil onto the serpentine belt and alternator. A very common E90 issue across all engines.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$300–$600",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Water Pump and Thermostat Failure",
+      "description": "The electric water pump is known to fail without warning. The thermostat also fails frequently. Both can lead to overheating and expensive engine damage.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$600–$1,200",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "N54 Injector Failure",
+      "description": "The direct injection piezo injectors on the N54 are fragile and develop leaks or misfires. BMW revised them multiple times (index 7 through 12).",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$2,500",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-6",
+      "name": "Valve Cover Gasket Oil Leak",
+      "description": "The valve cover gasket shrinks and leaks oil down the side of the engine. A very common and relatively straightforward repair.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$500",
+      "mileageRange": "70,000–110,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "N54 or N55 — the N55 single-turbo engine is significantly more reliable than the N54 twin-turbo. Choose N55 if reliability matters most",
+    "Check HPFP recall status — BMW extended warranty on the N54 HPFP. Verify it has been addressed or replaced",
+    "Look for oil leaks around the valve cover and oil filter housing — these are the two most common leak points",
+    "Listen for wastegate rattle at cold idle on N54 cars — a metallic rattling indicates worn wastegate actuators",
+    "Verify the electric water pump has been replaced — they typically fail between 60K–100K miles"
+  ]
+}

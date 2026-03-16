@@ -1,0 +1,62 @@
+{
+  "carId": "ford-focus-rs-mk3",
+  "make": "Ford",
+  "model": "Focus RS",
+  "generation": "Mk3",
+  "overallScore": 68,
+  "summary": "The Focus RS delivers incredible performance but has a notable head gasket concern on early cars that Ford addressed. The 2.3L EcoBoost is otherwise robust, and the AWD system is excellent.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Head Gasket Failure",
+      "description": "Early Focus RS models (2016–2017) can develop head gasket failures, causing coolant loss, white exhaust smoke, and overheating. Ford issued a recall and revised the head gasket design.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (recall) / $2,000–$4,000 (out of warranty)",
+      "mileageRange": "20,000–60,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Rear Differential Mount Failure",
+      "description": "The rear differential mount can fail under hard launches, causing clunking and drivetrain vibration. A revised mount and aftermarket options exist.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800",
+      "mileageRange": "20,000–50,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Intercooler Condensation",
+      "description": "In humid conditions, the top-mount intercooler can accumulate condensation that gets ingested by the engine, causing misfires and hesitation.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$100–$300 (air-oil separator)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-4",
+      "name": "Clutch Judder",
+      "description": "The factory clutch can develop judder during engagement, particularly on cars used for hard launches. Fluid contamination on the clutch disc is often the cause.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "30,000–60,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Wheel Bearing Noise",
+      "description": "Front wheel bearings can develop a humming noise at highway speeds. The AWD system puts additional stress on the bearings.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$600",
+      "mileageRange": "40,000–80,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Verify the head gasket recall (19S12) has been completed — this is the single most critical item on any Focus RS",
+    "Late 2017 and 2018 models are preferred — they shipped with the revised head gasket and other improvements",
+    "Check coolant level and look for white exhaust smoke — signs of head gasket issues that may not have been addressed",
+    "The Drift Mode is cool but hard on the drivetrain — check rear differential mount and axle condition",
+    "Only available as a manual transmission — verify clutch engagement is smooth with no judder or slipping"
+  ]
+}

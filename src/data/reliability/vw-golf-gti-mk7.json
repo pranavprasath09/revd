@@ -1,0 +1,62 @@
+{
+  "carId": "vw-golf-gti-mk7",
+  "make": "Volkswagen",
+  "model": "Golf GTI",
+  "generation": "Mk7",
+  "overallScore": 78,
+  "summary": "The Mk7 GTI is one of the most reliable hot hatches ever made. The EA888 Gen 3 engine addressed many issues from earlier generations. With proper maintenance, the Mk7 GTI is remarkably trouble-free.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Water Pump Failure",
+      "description": "The electric water pump can fail, causing coolant leaks and overheating. VW issued a warranty extension on some models. A revised pump is available.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$400–$800",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Carbon Buildup on Intake Valves",
+      "description": "Direct injection means carbon deposits accumulate on intake valves over time. Causes rough idle, misfires, and gradual power loss.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$700 (walnut blasting)",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "DSG Mechatronic Unit",
+      "description": "The DSG dual-clutch transmission's mechatronic unit can develop shifting issues. Regular DSG fluid changes (every 40K miles) prevent most problems.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Turbo Diverter Valve Failure",
+      "description": "The electronic diverter valve can fail, causing boost loss and a fluttering sound under acceleration. Cheap to replace but annoying.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$50–$150",
+      "mileageRange": "40,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Sunroof Drain Clogging",
+      "description": "The sunroof drains can clog with debris, causing water intrusion into the cabin and potential electrical damage.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$0–$100 (cleaning)",
+      "mileageRange": "30,000–60,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "The Mk7 GTI is one of the safest performance car purchases in its price range — genuinely reliable with proper care",
+    "DSG fluid changes every 40,000 miles are the single most important maintenance item — do not skip them",
+    "Plan for carbon cleaning at 50,000–60,000 miles — walnut blasting prevents performance degradation",
+    "The Performance Pack adds a limited-slip differential and larger brakes — strongly preferred for spirited driving",
+    "Check for aftermarket tunes — the EA888 is heavily tuned and many cars have been modified and returned to stock"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "carId": "toyota-supra-a80",
+  "make": "Toyota",
+  "model": "Supra",
+  "generation": "A80",
+  "overallScore": 82,
+  "summary": "The 2JZ-GTE is one of the most reliable performance engines ever built. The cast iron block handles enormous power, and the rest of the drivetrain is overbuilt for the era.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Twin-Turbo System Complexity",
+      "description": "The sequential twin-turbo system has many vacuum lines, solenoids, and actuators that fail with age. The turbo transition at 4,000 RPM can become rough or disappear entirely.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Brittle Wiring Harness",
+      "description": "The 30+ year old wiring harness becomes brittle and develops cracks in the insulation, causing intermittent electrical faults.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$3,000",
+      "mileageRange": "Age-related (25+ years)"
+    },
+    {
+      "id": "issue-3",
+      "name": "V160 Transmission Weakness",
+      "description": "The Getrag V160 6-speed transmission synchros can wear on modified cars, and replacement transmissions are extremely expensive.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$3,000–$8,000",
+      "mileageRange": "80,000+ miles (especially if modified)"
+    },
+    {
+      "id": "issue-4",
+      "name": "Dashboard Cracking",
+      "description": "The dashboard develops cracks from sun exposure and age. Replacement dashboards are rare and expensive. Most owners use a dash cover.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$200–$2,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-5",
+      "name": "Rubber Seals and Gaskets",
+      "description": "All rubber components — door seals, valve cover gaskets, coolant hoses — deteriorate with age on a 25+ year old car. Budget for a full refresh.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800",
+      "mileageRange": "Age-related"
+    }
+  ],
+  "buyingTips": [
+    "The 2JZ-GTE is legendary for a reason — it can handle 800+ hp on stock internals with proper supporting mods",
+    "Turbo vs NA — only the turbo model has the 2JZ-GTE. The NA model uses the 2JZ-GE which is also reliable but far less valuable",
+    "Check for signs of prior modifications — many Supras have been modified and reverted to stock. Look for aftermarket wiring, non-OEM parts",
+    "Verify the VIN and production numbers — Supras are expensive enough that fraud exists. Ensure matching VIN plates",
+    "Budget for age-related maintenance — any A80 Supra will need rubber, gaskets, and electrical refreshing regardless of mileage"
+  ]
+}

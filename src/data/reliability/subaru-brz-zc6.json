@@ -1,0 +1,62 @@
+{
+  "carId": "subaru-brz-zc6",
+  "make": "Subaru",
+  "model": "BRZ",
+  "generation": "ZC6",
+  "overallScore": 80,
+  "summary": "The first-gen BRZ is a simple, naturally aspirated sports car with excellent reliability. The FA20 engine has a known valve spring recall and some oil consumption concerns, but is otherwise robust.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Valve Spring Recall",
+      "description": "Certain 2013 BRZ models had a valve spring recall due to springs that could fracture and damage the engine. Verify recall has been completed.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (recall repair)",
+      "mileageRange": "All mileages (2013 models)"
+    },
+    {
+      "id": "issue-2",
+      "name": "Oil Consumption",
+      "description": "The FA20 engine can consume oil at elevated rates, particularly during high-RPM driving. Subaru considers up to 1 quart per 1,200 miles acceptable.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$0 (monitor) / $2,000+ (piston ring replacement)",
+      "mileageRange": "30,000–80,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Throwout Bearing Noise",
+      "description": "The throwout bearing chirps when the clutch pedal is released. A common Subaru trait that is annoying but not harmful in the short term.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$1,000",
+      "mileageRange": "20,000–60,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Direct Injection Carbon Buildup",
+      "description": "The direct injection FA20 can develop carbon buildup on the intake valves, causing rough idle and power loss over time. Walnut blasting cleans it.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$500",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Weak Stock Clutch",
+      "description": "The factory clutch is light-duty and can slip under spirited driving, especially on cars with exhaust and tune modifications.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$600–$1,200",
+      "mileageRange": "60,000–100,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Verify the valve spring recall status on 2013 models — this is the most critical check",
+    "Check oil level during test drive — the FA20 can consume oil, especially when driven hard at high RPM",
+    "The BRZ is a simple car mechanically — there are few things that go wrong compared to turbocharged competitors",
+    "Listen for throwout bearing chirp with the clutch pedal out — it is common but not dangerous",
+    "2017+ models received minor improvements (revised suspension, updated infotainment) and are preferred"
+  ]
+}

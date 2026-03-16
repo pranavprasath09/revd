@@ -43,7 +43,7 @@ export default function ArticlePage() {
           </p>
           <Link
             to="/news"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
+            className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-red transition-colors hover:text-accent-hover"
           >
             <svg
               className="h-4 w-4"
@@ -69,7 +69,7 @@ export default function ArticlePage() {
     : [article.excerpt];
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title={article.title}
         description={article.excerpt}
@@ -82,7 +82,7 @@ export default function ArticlePage() {
         <div className="mx-auto max-w-3xl px-4 pt-6 sm:px-6">
           <Link
             to="/news"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-text-muted transition-colors hover:text-accent"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-text-muted transition-colors hover:text-accent-red"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -159,7 +159,7 @@ export default function ArticlePage() {
         {relatedArticles.length > 0 && (
           <aside className="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
             <hr className="mb-10 border-border" />
-            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent">
+            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
               More in {article.category}
             </p>
             <h2 className="mt-2 text-xl font-bold tracking-tight text-text-primary">
@@ -173,6 +173,6 @@ export default function ArticlePage() {
           </aside>
         )}
       </article>
-    </>
+    </div>
   );
 }

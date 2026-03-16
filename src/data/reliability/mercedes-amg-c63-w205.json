@@ -1,0 +1,62 @@
+{
+  "carId": "mercedes-amg-c63-w205",
+  "make": "Mercedes-AMG",
+  "model": "C63",
+  "generation": "W205",
+  "overallScore": 70,
+  "summary": "The W205 C63's M177 twin-turbo V8 is a powerful and generally reliable engine. Maintenance costs are high by nature, and some components are not designed for the abuse enthusiasts deliver.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Head Bolt Failure (Early M177)",
+      "description": "Early 2015–2016 M177 engines had a head bolt issue that could cause coolant intrusion into the cylinders. Mercedes addressed this with revised bolts.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$5,000",
+      "mileageRange": "20,000–60,000 miles (2015–2016 models)"
+    },
+    {
+      "id": "issue-2",
+      "name": "Engine Mount Failure",
+      "description": "The factory hydraulic engine mounts can fail, causing excessive engine movement, vibration, and clunking under acceleration.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "40,000–70,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Air Suspension Compressor Failure",
+      "description": "If equipped with AIRMATIC air suspension, the compressor and air struts can fail, causing the car to sag or ride unevenly.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$4,000",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Differential Bushing Wear",
+      "description": "The rear differential bushings wear under hard use, causing clunking during gear changes and a vague rear end feel.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$300–$800",
+      "mileageRange": "30,000–60,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Rear Subframe Bushing Noise",
+      "description": "The rear subframe bushings can develop a creaking or groaning noise over bumps. Common on enthusiastically driven C63s.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$1,000",
+      "mileageRange": "40,000–70,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "2017+ models are preferred — they addressed the head bolt issue and received other refinements",
+    "Verify the head bolt recall/TSB has been completed on 2015–2016 models — this is critical",
+    "Air suspension-equipped cars have higher maintenance costs — coil spring cars are simpler and cheaper to maintain",
+    "The M177 engine is hand-built and generally robust — proper oil changes with AMG-spec 0W-40 every 10,000 miles are key",
+    "Check for aftermarket tunes — the M177 responds very well to tuning and many C63s have been modified"
+  ]
+}

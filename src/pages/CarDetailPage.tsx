@@ -321,7 +321,7 @@ export default function CarDetailPage() {
   const previewMods = modData?.mods.slice(0, 3) ?? [];
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title={pageTitle}
         description={pageDescription}
@@ -389,7 +389,7 @@ export default function CarDetailPage() {
                         {engine.power}
                       </span>
                       {index === activeEngineIndex && (
-                        <div className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-accent" />
+                        <div className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-accent-red" />
                       )}
                     </button>
                   ))}
@@ -510,7 +510,7 @@ export default function CarDetailPage() {
                 </div>
                 <div className="flex items-center justify-between border-t border-border/50 pt-3">
                   <dt className="text-sm text-text-secondary">Popularity</dt>
-                  <dd className="text-sm font-bold text-accent">
+                  <dd className="text-sm font-bold text-accent-red">
                     {car.popularityScore}/100
                   </dd>
                 </div>
@@ -533,7 +533,7 @@ export default function CarDetailPage() {
               </div>
               <Link
                 to={`/mods/${slugify(car.make)}/${slugify(car.model)}`}
-                className="hidden text-sm font-semibold text-accent hover:text-accent-hover sm:inline-flex sm:items-center sm:gap-1"
+                className="hidden text-sm font-semibold text-accent-red hover:text-accent-hover sm:inline-flex sm:items-center sm:gap-1"
               >
                 View all mods
                 <svg
@@ -555,7 +555,7 @@ export default function CarDetailPage() {
               {previewMods.map((mod) => (
                 <div
                   key={mod.id}
-                  className="group rounded-xl border border-border bg-bg-surface p-5 transition-colors hover:border-accent/30"
+                  className="group rounded-xl border border-border bg-bg-surface p-5 transition-colors hover:border-accent-red/30"
                 >
                   <div className="mb-3 flex items-center gap-2">
                     <Badge variant="difficulty">{mod.difficulty}</Badge>
@@ -614,6 +614,6 @@ export default function CarDetailPage() {
           </section>
         )}
       </PageWrapper>
-    </>
+    </div>
   );
 }

@@ -26,14 +26,14 @@ export default function GenerationSelector({
             onClick={() => onChange(gen.id)}
             className={`cursor-pointer rounded-xl border px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
               isActive
-                ? "border-accent bg-accent/10 text-accent"
+                ? "border-accent-red bg-accent-red/10 text-accent-red"
                 : "border-border text-text-secondary hover:border-border hover:text-text-primary"
             }`}
           >
             <span>{gen.generation}</span>
             <span
               className={`ml-2 text-xs font-medium ${
-                isActive ? "text-accent/70" : "text-text-muted"
+                isActive ? "text-accent-red/70" : "text-text-muted"
               }`}
             >
               {gen.years}

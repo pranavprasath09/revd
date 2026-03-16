@@ -186,7 +186,7 @@ function CarSelector({
           if (query.trim()) setIsOpen(true);
         }}
         placeholder="Search make, model, or generation..."
-        className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-accent"
+        className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-accent-red"
       />
       {isOpen && filtered.length > 0 && (
         <ul className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-border bg-bg-elevated shadow-xl">
@@ -226,7 +226,7 @@ function CarSelector({
 
 function WinnerBadge() {
   return (
-    <span className="ml-2 inline-flex items-center rounded-md bg-accent/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
+    <span className="ml-2 inline-flex items-center rounded-md bg-accent-red/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent-red">
       Winner
     </span>
   );
@@ -459,14 +459,14 @@ export default function ComparePage() {
   const hasTwoCars = selectedCars.length === 2;
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead title={seoTitle} description={seoDescription} />
 
       <PageWrapper>
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent-red">
               Comparison
             </p>
             <h1 className="text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
@@ -525,7 +525,7 @@ export default function ComparePage() {
                   <button
                     type="button"
                     onClick={() => handleRemoveCar(slotIndex)}
-                    className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-elevated hover:text-accent"
+                    className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-elevated hover:text-accent-red"
                     aria-label={`Remove ${carLabel(car)}`}
                   >
                     <svg
@@ -658,6 +658,6 @@ export default function ComparePage() {
       >
         Copied link to clipboard!
       </div>
-    </>
+    </div>
   );
 }

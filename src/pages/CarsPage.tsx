@@ -72,7 +72,7 @@ export default function CarsPage() {
   }
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title="Browse Cars"
         description="Browse specs, mods, and reliability data for every enthusiast car. Filter by make, body style, and drivetrain."
@@ -117,7 +117,7 @@ export default function CarsPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search make, model, generation..."
-                  className="w-full rounded-lg border border-border bg-bg-surface py-2.5 pl-10 pr-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent/50 focus:ring-1 focus:ring-accent/25"
+                  className="w-full rounded-lg border border-border bg-bg-surface py-2.5 pl-10 pr-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
                 />
               </div>
             </div>
@@ -173,7 +173,7 @@ export default function CarsPage() {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="cursor-pointer text-xs font-semibold uppercase tracking-wider text-accent transition-colors hover:text-accent-hover"
+                  className="cursor-pointer text-xs font-semibold uppercase tracking-wider text-accent-red transition-colors hover:text-accent-hover"
                 >
                   Clear all filters
                 </button>
@@ -206,7 +206,7 @@ export default function CarsPage() {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="mt-4 cursor-pointer rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+                className="mt-4 cursor-pointer rounded-lg bg-accent-red px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
               >
                 Clear all filters
               </button>
@@ -214,6 +214,6 @@ export default function CarsPage() {
           )}
         </div>
       </PageWrapper>
-    </>
+    </div>
   );
 }

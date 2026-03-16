@@ -221,7 +221,7 @@ export default function ModsPage() {
   }
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title={pageTitle}
         description={pageDescription}
@@ -252,7 +252,7 @@ export default function ModsPage() {
 
         {/* Page header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
             Mod Guides
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-none">
@@ -314,7 +314,7 @@ export default function ModsPage() {
                     onClick={() => setActiveFilter(filter)}
                     className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 cursor-pointer min-h-[44px] ${
                       isActive
-                        ? "bg-accent text-white shadow-lg shadow-accent/20"
+                        ? "bg-accent-red text-white shadow-lg shadow-accent-red/20"
                         : "border border-border text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
                     }`}
                   >
@@ -346,7 +346,7 @@ export default function ModsPage() {
                 </p>
                 <button
                   onClick={() => setActiveFilter("All")}
-                  className="mt-3 text-sm font-semibold text-accent hover:text-accent-hover transition-colors cursor-pointer"
+                  className="mt-3 text-sm font-semibold text-accent-red hover:text-accent-hover transition-colors cursor-pointer"
                 >
                   Show all mods
                 </button>
@@ -391,6 +391,6 @@ export default function ModsPage() {
           </>
         )}
       </PageWrapper>
-    </>
+    </div>
   );
 }

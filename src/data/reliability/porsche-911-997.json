@@ -1,0 +1,62 @@
+{
+  "carId": "porsche-911-997",
+  "make": "Porsche",
+  "model": "911",
+  "generation": "997",
+  "overallScore": 74,
+  "summary": "The 997 is generally well-built, but the 997.1 has a serious IMS bearing concern that can destroy the engine. The 997.2 with DFI engine largely resolved this issue.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "IMS Bearing Failure (997.1)",
+      "description": "The intermediate shaft bearing in the 997.1 Carrera can fail catastrophically, destroying the engine. Affects 997.1 (2005–2008) but not 997.2 models.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$4,000 (preventive) / $15,000+ (after failure)",
+      "mileageRange": "40,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Bore Scoring (3.8L)",
+      "description": "The 3.8L engine in Carrera S models can develop bore scoring — scratches in the cylinder walls caused by failed Lokasil coating or debris.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$5,000–$15,000",
+      "mileageRange": "50,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Coolant Pipe Leaks",
+      "description": "The plastic coolant pipes in the rear of the engine develop leaks over time. Located in a hard-to-reach area above the transmission.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "PASM Shock Absorber Failure",
+      "description": "The Porsche Active Suspension Management (PASM) electronic dampers can leak or fail, requiring expensive replacement at approximately $1,000 per corner.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "RMS (Rear Main Seal) Oil Leak",
+      "description": "The rear main seal between the engine and transmission develops an oil leak. Requires transmission removal to replace — labor intensive.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$2,500",
+      "mileageRange": "70,000–120,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "997.1 vs 997.2 — the 997.2 (2009+) eliminated the IMS bearing concern with a new DFI engine. Strongly prefer 997.2 if IMS worries you",
+    "Request a bore scope inspection before purchase — especially on 3.8L Carrera S models to check for bore scoring",
+    "Verify IMS bearing has been upgraded on 997.1 cars — LN Engineering single-row retrofit is the gold standard",
+    "Check for oil leaks at the RMS — look under the engine for oil dripping from the engine/transmission junction",
+    "Inspect PASM operation — drive over bumps in Comfort and Sport modes to verify the dampers adjust properly"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "carId": "porsche-911-991",
+  "make": "Porsche",
+  "model": "911",
+  "generation": "991",
+  "overallScore": 80,
+  "summary": "The 991 is one of the most reliable 911 generations. The 991.1 NA engines are bulletproof, and the 991.2 turbocharged engines proved robust. Typical Porsche maintenance costs apply.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Coolant Pipe Leaks",
+      "description": "Plastic coolant pipes at the rear of the engine can develop cracks and leaks. Less common than the 997 but still a known issue on higher-mileage cars.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$800–$1,500",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "PDK Mechatronic Unit Issues",
+      "description": "The PDK dual-clutch transmission's mechatronic unit can develop shifting hesitation or faults. More common on 991.1 cars. Software updates often resolve it.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$2,000–$5,000",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "PASM Shock Absorber Wear",
+      "description": "The electronically controlled PASM dampers have a finite lifespan and can leak or lose their adaptive ability over time.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "70,000–110,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "AC Compressor Failure",
+      "description": "The AC compressor can fail prematurely, particularly on cars used in hot climates. Debris from failure can contaminate the entire AC system.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Engine Oil Consumption (991.1)",
+      "description": "Some 991.1 naturally aspirated engines consume oil at a higher rate than expected, particularly the 3.4L Carrera. Porsche considers up to 1 quart per 2,000 miles acceptable.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (monitor) / $3,000+ (if excessive)",
+      "mileageRange": "30,000–80,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "The 991 is one of the safer used 911 purchases — no IMS bearing concern and generally robust engines",
+    "991.2 turbo models are excellent — the turbo engine is very reliable and responds well to maintenance",
+    "Check PDK service history — PDK fluid change is required every 40,000 miles and is often skipped by owners",
+    "Verify Sport Chrono, PASM, and all electronic systems function properly — these are expensive to repair",
+    "Look for PCCB (carbon ceramic brake) wear if equipped — replacement costs $10,000+ for a full set"
+  ]
+}

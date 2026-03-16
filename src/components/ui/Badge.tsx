@@ -22,7 +22,7 @@ function getDifficultyClasses(label: string): string {
 const variantStyles: Record<BadgeVariant, string> = {
   difficulty: "border",
   tag: "bg-bg-surface border border-border text-text-secondary",
-  premium: "bg-accent/15 text-accent border border-accent/25",
+  premium: "bg-accent-red/15 text-accent-red border border-accent-red/25",
 };
 
 export default function Badge({ variant, children, className = "" }: BadgeProps) {

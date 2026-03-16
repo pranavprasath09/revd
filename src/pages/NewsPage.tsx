@@ -42,7 +42,7 @@ export default function NewsPage() {
   }
 
   return (
-    <>
+    <div className="page-enter">
       <SEOHead
         title="News"
         description="Latest automotive news, reviews, and industry coverage from the world's best sources. Supercars, JDM, European, Muscle, Electric, and Motorsport."
@@ -52,7 +52,7 @@ export default function NewsPage() {
       <div className="mx-auto max-w-5xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent">
+          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
             Latest Coverage
           </p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
@@ -98,7 +98,7 @@ export default function NewsPage() {
               type="button"
               disabled={currentPage <= 1}
               onClick={() => setPage((p) => p - 1)}
-              className="flex h-10 items-center gap-1.5 rounded-lg border border-border bg-bg-surface px-4 text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary disabled:pointer-events-none disabled:opacity-30"
+              className="flex h-10 items-center gap-1.5 rounded-lg border border-border bg-bg-surface px-4 text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:border-accent-red/40 hover:text-text-primary disabled:pointer-events-none disabled:opacity-30"
             >
               <svg
                 className="h-3.5 w-3.5"
@@ -123,7 +123,7 @@ export default function NewsPage() {
               type="button"
               disabled={currentPage >= totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="flex h-10 items-center gap-1.5 rounded-lg border border-border bg-bg-surface px-4 text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary disabled:pointer-events-none disabled:opacity-30"
+              className="flex h-10 items-center gap-1.5 rounded-lg border border-border bg-bg-surface px-4 text-xs font-semibold uppercase tracking-wider text-text-secondary transition-colors hover:border-accent-red/40 hover:text-text-primary disabled:pointer-events-none disabled:opacity-30"
             >
               Next
               <svg
@@ -142,6 +142,6 @@ export default function NewsPage() {
           </nav>
         )}
       </div>
-    </>
+    </div>
   );
 }

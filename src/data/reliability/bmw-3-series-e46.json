@@ -1,0 +1,62 @@
+{
+  "carId": "bmw-3-series-e46",
+  "make": "BMW",
+  "model": "3 Series",
+  "generation": "E46",
+  "overallScore": 72,
+  "summary": "The E46 is generally reliable for a BMW of its era, but cooling system failures and subframe cracks are well-documented issues that require proactive maintenance.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Cooling System Failure",
+      "description": "The expansion tank, water pump, and thermostat are known to fail, often without warning. Overheating can cause head gasket damage.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Rear Subframe Cracks",
+      "description": "The rear subframe mounting points can crack through the floor pan, especially on cars driven hard or in areas with road salt. A known E46 weakness.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "80,000–120,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "VANOS System Wear",
+      "description": "The VANOS variable valve timing system develops worn seals and rattling solenoids, causing rough idle, loss of low-end torque, and poor fuel economy.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800",
+      "mileageRange": "80,000–130,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "Window Regulator Failure",
+      "description": "The power window regulators are fragile and commonly fail, causing windows to drop into the door or stop working entirely.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$150–$350",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Control Arm Bushings",
+      "description": "Front control arm bushings wear out and cause clunking over bumps and vague steering feel. The entire front suspension geometry suffers.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$800",
+      "mileageRange": "70,000–100,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Check for subframe cracks — look at the rear subframe mounting points for any signs of cracking or repair",
+    "Inspect the cooling system — if original, budget $800–$1,200 for a complete refresh including expansion tank, water pump, thermostat, and hoses",
+    "Listen for VANOS rattle on cold start — a ticking or rattling noise from the front of the engine indicates worn VANOS seals",
+    "Check service history for timing chain guides — the M54 engine uses a chain but the guides can wear and break",
+    "Test all four power windows — regulator failure is extremely common and a good negotiation point"
+  ]
+}

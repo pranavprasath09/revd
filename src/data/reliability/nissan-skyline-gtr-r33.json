@@ -1,0 +1,62 @@
+{
+  "carId": "nissan-skyline-gtr-r33",
+  "make": "Nissan",
+  "model": "Skyline GT-R",
+  "generation": "R33",
+  "overallScore": 70,
+  "summary": "The R33 shares the RB26DETT with the R32 but benefits from incremental improvements. Still a 25+ year old JDM car, so age-related issues dominate. The engine is bulletproof when maintained.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Ceramic Turbo Failure",
+      "description": "Factory T28 turbos with ceramic exhaust wheels are susceptible to shattering, especially under increased boost. Replacement with steel-wheel units is recommended.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-2",
+      "name": "HICAS Steering System",
+      "description": "The HICAS four-wheel steering system can develop leaks, sensor failures, or erratic behavior. Many owners delete the system for simplicity and predictability.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$500 (HICAS delete) / $800–$1,500 (repair)",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-3",
+      "name": "ATTESA AWD Pump",
+      "description": "The ATTESA transfer case pump and solenoids age and can fail, leaving the car in rear-wheel drive only. Regular fluid changes extend the life.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,500",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-4",
+      "name": "Rust",
+      "description": "Like all JDM imports, the R33 is susceptible to rust in common areas — wheel arches, rocker panels, rear quarters, and floor pans.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$1,000–$5,000+",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-5",
+      "name": "Oil Pump Drive Collar",
+      "description": "The RB26 oil pump drive collar can spin, especially on modified cars with increased oil pressure demands. Preventive pinning is recommended.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$600 (preventive pinning)",
+      "mileageRange": "Any mileage"
+    }
+  ],
+  "buyingTips": [
+    "The R33 is often the best value among GT-R generations — less desirable than R32 and R34, but mechanically excellent",
+    "HICAS delete is a common and worthwhile modification — the four-wheel steering system adds complexity with minimal benefit",
+    "Check for rust meticulously — Japanese road salt takes its toll on 25+ year old cars",
+    "Verify turbo health — listen for excessive shaft play or unusual noises under boost",
+    "Budget for a full maintenance refresh including all fluids, timing belt (if not recently done), and rubber components"
+  ]
+}

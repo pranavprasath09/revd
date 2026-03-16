@@ -1,0 +1,62 @@
+{
+  "carId": "mazda-mx5-na",
+  "make": "Mazda",
+  "model": "MX-5 Miata",
+  "generation": "NA",
+  "overallScore": 85,
+  "summary": "The NA Miata is legendary for its simplicity and reliability. The 1.6L and 1.8L engines are nearly bulletproof when maintained. At 30+ years old, age-related issues dominate, not engineering flaws.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Rust",
+      "description": "The NA Miata's biggest enemy is rust. Rocker panels, fenders, trunk lid, and the drain holes behind the rear wheels are the most common areas.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$3,000+",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-2",
+      "name": "Soft Top Deterioration",
+      "description": "The cloth convertible top degrades with UV exposure and age. The rear plastic window yellows, cracks, and eventually fails.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-3",
+      "name": "Short Nose Crank (1990–1991 1.6L)",
+      "description": "The 1990–1991 1.6L engines have a shorter crankshaft nose that can shear the keyway, causing timing loss and potential valve damage.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$200–$500 (preventive) / $2,000+ (after failure)",
+      "mileageRange": "Any mileage (1990–1991 only)"
+    },
+    {
+      "id": "issue-4",
+      "name": "CAS (Crank Angle Sensor) O-Ring Leak",
+      "description": "The CAS O-ring hardens and leaks oil into the sensor, causing intermittent ignition problems and possible engine stalling.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$5–$30",
+      "mileageRange": "60,000–120,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Worn Suspension Bushings",
+      "description": "At 30+ years old, every rubber bushing in the suspension is likely deteriorated, causing sloppy handling and clunking over bumps.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800 (full bushing refresh)",
+      "mileageRange": "Age-related"
+    }
+  ],
+  "buyingTips": [
+    "Rust is the number one killer of NA Miatas — inspect rocker panels, fenders, and the trunk floor with a flashlight",
+    "The 1.8L engine (1994+) is preferred — it has more power and avoids the short nose crank issue of early 1.6L models",
+    "Check the timing belt service history — the 1.6L and 1.8L are non-interference, but a broken belt still leaves you stranded",
+    "Every rubber component is likely original and worn — budget for a full bushing, seal, and hose refresh",
+    "The NA Miata is appreciating in value — clean, low-rust examples command premium prices"
+  ]
+}

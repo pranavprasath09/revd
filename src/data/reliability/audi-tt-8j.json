@@ -1,0 +1,62 @@
+{
+  "carId": "audi-tt-8j",
+  "make": "Audi",
+  "model": "TT",
+  "generation": "8J",
+  "overallScore": 70,
+  "summary": "The 8J TT shares the VW/Audi 2.0T platform with the Golf GTI. The EA888 engine is responsive and well-proven, but has typical VAG platform issues including timing chain tensioner concerns and carbon buildup.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Timing Chain Tensioner Failure (EA888 Gen 1/2)",
+      "description": "Early EA888 engines use a tensioner that can fail, allowing the timing chain to jump and cause catastrophic valve-to-piston contact.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "50,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Carbon Buildup on Intake Valves",
+      "description": "The direct injection engine cannot wash the intake valves with fuel, leading to carbon deposits that reduce airflow and cause misfires.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$700 (walnut blasting)",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Water Pump / Thermostat Failure",
+      "description": "The plastic impeller water pump and thermostat housing can crack or fail, causing coolant leaks and potential overheating.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$400–$800",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "PCV Valve Failure",
+      "description": "The positive crankcase ventilation valve can fail, causing rough idle, oil consumption, and boost leaks. A common 2.0T issue.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$100–$300",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Magnetic Ride Damper Failure",
+      "description": "The optional Magnetic Ride dampers can leak or lose their adaptive capability, requiring expensive replacement.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$1,500–$3,000",
+      "mileageRange": "60,000–100,000 miles"
+    }
+  ],
+  "buyingTips": [
+    "Verify the timing chain tensioner has been updated — the revised tensioner (post-2012 revision) eliminates the catastrophic failure risk",
+    "Ask about carbon cleaning — if the car has 60K+ miles and it has never been done, budget for a walnut blasting service",
+    "The 2.0T FSI (early) is less reliable than the 2.0T TFSI (later) — the TFSI addressed several issues",
+    "Check for coolant leaks around the water pump area — plastic components deteriorate with heat cycles",
+    "The TT is essentially a Golf GTI in a prettier body — parts are shared and maintenance costs are similar"
+  ]
+}

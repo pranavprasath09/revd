@@ -1,0 +1,62 @@
+{
+  "carId": "nissan-skyline-gtr-r34",
+  "make": "Nissan",
+  "model": "Skyline GT-R",
+  "generation": "R34",
+  "overallScore": 72,
+  "summary": "The R34 is the most refined GT-R of the RB26 era. It shares the same engine strengths and age-related weaknesses as the R32/R33, but commands significantly higher prices. Maintain meticulously.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Ceramic Turbo Wheels",
+      "description": "The factory T28 turbos with ceramic exhaust wheels can shatter with age. Given the R34's value, upgrading to ball-bearing steel-wheel turbos is strongly recommended.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$5,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-2",
+      "name": "Getrag V160 Transmission Weakness",
+      "description": "The 6-speed Getrag V160 can suffer synchro wear, especially on modified cars. Replacement transmissions are rare and extremely expensive.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$3,000–$10,000",
+      "mileageRange": "80,000+ miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Multi-Function Display Failure",
+      "description": "The R34's iconic center console multi-function display (MFD) can fail. Replacement units are rare. Aftermarket solutions exist but lose the original aesthetic.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-4",
+      "name": "ATTESA and HICAS Systems",
+      "description": "Both the AWD and four-wheel steering systems use aging electronics and hydraulics that require maintenance and can develop faults.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-5",
+      "name": "Rust and Corrosion",
+      "description": "As a 20+ year old JDM car, rust is a concern. The R34's extreme value makes any rust particularly problematic for resale.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$5,000+",
+      "mileageRange": "Age-related"
+    }
+  ],
+  "buyingTips": [
+    "The R34 GT-R commands six-figure prices — any purchase should include a professional pre-purchase inspection",
+    "Verify authenticity meticulously — the R34's extreme value creates incentive for VIN fraud and chassis swaps",
+    "The RB26DETT engine is the same legendary unit from the R32/R33 — same strengths, same age-related concerns",
+    "Check the Getrag V160 transmission for smooth operation — replacements cost as much as some entire cars",
+    "Factor in the cost of proper storage and maintenance — an R34 GT-R is an investment-grade vehicle that requires care"
+  ]
+}

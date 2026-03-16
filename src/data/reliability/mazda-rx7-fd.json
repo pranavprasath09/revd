@@ -1,0 +1,71 @@
+{
+  "carId": "mazda-rx7-fd",
+  "make": "Mazda",
+  "model": "RX-7",
+  "generation": "FD",
+  "overallScore": 50,
+  "summary": "The FD RX-7 is a beautiful, lightweight sports car with a fragile rotary engine. The 13B-REW requires specialized knowledge, frequent maintenance, and eventual rebuilds. It rewards dedication but punishes neglect.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Apex Seal Wear / Engine Rebuild",
+      "description": "The rotary engine's apex seals wear over time and eventually require a full engine rebuild. This is not a defect — it is inherent to rotary engine design. Expect rebuilds every 80,000–100,000 miles.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$3,000–$6,000",
+      "mileageRange": "80,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Sequential Turbo System Failure",
+      "description": "The complex sequential twin-turbo system has vacuum lines, solenoids, and actuators that fail with age. The turbo transition becomes rough or disappears.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "Overheating",
+      "description": "The FD RX-7 runs hot by design. The small engine bay and twin turbos generate tremendous heat. Cooling system maintenance is critical — failure leads to rapid engine damage.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800 (cooling upgrades)",
+      "mileageRange": "All mileages"
+    },
+    {
+      "id": "issue-4",
+      "name": "Catalytic Converter Failure",
+      "description": "The factory catalytic converters can overheat and fail, especially on cars running rich. A failed cat can restrict exhaust flow and further increase heat.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$300–$800",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Wiring and Electrical Deterioration",
+      "description": "The 25+ year old wiring harness becomes brittle and develops insulation cracks. The FD has complex engine management wiring that is particularly susceptible.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$2,000",
+      "mileageRange": "Age-related"
+    },
+    {
+      "id": "issue-6",
+      "name": "Oil Injection System",
+      "description": "The factory oil injection system (OMP) can fail and stop lubricating the apex seals, leading to accelerated seal wear and engine failure.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$100–$300 (premix conversion)",
+      "mileageRange": "Any mileage"
+    }
+  ],
+  "buyingTips": [
+    "Get a compression test before buying ANY FD RX-7 — this tells you the health of the apex seals. Minimum 7.0 across all faces",
+    "Ask if the engine has been rebuilt — a recent quality rebuild is actually a positive, not a negative",
+    "The FD requires premixed oil in the fuel (1 oz per gallon) for apex seal lubrication — verify the owner does this",
+    "Budget for a full cooling system service — the FD runs hot and cooling failures destroy the engine quickly",
+    "Find a rotary specialist mechanic before buying — the 13B-REW is not a car for a general mechanic"
+  ]
+}

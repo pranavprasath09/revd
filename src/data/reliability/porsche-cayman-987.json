@@ -1,0 +1,62 @@
+{
+  "carId": "porsche-cayman-987",
+  "make": "Porsche",
+  "model": "Cayman",
+  "generation": "987",
+  "overallScore": 73,
+  "summary": "The 987 Cayman shares the 997's IMS bearing concern on early models but is otherwise a robust sports car. The mid-engine layout is mechanically simpler than the 911.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "IMS Bearing Failure (987.1)",
+      "description": "The intermediate shaft bearing can fail on 987.1 models (2006–2008), potentially destroying the engine. The 987.2 (2009+) with DFI engine eliminated this risk.",
+      "severity": "High",
+      "isPremium": false,
+      "fixCostEstimate": "$2,000–$4,000 (preventive) / $12,000+ (after failure)",
+      "mileageRange": "40,000–100,000 miles"
+    },
+    {
+      "id": "issue-2",
+      "name": "Bore Scoring",
+      "description": "Cylinder bore scoring from failed Nikasil or Lokasil coatings can cause oil consumption and power loss. More common on the 3.4L S models.",
+      "severity": "High",
+      "isPremium": true,
+      "fixCostEstimate": "$4,000–$12,000",
+      "mileageRange": "50,000–100,000 miles"
+    },
+    {
+      "id": "issue-3",
+      "name": "RMS (Rear Main Seal) Leak",
+      "description": "Oil leak from the rear main seal between engine and transmission. Less labor-intensive on the Cayman than the 911 due to the mid-engine layout.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$1,000–$2,000",
+      "mileageRange": "60,000–100,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "AOS (Air-Oil Separator) Failure",
+      "description": "The air-oil separator fails and causes rough idle, oil consumption, and white smoke from the exhaust. A common flat-6 issue.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$500–$1,000",
+      "mileageRange": "50,000–90,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Convertible Top Motor (Boxster)",
+      "description": "While this is a Cayman (hardtop), some buyers cross-shop with the Boxster. Boxster top motors and hydraulics are a known failure point.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "N/A (Cayman is hardtop)",
+      "mileageRange": "N/A"
+    }
+  ],
+  "buyingTips": [
+    "987.2 (2009+) is the smart buy — eliminates the IMS bearing concern entirely with the DFI engine",
+    "Get a bore scope inspection before buying any 987 — bore scoring is expensive and undetectable without inspection",
+    "IMS bearing retrofit on 987.1 cars is a worthwhile preventive measure — LN Engineering single-row bearing is the standard",
+    "Check for oil leaks under the car — the RMS and AOS are common sources",
+    "The Cayman S (3.4L) is the more desirable engine but slightly more prone to bore scoring than the base 2.7L"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "carId": "ford-mustang-gt500-s550",
+  "make": "Ford",
+  "model": "Mustang GT500",
+  "generation": "S550",
+  "overallScore": 75,
+  "summary": "The GT500's 5.2L Predator supercharged V8 is a well-engineered powerhouse. The DCT transmission handles the torque well. Main concerns are heat management under track use and supercharger maintenance.",
+  "issues": [
+    {
+      "id": "issue-1",
+      "name": "Heat Soak Under Track Use",
+      "description": "The GT500 can go into thermal management mode during sustained track use, reducing power to protect the engine. The factory heat exchanger is the bottleneck.",
+      "severity": "Medium",
+      "isPremium": false,
+      "fixCostEstimate": "$400–$800 (upgraded heat exchanger)",
+      "mileageRange": "All mileages (track use)"
+    },
+    {
+      "id": "issue-2",
+      "name": "DCT Transmission Overheating",
+      "description": "The Tremec 7-speed dual-clutch transmission can overheat during aggressive driving, especially in hot weather. A transmission cooler upgrade helps significantly.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$500–$1,200",
+      "mileageRange": "All mileages (aggressive driving)"
+    },
+    {
+      "id": "issue-3",
+      "name": "Supercharger Belt Slip",
+      "description": "Under very high loads or in hot weather, the supercharger drive belt can slip, causing a momentary loss of boost. An upgraded belt or tensioner resolves it.",
+      "severity": "Low",
+      "isPremium": true,
+      "fixCostEstimate": "$100–$300",
+      "mileageRange": "20,000–50,000 miles"
+    },
+    {
+      "id": "issue-4",
+      "name": "MagneRide Damper Failure",
+      "description": "The MagneRide adaptive dampers have a finite lifespan and can leak or lose their adaptive capability over time.",
+      "severity": "Medium",
+      "isPremium": true,
+      "fixCostEstimate": "$2,000–$4,000",
+      "mileageRange": "50,000–80,000 miles"
+    },
+    {
+      "id": "issue-5",
+      "name": "Carbon Fiber Wing Vibration",
+      "description": "The GT500's large carbon fiber rear wing can develop vibration at high speeds on some examples. Ford issued a TSB for wing bracket reinforcement.",
+      "severity": "Low",
+      "isPremium": false,
+      "fixCostEstimate": "$0 (TSB repair)",
+      "mileageRange": "All mileages"
+    }
+  ],
+  "buyingTips": [
+    "The Predator 5.2L V8 is a strong engine — the supercharger is conservatively tuned from the factory with plenty of headroom",
+    "The DCT is the only transmission option — there is no manual GT500. Learn to love the dual-clutch",
+    "Track use requires upgrades — budget for a heat exchanger and transmission cooler if you plan to do HPDE events",
+    "Check for Carbon Fiber Handling Package — these cars are significantly more capable on track",
+    "Low production numbers mean these will likely appreciate — keep modifications reversible and maintain fastidiously"
+  ]
+}
