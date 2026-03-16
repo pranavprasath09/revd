@@ -9,6 +9,7 @@ const CarsPage = lazy(() => import("@/pages/CarsPage"));
 const CarDetailPage = lazy(() => import("@/pages/CarDetailPage"));
 const NewsPage = lazy(() => import("@/pages/NewsPage"));
 const ArticlePage = lazy(() => import("@/pages/ArticlePage"));
+const ModsIndexPage = lazy(() => import("@/pages/ModsIndexPage"));
 const ModsPage = lazy(() => import("@/pages/ModsPage"));
 const ReliabilityIndexPage = lazy(() => import("@/pages/ReliabilityIndexPage"));
 const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
@@ -29,6 +30,7 @@ export default function App() {
               <Route path="/cars/:make/:model/:year" element={<CarDetailPage />} />
               <Route path="/news" element={<NewsPage />} />
               <Route path="/news/:slug" element={<ArticlePage />} />
+              <Route path="/mods" element={<ModsIndexPage />} />
               <Route path="/mods/:make/:model" element={<ModsPage />} />
               <Route path="/reliability" element={<ReliabilityIndexPage />} />
               <Route path="/reliability/:make/:model" element={<ReliabilityPage />} />

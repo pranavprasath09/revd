@@ -227,42 +227,64 @@ export default function ModsPage() {
         description={pageDescription}
         canonicalUrl={`https://revhub.com/mods/${make}/${model}`}
       />
+      {/* Hero section with car image */}
+      {car && (
+        <div className="relative h-48 sm:h-64 overflow-hidden">
+          <img
+            src={car.heroImage}
+            alt={`${displayMake} ${displayModel} ${displayGen}`}
+            loading="eager"
+            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-bg-base/80 to-transparent" />
+        </div>
+      )}
+
       <PageWrapper>
-        {/* Breadcrumb + back link */}
-        <div className="mb-6">
-          <Link
-            to={`/cars/${make}/${model}`}
-            className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-text-secondary transition-colors"
-          >
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+        {/* Breadcrumb */}
+        <div className={car ? "-mt-16 relative z-10 mb-6" : "mb-6"}>
+          <div className="flex items-center gap-3 text-sm">
+            <Link
+              to="/mods"
+              className="font-body text-text-muted hover:text-accent-red transition-colors"
             >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back to {displayMake} {displayModel}
-          </Link>
+              Mod Guides
+            </Link>
+            <span className="text-text-muted">/</span>
+            <span className="font-body text-text-secondary">{displayMake} {displayModel}</span>
+          </div>
         </div>
 
         {/* Page header */}
         <header className="mb-8">
           <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
-            Mod Guides
+            Mod Guide
           </p>
           <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
             {displayMake} {displayModel}
           </h1>
-          {displayGen && (
-            <p className="font-body mt-1.5 text-lg text-text-secondary font-medium">
-              {displayGen} Generation
-            </p>
-          )}
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            {displayGen && (
+              <span className="font-body text-lg text-text-secondary font-medium">
+                {displayGen} Generation
+              </span>
+            )}
+            {car && (
+              <>
+                <span className="text-text-muted">·</span>
+                <span className="font-mono text-sm text-text-muted">{car.years}</span>
+                <span className="text-text-muted">·</span>
+                <Link
+                  to={`/cars/${make}/${model}/${car.years.split("–")[0]}`}
+                  className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
+                >
+                  View full specs →
+                </Link>
+              </>
+            )}
+          </div>
           <p className="font-body mt-3 text-sm text-text-secondary max-w-2xl leading-relaxed">
             From easy bolt-ons to full engine builds — everything you need to
             modify your {displayMake} {displayModel}. Premium members get part
@@ -388,6 +410,62 @@ export default function ModsPage() {
                 </p>
               </div>
             </div>
+
+            {/* Related guides */}
+            <section className="mt-8">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="section-label">Other Mod Guides</h2>
+                <Link
+                  to="/mods"
+                  className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
+                >
+                  Browse all →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {(carsData as Car[])
+                  .filter((c) => c.slug !== car!.slug && findModData(c.slug))
+                  .slice(0, 3)
+                  .map((c) => {
+                    const md = findModData(c.slug)!;
+                    return (
+                      <Link
+                        key={c.id}
+                        to={`/mods/${c.make.toLowerCase()}/${c.model.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="card-corner group flex items-center gap-4 rounded-xl border border-white/5 bg-bg-surface p-4 transition-all hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+                      >
+                        <img
+                          src={c.heroImage}
+                          alt={`${c.make} ${c.model}`}
+                          loading="lazy"
+                          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
+                          className="h-14 w-20 rounded-lg object-cover"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-display text-base uppercase tracking-wide text-text-primary group-hover:text-accent-red transition-colors truncate">
+                            {c.make} {c.model}
+                          </p>
+                          <p className="font-mono text-xs text-text-muted">{c.generation}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <svg
+                            className="h-3.5 w-3.5 text-accent-red"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                          </svg>
+                          <span className="font-mono text-sm font-bold text-text-primary">{md.mods.length}</span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+              </div>
+            </section>
           </>
         )}
       </PageWrapper>
