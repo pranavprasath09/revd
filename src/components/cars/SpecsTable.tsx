@@ -12,7 +12,7 @@ export default function SpecsTable({ specs, title }: SpecsTableProps) {
   return (
     <div>
       {title && (
-        <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-text-muted">
+        <h3 className="font-display mb-4 text-sm uppercase tracking-wider text-text-muted">
           {title}
         </h3>
       )}
@@ -24,10 +24,10 @@ export default function SpecsTable({ specs, title }: SpecsTableProps) {
               index % 2 === 0 ? "bg-bg-surface" : "bg-bg-surface/50"
             } ${index !== specs.length - 1 ? "border-b border-border/50" : ""}`}
           >
-            <span className="text-xs font-medium uppercase tracking-wider text-text-muted">
+            <span className="font-body text-xs font-medium uppercase tracking-wider text-text-muted">
               {spec.label}
             </span>
-            <span className="font-semibold text-text-primary">{spec.value}</span>
+            <span className="font-mono font-semibold text-text-primary">{spec.value}</span>
           </div>
         ))}
       </div>

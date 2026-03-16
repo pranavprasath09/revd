@@ -48,7 +48,7 @@ export default function CarHero({ car }: CarHeroProps) {
             {car.generation}
           </Badge>
 
-          <h1 className="text-editorial text-3xl font-black text-white sm:text-5xl lg:text-6xl">
+          <h1 className="font-display text-editorial text-3xl uppercase tracking-wider text-white sm:text-5xl lg:text-6xl">
             {car.years} {car.make} {car.model}
           </h1>
         </div>
@@ -62,13 +62,13 @@ export default function CarHero({ car }: CarHeroProps) {
               key={stat.label}
               className="flex flex-col items-center text-center"
             >
-              <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
+              <span className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">
                 {stat.label}
               </span>
-              <span className="mt-0.5 text-lg font-bold text-text-primary sm:text-xl">
+              <span className="font-mono mt-0.5 text-lg font-bold text-text-primary sm:text-xl">
                 {stat.value}
                 {stat.unit && (
-                  <span className="ml-0.5 text-xs font-medium text-text-muted">
+                  <span className="font-body ml-0.5 text-xs font-medium text-text-muted">
                     {stat.unit}
                   </span>
                 )}

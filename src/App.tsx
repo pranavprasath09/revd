@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LoadingState from "@/components/ui/LoadingState";
@@ -14,10 +14,13 @@ const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
 const ComparePage = lazy(() => import("@/pages/ComparePage"));
 
 export default function App() {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1">
+      {/* Add pt-16 for fixed navbar, except on home where hero is full-screen */}
+      <main className={`flex-1 ${location.pathname !== "/" ? "pt-16" : ""}`}>
         <Suspense fallback={<LoadingState />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

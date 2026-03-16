@@ -35,15 +35,15 @@ export default function ArticlePage() {
       <>
         <SEOHead title="Article Not Found" description="This article could not be found." />
         <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-          <h1 className="text-2xl font-bold text-text-primary">
+          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary">
             Article not found
           </h1>
-          <p className="mt-3 text-sm text-text-secondary">
+          <p className="font-body mt-3 text-sm text-text-secondary">
             The article you are looking for does not exist or has been removed.
           </p>
           <Link
             to="/news"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-red transition-colors hover:text-accent-hover"
+            className="font-body mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-red transition-colors hover:text-accent-hover"
           >
             <svg
               className="h-4 w-4"
@@ -82,7 +82,7 @@ export default function ArticlePage() {
         <div className="mx-auto max-w-3xl px-4 pt-6 sm:px-6">
           <Link
             to="/news"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-text-muted transition-colors hover:text-accent-red"
+            className="font-body inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-text-muted transition-colors hover:text-accent-red"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -116,25 +116,25 @@ export default function ArticlePage() {
         <header className="mx-auto mt-8 max-w-3xl px-4 sm:px-6">
           <div className="flex items-center gap-3">
             <Badge variant="tag">{article.category}</Badge>
-            <span className="text-[11px] font-medium uppercase tracking-wider text-text-muted">
+            <span className="font-body text-[11px] font-medium uppercase tracking-wider text-text-muted">
               {article.source}
             </span>
-            <span className="text-[11px] text-text-muted" aria-hidden="true">
+            <span className="font-body text-[11px] text-text-muted" aria-hidden="true">
               &middot;
             </span>
             <time
               dateTime={article.publishedAt}
-              className="text-[11px] font-medium uppercase tracking-wider text-text-muted"
+              className="font-mono text-[11px] font-medium uppercase tracking-wider text-text-muted"
             >
               {formatDate(article.publishedAt)}
             </time>
           </div>
 
-          <h1 className="mt-5 text-2xl font-extrabold leading-tight tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
+          <h1 className="font-display mt-5 text-2xl uppercase tracking-wide leading-tight text-text-primary sm:text-3xl lg:text-4xl">
             {article.title}
           </h1>
 
-          <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
+          <p className="font-body mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
             {article.excerpt}
           </p>
 
@@ -147,7 +147,7 @@ export default function ArticlePage() {
             {paragraphs.map((paragraph: string, index: number) => (
               <p
                 key={index}
-                className="text-base leading-relaxed text-text-secondary sm:text-[17px] sm:leading-[1.75]"
+                className="font-body text-base leading-relaxed text-text-secondary sm:text-[17px] sm:leading-[1.75]"
               >
                 {paragraph}
               </p>
@@ -159,10 +159,10 @@ export default function ArticlePage() {
         {relatedArticles.length > 0 && (
           <aside className="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
             <hr className="mb-10 border-border" />
-            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
+            <p className="font-body text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
               More in {article.category}
             </p>
-            <h2 className="mt-2 text-xl font-bold tracking-tight text-text-primary">
+            <h2 className="section-label mt-2">
               Related Articles
             </h2>
             <div className="mt-6 grid grid-cols-1 gap-4">

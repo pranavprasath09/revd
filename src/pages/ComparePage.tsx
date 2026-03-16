@@ -172,7 +172,7 @@ function CarSelector({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-text-muted">
+      <label className="font-body mb-2 block text-xs font-semibold uppercase tracking-widest text-text-muted">
         Car {slotIndex + 1}
       </label>
       <input
@@ -186,7 +186,7 @@ function CarSelector({
           if (query.trim()) setIsOpen(true);
         }}
         placeholder="Search make, model, or generation..."
-        className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-accent-red"
+        className="font-body w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-accent-red"
       />
       {isOpen && filtered.length > 0 && (
         <ul className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-border bg-bg-elevated shadow-xl">
@@ -248,7 +248,7 @@ function CompareSection({
   return (
     <div className="overflow-hidden rounded-xl border border-border">
       <div className="border-b border-border bg-bg-elevated px-5 py-3">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+        <h3 className="font-display text-sm uppercase tracking-widest text-text-muted">
           {title}
         </h3>
       </div>
@@ -280,12 +280,12 @@ function CompareSection({
               className={`grid grid-cols-3 items-center gap-4 px-5 py-3.5 ${rowBg}`}
             >
               {/* Label */}
-              <span className="text-sm font-medium text-text-secondary">
+              <span className="font-body text-sm font-medium text-text-secondary">
                 {spec.label}
               </span>
               {/* Car A */}
               <span
-                className={`text-center text-sm font-semibold ${
+                className={`font-mono text-center text-sm font-semibold ${
                   aWins ? "text-green-400" : "text-text-primary"
                 }`}
               >
@@ -294,7 +294,7 @@ function CompareSection({
               </span>
               {/* Car B */}
               <span
-                className={`text-center text-sm font-semibold ${
+                className={`font-mono text-center text-sm font-semibold ${
                   bWins ? "text-green-400" : "text-text-primary"
                 }`}
               >
@@ -325,7 +325,7 @@ function MobileCompareSection({
   return (
     <div className="overflow-hidden rounded-xl border border-border">
       <div className="border-b border-border bg-bg-elevated px-4 py-3">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-text-muted">
+        <h3 className="font-display text-sm uppercase tracking-widest text-text-muted">
           {title}
         </h3>
       </div>
@@ -352,16 +352,16 @@ function MobileCompareSection({
 
           return (
             <div key={spec.key} className={`px-4 py-3 ${rowBg}`}>
-              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-text-muted">
+              <div className="font-body mb-2 text-xs font-medium uppercase tracking-wider text-text-muted">
                 {spec.label}
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <div className="mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
+                  <div className="font-body mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
                     {carA.make} {carA.model}
                   </div>
                   <span
-                    className={`text-sm font-semibold ${
+                    className={`font-mono text-sm font-semibold ${
                       aWins ? "text-green-400" : "text-text-primary"
                     }`}
                   >
@@ -370,11 +370,11 @@ function MobileCompareSection({
                   </span>
                 </div>
                 <div>
-                  <div className="mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
+                  <div className="font-body mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
                     {carB.make} {carB.model}
                   </div>
                   <span
-                    className={`text-sm font-semibold ${
+                    className={`font-mono text-sm font-semibold ${
                       bWins ? "text-green-400" : "text-text-primary"
                     }`}
                   >
@@ -466,15 +466,15 @@ export default function ComparePage() {
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent-red">
+            <p className="font-body mb-1 text-xs font-semibold uppercase tracking-widest text-accent-red">
               Comparison
             </p>
-            <h1 className="text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+            <h1 className="font-display text-3xl uppercase tracking-wide text-text-primary sm:text-4xl">
               {hasTwoCars
                 ? `${selectedCars[0].make} ${selectedCars[0].model} vs ${selectedCars[1].make} ${selectedCars[1].model}`
                 : "Compare Cars"}
             </h1>
-            <p className="mt-1 text-sm text-text-secondary">
+            <p className="font-body mt-1 text-sm text-text-secondary">
               {hasTwoCars
                 ? "Side-by-side specs breakdown"
                 : "Select two cars to compare specs, performance, and dimensions."}

@@ -130,10 +130,10 @@ function ReliabilityGauge({ score }: { score: number }) {
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className={`text-3xl font-black ${getScoreColor(score)}`}>
+        <span className={`font-mono text-3xl font-black ${getScoreColor(score)}`}>
           {score}
         </span>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
+        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-text-muted">
           / 100
         </span>
       </div>
@@ -208,8 +208,8 @@ export default function CarDetailPage() {
           description="The car you're looking for could not be found on RevHub."
         />
         <PageWrapper className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-          <div className="text-6xl font-black text-text-muted">404</div>
-          <h1 className="mt-4 text-2xl font-bold tracking-tight text-text-primary">
+          <div className="font-mono text-6xl font-black text-text-muted">404</div>
+          <h1 className="font-display mt-4 text-2xl uppercase tracking-wide text-text-primary">
             Car not found
           </h1>
           <p className="mt-2 max-w-md text-text-secondary">
@@ -336,7 +336,7 @@ export default function CarDetailPage() {
         {/* Generation selector */}
         {allGenerations.length > 1 && (
           <section className="mb-10">
-            <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-text-muted">
+            <h2 className="font-body mb-4 text-xs font-bold uppercase tracking-wider text-text-muted">
               Generations
             </h2>
             <GenerationSelector
@@ -366,7 +366,7 @@ export default function CarDetailPage() {
           <div className="space-y-8 lg:col-span-2">
             {/* Engine variant tabs + specs */}
             <section>
-              <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-text-muted">
+              <h2 className="section-label mb-4">
                 Engine
               </h2>
 
@@ -384,8 +384,8 @@ export default function CarDetailPage() {
                           : "text-text-secondary hover:text-text-primary"
                       }`}
                     >
-                      <span>{engine.code}</span>
-                      <span className="ml-2 text-xs text-text-muted">
+                      <span className="font-display uppercase">{engine.code}</span>
+                      <span className="font-mono ml-2 text-xs text-text-muted">
                         {engine.power}
                       </span>
                       {index === activeEngineIndex && (
@@ -419,7 +419,7 @@ export default function CarDetailPage() {
           <div className="space-y-8">
             {/* Reliability score */}
             <section className="rounded-xl border border-border bg-bg-surface p-6">
-              <h2 className="mb-5 text-xs font-bold uppercase tracking-wider text-text-muted">
+              <h2 className="font-display text-base uppercase tracking-widest text-text-muted mb-5">
                 Reliability
               </h2>
               <div className="flex flex-col items-center">
@@ -457,7 +457,7 @@ export default function CarDetailPage() {
 
             {/* Comparison CTA */}
             <section className="rounded-xl border border-border bg-bg-surface p-6">
-              <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-text-muted">
+              <h2 className="font-display text-base uppercase tracking-widest text-text-muted mb-3">
                 Compare
               </h2>
               <p className="mb-5 text-sm leading-relaxed text-text-secondary">
@@ -489,13 +489,13 @@ export default function CarDetailPage() {
 
             {/* Quick facts */}
             <section className="rounded-xl border border-border bg-bg-surface p-6">
-              <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-text-muted">
+              <h2 className="font-display text-base uppercase tracking-widest text-text-muted mb-4">
                 Quick Facts
               </h2>
               <dl className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-text-secondary">Power-to-weight</dt>
-                  <dd className="text-sm font-bold text-text-primary">
+                  <dt className="font-body text-sm text-text-secondary">Power-to-weight</dt>
+                  <dd className="font-mono text-sm font-bold text-text-primary">
                     {(
                       parseInt(activeEngine.power) / (car.performance.weight_kg / 1000)
                     ).toFixed(0)}{" "}
@@ -503,14 +503,14 @@ export default function CarDetailPage() {
                   </dd>
                 </div>
                 <div className="flex items-center justify-between border-t border-border/50 pt-3">
-                  <dt className="text-sm text-text-secondary">Engine count</dt>
-                  <dd className="text-sm font-bold text-text-primary">
+                  <dt className="font-body text-sm text-text-secondary">Engine count</dt>
+                  <dd className="font-mono text-sm font-bold text-text-primary">
                     {car.engines.length} variant{car.engines.length !== 1 ? "s" : ""}
                   </dd>
                 </div>
                 <div className="flex items-center justify-between border-t border-border/50 pt-3">
-                  <dt className="text-sm text-text-secondary">Popularity</dt>
-                  <dd className="text-sm font-bold text-accent-red">
+                  <dt className="font-body text-sm text-text-secondary">Popularity</dt>
+                  <dd className="font-mono text-sm font-bold text-accent-red">
                     {car.popularityScore}/100
                   </dd>
                 </div>
@@ -524,10 +524,10 @@ export default function CarDetailPage() {
           <section className="mt-14">
             <div className="mb-6 flex items-end justify-between">
               <div>
-                <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted">
+                <h2 className="section-label">
                   Mod Guides
                 </h2>
-                <p className="mt-1 text-lg font-bold tracking-tight text-text-primary">
+                <p className="font-display mt-1 text-lg uppercase tracking-wide text-text-primary">
                   Popular modifications for the {car.generation}
                 </p>
               </div>
@@ -555,19 +555,19 @@ export default function CarDetailPage() {
               {previewMods.map((mod) => (
                 <div
                   key={mod.id}
-                  className="group rounded-xl border border-border bg-bg-surface p-5 transition-colors hover:border-accent-red/30"
+                  className="card-corner relative group rounded-xl border border-border bg-bg-surface p-5 transition-colors hover:border-accent-red/30"
                 >
                   <div className="mb-3 flex items-center gap-2">
                     <Badge variant="difficulty">{mod.difficulty}</Badge>
                     {mod.isPremium && <Badge variant="premium">Premium</Badge>}
                   </div>
-                  <h3 className="text-base font-bold tracking-tight text-text-primary">
+                  <h3 className="font-display text-base uppercase tracking-wide text-text-primary">
                     {mod.name}
                   </h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-text-secondary">
+                  <p className="font-body mt-2 line-clamp-2 text-sm leading-relaxed text-text-secondary">
                     {mod.description}
                   </p>
-                  <p className="mt-3 text-sm font-semibold text-text-muted">
+                  <p className="font-mono mt-3 text-sm font-semibold text-text-muted">
                     {mod.costEstimate}
                   </p>
                 </div>
@@ -600,11 +600,11 @@ export default function CarDetailPage() {
         {/* Related cars */}
         {relatedCars.length > 0 && (
           <section className="mt-14 border-t border-border pt-10">
-            <h2 className="mb-1 text-xs font-bold uppercase tracking-wider text-text-muted">
-              You might also like
+            <h2 className="section-label mb-1">
+              Related Cars
             </h2>
-            <p className="mb-6 text-lg font-bold tracking-tight text-text-primary">
-              Related cars
+            <p className="font-body mb-6 text-sm text-text-secondary">
+              You might also like
             </p>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {relatedCars.map((related) => (

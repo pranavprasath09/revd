@@ -86,13 +86,10 @@ export default function CarsPage() {
             {/* Header row */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+                <p className="font-body text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
                   Database
                 </p>
-                <h1
-                  className="text-2xl font-extrabold text-text-primary sm:text-3xl"
-                  style={{ letterSpacing: "-0.03em" }}
-                >
+                <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary sm:text-3xl">
                   Browse Cars
                 </h1>
               </div>
@@ -117,7 +114,7 @@ export default function CarsPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search make, model, generation..."
-                  className="w-full rounded-lg border border-border bg-bg-surface py-2.5 pl-10 pr-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
+                  className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 pl-10 pr-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
                 />
               </div>
             </div>
@@ -126,7 +123,7 @@ export default function CarsPage() {
             <div className="mt-4 flex flex-col gap-3">
               {/* Make filter */}
               <div>
-                <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+                <p className="font-body mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
                   Make
                 </p>
                 <CategoryFilter
@@ -139,7 +136,7 @@ export default function CarsPage() {
               {/* Body Style + Drivetrain on same row at larger screens */}
               <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
                 <div className="sm:flex-1">
-                  <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+                  <p className="font-body mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
                     Body Style
                   </p>
                   <CategoryFilter
@@ -149,7 +146,7 @@ export default function CarsPage() {
                   />
                 </div>
                 <div className="sm:flex-1">
-                  <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+                  <p className="font-body mb-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted">
                     Drivetrain
                   </p>
                   <CategoryFilter
@@ -163,8 +160,8 @@ export default function CarsPage() {
 
             {/* Results counter + clear */}
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-sm text-text-secondary">
-                <span className="font-bold tabular-nums text-text-primary">
+              <p className="font-body text-sm text-text-secondary">
+                <span className="font-mono font-bold tabular-nums text-text-primary">
                   {filteredCars.length}
                 </span>{" "}
                 {filteredCars.length === 1 ? "result" : "results"}
@@ -194,10 +191,7 @@ export default function CarsPage() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <p
-                className="text-xl font-extrabold text-text-primary"
-                style={{ letterSpacing: "-0.02em" }}
-              >
+              <p className="font-display text-xl uppercase tracking-wide text-text-primary">
                 No cars found
               </p>
               <p className="mt-2 text-sm text-text-secondary">

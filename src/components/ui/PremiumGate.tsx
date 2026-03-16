@@ -32,21 +32,21 @@ export default function PremiumGate({ feature, children }: PremiumGateProps) {
             </svg>
           </div>
 
-          <h3 className="mb-2 text-lg font-bold tracking-tight text-text-primary">
+          <h3 className="font-display mb-2 text-lg uppercase tracking-wide text-text-primary">
             Unlock {feature}
           </h3>
 
-          <p className="mb-6 text-sm leading-relaxed text-text-secondary">
+          <p className="font-body mb-6 text-sm leading-relaxed text-text-secondary">
             Get full access for{" "}
-            <span className="font-semibold text-text-primary">$6/mo</span> or{" "}
-            <span className="font-semibold text-text-primary">$50/year</span>
+            <span className="font-mono font-semibold text-text-primary">$6/mo</span> or{" "}
+            <span className="font-mono font-semibold text-text-primary">$50/year</span>
           </p>
 
           <Button variant="primary" size="md" className="w-full">
             Upgrade to Premium
           </Button>
 
-          <p className="mt-3 text-[11px] text-text-muted">
+          <p className="font-body mt-3 text-[11px] text-text-muted">
             Cancel anytime. 7-day free trial.
           </p>
         </div>

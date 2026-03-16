@@ -2,18 +2,18 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="h-[2px] bg-gradient-to-r from-transparent via-accent-red/30 to-transparent" />
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-10 text-text-muted md:flex-row md:justify-between">
-        <Link to="/" className="text-lg font-extrabold uppercase tracking-tighter text-text-secondary">
-          Rev<span className="text-accent-red">D</span>
+    <footer className="border-t border-white/5">
+      <div className="h-[1px] bg-gradient-to-r from-transparent via-accent-red/30 to-transparent" />
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-12 md:flex-row md:justify-between">
+        <Link to="/" className="font-display text-2xl uppercase tracking-tight text-text-secondary">
+          REV<span className="text-accent-red">D</span>
         </Link>
-        <div className="flex gap-6">
-          <Link to="/cars" className="text-xs font-semibold uppercase tracking-wider transition-colors hover:text-text-secondary">Cars</Link>
-          <Link to="/news" className="text-xs font-semibold uppercase tracking-wider transition-colors hover:text-text-secondary">News</Link>
-          <Link to="/compare" className="text-xs font-semibold uppercase tracking-wider transition-colors hover:text-text-secondary">Compare</Link>
+        <div className="flex gap-8">
+          <Link to="/cars" className="font-body text-xs font-bold uppercase tracking-[0.15em] text-text-muted transition-colors hover:text-white">Cars</Link>
+          <Link to="/news" className="font-body text-xs font-bold uppercase tracking-[0.15em] text-text-muted transition-colors hover:text-white">News</Link>
+          <Link to="/compare" className="font-body text-xs font-bold uppercase tracking-[0.15em] text-text-muted transition-colors hover:text-white">Compare</Link>
         </div>
-        <p className="text-xs tracking-wider">&copy; {new Date().getFullYear()} RevD. All rights reserved.</p>
+        <p className="font-body text-xs tracking-wider text-text-muted">&copy; {new Date().getFullYear()} RevD. All rights reserved.</p>
       </div>
     </footer>
   );

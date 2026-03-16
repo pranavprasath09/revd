@@ -30,9 +30,9 @@ export default function GenerationSelector({
                 : "border-border text-text-secondary hover:border-border hover:text-text-primary"
             }`}
           >
-            <span>{gen.generation}</span>
+            <span className="font-display uppercase">{gen.generation}</span>
             <span
-              className={`ml-2 text-xs font-medium ${
+              className={`font-mono ml-2 text-xs font-medium ${
                 isActive ? "text-accent-red/70" : "text-text-muted"
               }`}
             >

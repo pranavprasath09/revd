@@ -27,7 +27,7 @@ const variantStyles: Record<BadgeVariant, string> = {
 
 export default function Badge({ variant, children, className = "" }: BadgeProps) {
   const base =
-    "inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase tracking-wider font-bold leading-none whitespace-nowrap";
+    "font-body inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase tracking-wider font-bold leading-none whitespace-nowrap";
 
   const variantClass =
     variant === "difficulty"

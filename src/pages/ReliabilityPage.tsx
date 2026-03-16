@@ -141,7 +141,7 @@ function IssueCard({ issue }: { issue: ReliabilityIssue }) {
     issue.isPremium && (issue.fixCostEstimate || issue.mileageRange);
 
   return (
-    <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
+    <div className="card-corner relative rounded-xl border border-border bg-bg-surface overflow-hidden">
       <div className="p-5 sm:p-6">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
@@ -151,7 +151,7 @@ function IssueCard({ issue }: { issue: ReliabilityIssue }) {
               className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${SEVERITY_BG[issue.severity]}`}
               aria-hidden="true"
             />
-            <h3 className="text-base font-bold tracking-tight text-text-primary">
+            <h3 className="font-display text-base uppercase tracking-wide text-text-primary">
               {issue.name}
             </h3>
           </div>
@@ -162,7 +162,7 @@ function IssueCard({ issue }: { issue: ReliabilityIssue }) {
         </div>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed text-text-secondary">
+        <p className="font-body text-sm leading-relaxed text-text-secondary">
           {issue.description}
         </p>
       </div>
@@ -177,17 +177,17 @@ function IssueCard({ issue }: { issue: ReliabilityIssue }) {
                   <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">
                     Est. Fix Cost
                   </p>
-                  <p className="text-sm font-semibold text-text-primary">
+                  <p className="font-mono text-sm font-semibold text-text-primary">
                     {issue.fixCostEstimate}
                   </p>
                 </div>
               )}
               {issue.mileageRange && (
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">
+                  <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1">
                     Typical Mileage
                   </p>
-                  <p className="text-sm font-semibold text-text-primary">
+                  <p className="font-mono text-sm font-semibold text-text-primary">
                     {issue.mileageRange}
                   </p>
                 </div>
@@ -299,14 +299,14 @@ export default function ReliabilityPage() {
 
         {/* Page header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
+          <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
             Reliability Report
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-none">
+          <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
             {displayMake} {displayModel}
           </h1>
           {displayGen && (
-            <p className="mt-1.5 text-lg text-text-secondary font-medium">
+            <p className="font-body mt-1.5 text-lg text-text-secondary font-medium">
               {displayGen} Generation
             </p>
           )}
@@ -365,20 +365,20 @@ export default function ReliabilityPage() {
                   <div className="flex flex-wrap justify-center sm:justify-start gap-4">
                     <div className="flex items-center gap-2">
                       <span className="h-2.5 w-2.5 rounded-full bg-red-400" aria-hidden="true" />
-                      <span className="text-xs text-text-secondary">
-                        <span className="font-bold text-text-primary">{severityCounts.High}</span> High
+                      <span className="font-body text-xs text-text-secondary">
+                        <span className="font-mono font-bold text-text-primary">{severityCounts.High}</span> High
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true" />
-                      <span className="text-xs text-text-secondary">
-                        <span className="font-bold text-text-primary">{severityCounts.Medium}</span> Medium
+                      <span className="font-body text-xs text-text-secondary">
+                        <span className="font-mono font-bold text-text-primary">{severityCounts.Medium}</span> Medium
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                      <span className="text-xs text-text-secondary">
-                        <span className="font-bold text-text-primary">{severityCounts.Low}</span> Low
+                      <span className="font-body text-xs text-text-secondary">
+                        <span className="font-mono font-bold text-text-primary">{severityCounts.Low}</span> Low
                       </span>
                     </div>
                   </div>
@@ -388,8 +388,9 @@ export default function ReliabilityPage() {
 
             {/* Common Issues */}
             <section className="mb-8">
-              <h2 className="text-[11px] font-bold uppercase tracking-widest text-text-muted mb-4">
-                Common Issues ({reliabilityData.issues.length})
+              <h2 className="section-label mb-4">
+                Common Issues
+                <span className="font-mono ml-2 text-base">({reliabilityData.issues.length})</span>
               </h2>
               <div className="space-y-4">
                 {reliabilityData.issues.map((issue) => (
@@ -416,7 +417,7 @@ export default function ReliabilityPage() {
                     <line x1="12" y1="16" x2="12" y2="12" />
                     <line x1="12" y1="8" x2="12.01" y2="8" />
                   </svg>
-                  <h2 className="text-lg font-bold tracking-tight text-text-primary">
+                  <h2 className="font-display text-xl uppercase tracking-wide text-text-primary">
                     What to Look for When Buying
                   </h2>
                 </div>
@@ -424,7 +425,7 @@ export default function ReliabilityPage() {
                   {reliabilityData.buyingTips.map((tip, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-red" aria-hidden="true" />
-                      <span className="text-sm leading-relaxed text-text-secondary">
+                      <span className="font-body text-sm leading-relaxed text-text-secondary">
                         {tip}
                       </span>
                     </li>

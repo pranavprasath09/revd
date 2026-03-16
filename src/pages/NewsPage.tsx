@@ -52,13 +52,13 @@ export default function NewsPage() {
       <div className="mx-auto max-w-5xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
+          <p className="font-body text-[11px] font-bold uppercase tracking-[0.15em] text-accent-red">
             Latest Coverage
           </p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+          <h1 className="font-display mt-2 text-3xl uppercase tracking-wider text-text-primary sm:text-4xl">
             News
           </h1>
-          <p className="mt-2 max-w-xl text-base leading-relaxed text-text-secondary">
+          <p className="font-body mt-2 max-w-xl text-base leading-relaxed text-text-secondary">
             The latest from the automotive world — curated from the sources
             enthusiasts actually trust.
           </p>
@@ -115,7 +115,7 @@ export default function NewsPage() {
               Previous
             </button>
 
-            <span className="text-xs font-medium tabular-nums text-text-muted">
+            <span className="font-mono text-xs font-medium tabular-nums text-text-muted">
               {currentPage} / {totalPages}
             </span>
 

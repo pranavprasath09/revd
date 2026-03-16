@@ -43,10 +43,10 @@ export default function SearchBar({ cars, placeholder = "Search cars..." }: Sear
   }
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-xl">
-      <div className="relative">
+    <div ref={wrapperRef} className="relative w-full max-w-xl mx-auto">
+      <div className="relative group">
         <svg
-          className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted"
+          className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted transition-colors group-focus-within:text-accent-red"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -68,30 +68,30 @@ export default function SearchBar({ cars, placeholder = "Search cars..." }: Sear
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
-          className="h-12 w-full rounded-xl border border-border bg-bg-surface pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted transition-colors focus:border-accent focus:outline-none sm:h-14 sm:text-base"
+          className="h-14 w-full rounded-full border border-white/10 bg-white/5 pl-14 pr-6 font-body text-sm text-white placeholder:text-text-muted backdrop-blur-md transition-all duration-300 focus:border-accent-red/50 focus:outline-none focus:shadow-[0_0_30px_8px_rgba(230,57,70,0.15)] sm:h-16 sm:text-base"
         />
       </div>
 
       {isOpen && results.length > 0 && (
-        <ul className="absolute top-full z-50 mt-2 w-full overflow-hidden rounded-xl border border-border bg-bg-elevated shadow-2xl">
+        <ul className="absolute top-full z-50 mt-3 w-full overflow-hidden rounded-2xl border border-white/10 bg-bg-elevated/95 shadow-2xl shadow-black/50 backdrop-blur-xl">
           {results.map((car) => (
             <li key={car.id}>
               <button
                 type="button"
                 onClick={() => handleSelect(car)}
-                className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-bg-surface"
+                className="flex w-full items-center gap-4 px-5 py-3.5 text-left transition-colors hover:bg-white/5"
               >
                 <img
                   src={car.heroImage}
                   alt={`${car.make} ${car.model}`}
-                  className="h-10 w-14 rounded-md object-cover"
+                  className="h-10 w-14 rounded-lg object-cover"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-text-primary">
+                  <p className="font-display text-lg uppercase tracking-wide text-white">
                     {car.make} {car.model}{" "}
-                    <span className="text-text-muted">{car.generation}</span>
+                    <span className="text-accent-red">{car.generation}</span>
                   </p>
-                  <p className="text-xs text-text-secondary">
+                  <p className="font-mono text-xs text-text-secondary">
                     {car.years} · {car.engines[0].power} · {car.performance.drivetrain}
                   </p>
                 </div>

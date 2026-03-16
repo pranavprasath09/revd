@@ -18,10 +18,10 @@ export default function CategoryFilter({
             key={category}
             type="button"
             onClick={() => onChange(category)}
-            className={`shrink-0 cursor-pointer rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+            className={`shrink-0 cursor-pointer rounded-full px-5 py-2 font-body text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
               isActive
-                ? "bg-accent text-white shadow-md shadow-accent/25"
-                : "border border-border bg-bg-surface text-text-secondary hover:border-accent/40 hover:text-text-primary"
+                ? "bg-accent-red text-white shadow-md shadow-accent-red/25"
+                : "border border-white/10 bg-bg-surface text-text-secondary hover:border-accent-red/40 hover:text-text-primary"
             }`}
           >
             {category}

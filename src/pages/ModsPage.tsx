@@ -69,12 +69,12 @@ function ModCard({ mod }: { mod: Mod }) {
   const hasPremiumContent = mod.isPremium && (mod.partNumbers || mod.installNotes);
 
   return (
-    <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
+    <div className="card-corner relative rounded-xl border border-border bg-bg-surface overflow-hidden">
       <div className="p-5 sm:p-6">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5">
-            <h3 className="text-lg font-bold tracking-tight text-text-primary">
+            <h3 className="font-display text-lg uppercase tracking-wide text-text-primary">
               {mod.name}
             </h3>
             {mod.isPremium && (
@@ -85,7 +85,7 @@ function ModCard({ mod }: { mod: Mod }) {
         </div>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed text-text-secondary mb-4">
+        <p className="font-body text-sm leading-relaxed text-text-secondary mb-4">
           {mod.description}
         </p>
 
@@ -105,7 +105,7 @@ function ModCard({ mod }: { mod: Mod }) {
               <line x1="12" y1="1" x2="12" y2="23" />
               <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
-            <span className="font-medium text-text-primary">{mod.costEstimate}</span>
+            <span className="font-mono font-medium text-text-primary">{mod.costEstimate}</span>
           </div>
           <div className="flex items-center gap-1.5 text-text-muted text-xs uppercase tracking-wider font-semibold">
             <svg
@@ -252,18 +252,18 @@ export default function ModsPage() {
 
         {/* Page header */}
         <header className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
+          <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-2">
             Mod Guides
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-none">
+          <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
             {displayMake} {displayModel}
           </h1>
           {displayGen && (
-            <p className="mt-1.5 text-lg text-text-secondary font-medium">
+            <p className="font-body mt-1.5 text-lg text-text-secondary font-medium">
               {displayGen} Generation
             </p>
           )}
-          <p className="mt-3 text-sm text-text-secondary max-w-2xl leading-relaxed">
+          <p className="font-body mt-3 text-sm text-text-secondary max-w-2xl leading-relaxed">
             From easy bolt-ons to full engine builds — everything you need to
             modify your {displayMake} {displayModel}. Premium members get part
             numbers and detailed install notes.
@@ -320,7 +320,7 @@ export default function ModsPage() {
                   >
                     {filter}
                     <span
-                      className={`text-xs ${
+                      className={`font-mono text-xs ${
                         isActive ? "text-white/70" : "text-text-muted"
                       }`}
                     >
@@ -356,34 +356,34 @@ export default function ModsPage() {
             {/* Stats footer */}
             <div className="mt-8 flex flex-wrap gap-6 rounded-xl border border-border bg-bg-surface p-5 text-center sm:text-left">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
+                <p className="font-body text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
                   Total Mods
                 </p>
-                <p className="text-xl font-extrabold text-text-primary">
+                <p className="font-mono text-xl font-extrabold text-text-primary">
                   {modData.mods.length}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
+                <p className="font-body text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
                   Beginner
                 </p>
-                <p className="text-xl font-extrabold text-emerald-400">
+                <p className="font-mono text-xl font-extrabold text-emerald-400">
                   {modData.mods.filter((m) => m.difficulty === "Beginner").length}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
+                <p className="font-body text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
                   Intermediate
                 </p>
-                <p className="text-xl font-extrabold text-amber-400">
+                <p className="font-mono text-xl font-extrabold text-amber-400">
                   {modData.mods.filter((m) => m.difficulty === "Intermediate").length}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
+                <p className="font-body text-[10px] font-bold uppercase tracking-widest text-text-muted mb-0.5">
                   Advanced
                 </p>
-                <p className="text-xl font-extrabold text-red-400">
+                <p className="font-mono text-xl font-extrabold text-red-400">
                   {modData.mods.filter((m) => m.difficulty === "Advanced").length}
                 </p>
               </div>
