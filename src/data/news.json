@@ -1,0 +1,42 @@
+[
+  {
+    "id": "new-gr86-2026",
+    "title": "2026 Toyota GR86 Gets More Power, Revised Suspension",
+    "slug": "2026-toyota-gr86-gets-more-power",
+    "excerpt": "Toyota's beloved sports car receives a bump to 240hp and retuned dampers for sharper handling. The lightweight RWD coupe continues to be the enthusiast's choice.",
+    "source": "Motor Trend",
+    "category": "JDM",
+    "image": "https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=600&h=340&fit=crop",
+    "publishedAt": "2026-03-14T10:00:00Z"
+  },
+  {
+    "id": "porsche-ev-cayman",
+    "title": "Porsche Confirms Electric Cayman for 2027 with 600hp",
+    "slug": "porsche-confirms-electric-cayman-2027",
+    "excerpt": "The next-gen Cayman goes fully electric with dual motors, 600hp, and a sub-3.5s 0–60. Porsche promises it'll still feel like a driver's car.",
+    "source": "Car and Driver",
+    "category": "European",
+    "image": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600&h=340&fit=crop",
+    "publishedAt": "2026-03-13T14:30:00Z"
+  },
+  {
+    "id": "ford-mustang-dark-horse",
+    "title": "Ford Mustang Dark Horse S650 Track Pack Revealed",
+    "slug": "ford-mustang-dark-horse-track-pack",
+    "excerpt": "Ford adds a factory track pack to the Dark Horse with carbon ceramic brakes, adjustable aero, and 10 more horsepower from the 5.0L Coyote V8.",
+    "source": "Road & Track",
+    "category": "Muscle",
+    "image": "https://images.unsplash.com/photo-1584345604476-8ec5f82d661f?w=600&h=340&fit=crop",
+    "publishedAt": "2026-03-12T09:15:00Z"
+  },
+  {
+    "id": "nissan-z-nismo",
+    "title": "Nissan Z NISMO Gets 420hp Twin-Turbo V6 for 2026",
+    "slug": "nissan-z-nismo-420hp-2026",
+    "excerpt": "The hottest Z yet arrives with 420hp, a limited-slip diff, Recaro seats, and NISMO-tuned suspension. Only 1,000 units for the US market.",
+    "source": "Top Gear",
+    "category": "JDM",
+    "image": "https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=600&h=340&fit=crop",
+    "publishedAt": "2026-03-11T16:00:00Z"
+  }
+]

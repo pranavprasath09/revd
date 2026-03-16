@@ -1,0 +1,220 @@
+[
+  {
+    "id": "bmw-3-series-e46",
+    "make": "BMW",
+    "model": "3 Series",
+    "generation": "E46",
+    "years": "1998–2006",
+    "bodyStyles": ["Sedan", "Coupe", "Convertible", "Touring"],
+    "engines": [
+      {
+        "code": "M54B25",
+        "displacement": "2.5L",
+        "configuration": "Inline-6",
+        "power": "192hp",
+        "torque": "245Nm",
+        "variants": ["325i", "325Ci"]
+      },
+      {
+        "code": "S54B32",
+        "displacement": "3.2L",
+        "configuration": "Inline-6",
+        "power": "338hp",
+        "torque": "365Nm",
+        "variants": ["M3"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "5.1s",
+      "top_speed_kph": 250,
+      "weight_kg": 1570,
+      "drivetrain": "RWD"
+    },
+    "dimensions": {
+      "length_mm": 4492,
+      "width_mm": 1757,
+      "height_mm": 1370,
+      "wheelbase_mm": 2731
+    },
+    "reliabilityScore": 72,
+    "popularityScore": 95,
+    "tags": ["European", "Track", "Daily", "Drift"],
+    "heroImage": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&h=500&fit=crop",
+    "slug": "bmw-3-series-e46"
+  },
+  {
+    "id": "toyota-supra-a80",
+    "make": "Toyota",
+    "model": "Supra",
+    "generation": "A80",
+    "years": "1993–2002",
+    "bodyStyles": ["Coupe"],
+    "engines": [
+      {
+        "code": "2JZ-GTE",
+        "displacement": "3.0L",
+        "configuration": "Inline-6 Twin-Turbo",
+        "power": "320hp",
+        "torque": "427Nm",
+        "variants": ["Turbo"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "4.6s",
+      "top_speed_kph": 250,
+      "weight_kg": 1565,
+      "drivetrain": "RWD"
+    },
+    "dimensions": {
+      "length_mm": 4514,
+      "width_mm": 1811,
+      "height_mm": 1275,
+      "wheelbase_mm": 2550
+    },
+    "reliabilityScore": 85,
+    "popularityScore": 99,
+    "tags": ["JDM", "Track", "Tuner", "Legend"],
+    "heroImage": "https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=800&h=500&fit=crop",
+    "slug": "toyota-supra-a80"
+  },
+  {
+    "id": "honda-s2000-ap1",
+    "make": "Honda",
+    "model": "S2000",
+    "generation": "AP1",
+    "years": "1999–2009",
+    "bodyStyles": ["Roadster"],
+    "engines": [
+      {
+        "code": "F20C",
+        "displacement": "2.0L",
+        "configuration": "Inline-4",
+        "power": "240hp",
+        "torque": "208Nm",
+        "variants": ["AP1"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "5.8s",
+      "top_speed_kph": 241,
+      "weight_kg": 1260,
+      "drivetrain": "RWD"
+    },
+    "dimensions": {
+      "length_mm": 4135,
+      "width_mm": 1750,
+      "height_mm": 1285,
+      "wheelbase_mm": 2400
+    },
+    "reliabilityScore": 88,
+    "popularityScore": 90,
+    "tags": ["JDM", "Track", "Roadster", "VTEC"],
+    "heroImage": "https://images.unsplash.com/photo-1611016186353-652a28517ab2?w=800&h=500&fit=crop",
+    "slug": "honda-s2000-ap1"
+  },
+  {
+    "id": "nissan-skyline-gtr-r34",
+    "make": "Nissan",
+    "model": "Skyline GT-R",
+    "generation": "R34",
+    "years": "1999–2002",
+    "bodyStyles": ["Coupe"],
+    "engines": [
+      {
+        "code": "RB26DETT",
+        "displacement": "2.6L",
+        "configuration": "Inline-6 Twin-Turbo",
+        "power": "276hp",
+        "torque": "392Nm",
+        "variants": ["GT-R"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "4.8s",
+      "top_speed_kph": 250,
+      "weight_kg": 1560,
+      "drivetrain": "AWD"
+    },
+    "dimensions": {
+      "length_mm": 4600,
+      "width_mm": 1785,
+      "height_mm": 1360,
+      "wheelbase_mm": 2665
+    },
+    "reliabilityScore": 75,
+    "popularityScore": 98,
+    "tags": ["JDM", "Track", "Legend", "AWD"],
+    "heroImage": "https://images.unsplash.com/photo-1630046029587-48e903429171?w=800&h=500&fit=crop",
+    "slug": "nissan-skyline-gtr-r34"
+  },
+  {
+    "id": "porsche-911-997",
+    "make": "Porsche",
+    "model": "911",
+    "generation": "997",
+    "years": "2004–2012",
+    "bodyStyles": ["Coupe", "Cabriolet", "Targa"],
+    "engines": [
+      {
+        "code": "MA1.01",
+        "displacement": "3.6L",
+        "configuration": "Flat-6",
+        "power": "345hp",
+        "torque": "390Nm",
+        "variants": ["Carrera S"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "4.7s",
+      "top_speed_kph": 293,
+      "weight_kg": 1420,
+      "drivetrain": "RWD"
+    },
+    "dimensions": {
+      "length_mm": 4427,
+      "width_mm": 1808,
+      "height_mm": 1310,
+      "wheelbase_mm": 2350
+    },
+    "reliabilityScore": 78,
+    "popularityScore": 92,
+    "tags": ["European", "Track", "Luxury", "Icon"],
+    "heroImage": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop",
+    "slug": "porsche-911-997"
+  },
+  {
+    "id": "mazda-mx5-na",
+    "make": "Mazda",
+    "model": "MX-5 Miata",
+    "generation": "NA",
+    "years": "1989–1997",
+    "bodyStyles": ["Roadster"],
+    "engines": [
+      {
+        "code": "B6ZE",
+        "displacement": "1.6L",
+        "configuration": "Inline-4",
+        "power": "116hp",
+        "torque": "136Nm",
+        "variants": ["Base"]
+      }
+    ],
+    "performance": {
+      "0_to_100_kph": "8.7s",
+      "top_speed_kph": 195,
+      "weight_kg": 955,
+      "drivetrain": "RWD"
+    },
+    "dimensions": {
+      "length_mm": 3970,
+      "width_mm": 1675,
+      "height_mm": 1235,
+      "wheelbase_mm": 2265
+    },
+    "reliabilityScore": 92,
+    "popularityScore": 93,
+    "tags": ["JDM", "Track", "Roadster", "Lightweight"],
+    "heroImage": "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=500&fit=crop",
+    "slug": "mazda-mx5-na"
+  }
+]

@@ -15,7 +15,7 @@ export default function SEOHead({
   canonicalUrl,
   jsonLd,
 }: SEOHeadProps) {
-  const fullTitle = `${title} | RevHub`;
+  const fullTitle = `${title} | RevD`;
 
   return (
     <Helmet>

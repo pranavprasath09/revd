@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-border bg-bg-base/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="text-xl font-bold tracking-tight text-text-primary">
-          Rev<span className="text-accent">Hub</span>
+          Rev<span className="text-accent">D</span>
         </Link>
 
         <div className="flex items-center gap-6">
