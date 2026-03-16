@@ -13,6 +13,7 @@ const ModsIndexPage = lazy(() => import("@/pages/ModsIndexPage"));
 const ModsPage = lazy(() => import("@/pages/ModsPage"));
 const ReliabilityIndexPage = lazy(() => import("@/pages/ReliabilityIndexPage"));
 const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
+const GaragePage = lazy(() => import("@/pages/GaragePage"));
 const ComparePage = lazy(() => import("@/pages/ComparePage"));
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="/mods/:make/:model" element={<ModsPage />} />
               <Route path="/reliability" element={<ReliabilityIndexPage />} />
               <Route path="/reliability/:make/:model" element={<ReliabilityPage />} />
+              <Route path="/garage" element={<GaragePage />} />
               <Route path="/compare" element={<ComparePage />} />
             </Routes>
           </Suspense>
