@@ -1,6 +1,5 @@
 # CLAUDE.md — RevD Master Context
-# This file is read automatically by Claude Code at the start of every session.
-# Last updated: March 2026 — Post Sprint 1
+# Last updated: March 2026 — Post Sprint 2
 
 ---
 
@@ -34,7 +33,7 @@ and photographers — all in one place built specifically for them.
 
 ---
 
-## CURRENT STATE (Post Sprint 1 — March 2026)
+## CURRENT STATE (Post Sprint 2 — March 2026)
 
 ### COMPLETED — Sprint 1
 - Supabase project connected (project ID: wzetatmqlenzndsycqza)
@@ -43,12 +42,20 @@ and photographers — all in one place built specifically for them.
 - garage_cars table live with RLS policies
 - useAuth hook — synchronous state update, background tier fetch
 - useGarage hook — reads/writes from Supabase garage_cars table
-- SignInPage — supports both sign in and sign up modes
-- All 5 Sprint 1 tests passing
+- SignInPage — sign in and sign up modes, redirect param support
+
+### COMPLETED — Sprint 2
+- meets table live with RLS policies (publicly readable)
+- meet_rsvps table live with RLS policies (publicly readable)
+- useMeets hook — fetchMeets, fetchMeet, createMeet, rsvpToMeet, unrsvpFromMeet, getUserRsvps
+- MeetsPage (/meets) — feed with type filters, meet cards, empty state
+- CreateMeetPage (/meets/create) — full form, auth gated, cover image preview
+- MeetDetailPage (/meets/:id) — cinematic hero, stats bar, RSVP system, attendee list, share button, Google Maps link
+- Redirect flow — sign-in links pass ?redirect= param so users return to the right page after auth
+- Attendee names pulled from profiles table via joined query
 
 ### NOT YET BUILT
-- Car Meets (Sprint 2) — NEXT
-- Photo Albums / Photographer Profiles (Sprint 3)
+- Photo Albums / Photographer Profiles (Sprint 3) — NEXT
 - Community Forums (Sprint 4)
 - Build Logs (Sprint 5)
 - Notifications + Feed (Sprint 6)
@@ -89,23 +96,15 @@ garage_cars (
   created_at timestamptz
 )
 
-RLS is enabled on all tables. Never disable RLS. Always add policies when creating new tables.
-
----
-
-## COMING NEXT — Sprint 2: Car Meets
-
-Tables to create:
-
 meets (
   id uuid primary key,
-  creator_id uuid references auth.users,
-  name text,
+  creator_id uuid references auth.users not null,
+  name text not null,
   description text,
   location_name text,
   location_lat float,
   location_lng float,
-  date date,
+  date date not null,
   time time,
   meet_type text,
   cover_image_url text,
@@ -115,16 +114,53 @@ meets (
 
 meet_rsvps (
   id uuid primary key,
-  meet_id uuid references meets,
-  user_id uuid references auth.users,
+  meet_id uuid references meets on delete cascade not null,
+  user_id uuid references auth.users not null,
   created_at timestamptz,
   unique(meet_id, user_id)
 )
 
+RLS is enabled on all tables. Never disable RLS. Always add policies when creating new tables.
+meets and meet_rsvps are publicly readable — no auth required to view.
+
+---
+
+## COMING NEXT — Sprint 3: Photo Albums + Photographer Profiles
+
+Tables to create:
+
+albums (
+  id uuid primary key,
+  creator_id uuid references auth.users not null,
+  title text not null,
+  description text,
+  cover_image_url text,
+  car_tags text[],
+  created_at timestamptz
+)
+
+album_photos (
+  id uuid primary key,
+  album_id uuid references albums on delete cascade not null,
+  image_url text not null,
+  caption text,
+  car_tag text,
+  order_index integer default 0,
+  created_at timestamptz
+)
+
 Pages to build:
-- /meets — feed of upcoming meets, filter by type
-- /meets/create — form to create a meet (requires auth)
-- /meets/:id — meet detail with RSVP button, attendee count, shareable link
+- /photos — masonry grid of all public albums, newest first
+- /photos/create — album creation with multi-image upload to Supabase Storage
+- /photos/:id — full album view with photographer info and car tags
+- /profile/:username — user profile with albums, garage cars, meets created
+
+Key rules for Sprint 3:
+- Photos page must be visually stunning — this is what photographers share
+- Supabase Storage bucket called photos must be created before upload works
+- Albums are publicly readable — no auth required to view
+- Upload requires auth — gate the create page
+- Profile page is the photographer's portfolio — make it look like a real portfolio
 
 ---
 
@@ -146,6 +182,7 @@ Component rules:
 - Primary buttons: bg-accent-red hover:bg-accent-hover text-white font-display uppercase
 - Mobile first — design for 390px, enhance for desktop
 - All interactive elements: minimum 44px touch target
+- Images: always lazy load, always aspect-ratio locked
 
 ---
 
@@ -160,12 +197,38 @@ src/
                   PremiumGate, SEOHead, SearchBar
   context/        AuthContext.tsx
   data/           cars.json, news.json, mods/, reliability/
-  hooks/          useAuth.ts, useGarage.ts
+  hooks/          useAuth.ts, useGarage.ts, useMeets.ts
   lib/            supabase.ts, utils.ts
   pages/          HomePage, CarsPage, CarDetailPage, NewsPage, ArticlePage,
                   ModsIndexPage, ModsPage, ReliabilityIndexPage, ReliabilityPage,
-                  GaragePage, ComparePage, SignInPage
-  types/          auth.ts, car.ts, garage.ts, news.ts
+                  GaragePage, ComparePage, SignInPage,
+                  MeetsPage, CreateMeetPage, MeetDetailPage
+  types/          auth.ts, car.ts, garage.ts, news.ts, meet.ts
+
+---
+
+## ROUTE MAP
+
+/                           Home
+/cars                       Browse all cars
+/cars/:make/:model/:year    Car detail
+/news                       News feed
+/news/:slug                 Article
+/mods                       Mod guides index
+/mods/:make/:model          Mod guide
+/reliability                Reliability index
+/reliability/:make/:model   Reliability report
+/garage                     User garage (requires auth)
+/compare                    Car comparison
+/sign-in                    Sign in / Sign up
+/meets                      Meet feed
+/meets/create               Create a meet (requires auth)
+/meets/:id                  Meet detail (public)
+/photos                     ← SPRINT 3
+/photos/create              ← SPRINT 3
+/photos/:id                 ← SPRINT 3
+/profile/:username          ← SPRINT 3
+/communities                ← SPRINT 4
 
 ---
 
@@ -186,8 +249,8 @@ src/
 ## SPRINT HISTORY
 
 Sprint 1 — DONE: Supabase auth, profiles, garage_cars, useAuth, useGarage, SignInPage
-Sprint 2 — NEXT: Car Meets
-Sprint 3 — Upcoming: Photo Albums + Photographer Profiles
+Sprint 2 — DONE: Car Meets, meets table, meet_rsvps, useMeets, MeetsPage, CreateMeetPage, MeetDetailPage, RSVP system, redirect flow
+Sprint 3 — NEXT: Photo Albums + Photographer Profiles
 Sprint 4 — Upcoming: Community Forums
 Sprint 5 — Upcoming: Build Logs
 Sprint 6 — Upcoming: Notifications + Feed
@@ -201,5 +264,6 @@ Sprint 8 — Upcoming: Featured Photographer
 - One founder, learning as he builds, using Claude Code as the build engine
 - Small steps — one file at a time, show before writing, wait for approval
 - Meets and Photos are the two viral features — make them beautiful
+- The meet detail page is the viral loop — shared links convert strangers to users
 - Target: 500 MAU, 100 paying members, $700+/mo by Month 6
 - D30 retention is the north star metric
