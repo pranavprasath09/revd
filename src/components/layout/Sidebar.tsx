@@ -140,7 +140,7 @@ export default function Sidebar() {
                 </div>
               </div>
               <button
-                onClick={() => { signOut(); setMobileOpen(false); navigate("/"); }}
+                onClick={async () => { await signOut(); setMobileOpen(false); navigate("/sign-in"); }}
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-[#1a1a1a] hover:text-white transition-all md:justify-center md:px-0 lg:justify-start lg:px-3 cursor-pointer"
                 title="Sign out"
               >

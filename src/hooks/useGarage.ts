@@ -1,84 +1,203 @@
 import { useState, useCallback, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { useAuthContext } from "@/context/AuthContext";
 import type { GarageCar, GarageMod } from "@/types/garage";
 
-const STORAGE_KEY = "revd-garage";
-
-function loadGarage(): GarageCar[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as GarageCar[];
-  } catch {
-    return [];
-  }
+interface GarageRow {
+  id: string;
+  user_id: string;
+  car_id: string;
+  nickname: string | null;
+  year: string | null;
+  notes: string | null;
+  mods: GarageMod[];
+  created_at: string;
 }
 
-function saveGarage(cars: GarageCar[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cars));
+function rowToCar(row: GarageRow): GarageCar {
+  return {
+    id: row.id,
+    carId: row.car_id,
+    nickname: row.nickname ?? undefined,
+    year: row.year ?? undefined,
+    notes: row.notes ?? "",
+    mods: row.mods ?? [],
+    addedAt: row.created_at,
+  };
 }
 
 export default function useGarage() {
-  const [cars, setCars] = useState<GarageCar[]>(loadGarage);
+  const { user } = useAuthContext();
+  const [cars, setCars] = useState<GarageCar[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Sync to localStorage on every change
+  // Fetch garage cars for the signed-in user
   useEffect(() => {
-    saveGarage(cars);
-  }, [cars]);
+    if (!user) {
+      setCars([]);
+      setLoading(false);
+      return;
+    }
 
-  const addCar = useCallback((carId: string, nickname?: string, year?: string) => {
-    setCars((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        carId,
-        nickname: nickname || undefined,
-        year: year || undefined,
-        notes: "",
-        mods: [],
-        addedAt: new Date().toISOString(),
-      },
-    ]);
-  }, []);
+    setLoading(true);
+    supabase
+      .from("garage_cars")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: true })
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Failed to load garage:", error.message);
+          setCars([]);
+        } else {
+          setCars((data as GarageRow[]).map(rowToCar));
+        }
+        setLoading(false);
+      });
+  }, [user]);
 
-  const removeCar = useCallback((id: string) => {
-    setCars((prev) => prev.filter((c) => c.id !== id));
-  }, []);
+  const addCar = useCallback(
+    async (carId: string, nickname?: string, year?: string) => {
+      if (!user) return;
+      const { data, error } = await supabase
+        .from("garage_cars")
+        .insert({
+          user_id: user.id,
+          car_id: carId,
+          nickname: nickname ?? null,
+          year: year ?? null,
+          notes: "",
+          mods: [],
+        })
+        .select()
+        .single();
 
-  const updateCar = useCallback((id: string, updates: Partial<Pick<GarageCar, "nickname" | "year" | "notes">>) => {
-    setCars((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, ...updates } : c))
-    );
-  }, []);
+      if (error) {
+        console.error("Failed to add car:", error.message);
+        return;
+      }
+      setCars((prev) => [...prev, rowToCar(data as GarageRow)]);
+    },
+    [user]
+  );
 
-  const addMod = useCallback((carId: string, mod: Omit<GarageMod, "id">) => {
-    setCars((prev) =>
-      prev.map((c) =>
-        c.id === carId
-          ? { ...c, mods: [...c.mods, { ...mod, id: crypto.randomUUID() }] }
-          : c
-      )
-    );
-  }, []);
+  const removeCar = useCallback(
+    async (id: string) => {
+      const { error } = await supabase
+        .from("garage_cars")
+        .delete()
+        .eq("id", id);
 
-  const removeMod = useCallback((carId: string, modId: string) => {
-    setCars((prev) =>
-      prev.map((c) =>
-        c.id === carId
-          ? { ...c, mods: c.mods.filter((m) => m.id !== modId) }
-          : c
-      )
-    );
-  }, []);
+      if (error) {
+        console.error("Failed to remove car:", error.message);
+        return;
+      }
+      setCars((prev) => prev.filter((c) => c.id !== id));
+    },
+    []
+  );
 
-  const updateMod = useCallback((carId: string, modId: string, updates: Partial<Omit<GarageMod, "id">>) => {
-    setCars((prev) =>
-      prev.map((c) =>
-        c.id === carId
-          ? { ...c, mods: c.mods.map((m) => (m.id === modId ? { ...m, ...updates } : m)) }
-          : c
-      )
-    );
-  }, []);
+  const updateCar = useCallback(
+    async (
+      id: string,
+      updates: Partial<Pick<GarageCar, "nickname" | "year" | "notes">>
+    ) => {
+      const row: Record<string, unknown> = {};
+      if (updates.nickname !== undefined) row.nickname = updates.nickname;
+      if (updates.year !== undefined) row.year = updates.year;
+      if (updates.notes !== undefined) row.notes = updates.notes;
 
-  return { cars, addCar, removeCar, updateCar, addMod, removeMod, updateMod };
+      const { error } = await supabase
+        .from("garage_cars")
+        .update(row)
+        .eq("id", id);
+
+      if (error) {
+        console.error("Failed to update car:", error.message);
+        return;
+      }
+      setCars((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, ...updates } : c))
+      );
+    },
+    []
+  );
+
+  const addMod = useCallback(
+    async (carId: string, mod: Omit<GarageMod, "id">) => {
+      const car = cars.find((c) => c.id === carId);
+      if (!car) return;
+
+      const newMod = { ...mod, id: crypto.randomUUID() };
+      const newMods = [...car.mods, newMod];
+
+      const { error } = await supabase
+        .from("garage_cars")
+        .update({ mods: newMods })
+        .eq("id", carId);
+
+      if (error) {
+        console.error("Failed to add mod:", error.message);
+        return;
+      }
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
+    },
+    [cars]
+  );
+
+  const removeMod = useCallback(
+    async (carId: string, modId: string) => {
+      const car = cars.find((c) => c.id === carId);
+      if (!car) return;
+
+      const newMods = car.mods.filter((m) => m.id !== modId);
+
+      const { error } = await supabase
+        .from("garage_cars")
+        .update({ mods: newMods })
+        .eq("id", carId);
+
+      if (error) {
+        console.error("Failed to remove mod:", error.message);
+        return;
+      }
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
+    },
+    [cars]
+  );
+
+  const updateMod = useCallback(
+    async (
+      carId: string,
+      modId: string,
+      updates: Partial<Omit<GarageMod, "id">>
+    ) => {
+      const car = cars.find((c) => c.id === carId);
+      if (!car) return;
+
+      const newMods = car.mods.map((m) =>
+        m.id === modId ? { ...m, ...updates } : m
+      );
+
+      const { error } = await supabase
+        .from("garage_cars")
+        .update({ mods: newMods })
+        .eq("id", carId);
+
+      if (error) {
+        console.error("Failed to update mod:", error.message);
+        return;
+      }
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
+    },
+    [cars]
+  );
+
+  return { cars, loading, addCar, removeCar, updateCar, addMod, removeMod, updateMod };
 }

@@ -1,83 +1,106 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { supabase } from "@/lib/supabase";
 import type { User } from "@/types/auth";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
-const STORAGE_KEY = "revd-auth";
-
-// ─── Test Accounts ─────────────────────────────────────────────
-// Use these to sign in instantly during development/testing.
-const TEST_ACCOUNTS: Record<string, User> = {
-  "pro@revd.com": {
-    id: "usr_premium_001",
-    email: "pro@revd.com",
-    displayName: "Pro Tester",
-    tier: "premium",
-    avatar: "PT",
-  },
-  "free@revd.com": {
-    id: "usr_free_001",
-    email: "free@revd.com",
-    displayName: "Free Tester",
+function mapSupabaseUser(su: SupabaseUser): User {
+  const meta = su.user_metadata ?? {};
+  return {
+    id: su.id,
+    email: su.email ?? "",
+    displayName:
+      meta.display_name ?? meta.full_name ?? su.email?.split("@")[0] ?? "",
     tier: "free",
-    avatar: "FT",
-  },
-};
-
-// Password for both accounts — kept simple for testing
-const TEST_PASSWORD = "revd";
-
-function loadUser(): User | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as User;
-  } catch {
-    return null;
-  }
+    avatar: meta.avatar_url ?? undefined,
+  };
 }
 
-function saveUser(user: User | null) {
-  if (user) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-  } else {
-    localStorage.removeItem(STORAGE_KEY);
-  }
+async function fetchTier(userId: string): Promise<"free" | "premium"> {
+  const { data } = await supabase
+    .from("profiles")
+    .select("tier")
+    .eq("id", userId)
+    .single();
+  return data?.tier === "premium" ? "premium" : "free";
 }
 
 export default function useAuth() {
-  const [user, setUser] = useState<User | null>(loadUser);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    saveUser(user);
-  }, [user]);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        const mapped = mapSupabaseUser(session.user);
+        setUser(mapped);
+        fetchTier(session.user.id).then((tier) => {
+          setUser((prev) => (prev?.id === mapped.id ? { ...prev, tier } : prev));
+        });
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
 
-  const signIn = useCallback((email: string, password: string): { success: boolean; error?: string } => {
-    const normalizedEmail = email.toLowerCase().trim();
-    const account = TEST_ACCOUNTS[normalizedEmail];
+    // Trigger INITIAL_SESSION event if it was missed
+    supabase.auth.getSession();
 
-    if (!account) {
-      return { success: false, error: "No account found with that email." };
-    }
+    return () => subscription.unsubscribe();
+  }, []);
 
-    if (password !== TEST_PASSWORD) {
-      return { success: false, error: "Incorrect password." };
-    }
+  const signIn = useCallback(
+    async (
+      email: string,
+      password: string
+    ): Promise<{ success: boolean; error?: string }> => {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    },
+    []
+  );
 
-    setUser(account);
+  const signUp = useCallback(
+    async (
+      email: string,
+      password: string
+    ): Promise<{ success: boolean; error?: string }> => {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    },
+    []
+  );
+
+  const signInWithGoogle = useCallback(async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) return { success: false, error: error.message };
     return { success: true };
   }, []);
 
-  const signOut = useCallback(() => {
+  const signOut = useCallback(async () => {
+    await supabase.auth.signOut();
     setUser(null);
   }, []);
 
   const isPremium = useMemo(() => user?.tier === "premium", [user]);
   const isSignedIn = useMemo(() => user !== null, [user]);
 
-  return { user, isSignedIn, isPremium, signIn, signOut };
+  return {
+    user,
+    loading,
+    isSignedIn,
+    isPremium,
+    signIn,
+    signUp,
+    signInWithGoogle,
+    signOut,
+  };
 }
-
-// Export test accounts info for display on sign-in page
-export const TEST_ACCOUNT_INFO = [
-  { email: "pro@revd.com", password: "revd", tier: "premium" as const, label: "Premium Member — full access to all content" },
-  { email: "free@revd.com", password: "revd", tier: "free" as const, label: "Free Member — premium content is gated" },
-];

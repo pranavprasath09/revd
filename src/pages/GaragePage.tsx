@@ -17,7 +17,7 @@ function carById(carId: string): Car | undefined {
 interface AddCarModalProps {
   open: boolean;
   onClose: () => void;
-  onAdd: (carId: string, nickname?: string, year?: string) => void;
+  onAdd: (carId: string, nickname?: string, year?: string) => void | Promise<void>;
   existingCarIds: string[];
 }
 
@@ -49,9 +49,9 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
       .slice(0, 8);
   }, [search]);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!selectedCar) return;
-    onAdd(selectedCar.id, nickname.trim() || undefined, year.trim() || undefined);
+    await onAdd(selectedCar.id, nickname.trim() || undefined, year.trim() || undefined);
     onClose();
   }
 

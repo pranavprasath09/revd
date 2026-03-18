@@ -4,10 +4,13 @@ import type { User } from "@/types/auth";
 
 interface AuthContextValue {
   user: User | null;
+  loading: boolean;
   isSignedIn: boolean;
   isPremium: boolean;
-  signIn: (email: string, password: string) => { success: boolean; error?: string };
-  signOut: () => void;
+  signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signUp: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
