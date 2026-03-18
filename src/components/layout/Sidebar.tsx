@@ -21,7 +21,7 @@ const NAV_ITEMS = [
   { to: "/reliability", label: "Reliability", icon: Shield },
   { to: "/mods", label: "Mod Guides", icon: Wrench },
   { to: "/garage", label: "My Garage", icon: Gauge },
-  { to: "/events", label: "Car Events", icon: CalendarDays },
+  { to: "/meets", label: "Car Meets", icon: CalendarDays },
 ];
 
 function isActive(pathname: string, to: string): boolean {

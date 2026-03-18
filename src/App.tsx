@@ -17,6 +17,9 @@ const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
 const GaragePage = lazy(() => import("@/pages/GaragePage"));
 const ComparePage = lazy(() => import("@/pages/ComparePage"));
 const SignInPage = lazy(() => import("@/pages/SignInPage"));
+const MeetsPage = lazy(() => import("@/pages/MeetsPage"));
+const CreateMeetPage = lazy(() => import("@/pages/CreateMeetPage"));
+const MeetDetailPage = lazy(() => import("@/pages/MeetDetailPage"));
 
 export default function App() {
   return (
@@ -39,6 +42,9 @@ export default function App() {
                 <Route path="/reliability" element={<ReliabilityIndexPage />} />
                 <Route path="/reliability/:make/:model" element={<ReliabilityPage />} />
                 <Route path="/garage" element={<GaragePage />} />
+                <Route path="/meets" element={<MeetsPage />} />
+                <Route path="/meets/create" element={<CreateMeetPage />} />
+                <Route path="/meets/:id" element={<MeetDetailPage />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
               </Routes>

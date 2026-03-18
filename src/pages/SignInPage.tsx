@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
@@ -7,6 +7,8 @@ import { useAuthContext } from "@/context/AuthContext";
 export default function SignInPage() {
   const { signIn, signUp, isSignedIn } = useAuthContext();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/garage";
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ export default function SignInPage() {
 
   // Redirect if already signed in
   if (isSignedIn) {
-    navigate("/garage", { replace: true });
+    navigate(redirectTo, { replace: true });
     return null;
   }
 
@@ -25,7 +27,7 @@ export default function SignInPage() {
     if (mode === "signin") {
       const result = await signIn(email, password);
       if (result.success) {
-        navigate("/garage");
+        navigate(redirectTo);
       } else {
         setError(result.error ?? "Sign in failed.");
       }
