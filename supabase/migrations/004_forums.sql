@@ -4,6 +4,7 @@
 -- Communities
 create table if not exists communities (
   id uuid primary key default gen_random_uuid(),
+  creator_id uuid references profiles(id) on delete set null,
   name text not null unique,
   slug text not null unique,
   description text,
@@ -21,8 +22,8 @@ create policy "Communities are viewable by everyone"
 create policy "Authenticated users can insert communities"
   on communities for insert with check (auth.uid() is not null);
 
-create policy "Authenticated users can delete communities"
-  on communities for delete using (auth.uid() is not null);
+create policy "Creators can delete their own communities"
+  on communities for delete using (auth.uid() = creator_id);
 
 -- Posts
 create table if not exists posts (

@@ -1,5 +1,6 @@
 export interface Community {
   id: string;
+  creator_id: string | null;
   name: string;
   slug: string;
   description: string | null;

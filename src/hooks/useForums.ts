@@ -49,7 +49,7 @@ export default function useForums() {
       if (!user) throw new Error("You must be signed in to create a community.");
       const { data, error } = await supabase
         .from("communities")
-        .insert(input)
+        .insert({ ...input, creator_id: user.id })
         .select()
         .single();
 

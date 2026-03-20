@@ -383,8 +383,8 @@ export default function CommunityDetailPage() {
             </div>
           )}
 
-          {/* Delete community */}
-          {user && (
+          {/* Delete community — only for creator */}
+          {user && community.creator_id === user.id && (
             <div className="mt-12 rounded-xl border border-red-500/20 bg-red-500/5 p-4">
               <p className="font-body text-xs font-bold uppercase tracking-wider text-red-400 mb-1">
                 Danger Zone
