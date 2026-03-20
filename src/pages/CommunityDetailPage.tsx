@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
@@ -114,11 +114,14 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
 export default function CommunityDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { user } = useAuthContext();
-  const { loading, fetchCommunityBySlug, fetchPosts } = useForums();
+  const { loading, fetchCommunityBySlug, fetchPosts, joinCommunity, leaveCommunity, checkMembership, getMemberCount } = useForums();
 
   const [community, setCommunity] = useState<Community | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [isMember, setIsMember] = useState(false);
+  const [memberCount, setMemberCount] = useState(0);
+  const [memberLoading, setMemberLoading] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -126,15 +129,40 @@ export default function CommunityDetailPage() {
     fetchCommunityBySlug(slug).then((c) => {
       setCommunity(c);
       if (c) {
-        fetchPosts(c.id).then((p) => {
+        Promise.all([
+          fetchPosts(c.id),
+          checkMembership(c.id),
+          getMemberCount(c.id),
+        ]).then(([p, membership, count]) => {
           setPosts(p);
+          setIsMember(membership);
+          setMemberCount(count);
           setPageLoading(false);
         });
       } else {
         setPageLoading(false);
       }
     });
-  }, [slug, fetchCommunityBySlug, fetchPosts]);
+  }, [slug, fetchCommunityBySlug, fetchPosts, checkMembership, getMemberCount]);
+
+  const handleToggleMembership = useCallback(async () => {
+    if (!community || !user) return;
+    setMemberLoading(true);
+    if (isMember) {
+      const ok = await leaveCommunity(community.id);
+      if (ok) {
+        setIsMember(false);
+        setMemberCount((c) => Math.max(0, c - 1));
+      }
+    } else {
+      const ok = await joinCommunity(community.id);
+      if (ok) {
+        setIsMember(true);
+        setMemberCount((c) => c + 1);
+      }
+    }
+    setMemberLoading(false);
+  }, [community, user, isMember, joinCommunity, leaveCommunity]);
 
   if (pageLoading) {
     return (
@@ -217,29 +245,86 @@ export default function CommunityDetailPage() {
                   )}
                   <div className="mt-2 flex items-center gap-1.5">
                     <span className="font-mono text-xs font-bold text-text-muted">
-                      {community.member_count} members
+                      {memberCount} {memberCount === 1 ? "member" : "members"}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {user && (
-                <Link
-                  to={`/communities/${slug}/create`}
-                  className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
+              <div className="flex shrink-0 items-center gap-3">
+                {user ? (
+                  <button
+                    onClick={handleToggleMembership}
+                    disabled={memberLoading}
+                    className={`inline-flex items-center gap-2 rounded-lg px-5 py-3 font-body text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50 ${
+                      isMember
+                        ? "border-2 border-accent-red text-accent-red hover:bg-accent-red/10"
+                        : "bg-white/10 text-white hover:bg-white/20"
+                    }`}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                  </svg>
-                  New Post
-                </Link>
-              )}
+                    <svg
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {isMember ? (
+                        <path d="M20 6 9 17l-5-5" />
+                      ) : (
+                        <>
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <line x1="19" x2="19" y1="8" y2="14" />
+                          <line x1="22" x2="16" y1="11" y2="11" />
+                        </>
+                      )}
+                    </svg>
+                    {memberLoading ? "..." : isMember ? "Joined" : "Join"}
+                  </button>
+                ) : (
+                  <Link
+                    to={`/sign-in?redirect=/communities/${slug}`}
+                    className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-colors"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <line x1="19" x2="19" y1="8" y2="14" />
+                      <line x1="22" x2="16" y1="11" y2="11" />
+                    </svg>
+                    Join
+                  </Link>
+                )}
+
+                {user && (
+                  <Link
+                    to={`/communities/${slug}/create`}
+                    className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                    New Post
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </PageWrapper>

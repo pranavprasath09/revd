@@ -270,6 +270,80 @@ export default function useForums() {
     [user]
   );
 
+  const joinCommunity = useCallback(
+    async (communityId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { error } = await supabase
+          .from("community_members")
+          .insert({ community_id: communityId, user_id: user.id });
+
+        if (error) throw error;
+        return true;
+      } catch (err) {
+        console.error("Failed to join community:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
+  const leaveCommunity = useCallback(
+    async (communityId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { error } = await supabase
+          .from("community_members")
+          .delete()
+          .eq("community_id", communityId)
+          .eq("user_id", user.id);
+
+        if (error) throw error;
+        return true;
+      } catch (err) {
+        console.error("Failed to leave community:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
+  const checkMembership = useCallback(
+    async (communityId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { data, error } = await supabase
+          .from("community_members")
+          .select("id")
+          .eq("community_id", communityId)
+          .eq("user_id", user.id)
+          .single();
+
+        if (error && error.code !== "PGRST116") throw error;
+        return !!data;
+      } catch (err) {
+        console.error("Failed to check membership:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
+  const getMemberCount = useCallback(async (communityId: string): Promise<number> => {
+    try {
+      const { count, error } = await supabase
+        .from("community_members")
+        .select("*", { count: "exact", head: true })
+        .eq("community_id", communityId);
+
+      if (error) throw error;
+      return count ?? 0;
+    } catch (err) {
+      console.error("Failed to get member count:", (err as Error).message);
+      return 0;
+    }
+  }, []);
+
   const getUserCommentVotes = useCallback(
     async (commentIds: string[]): Promise<Set<string>> => {
       if (!user || commentIds.length === 0) return new Set();
@@ -305,5 +379,9 @@ export default function useForums() {
     toggleCommentVote,
     getUserPostVotes,
     getUserCommentVotes,
+    joinCommunity,
+    leaveCommunity,
+    checkMembership,
+    getMemberCount,
   };
 }

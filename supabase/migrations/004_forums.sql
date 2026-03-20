@@ -107,6 +107,26 @@ create policy "Authenticated users can vote on comments"
 create policy "Users can remove their own comment votes"
   on comment_votes for delete using (auth.uid() = user_id);
 
+-- Community Members
+create table if not exists community_members (
+  id uuid primary key default gen_random_uuid(),
+  community_id uuid references communities(id) on delete cascade not null,
+  user_id uuid references profiles(id) on delete cascade not null,
+  created_at timestamptz default now(),
+  unique(community_id, user_id)
+);
+
+alter table community_members enable row level security;
+
+create policy "Community members are viewable by everyone"
+  on community_members for select using (true);
+
+create policy "Authenticated users can join communities"
+  on community_members for insert with check (auth.uid() = user_id);
+
+create policy "Users can leave communities"
+  on community_members for delete using (auth.uid() = user_id);
+
 -- Seed communities
 insert into communities (name, slug, description, icon) values
   ('JDM', 'jdm', 'Japanese Domestic Market — Supras, GTRs, Silvias, and everything from the land of the rising sun.', '🇯🇵'),
