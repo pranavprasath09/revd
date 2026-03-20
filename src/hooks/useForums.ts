@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
-import type { Community, Post, Comment, CreatePostInput } from "@/types/forum";
+import type { Community, Post, Comment, CreateCommunityInput, CreatePostInput } from "@/types/forum";
 
 export default function useForums() {
   const { user } = useAuthContext();
@@ -43,6 +43,26 @@ export default function useForums() {
       setLoading(false);
     }
   }, []);
+
+  const createCommunity = useCallback(
+    async (input: CreateCommunityInput): Promise<Community | null> => {
+      if (!user) return null;
+      try {
+        const { data, error } = await supabase
+          .from("communities")
+          .insert(input)
+          .select()
+          .single();
+
+        if (error) throw error;
+        return data as Community;
+      } catch (err) {
+        console.error("Failed to create community:", (err as Error).message);
+        return null;
+      }
+    },
+    [user]
+  );
 
   const fetchPosts = useCallback(async (communityId: string): Promise<Post[]> => {
     setLoading(true);
@@ -279,6 +299,7 @@ export default function useForums() {
     loading,
     fetchCommunities,
     fetchCommunityBySlug,
+    createCommunity,
     fetchPosts,
     fetchPost,
     createPost,

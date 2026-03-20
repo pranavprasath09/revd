@@ -34,6 +34,13 @@ export interface Comment {
   author?: { display_name: string | null; avatar_url: string | null };
 }
 
+export interface CreateCommunityInput {
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: string;
+}
+
 export interface CreatePostInput {
   community_id: string;
   title: string;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
+import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
 import type { Community } from "@/types/forum";
 
@@ -52,6 +53,7 @@ function CommunityCard({ community }: { community: Community }) {
 }
 
 export default function CommunitiesPage() {
+  const { user } = useAuthContext();
   const { loading, fetchCommunities } = useForums();
   const [communities, setCommunities] = useState<Community[]>([]);
 
@@ -71,15 +73,37 @@ export default function CommunitiesPage() {
       <div className="border-b border-border bg-bg-surface/50">
         <PageWrapper>
           <div className="py-10 sm:py-14">
-            <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-              Forums
-            </p>
-            <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-              Communities
-            </h1>
-            <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-              Find your people. Join a community, start a conversation, and connect with enthusiasts who share your passion.
-            </p>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
+                  Forums
+                </p>
+                <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
+                  Communities
+                </h1>
+                <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
+                  Find your people. Join a community, start a conversation, and connect with enthusiasts who share your passion.
+                </p>
+              </div>
+
+              {user && (
+                <Link
+                  to="/communities/create"
+                  className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
+                  </svg>
+                  Create Community
+                </Link>
+              )}
+            </div>
           </div>
         </PageWrapper>
       </div>

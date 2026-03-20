@@ -21,6 +21,7 @@ const MeetsPage = lazy(() => import("@/pages/MeetsPage"));
 const CreateMeetPage = lazy(() => import("@/pages/CreateMeetPage"));
 const MeetDetailPage = lazy(() => import("@/pages/MeetDetailPage"));
 const CommunitiesPage = lazy(() => import("@/pages/CommunitiesPage"));
+const CreateCommunityPage = lazy(() => import("@/pages/CreateCommunityPage"));
 const CommunityDetailPage = lazy(() => import("@/pages/CommunityDetailPage"));
 const PostDetailPage = lazy(() => import("@/pages/PostDetailPage"));
 const CreatePostPage = lazy(() => import("@/pages/CreatePostPage"));
@@ -54,6 +55,7 @@ export default function App() {
                 <Route path="/meets/create" element={<CreateMeetPage />} />
                 <Route path="/meets/:id" element={<MeetDetailPage />} />
                 <Route path="/communities" element={<CommunitiesPage />} />
+                <Route path="/communities/create" element={<CreateCommunityPage />} />
                 <Route path="/communities/:slug" element={<CommunityDetailPage />} />
                 <Route path="/communities/:slug/post/:postId" element={<PostDetailPage />} />
                 <Route path="/communities/:slug/create" element={<CreatePostPage />} />
