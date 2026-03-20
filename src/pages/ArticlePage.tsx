@@ -70,7 +70,7 @@ export default function ArticlePage() {
 
   const paragraphs = article.content
     ? article.content.split("\n\n").filter(Boolean)
-    : [article.excerpt];
+    : [];
 
   return (
     <div className="page-enter">
