@@ -20,6 +20,10 @@ const SignInPage = lazy(() => import("@/pages/SignInPage"));
 const MeetsPage = lazy(() => import("@/pages/MeetsPage"));
 const CreateMeetPage = lazy(() => import("@/pages/CreateMeetPage"));
 const MeetDetailPage = lazy(() => import("@/pages/MeetDetailPage"));
+const PhotosPage = lazy(() => import("@/pages/PhotosPage"));
+const CreateAlbumPage = lazy(() => import("@/pages/CreateAlbumPage"));
+const AlbumDetailPage = lazy(() => import("@/pages/AlbumDetailPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 
 export default function App() {
   return (
@@ -45,6 +49,10 @@ export default function App() {
                 <Route path="/meets" element={<MeetsPage />} />
                 <Route path="/meets/create" element={<CreateMeetPage />} />
                 <Route path="/meets/:id" element={<MeetDetailPage />} />
+                <Route path="/photos" element={<PhotosPage />} />
+                <Route path="/photos/create" element={<CreateAlbumPage />} />
+                <Route path="/photos/:id" element={<AlbumDetailPage />} />
+                <Route path="/profile/:username" element={<ProfilePage />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
               </Routes>

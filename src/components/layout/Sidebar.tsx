@@ -8,6 +8,8 @@ import {
   Wrench,
   Gauge,
   CalendarDays,
+  Camera,
+  User,
   Menu,
   X,
   LogOut,
@@ -22,6 +24,8 @@ const NAV_ITEMS = [
   { to: "/mods", label: "Mod Guides", icon: Wrench },
   { to: "/garage", label: "My Garage", icon: Gauge },
   { to: "/meets", label: "Car Meets", icon: CalendarDays },
+  { to: "/photos", label: "Photos", icon: Camera },
+  { to: "/profile", label: "Profile", icon: User },
 ];
 
 function isActive(pathname: string, to: string): boolean {
