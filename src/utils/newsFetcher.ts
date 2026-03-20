@@ -1,7 +1,13 @@
 import type { Article } from "@/types/news";
 
-const RSS_URL =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://www.motor1.com/rss/news/all/";
+const FEEDS = [
+  { url: "https://www.motor1.com/rss/news/all/", source: "Motor1" },
+  { url: "https://www.thedrive.com/feed", source: "The Drive" },
+  { url: "https://www.topgear.com/car-news/rss", source: "Top Gear" },
+  { url: "https://www.roadandtrack.com/rss/all.xml", source: "Road & Track" },
+];
+
+const RSS2JSON = "https://api.rss2json.com/v1/api.json?rss_url=";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80";
@@ -28,29 +34,55 @@ function stripHtml(html: string): string {
   return doc.body.textContent?.trim() || "";
 }
 
-export async function fetchNews(): Promise<Article[]> {
-  const res = await fetch(RSS_URL);
-  if (!res.ok) throw new Error(`RSS fetch failed: ${res.status}`);
+async function fetchFeed(feedUrl: string, source: string): Promise<Article[]> {
+  try {
+    const res = await fetch(RSS2JSON + encodeURIComponent(feedUrl));
+    if (!res.ok) return [];
 
-  const data = await res.json();
-  if (data.status !== "ok" || !Array.isArray(data.items)) {
-    throw new Error("Invalid RSS response");
+    const data = await res.json();
+    if (data.status !== "ok" || !Array.isArray(data.items)) return [];
+
+    return data.items.map((item: RssItem): Article => {
+      const slug = slugify(item.title);
+      const image = item.thumbnail || item.enclosure?.link || FALLBACK_IMAGE;
+
+      return {
+        id: slug,
+        title: item.title,
+        slug,
+        excerpt: stripHtml(item.description).slice(0, 200),
+        source,
+        category: "News",
+        image,
+        publishedAt: item.pubDate,
+      };
+    });
+  } catch {
+    return [];
   }
+}
 
-  return data.items.map((item: RssItem): Article => {
-    const slug = slugify(item.title);
-    const image =
-      item.thumbnail || item.enclosure?.link || FALLBACK_IMAGE;
+export async function fetchNews(): Promise<Article[]> {
+  const results = await Promise.all(
+    FEEDS.map((feed) => fetchFeed(feed.url, feed.source))
+  );
 
-    return {
-      id: slug,
-      title: item.title,
-      slug,
-      excerpt: stripHtml(item.description).slice(0, 200),
-      source: "Motor1",
-      category: "News",
-      image,
-      publishedAt: item.pubDate,
-    };
+  const all = results.flat();
+
+  // Deduplicate by title (normalized lowercase)
+  const seen = new Set<string>();
+  const unique = all.filter((article) => {
+    const key = article.title.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
   });
+
+  // Sort newest first
+  unique.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  return unique;
 }
