@@ -59,6 +59,25 @@ export default function useForums() {
     [user]
   );
 
+  const deleteCommunity = useCallback(
+    async (communityId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { error } = await supabase
+          .from("communities")
+          .delete()
+          .eq("id", communityId);
+
+        if (error) throw error;
+        return true;
+      } catch (err) {
+        console.error("Failed to delete community:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
   const fetchPosts = useCallback(async (communityId: string): Promise<Post[]> => {
     setLoading(true);
     try {
@@ -369,6 +388,7 @@ export default function useForums() {
     fetchCommunities,
     fetchCommunityBySlug,
     createCommunity,
+    deleteCommunity,
     fetchPosts,
     fetchPost,
     createPost,

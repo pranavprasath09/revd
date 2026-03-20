@@ -21,8 +21,8 @@ create policy "Communities are viewable by everyone"
 create policy "Authenticated users can insert communities"
   on communities for insert with check (auth.uid() is not null);
 
-create policy "Only admins can delete communities"
-  on communities for delete using (false);
+create policy "Authenticated users can delete communities"
+  on communities for delete using (auth.uid() is not null);
 
 -- Posts
 create table if not exists posts (
