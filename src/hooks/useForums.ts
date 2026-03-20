@@ -63,12 +63,17 @@ export default function useForums() {
     async (communityId: string): Promise<boolean> => {
       if (!user) return false;
       try {
-        const { error } = await supabase
+        const { error, count } = await supabase
           .from("communities")
-          .delete()
-          .eq("id", communityId);
+          .delete({ count: "exact" })
+          .eq("id", communityId)
+          .eq("creator_id", user.id);
 
         if (error) throw error;
+        if (count === 0) {
+          console.error("Delete returned 0 rows — you may not be the creator");
+          return false;
+        }
         return true;
       } catch (err) {
         console.error("Failed to delete community:", (err as Error).message);
@@ -140,13 +145,16 @@ export default function useForums() {
     async (postId: string): Promise<boolean> => {
       if (!user) return false;
       try {
-        const { error } = await supabase
+        const { error, count } = await supabase
           .from("posts")
-          .delete()
-          .eq("id", postId)
-          .eq("author_id", user.id);
+          .delete({ count: "exact" })
+          .eq("id", postId);
 
         if (error) throw error;
+        if (count === 0) {
+          console.error("Delete returned 0 rows — RLS may be blocking the delete");
+          return false;
+        }
         return true;
       } catch (err) {
         console.error("Failed to delete post:", (err as Error).message);
