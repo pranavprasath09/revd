@@ -20,6 +20,10 @@ const SignInPage = lazy(() => import("@/pages/SignInPage"));
 const MeetsPage = lazy(() => import("@/pages/MeetsPage"));
 const CreateMeetPage = lazy(() => import("@/pages/CreateMeetPage"));
 const MeetDetailPage = lazy(() => import("@/pages/MeetDetailPage"));
+const CommunitiesPage = lazy(() => import("@/pages/CommunitiesPage"));
+const CommunityDetailPage = lazy(() => import("@/pages/CommunityDetailPage"));
+const PostDetailPage = lazy(() => import("@/pages/PostDetailPage"));
+const CreatePostPage = lazy(() => import("@/pages/CreatePostPage"));
 const PhotosPage = lazy(() => import("@/pages/PhotosPage"));
 const CreateAlbumPage = lazy(() => import("@/pages/CreateAlbumPage"));
 const AlbumDetailPage = lazy(() => import("@/pages/AlbumDetailPage"));
@@ -49,6 +53,10 @@ export default function App() {
                 <Route path="/meets" element={<MeetsPage />} />
                 <Route path="/meets/create" element={<CreateMeetPage />} />
                 <Route path="/meets/:id" element={<MeetDetailPage />} />
+                <Route path="/communities" element={<CommunitiesPage />} />
+                <Route path="/communities/:slug" element={<CommunityDetailPage />} />
+                <Route path="/communities/:slug/post/:postId" element={<PostDetailPage />} />
+                <Route path="/communities/:slug/create" element={<CreatePostPage />} />
                 <Route path="/photos" element={<PhotosPage />} />
                 <Route path="/photos/create" element={<CreateAlbumPage />} />
                 <Route path="/photos/:id" element={<AlbumDetailPage />} />

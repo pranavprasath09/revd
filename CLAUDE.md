@@ -250,8 +250,8 @@ src/
 
 Sprint 1 — DONE: Supabase auth, profiles, garage_cars, useAuth, useGarage, SignInPage
 Sprint 2 — DONE: Car Meets, meets table, meet_rsvps, useMeets, MeetsPage, CreateMeetPage, MeetDetailPage, RSVP system, redirect flow
-Sprint 3 — NEXT: Photo Albums + Photographer Profiles
-Sprint 4 — Upcoming: Community Forums
+Sprint 3 — DONE: Photo Albums, Photographer Profiles, Follow System, Storage bucket, /photos, /photos/create, /photos/:id, /profile/:username
+Sprint 4 — DONE: Community Forums, communities table, posts, comments, post_votes, comment_votes, useForums, CommunitiesPage, CommunityDetailPage, PostDetailPage, CreatePostPage, voting system
 Sprint 5 — Upcoming: Build Logs
 Sprint 6 — Upcoming: Notifications + Feed
 Sprint 7 — Upcoming: Stripe + Premium

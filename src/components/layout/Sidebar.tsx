@@ -8,6 +8,7 @@ import {
   Wrench,
   Gauge,
   CalendarDays,
+  MessageSquare,
   Camera,
   User,
   Menu,
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
   { to: "/mods", label: "Mod Guides", icon: Wrench },
   { to: "/garage", label: "My Garage", icon: Gauge },
   { to: "/meets", label: "Car Meets", icon: CalendarDays },
+  { to: "/communities", label: "Communities", icon: MessageSquare },
   { to: "/photos", label: "Photos", icon: Camera },
 ];
 
