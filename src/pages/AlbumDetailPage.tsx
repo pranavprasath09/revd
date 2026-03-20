@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
@@ -10,7 +10,8 @@ import type { Album, AlbumPhoto } from "@/types/photo";
 export default function AlbumDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuthContext();
-  const { fetchAlbum, fetchAlbumPhotos, followUser, unfollowUser, isFollowing } = usePhotos();
+  const navigate = useNavigate();
+  const { fetchAlbum, fetchAlbumPhotos, deleteAlbum, followUser, unfollowUser, isFollowing } = usePhotos();
 
   const [album, setAlbum] = useState<Album | null>(null);
   const [photos, setPhotos] = useState<AlbumPhoto[]>([]);
@@ -20,6 +21,8 @@ export default function AlbumDetailPage() {
   const [following, setFollowing] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Fetch album + photos
   useEffect(() => {
@@ -41,9 +44,8 @@ export default function AlbumDetailPage() {
       .eq("id", album.creator_id)
       .single()
       .then(({ data }) => {
-        const name = data?.display_name ?? "Anonymous";
-        setCreatorName(name);
-        setCreatorUsername(name.toLowerCase().replace(/\s+/g, "-"));
+        setCreatorName(data?.display_name ?? "Anonymous");
+        setCreatorUsername(album.creator_id);
       });
   }, [album]);
 
@@ -200,6 +202,49 @@ export default function AlbumDetailPage() {
                     {tag}
                   </span>
                 ))}
+              </div>
+            )}
+
+            {/* Owner actions */}
+            {isOwner && (
+              <div className="mt-6">
+                {!confirmDelete ? (
+                  <button
+                    onClick={() => setConfirmDelete(true)}
+                    className="inline-flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2 font-body text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-red-500/20 transition-colors cursor-pointer"
+                  >
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Delete Album
+                  </button>
+                ) : (
+                  <div className="inline-flex items-center gap-3 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2">
+                    <span className="font-body text-xs text-red-400">Delete this album permanently?</span>
+                    <button
+                      onClick={async () => {
+                        setDeleting(true);
+                        const ok = await deleteAlbum(album.id);
+                        if (ok) {
+                          navigate("/photos");
+                        } else {
+                          setDeleting(false);
+                          setConfirmDelete(false);
+                        }
+                      }}
+                      disabled={deleting}
+                      className="font-body text-xs font-bold text-red-400 hover:text-red-300 transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      {deleting ? "Deleting..." : "Yes, delete"}
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete(false)}
+                      className="font-body text-xs text-text-muted hover:text-white transition-colors cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

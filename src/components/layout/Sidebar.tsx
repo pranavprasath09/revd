@@ -25,7 +25,6 @@ const NAV_ITEMS = [
   { to: "/garage", label: "My Garage", icon: Gauge },
   { to: "/meets", label: "Car Meets", icon: CalendarDays },
   { to: "/photos", label: "Photos", icon: Camera },
-  { to: "/profile", label: "Profile", icon: User },
 ];
 
 function isActive(pathname: string, to: string): boolean {
@@ -118,6 +117,37 @@ export default function Sidebar() {
                 </li>
               );
             })}
+            {isSignedIn && user && (() => {
+              const profilePath = `/profile/${user.id}`;
+              const active = isActive(location.pathname, "/profile");
+              return (
+                <li>
+                  <Link
+                    to={profilePath}
+                    onClick={() => setMobileOpen(false)}
+                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-body text-sm font-medium transition-all duration-200
+                      ${active
+                        ? "bg-[#1a1a1a] text-white"
+                        : "text-[#606060] hover:bg-[#1a1a1a] hover:text-white"
+                      }
+                      md:justify-center md:px-0 lg:justify-start lg:px-3
+                    `}
+                    title="Profile"
+                  >
+                    {active && (
+                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-accent-red" />
+                    )}
+                    <User
+                      size={20}
+                      className={`shrink-0 transition-colors ${
+                        active ? "text-accent-red" : "text-[#606060] group-hover:text-accent-red"
+                      }`}
+                    />
+                    <span className="md:hidden lg:inline">Profile</span>
+                  </Link>
+                </li>
+              );
+            })()}
           </ul>
         </nav>
 

@@ -136,6 +136,26 @@ export default function usePhotos() {
     [user]
   );
 
+  const deleteAlbum = useCallback(
+    async (albumId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { error } = await supabase
+          .from("albums")
+          .delete()
+          .eq("id", albumId)
+          .eq("creator_id", user.id);
+
+        if (error) throw error;
+        return true;
+      } catch (err) {
+        console.error("Failed to delete album:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
   const followUser = useCallback(
     async (followingId: string): Promise<boolean> => {
       if (!user) return false;
@@ -216,6 +236,7 @@ export default function usePhotos() {
     fetchAlbumPhotos,
     fetchUserAlbums,
     createAlbum,
+    deleteAlbum,
     followUser,
     unfollowUser,
     isFollowing,

@@ -5,7 +5,15 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import usePhotos from "@/hooks/usePhotos";
 import { supabase } from "@/lib/supabase";
+import carsData from "@/data/cars.json";
+import type { Car } from "@/types/car";
 import type { Album } from "@/types/photo";
+
+const cars = carsData as Car[];
+
+function carById(carId: string): Car | undefined {
+  return cars.find((c) => c.id === carId || c.slug === carId);
+}
 
 interface Profile {
   id: string;
@@ -20,6 +28,8 @@ interface GarageCarRow {
   car_id: string;
   nickname: string | null;
   year: string | null;
+  notes: string | null;
+  mods: { id: string; name: string; cost?: string }[] | null;
 }
 
 interface MeetRow {
@@ -44,23 +54,38 @@ export default function ProfilePage() {
   const [followLoading, setFollowLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Find profile by display_name match
+  // Find profile by id first, then fall back to case-insensitive display_name
   useEffect(() => {
     if (!username) return;
     setLoading(true);
 
-    const decoded = decodeURIComponent(username).replace(/-/g, " ");
+    // Try UUID lookup first (direct id link)
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(username);
 
-    supabase
-      .from("profiles")
-      .select("*")
-      .ilike("display_name", decoded)
-      .limit(1)
-      .single()
-      .then(({ data }) => {
-        setProfile(data as Profile | null);
-        setLoading(false);
-      });
+    if (isUuid) {
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", username)
+        .single()
+        .then(({ data }) => {
+          setProfile(data as Profile | null);
+          setLoading(false);
+        });
+    } else {
+      // Fall back to display_name match (for shared profile links)
+      const decoded = decodeURIComponent(username).replace(/-/g, " ");
+      supabase
+        .from("profiles")
+        .select("*")
+        .ilike("display_name", decoded)
+        .limit(1)
+        .single()
+        .then(({ data }) => {
+          setProfile(data as Profile | null);
+          setLoading(false);
+        });
+    }
   }, [username]);
 
   // Load profile data once profile is found
@@ -76,7 +101,7 @@ export default function ProfilePage() {
     // Garage cars
     supabase
       .from("garage_cars")
-      .select("id, car_id, nickname, year")
+      .select("id, car_id, nickname, year, notes, mods")
       .eq("user_id", profile.id)
       .then(({ data }) => setGarageCars((data as GarageCarRow[]) ?? []));
 
@@ -312,24 +337,104 @@ export default function ProfilePage() {
 
           {/* Garage section */}
           <section>
-            <h2 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
+            <Link
+              to="/garage"
+              className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4 inline-flex items-center gap-1.5 hover:text-accent-red transition-colors"
+            >
               Garage ({garageCars.length})
-            </h2>
+              <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
             {garageCars.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {garageCars.map((car) => (
-                  <div
-                    key={car.id}
-                    className="rounded-xl border border-white/10 bg-bg-surface p-5"
-                  >
-                    <p className="font-display text-lg uppercase tracking-wide text-text-primary">
-                      {car.nickname || car.car_id}
-                    </p>
-                    {car.year && (
-                      <p className="mt-1 font-body text-sm text-text-secondary">{car.year}</p>
-                    )}
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {garageCars.map((gc) => {
+                  const car = carById(gc.car_id);
+                  const modCount = Array.isArray(gc.mods) ? gc.mods.length : 0;
+                  const carFallback = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80";
+
+                  return (
+                    <Link
+                      key={gc.id}
+                      to="/garage"
+                      className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+                    >
+                      {/* Car hero image */}
+                      <div className="relative h-44 overflow-hidden">
+                        <img
+                          src={car?.heroImage || carFallback}
+                          alt={car ? `${car.make} ${car.model}` : gc.car_id}
+                          loading="lazy"
+                          onError={(e) => { (e.target as HTMLImageElement).src = carFallback; }}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/30 to-transparent" />
+
+                        {/* Mod count badge */}
+                        {modCount > 0 && (
+                          <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
+                            <svg className="h-3.5 w-3.5 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                            </svg>
+                            <span className="font-mono text-sm font-bold text-text-primary">{modCount}</span>
+                          </div>
+                        )}
+
+                        {/* Name overlay */}
+                        <div className="absolute bottom-4 left-4 right-4">
+                          {gc.nickname && (
+                            <p className="font-body text-xs font-bold uppercase tracking-wider text-accent-red mb-1">
+                              {gc.nickname}
+                            </p>
+                          )}
+                          <h3 className="font-display text-xl uppercase tracking-wide text-white leading-tight">
+                            {gc.year ?? ""} {car ? `${car.make} ${car.model}` : gc.car_id}
+                          </h3>
+                        </div>
+                      </div>
+
+                      {/* Card body */}
+                      <div className="p-4 space-y-2">
+                        {/* Specs row */}
+                        {car && (
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                            <span className="font-mono text-xs text-text-secondary">{car.generation}</span>
+                            <span className="text-text-muted">·</span>
+                            <span className="font-mono text-xs text-text-secondary">{car.performance.drivetrain}</span>
+                            <span className="text-text-muted">·</span>
+                            <span className="font-mono text-xs text-text-secondary">{car.engines[0]?.power}</span>
+                          </div>
+                        )}
+
+                        {/* Notes preview */}
+                        {gc.notes && (
+                          <p className="font-body text-sm text-text-secondary leading-relaxed line-clamp-2">
+                            {gc.notes}
+                          </p>
+                        )}
+
+                        {/* Mods preview */}
+                        {modCount > 0 && Array.isArray(gc.mods) && (
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {gc.mods.slice(0, 3).map((mod) => (
+                              <span
+                                key={mod.id}
+                                className="rounded-full bg-white/5 border border-white/5 px-2.5 py-0.5 font-body text-[10px] font-medium text-text-secondary"
+                              >
+                                {mod.name}
+                              </span>
+                            ))}
+                            {modCount > 3 && (
+                              <span className="rounded-full bg-accent-red/10 px-2.5 py-0.5 font-body text-[10px] font-bold text-accent-red">
+                                +{modCount - 3} more
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             ) : (
               <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">

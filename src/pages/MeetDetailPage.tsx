@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
@@ -57,7 +57,8 @@ interface Attendee {
 export default function MeetDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuthContext();
-  const { fetchMeet, rsvpToMeet, unrsvpFromMeet } = useMeets();
+  const navigate = useNavigate();
+  const { fetchMeet, deleteMeet, rsvpToMeet, unrsvpFromMeet } = useMeets();
 
   const [meet, setMeet] = useState<Meet | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,6 +67,8 @@ export default function MeetDetailPage() {
   const [rsvpLoading, setRsvpLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [creatorName, setCreatorName] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Fetch meet
   useEffect(() => {
@@ -635,9 +638,46 @@ export default function MeetDetailPage() {
                   <p className="font-body text-xs font-bold uppercase tracking-wider text-accent-red mb-1">
                     You created this meet
                   </p>
-                  <p className="font-body text-sm text-text-secondary">
-                    Share the link to invite people. Editing and deletion coming soon.
+                  <p className="font-body text-sm text-text-secondary mb-3">
+                    Share the link to invite people.
                   </p>
+                  {!confirmDelete ? (
+                    <button
+                      onClick={() => setConfirmDelete(true)}
+                      className="inline-flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2 font-body text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-red-500/20 transition-colors cursor-pointer"
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      Delete Meet
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-3">
+                      <span className="font-body text-xs text-red-400">Delete permanently?</span>
+                      <button
+                        onClick={async () => {
+                          setDeleting(true);
+                          const ok = await deleteMeet(meet.id);
+                          if (ok) {
+                            navigate("/meets");
+                          } else {
+                            setDeleting(false);
+                            setConfirmDelete(false);
+                          }
+                        }}
+                        disabled={deleting}
+                        className="font-body text-xs font-bold text-red-400 hover:text-red-300 transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        {deleting ? "Deleting..." : "Yes, delete"}
+                      </button>
+                      <button
+                        onClick={() => setConfirmDelete(false)}
+                        className="font-body text-xs text-text-muted hover:text-white transition-colors cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

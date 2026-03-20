@@ -66,6 +66,26 @@ export default function useMeets() {
     [user]
   );
 
+  const deleteMeet = useCallback(
+    async (meetId: string): Promise<boolean> => {
+      if (!user) return false;
+      try {
+        const { error } = await supabase
+          .from("meets")
+          .delete()
+          .eq("id", meetId)
+          .eq("creator_id", user.id);
+
+        if (error) throw error;
+        return true;
+      } catch (err) {
+        console.error("Failed to delete meet:", (err as Error).message);
+        return false;
+      }
+    },
+    [user]
+  );
+
   const rsvpToMeet = useCallback(
     async (meetId: string): Promise<boolean> => {
       if (!user) return false;
@@ -125,6 +145,7 @@ export default function useMeets() {
     fetchMeets,
     fetchMeet,
     createMeet,
+    deleteMeet,
     rsvpToMeet,
     unrsvpFromMeet,
     getUserRsvps,
