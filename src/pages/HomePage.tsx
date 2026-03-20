@@ -5,12 +5,10 @@ import AnimatedHero from "@/components/ui/AnimatedHero";
 import CarCard from "@/components/cars/CarCard";
 import ArticleCard from "@/components/news/ArticleCard";
 import carsData from "@/data/cars.json";
-import newsData from "@/data/news.json";
+import { useNews } from "@/hooks/useNews";
 import type { Car } from "@/types/car";
-import type { Article } from "@/types/news";
 
 const cars = carsData as Car[];
-const articles = newsData as Article[];
 
 const CTA_BG = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80";
 
@@ -76,6 +74,7 @@ const STATS = [
 
 /* ── Home Page ──────────────────────────────────────── */
 export default function HomePage() {
+  const { articles } = useNews();
   const featuredSection = useScrollReveal<HTMLElement>();
   const statsSection = useScrollReveal<HTMLElement>();
   const newsSection = useScrollReveal<HTMLElement>();

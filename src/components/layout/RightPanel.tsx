@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import carsData from "@/data/cars.json";
-import newsData from "@/data/news.json";
+import { useNews } from "@/hooks/useNews";
 import type { Car } from "@/types/car";
-import type { Article } from "@/types/news";
 
 const cars = carsData as Car[];
-const articles = newsData as Article[];
 
 const TRENDING_CARS = cars
   .sort((a, b) => b.popularityScore - a.popularityScore)
   .slice(0, 5);
-
-const LATEST_ARTICLES = articles.slice(0, 2);
 
 function MiniSparkline() {
   // Decorative SVG sparkline
@@ -45,6 +41,9 @@ function timeAgo(dateStr: string): string {
 }
 
 export default function RightPanel() {
+  const { articles } = useNews();
+  const latestArticles = articles.slice(0, 2);
+
   return (
     <div className="sticky top-6 hidden w-[280px] shrink-0 space-y-6 xl:block">
       {/* Trending Now */}
@@ -83,7 +82,7 @@ export default function RightPanel() {
           <span className="text-accent-red">//</span> Latest Drop
         </h3>
         <div className="mt-4 space-y-3">
-          {LATEST_ARTICLES.map((article) => (
+          {latestArticles.map((article) => (
             <Link
               key={article.id}
               to={`/news/${article.slug}`}

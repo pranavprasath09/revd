@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import Badge from "@/components/ui/Badge";
 import ArticleCard from "@/components/news/ArticleCard";
-import newsData from "@/data/news.json";
-import type { Article } from "@/types/news";
+import LoadingState from "@/components/ui/LoadingState";
+import { useNews } from "@/hooks/useNews";
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("en-US", {
@@ -16,7 +16,7 @@ function formatDate(dateStr: string): string {
 
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
-  const articles = newsData as Article[];
+  const { articles, loading } = useNews();
 
   const article = useMemo(
     () => articles.find((a) => a.slug === slug),
@@ -29,6 +29,10 @@ export default function ArticlePage() {
       .filter((a) => a.category === article.category && a.id !== article.id)
       .slice(0, 3);
   }, [articles, article]);
+
+  if (loading) {
+    return <LoadingState message="Loading article…" />;
+  }
 
   if (!article) {
     return (

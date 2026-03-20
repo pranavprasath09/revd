@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import CategoryFilter from "@/components/ui/CategoryFilter";
 import ArticleCard from "@/components/news/ArticleCard";
 import SEOHead from "@/components/ui/SEOHead";
-import newsData from "@/data/news.json";
-import type { Article } from "@/types/news";
+import LoadingState from "@/components/ui/LoadingState";
+import { useNews } from "@/hooks/useNews";
 
 const CATEGORIES = [
   "All",
@@ -21,7 +21,7 @@ export default function NewsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [page, setPage] = useState(1);
 
-  const articles = newsData as Article[];
+  const { articles, loading, error } = useNews();
 
   const filtered = useMemo(() => {
     if (activeCategory === "All") return articles;
@@ -74,7 +74,13 @@ export default function NewsPage() {
         </div>
 
         {/* Article Grid */}
-        {paginatedArticles.length === 0 ? (
+        {loading ? (
+          <LoadingState message="Fetching latest news…" />
+        ) : error ? (
+          <div className="py-20 text-center">
+            <p className="text-sm text-accent-red">{error}</p>
+          </div>
+        ) : paginatedArticles.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-sm text-text-muted">
               No articles found in this category.
