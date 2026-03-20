@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=90";
+const HERO_IMAGE = "https://images.unsplash.com/photo-1656760128444-be65de47e198?w=1920&q=100";
 
 export default function AnimatedHero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -69,7 +69,7 @@ export default function AnimatedHero() {
       >
         <img
           src={HERO_IMAGE}
-          alt="McLaren F1 — high performance automotive"
+          alt="Porsche 918 Spyder — high performance automotive"
           className={`h-full w-full object-cover transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       </div>
