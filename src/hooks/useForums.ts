@@ -45,21 +45,16 @@ export default function useForums() {
   }, []);
 
   const createCommunity = useCallback(
-    async (input: CreateCommunityInput): Promise<Community | null> => {
-      if (!user) return null;
-      try {
-        const { data, error } = await supabase
-          .from("communities")
-          .insert(input)
-          .select()
-          .single();
+    async (input: CreateCommunityInput): Promise<Community> => {
+      if (!user) throw new Error("You must be signed in to create a community.");
+      const { data, error } = await supabase
+        .from("communities")
+        .insert(input)
+        .select()
+        .single();
 
-        if (error) throw error;
-        return data as Community;
-      } catch (err) {
-        console.error("Failed to create community:", (err as Error).message);
-        return null;
-      }
+      if (error) throw error;
+      return data as Community;
     },
     [user]
   );

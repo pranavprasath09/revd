@@ -21,7 +21,6 @@ export default function CreateCommunityPage() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [icon, setIcon] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,17 +37,20 @@ export default function CreateCommunityPage() {
       return;
     }
 
-    const community = await createCommunity({
-      name: name.trim(),
-      slug,
-      description: description.trim() || undefined,
-      icon: icon.trim() || undefined,
-    });
-
-    if (community) {
+    try {
+      const community = await createCommunity({
+        name: name.trim(),
+        slug,
+        description: description.trim() || undefined,
+      });
       navigate(`/communities/${community.slug}`);
-    } else {
-      setError("Failed to create community. The name might already be taken.");
+    } catch (err: any) {
+      const msg = err?.message || "Something went wrong.";
+      if (msg.includes("duplicate") || msg.includes("unique")) {
+        setError("A community with that name already exists. Try a different name.");
+      } else {
+        setError(msg);
+      }
       setSubmitting(false);
     }
   }
@@ -137,21 +139,6 @@ export default function CreateCommunityPage() {
                 placeholder="What's this community about?"
                 rows={3}
                 className="w-full resize-none rounded-xl border border-white/10 bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Icon */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Icon Emoji <span className="text-text-muted">(optional)</span>
-              </label>
-              <input
-                type="text"
-                value={icon}
-                onChange={(e) => setIcon(e.target.value)}
-                placeholder="e.g. 🔄"
-                maxLength={4}
-                className="w-24 rounded-xl border border-white/10 bg-bg-surface px-4 py-3 text-center text-2xl focus:border-accent-red/50 focus:outline-none transition-colors"
               />
             </div>
 
