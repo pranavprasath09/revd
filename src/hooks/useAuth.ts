@@ -68,10 +68,25 @@ export default function useAuth() {
   const signUp = useCallback(
     async (
       email: string,
-      password: string
+      password: string,
+      displayName?: string
     ): Promise<{ success: boolean; error?: string }> => {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: displayName
+          ? { data: { display_name: displayName } }
+          : undefined,
+      });
       if (error) return { success: false, error: error.message };
+
+      // Upsert profile with display_name
+      if (data.user && displayName) {
+        await supabase
+          .from("profiles")
+          .upsert({ id: data.user.id, display_name: displayName }, { onConflict: "id" });
+      }
+
       return { success: true };
     },
     []

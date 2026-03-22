@@ -192,14 +192,18 @@ export default function useForums() {
 
         if (error) throw error;
 
-        // Increment comment_count on the post
-        await supabase.rpc("increment_comment_count", { target_post_id: postId }).catch(() => {
-          // If RPC doesn't exist, manually update
-          supabase
+        // Update comment_count based on actual count
+        const { count } = await supabase
+          .from("comments")
+          .select("*", { count: "exact", head: true })
+          .eq("post_id", postId);
+
+        if (count !== null) {
+          await supabase
             .from("posts")
-            .update({ comment_count: 0 }) // Will be overridden below
+            .update({ comment_count: count })
             .eq("id", postId);
-        });
+        }
 
         return data as Comment;
       } catch (err) {

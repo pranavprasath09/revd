@@ -83,6 +83,10 @@ export default function useGarage() {
 
   const removeCar = useCallback(
     async (id: string) => {
+      // Save snapshot for rollback
+      const snapshot = cars;
+      setCars((prev) => prev.filter((c) => c.id !== id));
+
       const { error } = await supabase
         .from("garage_cars")
         .delete()
@@ -90,11 +94,10 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to remove car:", error.message);
-        return;
+        setCars(snapshot);
       }
-      setCars((prev) => prev.filter((c) => c.id !== id));
     },
-    []
+    [cars]
   );
 
   const updateCar = useCallback(
@@ -102,6 +105,11 @@ export default function useGarage() {
       id: string,
       updates: Partial<Pick<GarageCar, "nickname" | "year" | "notes">>
     ) => {
+      const snapshot = cars;
+      setCars((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, ...updates } : c))
+      );
+
       const row: Record<string, unknown> = {};
       if (updates.nickname !== undefined) row.nickname = updates.nickname;
       if (updates.year !== undefined) row.year = updates.year;
@@ -114,13 +122,10 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to update car:", error.message);
-        return;
+        setCars(snapshot);
       }
-      setCars((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, ...updates } : c))
-      );
     },
-    []
+    [cars]
   );
 
   const addMod = useCallback(
@@ -130,6 +135,10 @@ export default function useGarage() {
 
       const newMod = { ...mod, id: crypto.randomUUID() };
       const newMods = [...car.mods, newMod];
+      const snapshot = cars;
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
 
       const { error } = await supabase
         .from("garage_cars")
@@ -138,11 +147,8 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to add mod:", error.message);
-        return;
+        setCars(snapshot);
       }
-      setCars((prev) =>
-        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
-      );
     },
     [cars]
   );
@@ -153,6 +159,10 @@ export default function useGarage() {
       if (!car) return;
 
       const newMods = car.mods.filter((m) => m.id !== modId);
+      const snapshot = cars;
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
 
       const { error } = await supabase
         .from("garage_cars")
@@ -161,11 +171,8 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to remove mod:", error.message);
-        return;
+        setCars(snapshot);
       }
-      setCars((prev) =>
-        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
-      );
     },
     [cars]
   );
@@ -182,6 +189,10 @@ export default function useGarage() {
       const newMods = car.mods.map((m) =>
         m.id === modId ? { ...m, ...updates } : m
       );
+      const snapshot = cars;
+      setCars((prev) =>
+        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
+      );
 
       const { error } = await supabase
         .from("garage_cars")
@@ -190,11 +201,8 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to update mod:", error.message);
-        return;
+        setCars(snapshot);
       }
-      setCars((prev) =>
-        prev.map((c) => (c.id === carId ? { ...c, mods: newMods } : c))
-      );
     },
     [cars]
   );

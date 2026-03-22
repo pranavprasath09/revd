@@ -337,15 +337,21 @@ export default function ProfilePage() {
 
           {/* Garage section */}
           <section>
-            <Link
-              to="/garage"
-              className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4 inline-flex items-center gap-1.5 hover:text-accent-red transition-colors"
-            >
-              Garage ({garageCars.length})
-              <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            {isOwnProfile ? (
+              <Link
+                to="/garage"
+                className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4 inline-flex items-center gap-1.5 hover:text-accent-red transition-colors"
+              >
+                Garage ({garageCars.length})
+                <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            ) : (
+              <h3 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
+                Garage ({garageCars.length})
+              </h3>
+            )}
             {garageCars.length > 0 ? (
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 {garageCars.map((gc) => {
@@ -354,9 +360,8 @@ export default function ProfilePage() {
                   const carFallback = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80";
 
                   return (
-                    <Link
+                    <div
                       key={gc.id}
-                      to="/garage"
                       className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
                     >
                       {/* Car hero image */}
@@ -432,7 +437,7 @@ export default function ProfilePage() {
                           </div>
                         )}
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>

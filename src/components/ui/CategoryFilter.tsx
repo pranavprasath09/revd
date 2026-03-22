@@ -10,7 +10,7 @@ export default function CategoryFilter({
   onChange,
 }: CategoryFilterProps) {
   return (
-    <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {categories.map((category) => {
         const isActive = category === active;
         return (

@@ -80,6 +80,10 @@ export default function usePhotos() {
   const createAlbum = useCallback(
     async (input: CreateAlbumInput, photos: File[]): Promise<Album | null> => {
       if (!user) return null;
+      // Track uploaded paths for cleanup on failure
+      const uploadedPaths: string[] = [];
+      let albumId: string | null = null;
+
       try {
         // Upload photos to Supabase Storage
         const uploadedUrls: string[] = [];
@@ -91,6 +95,7 @@ export default function usePhotos() {
             .upload(path, file);
 
           if (uploadError) throw uploadError;
+          uploadedPaths.push(path);
 
           const { data: urlData } = supabase.storage
             .from("photos")
@@ -111,11 +116,12 @@ export default function usePhotos() {
           .single();
 
         if (albumError) throw albumError;
+        albumId = (album as Album).id;
 
         // Create album_photos records
         if (uploadedUrls.length > 0) {
           const photoRecords = uploadedUrls.map((url, i) => ({
-            album_id: (album as Album).id,
+            album_id: albumId!,
             image_url: url,
             order_index: i,
           }));
@@ -130,6 +136,16 @@ export default function usePhotos() {
         return album as Album;
       } catch (err) {
         console.error("Failed to create album:", (err as Error).message);
+
+        // Cleanup: delete album record if created
+        if (albumId) {
+          await supabase.from("albums").delete().eq("id", albumId).catch(() => {});
+        }
+        // Cleanup: delete uploaded files
+        if (uploadedPaths.length > 0) {
+          await supabase.storage.from("photos").remove(uploadedPaths).catch(() => {});
+        }
+
         return null;
       }
     },

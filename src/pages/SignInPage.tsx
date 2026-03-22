@@ -32,7 +32,7 @@ export default function SignInPage() {
         setError(result.error ?? "Sign in failed.");
       }
     } else {
-      const result = await signUp(email, password);
+      const result = await signUp(email, password, displayName || undefined);
       if (result.success) {
         setError("");
         setMode("signin");

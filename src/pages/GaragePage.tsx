@@ -2,6 +2,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
+import { useAuthContext } from "@/context/AuthContext";
 import useGarage from "@/hooks/useGarage";
 import carsData from "@/data/cars.json";
 import type { Car } from "@/types/car";
@@ -555,9 +556,31 @@ function GarageCarCard({ garageCar, car, onRemove, onUpdate, onAddMod, onRemoveM
 
 // ─── Main Page ─────────────────────────────────────────────────
 export default function GaragePage() {
+  const { user } = useAuthContext();
   const { cars: garageCars, addCar, removeCar, updateCar, addMod, removeMod } = useGarage();
   const [addCarOpen, setAddCarOpen] = useState(false);
   const [addModTarget, setAddModTarget] = useState<string | null>(null);
+
+  if (!user) {
+    return (
+      <div className="page-enter">
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
+            Sign In Required
+          </h1>
+          <p className="font-body text-sm text-text-secondary mb-6">
+            You need to be signed in to access your garage.
+          </p>
+          <Link
+            to="/sign-in?redirect=/garage"
+            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+          >
+            Sign In
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const totalMods = garageCars.reduce((sum, c) => sum + c.mods.length, 0);
   const existingCarIds = garageCars.map((c) => c.carId);
