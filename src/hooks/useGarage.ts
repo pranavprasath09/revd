@@ -31,7 +31,6 @@ export default function useGarage() {
   const [cars, setCars] = useState<GarageCar[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch garage cars for the signed-in user
   useEffect(() => {
     if (!user) {
       setCars([]);
@@ -42,7 +41,7 @@ export default function useGarage() {
     setLoading(true);
     supabase
       .from("garage_cars")
-      .select("*")
+      .select("id, user_id, car_id, nickname, year, notes, mods, created_at")
       .eq("user_id", user.id)
       .order("created_at", { ascending: true })
       .then(({ data, error }) => {
@@ -57,8 +56,8 @@ export default function useGarage() {
   }, [user]);
 
   const addCar = useCallback(
-    async (carId: string, nickname?: string, year?: string) => {
-      if (!user) return;
+    async (carId: string, nickname?: string, year?: string): Promise<string | null> => {
+      if (!user) return "Not signed in";
       const { data, error } = await supabase
         .from("garage_cars")
         .insert({
@@ -74,16 +73,16 @@ export default function useGarage() {
 
       if (error) {
         console.error("Failed to add car:", error.message);
-        return;
+        return error.message;
       }
       setCars((prev) => [...prev, rowToCar(data as GarageRow)]);
+      return null;
     },
     [user]
   );
 
   const removeCar = useCallback(
-    async (id: string) => {
-      // Save snapshot for rollback
+    async (id: string): Promise<string | null> => {
       const snapshot = cars;
       setCars((prev) => prev.filter((c) => c.id !== id));
 
@@ -95,7 +94,9 @@ export default function useGarage() {
       if (error) {
         console.error("Failed to remove car:", error.message);
         setCars(snapshot);
+        return error.message;
       }
+      return null;
     },
     [cars]
   );
@@ -104,7 +105,7 @@ export default function useGarage() {
     async (
       id: string,
       updates: Partial<Pick<GarageCar, "nickname" | "year" | "notes">>
-    ) => {
+    ): Promise<string | null> => {
       const snapshot = cars;
       setCars((prev) =>
         prev.map((c) => (c.id === id ? { ...c, ...updates } : c))
@@ -123,15 +124,17 @@ export default function useGarage() {
       if (error) {
         console.error("Failed to update car:", error.message);
         setCars(snapshot);
+        return error.message;
       }
+      return null;
     },
     [cars]
   );
 
   const addMod = useCallback(
-    async (carId: string, mod: Omit<GarageMod, "id">) => {
+    async (carId: string, mod: Omit<GarageMod, "id">): Promise<string | null> => {
       const car = cars.find((c) => c.id === carId);
-      if (!car) return;
+      if (!car) return "Car not found";
 
       const newMod = { ...mod, id: crypto.randomUUID() };
       const newMods = [...car.mods, newMod];
@@ -148,15 +151,17 @@ export default function useGarage() {
       if (error) {
         console.error("Failed to add mod:", error.message);
         setCars(snapshot);
+        return error.message;
       }
+      return null;
     },
     [cars]
   );
 
   const removeMod = useCallback(
-    async (carId: string, modId: string) => {
+    async (carId: string, modId: string): Promise<string | null> => {
       const car = cars.find((c) => c.id === carId);
-      if (!car) return;
+      if (!car) return "Car not found";
 
       const newMods = car.mods.filter((m) => m.id !== modId);
       const snapshot = cars;
@@ -172,7 +177,9 @@ export default function useGarage() {
       if (error) {
         console.error("Failed to remove mod:", error.message);
         setCars(snapshot);
+        return error.message;
       }
+      return null;
     },
     [cars]
   );
@@ -182,9 +189,9 @@ export default function useGarage() {
       carId: string,
       modId: string,
       updates: Partial<Omit<GarageMod, "id">>
-    ) => {
+    ): Promise<string | null> => {
       const car = cars.find((c) => c.id === carId);
-      if (!car) return;
+      if (!car) return "Car not found";
 
       const newMods = car.mods.map((m) =>
         m.id === modId ? { ...m, ...updates } : m
@@ -202,7 +209,9 @@ export default function useGarage() {
       if (error) {
         console.error("Failed to update mod:", error.message);
         setCars(snapshot);
+        return error.message;
       }
+      return null;
     },
     [cars]
   );

@@ -149,9 +149,9 @@ export default function ArticlePage() {
         {/* Article Body */}
         <div className="mx-auto mt-8 max-w-3xl px-4 sm:px-6">
           <div className="space-y-6">
-            {paragraphs.map((paragraph: string, index: number) => (
+            {paragraphs.map((paragraph: string) => (
               <p
-                key={index}
+                key={paragraph.slice(0, 64)}
                 className="font-body text-base leading-relaxed text-text-secondary sm:text-[17px] sm:leading-[1.75]"
               >
                 {paragraph}

@@ -13,7 +13,7 @@ export default function useMeets() {
       const today = new Date().toISOString().split("T")[0];
       const { data, error } = await supabase
         .from("meets")
-        .select("*")
+        .select("id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at")
         .gte("date", today)
         .order("date", { ascending: true });
 
@@ -32,7 +32,7 @@ export default function useMeets() {
     try {
       const { data, error } = await supabase
         .from("meets")
-        .select("*")
+        .select("id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at")
         .eq("id", id)
         .single();
 
@@ -47,8 +47,8 @@ export default function useMeets() {
   }, []);
 
   const createMeet = useCallback(
-    async (input: CreateMeetInput): Promise<Meet | null> => {
-      if (!user) return null;
+    async (input: CreateMeetInput): Promise<{ data: Meet | null; error?: string }> => {
+      if (!user) return { data: null, error: "Not signed in" };
       try {
         const { data, error } = await supabase
           .from("meets")
@@ -57,10 +57,10 @@ export default function useMeets() {
           .single();
 
         if (error) throw error;
-        return data as Meet;
+        return { data: data as Meet };
       } catch (err) {
         console.error("Failed to create meet:", (err as Error).message);
-        return null;
+        return { data: null, error: (err as Error).message };
       }
     },
     [user]

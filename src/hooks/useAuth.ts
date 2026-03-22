@@ -101,7 +101,11 @@ export default function useAuth() {
   }, []);
 
   const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error("Failed to sign out:", (err as Error).message);
+    }
     setUser(null);
   }, []);
 

@@ -12,7 +12,7 @@ export default function usePhotos() {
     try {
       const { data, error } = await supabase
         .from("albums")
-        .select("*")
+        .select("id, creator_id, title, description, cover_image, car_tags, is_public, created_at")
         .eq("is_public", true)
         .order("created_at", { ascending: false });
 
@@ -31,7 +31,7 @@ export default function usePhotos() {
     try {
       const { data, error } = await supabase
         .from("albums")
-        .select("*")
+        .select("id, creator_id, title, description, cover_image, car_tags, is_public, created_at")
         .eq("id", id)
         .single();
 
@@ -49,7 +49,7 @@ export default function usePhotos() {
     try {
       const { data, error } = await supabase
         .from("album_photos")
-        .select("*")
+        .select("id, album_id, image_url, caption, car_tag, order_index, created_at")
         .eq("album_id", albumId)
         .order("order_index", { ascending: true });
 
@@ -65,7 +65,7 @@ export default function usePhotos() {
     try {
       const { data, error } = await supabase
         .from("albums")
-        .select("*")
+        .select("id, creator_id, title, description, cover_image, car_tags, is_public, created_at")
         .eq("creator_id", userId)
         .order("created_at", { ascending: false });
 
@@ -85,6 +85,14 @@ export default function usePhotos() {
       let albumId: string | null = null;
 
       try {
+        // Validate file sizes (10MB max)
+        const MAX_FILE_SIZE = 10 * 1024 * 1024;
+        for (const file of photos) {
+          if (file.size > MAX_FILE_SIZE) {
+            throw new Error(`File "${file.name}" exceeds 10MB limit`);
+          }
+        }
+
         // Upload photos to Supabase Storage
         const uploadedUrls: string[] = [];
         for (const file of photos) {
@@ -101,6 +109,7 @@ export default function usePhotos() {
             .from("photos")
             .getPublicUrl(path);
 
+          if (!urlData?.publicUrl) throw new Error("Failed to get public URL for uploaded photo");
           uploadedUrls.push(urlData.publicUrl);
         }
 

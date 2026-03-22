@@ -147,21 +147,12 @@ export default function AnimatedHero() {
               <path d="M3 8h10M9 4l4 4-4 4" />
             </svg>
           </Link>
-          <button
-            type="button"
+          <Link
+            to="/meets"
             className="inline-flex items-center gap-2.5 rounded-lg border border-white/20 bg-white/5 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
           >
-            {/* Play icon */}
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M4 2.5v11l10-5.5L4 2.5z" />
-            </svg>
-            Watch Intro
-          </button>
+            Find Meets
+          </Link>
         </div>
       </div>
 

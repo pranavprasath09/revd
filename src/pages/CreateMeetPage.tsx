@@ -31,7 +31,7 @@ export default function CreateMeetPage() {
     setError("");
 
     try {
-      const meet = await createMeet({
+      const result = await createMeet({
         name: name.trim(),
         description: description.trim() || undefined,
         location_name: locationName.trim() || undefined,
@@ -42,10 +42,10 @@ export default function CreateMeetPage() {
         max_attendees: maxAttendees ? parseInt(maxAttendees, 10) : undefined,
       });
 
-      if (meet) {
-        navigate(`/meets/${meet.id}`);
+      if (result.data) {
+        navigate(`/meets/${result.data.id}`);
       } else {
-        setError("Failed to create meet. Please try again.");
+        setError(result.error ?? "Failed to create meet. Please try again.");
       }
     } catch {
       setError("Something went wrong. Please try again.");

@@ -311,6 +311,19 @@ export default function MeetsPage() {
                   Sign In to Create a Meet
                 </Link>
               )}
+              <div className="mt-6 flex items-center gap-4">
+                <Link to="/photos" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Browse Photos
+                </Link>
+                <span className="text-text-muted">·</span>
+                <Link to="/communities" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Communities
+                </Link>
+                <span className="text-text-muted">·</span>
+                <Link to="/cars" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Explore Cars
+                </Link>
+              </div>
             </div>
           )}
         </div>

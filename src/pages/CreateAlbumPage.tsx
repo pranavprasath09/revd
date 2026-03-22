@@ -24,19 +24,17 @@ export default function CreateAlbumPage() {
 
     setFiles((prev) => [...prev, ...selected]);
 
-    // Generate previews
-    selected.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setPreviews((prev) => [...prev, ev.target?.result as string]);
-      };
-      reader.readAsDataURL(file);
-    });
+    // Generate previews using object URLs (cleaned up on remove)
+    const newPreviews = selected.map((file) => URL.createObjectURL(file));
+    setPreviews((prev) => [...prev, ...newPreviews]);
   }
 
   function removeFile(index: number) {
+    setPreviews((prev) => {
+      if (prev[index]) URL.revokeObjectURL(prev[index]);
+      return prev.filter((_, i) => i !== index);
+    });
     setFiles((prev) => prev.filter((_, i) => i !== index));
-    setPreviews((prev) => prev.filter((_, i) => i !== index));
   }
 
   async function handleSubmit(e: React.FormEvent) {

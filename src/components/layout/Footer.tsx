@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="border-t border-white/5">
       <div className="h-[1px] bg-gradient-to-r from-transparent via-accent-red/30 to-transparent" />
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-12 md:flex-row md:justify-between">
-        <Link to="/" className="font-display text-2xl uppercase tracking-tight text-text-secondary">
+        <Link to="/" className="font-display text-2xl uppercase tracking-tight text-text-primary">
           REV<span className="text-accent-red">D</span>
         </Link>
         <div className="flex gap-8">

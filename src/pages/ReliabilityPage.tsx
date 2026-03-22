@@ -444,8 +444,8 @@ export default function ReliabilityPage() {
                   </h2>
                 </div>
                 <ul className="space-y-3">
-                  {reliabilityData.buyingTips.map((tip, index) => (
-                    <li key={index} className="flex items-start gap-3">
+                  {reliabilityData.buyingTips.map((tip) => (
+                    <li key={tip.slice(0, 64)} className="flex items-start gap-3">
                       <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-red" aria-hidden="true" />
                       <span className="font-body text-sm leading-relaxed text-text-secondary">
                         {tip}

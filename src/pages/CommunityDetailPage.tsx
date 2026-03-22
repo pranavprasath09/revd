@@ -56,11 +56,12 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
           )}
 
           {post.image_url && (
-            <div className="mt-3 h-40 overflow-hidden rounded-lg">
+            <div className="mt-3 aspect-[16/9] overflow-hidden rounded-lg">
               <img
                 src={post.image_url}
-                alt=""
+                alt={post.title}
                 loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                 className="h-full w-full object-cover"
               />
             </div>
@@ -73,7 +74,7 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
               {post.author?.avatar_url ? (
                 <img
                   src={post.author.avatar_url}
-                  alt=""
+                  alt={authorName}
                   className="h-5 w-5 rounded-full object-cover"
                 />
               ) : (
@@ -215,9 +216,10 @@ export default function CommunityDetailPage() {
           <div className="h-40 w-full overflow-hidden sm:h-52">
             <img
               src={community.banner_image}
-              alt=""
+              alt={`${community.name} banner`}
               className="h-full w-full object-cover"
               loading="eager"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
           </div>
         )}

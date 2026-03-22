@@ -43,13 +43,13 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile top bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-[#2a2a2a] bg-[#0f0f0f] px-4 md:hidden">
+      <div className="fixed top-0 left-0 right-0 z-40 flex h-14 items-center justify-between border-b border-white/10 bg-bg-base px-4 md:hidden">
         <Link to="/" className="font-display text-xl uppercase tracking-tight text-white">
           REV<span className="text-accent-red">D</span>
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-white"
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-white cursor-pointer"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -66,14 +66,14 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 flex h-screen flex-col border-r border-[#2a2a2a] bg-[#0f0f0f] transition-all duration-300 ease-in-out
+        className={`fixed top-0 left-0 z-50 flex h-screen flex-col border-r border-white/10 bg-bg-base transition-all duration-300 ease-in-out
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
           w-[240px]
           md:translate-x-0 md:w-16 lg:w-[240px]
         `}
       >
         {/* Logo */}
-        <div className="flex h-16 shrink-0 items-center border-b border-[#2a2a2a] px-5 lg:px-6">
+        <div className="flex h-16 shrink-0 items-center border-b border-white/10 px-5 lg:px-6">
           <Link
             to="/"
             onClick={() => setMobileOpen(false)}
@@ -95,10 +95,10 @@ export default function Sidebar() {
                   <Link
                     to={item.to}
                     onClick={() => setMobileOpen(false)}
-                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-body text-sm font-medium transition-all duration-200
+                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-3 font-body text-sm font-medium transition-all duration-200
                       ${active
-                        ? "bg-[#1a1a1a] text-white"
-                        : "text-[#606060] hover:bg-[#1a1a1a] hover:text-white"
+                        ? "bg-bg-surface text-white"
+                        : "text-text-muted hover:bg-bg-surface hover:text-white"
                       }
                       md:justify-center md:px-0 lg:justify-start lg:px-3
                     `}
@@ -111,7 +111,7 @@ export default function Sidebar() {
                     <Icon
                       size={20}
                       className={`shrink-0 transition-colors ${
-                        active ? "text-accent-red" : "text-[#606060] group-hover:text-accent-red"
+                        active ? "text-accent-red" : "text-text-muted group-hover:text-accent-red"
                       }`}
                     />
                     <span className="md:hidden lg:inline">{item.label}</span>
@@ -120,17 +120,17 @@ export default function Sidebar() {
               );
             })}
             {isSignedIn && user && (() => {
-              const profilePath = `/profile/${user.id}`;
+              const profilePath = `/profile/${user.displayName ? encodeURIComponent(user.displayName.replace(/\s+/g, "-")) : user.id}`;
               const active = isActive(location.pathname, "/profile");
               return (
                 <li>
                   <Link
                     to={profilePath}
                     onClick={() => setMobileOpen(false)}
-                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-body text-sm font-medium transition-all duration-200
+                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-3 font-body text-sm font-medium transition-all duration-200
                       ${active
-                        ? "bg-[#1a1a1a] text-white"
-                        : "text-[#606060] hover:bg-[#1a1a1a] hover:text-white"
+                        ? "bg-bg-surface text-white"
+                        : "text-text-muted hover:bg-bg-surface hover:text-white"
                       }
                       md:justify-center md:px-0 lg:justify-start lg:px-3
                     `}
@@ -142,7 +142,7 @@ export default function Sidebar() {
                     <User
                       size={20}
                       className={`shrink-0 transition-colors ${
-                        active ? "text-accent-red" : "text-[#606060] group-hover:text-accent-red"
+                        active ? "text-accent-red" : "text-text-muted group-hover:text-accent-red"
                       }`}
                     />
                     <span className="md:hidden lg:inline">Profile</span>
@@ -154,11 +154,11 @@ export default function Sidebar() {
         </nav>
 
         {/* Bottom section — Auth */}
-        <div className="shrink-0 border-t border-[#2a2a2a] p-3 lg:p-4">
+        <div className="shrink-0 border-t border-white/10 p-3 lg:p-4">
           {isSignedIn && user ? (
             <div className="space-y-2">
               <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 md:justify-center md:px-0 lg:justify-start lg:px-3">
-                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#2a2a2a] ${isPremium ? "bg-accent-red/20" : "bg-[#242424]"}`}>
+                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 ${isPremium ? "bg-accent-red/20" : "bg-bg-elevated"}`}>
                   <span className={`font-mono text-xs font-bold ${isPremium ? "text-accent-red" : "text-text-muted"}`}>
                     {user.avatar ?? user.displayName.charAt(0)}
                   </span>
@@ -177,7 +177,7 @@ export default function Sidebar() {
               </div>
               <button
                 onClick={async () => { await signOut(); setMobileOpen(false); navigate("/sign-in"); }}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-[#1a1a1a] hover:text-white transition-all md:justify-center md:px-0 lg:justify-start lg:px-3 cursor-pointer"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-bg-surface hover:text-white transition-all md:justify-center md:px-0 lg:justify-start lg:px-3 cursor-pointer"
                 title="Sign out"
               >
                 <LogOut size={16} className="shrink-0" />
@@ -188,10 +188,10 @@ export default function Sidebar() {
             <Link
               to="/sign-in"
               onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all hover:bg-[#1a1a1a] md:justify-center md:px-0 lg:justify-start lg:px-3"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all hover:bg-bg-surface md:justify-center md:px-0 lg:justify-start lg:px-3"
             >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#242424] border border-[#2a2a2a]">
-                <svg className="h-4 w-4 text-[#606060]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-white/10">
+                <svg className="h-4 w-4 text-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>

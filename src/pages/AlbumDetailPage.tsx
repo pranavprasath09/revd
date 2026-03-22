@@ -28,11 +28,15 @@ export default function AlbumDetailPage() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    Promise.all([fetchAlbum(id), fetchAlbumPhotos(id)]).then(([albumData, photosData]) => {
-      setAlbum(albumData);
-      setPhotos(photosData);
-      setLoading(false);
-    });
+    Promise.all([fetchAlbum(id), fetchAlbumPhotos(id)])
+      .then(([albumData, photosData]) => {
+        setAlbum(albumData);
+        setPhotos(photosData);
+      })
+      .catch((err) => {
+        console.error("Failed to load album:", err);
+      })
+      .finally(() => setLoading(false));
   }, [id, fetchAlbum, fetchAlbumPhotos]);
 
   // Fetch creator info

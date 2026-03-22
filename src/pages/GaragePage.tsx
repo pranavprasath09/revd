@@ -67,7 +67,7 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
           <h2 className="font-display text-xl uppercase tracking-wide text-text-primary">Add Car to Garage</h2>
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors cursor-pointer"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />
@@ -159,7 +159,7 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
                 </div>
                 <button
                   onClick={() => setSelectedCar(null)}
-                  className="text-xs text-accent-red hover:text-accent-hover transition-colors"
+                  className="text-xs text-accent-red hover:text-accent-hover transition-colors cursor-pointer"
                 >
                   Change
                 </button>
@@ -252,7 +252,7 @@ function AddModModal({ open, onClose, onAdd }: AddModModalProps) {
           <h2 className="font-display text-xl uppercase tracking-wide text-text-primary">Add Mod</h2>
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors cursor-pointer"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />

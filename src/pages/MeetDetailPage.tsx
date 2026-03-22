@@ -485,7 +485,9 @@ export default function MeetDetailPage() {
                         {a.avatar_url ? (
                           <img
                             src={a.avatar_url}
-                            alt={a.display_name ?? ""}
+                            alt={a.display_name ?? "Attendee"}
+                            loading="lazy"
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                             className="h-7 w-7 rounded-full object-cover"
                           />
                         ) : (

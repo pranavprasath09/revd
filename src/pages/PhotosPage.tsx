@@ -87,7 +87,11 @@ export default function PhotosPage() {
       .from("profiles")
       .select("id, display_name")
       .in("id", creatorIds)
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Failed to fetch creator names:", error.message);
+          return;
+        }
         if (!data) return;
         const names: Record<string, string> = {};
         data.forEach((p) => {
@@ -214,6 +218,19 @@ export default function PhotosPage() {
                   Sign In to Upload
                 </Link>
               )}
+              <div className="mt-6 flex items-center gap-4">
+                <Link to="/meets" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Find Meets
+                </Link>
+                <span className="text-text-muted">·</span>
+                <Link to="/communities" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Communities
+                </Link>
+                <span className="text-text-muted">·</span>
+                <Link to="/cars" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
+                  Explore Cars
+                </Link>
+              </div>
             </div>
           )}
         </div>

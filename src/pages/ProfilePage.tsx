@@ -65,23 +65,24 @@ export default function ProfilePage() {
     if (isUuid) {
       supabase
         .from("profiles")
-        .select("*")
+        .select("id, display_name, avatar_url, bio, tier")
         .eq("id", username)
         .single()
-        .then(({ data }) => {
+        .then(({ data, error }) => {
+          if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
         });
     } else {
-      // Fall back to display_name match (for shared profile links)
       const decoded = decodeURIComponent(username).replace(/-/g, " ");
       supabase
         .from("profiles")
-        .select("*")
+        .select("id, display_name, avatar_url, bio, tier")
         .ilike("display_name", decoded)
         .limit(1)
         .single()
-        .then(({ data }) => {
+        .then(({ data, error }) => {
+          if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
         });
@@ -103,14 +104,21 @@ export default function ProfilePage() {
       .from("garage_cars")
       .select("id, car_id, nickname, year, notes, mods")
       .eq("user_id", profile.id)
-      .then(({ data }) => setGarageCars((data as GarageCarRow[]) ?? []));
+      .then(({ data, error }) => {
+        if (error) console.error("Failed to load garage:", error.message);
+        setGarageCars((data as GarageCarRow[]) ?? []);
+      });
 
     // Meets RSVPed to
     supabase
       .from("meet_rsvps")
       .select("meet_id, meets(id, name, date, meet_type, cover_image_url)")
       .eq("user_id", profile.id)
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Failed to load meets:", error.message);
+          return;
+        }
         if (!data) return;
         const meets = data
           .map((r: any) => r.meets as MeetRow | null)

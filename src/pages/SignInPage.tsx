@@ -14,6 +14,8 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   // Redirect if already signed in
   if (isSignedIn) {
@@ -24,23 +26,34 @@ export default function SignInPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (mode === "signin") {
-      const result = await signIn(email, password);
-      if (result.success) {
-        navigate(redirectTo);
+    setSuccessMsg("");
+    setSubmitting(true);
+    try {
+      if (mode === "signin") {
+        const result = await signIn(email, password);
+        if (result.success) {
+          navigate(redirectTo);
+        } else {
+          setError(result.error ?? "Sign in failed.");
+        }
       } else {
-        setError(result.error ?? "Sign in failed.");
+        if (displayName.trim().length < 2) {
+          setError("Display name must be at least 2 characters.");
+          return;
+        }
+        const result = await signUp(email, password, displayName.trim());
+        if (result.success) {
+          setError("");
+          setSuccessMsg("Account created! Check your email to confirm, then sign in.");
+          setMode("signin");
+          setPassword("");
+          setDisplayName("");
+        } else {
+          setError(result.error ?? "Sign up failed.");
+        }
       }
-    } else {
-      const result = await signUp(email, password, displayName || undefined);
-      if (result.success) {
-        setError("");
-        setMode("signin");
-        setPassword("");
-        setDisplayName("");
-      } else {
-        setError(result.error ?? "Sign up failed.");
-      }
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -110,6 +123,12 @@ export default function SignInPage() {
                   />
                 </div>
 
+                {successMsg && (
+                  <div className="rounded-lg bg-emerald-400/10 border border-emerald-400/20 px-4 py-3">
+                    <p className="font-body text-sm text-emerald-400">{successMsg}</p>
+                  </div>
+                )}
+
                 {error && (
                   <div className="rounded-lg bg-red-400/10 border border-red-400/20 px-4 py-3">
                     <p className="font-body text-sm text-red-400">{error}</p>
@@ -118,9 +137,10 @@ export default function SignInPage() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-accent-red py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
+                  disabled={submitting}
+                  className="w-full rounded-lg bg-accent-red py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {mode === "signin" ? "Sign In" : "Sign Up"}
+                  {submitting ? "..." : mode === "signin" ? "Sign In" : "Sign Up"}
                 </button>
               </form>
             </div>

@@ -12,7 +12,7 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("*")
+        .select("id, name, slug, description, icon, banner_image, creator_id, created_at")
         .order("name", { ascending: true });
 
       if (error) throw error;
@@ -30,7 +30,7 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("*")
+        .select("id, name, slug, description, icon, banner_image, creator_id, created_at")
         .eq("slug", slug)
         .single();
 
@@ -224,7 +224,7 @@ export default function useForums() {
           .select("id")
           .eq("post_id", postId)
           .eq("user_id", user.id)
-          .single();
+          .maybeSingle();
 
         if (existing) {
           // Remove vote
@@ -258,7 +258,7 @@ export default function useForums() {
           .select("id")
           .eq("comment_id", commentId)
           .eq("user_id", user.id)
-          .single();
+          .maybeSingle();
 
         if (existing) {
           await supabase

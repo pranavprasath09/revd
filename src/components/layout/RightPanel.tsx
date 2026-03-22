@@ -47,7 +47,7 @@ export default function RightPanel() {
   return (
     <div className="sticky top-6 hidden w-[280px] shrink-0 space-y-6 xl:block">
       {/* Trending Now */}
-      <div className="rounded-xl border border-[#2a2a2a] bg-[#1a1a1a] p-5">
+      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Trending Now
         </h3>
@@ -77,7 +77,7 @@ export default function RightPanel() {
       </div>
 
       {/* Latest Drop */}
-      <div className="rounded-xl border border-[#2a2a2a] bg-[#1a1a1a] p-5">
+      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Latest Drop
         </h3>
