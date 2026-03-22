@@ -6,22 +6,41 @@ import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
 import type { Community } from "@/types/forum";
 
-function CommunityCard({ community }: { community: Community }) {
+function CommunityCard({ community, isPremiumUser }: { community: Community; isPremiumUser: boolean }) {
+  const locked = community.is_premium_only && !isPremiumUser;
+
   return (
     <Link
-      to={`/communities/${community.slug}`}
-      className="group rounded-xl border border-white/10 bg-bg-surface p-6 transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+      to={locked ? "/premium" : `/communities/${community.slug}`}
+      className={`group rounded-xl border bg-bg-surface p-6 transition-all duration-300 hover:shadow-lg ${
+        locked
+          ? "border-accent-red/20 opacity-80 hover:border-accent-red/40 hover:shadow-accent-red/5"
+          : "border-white/10 hover:border-accent-red/30 hover:shadow-accent-red/5"
+      }`}
     >
       <div className="flex items-start gap-4">
         {/* Icon */}
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-white/5 text-2xl">
-          {community.icon || "💬"}
+          {locked ? (
+            <svg className="h-6 w-6 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          ) : (
+            community.icon || "💬"
+          )}
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="font-display text-xl uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
-            {community.name}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-display text-xl uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
+              {community.name}
+            </h3>
+            {community.is_premium_only && (
+              <span className="rounded-full bg-accent-red/10 px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-wider text-accent-red">
+                PRO
+              </span>
+            )}
+          </div>
           {community.description && (
             <p className="mt-1.5 font-body text-sm text-text-secondary leading-relaxed line-clamp-2">
               {community.description}
@@ -53,7 +72,7 @@ function CommunityCard({ community }: { community: Community }) {
 }
 
 export default function CommunitiesPage() {
-  const { user } = useAuthContext();
+  const { user, isPremium } = useAuthContext();
   const { loading, fetchCommunities } = useForums();
   const [communities, setCommunities] = useState<Community[]>([]);
 
@@ -123,7 +142,7 @@ export default function CommunitiesPage() {
           ) : communities.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {communities.map((community) => (
-                <CommunityCard key={community.id} community={community} />
+                <CommunityCard key={community.id} community={community} isPremiumUser={isPremium} />
               ))}
             </div>
           ) : (

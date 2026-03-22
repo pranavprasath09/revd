@@ -114,7 +114,7 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
 
 export default function CommunityDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { user } = useAuthContext();
+  const { user, isPremium } = useAuthContext();
   const navigate = useNavigate();
   const { loading, fetchCommunityBySlug, fetchPosts, deleteCommunity, joinCommunity, leaveCommunity, checkMembership, getMemberCount } = useForums();
 
@@ -197,6 +197,34 @@ export default function CommunityDetailPage() {
             className="mt-6 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
           >
             Browse Communities
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Premium gate
+  if (community.is_premium_only && !isPremium) {
+    return (
+      <div className="page-enter">
+        <SEOHead title={`${community.name} — PRO Community`} description="This is a PRO-only community." />
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent-red/10 border border-accent-red/20">
+            <svg className="h-10 w-10 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
+            PRO Community
+          </h2>
+          <p className="font-body text-sm text-text-secondary max-w-md mb-6">
+            <span className="font-bold text-text-primary">{community.name}</span> is exclusive to RevD PRO members.
+          </p>
+          <Link
+            to="/premium"
+            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+          >
+            Upgrade to PRO
           </Link>
         </div>
       </div>

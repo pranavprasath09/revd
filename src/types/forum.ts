@@ -7,6 +7,7 @@ export interface Community {
   icon: string | null;
   banner_image: string | null;
   member_count: number;
+  is_premium_only: boolean;
   created_at: string;
 }
 

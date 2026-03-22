@@ -12,6 +12,7 @@ import {
   Hammer,
   Camera,
   Activity,
+  Sparkles,
   User,
   Menu,
   X,
@@ -32,6 +33,7 @@ const NAV_ITEMS = [
   { to: "/communities", label: "Communities", icon: MessageSquare },
   { to: "/builds", label: "Builds", icon: Hammer },
   { to: "/photos", label: "Photos", icon: Camera },
+  { to: "/premium", label: "Premium", icon: Sparkles },
 ];
 
 function isActive(pathname: string, to: string): boolean {

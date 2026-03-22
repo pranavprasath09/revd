@@ -13,7 +13,7 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("id, name, slug, description, icon, banner_image, creator_id, created_at")
+        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, created_at")
         .order("name", { ascending: true });
 
       if (error) throw error;
@@ -31,7 +31,7 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("id, name, slug, description, icon, banner_image, creator_id, created_at")
+        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, created_at")
         .eq("slug", slug)
         .single();
 

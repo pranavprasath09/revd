@@ -21,6 +21,7 @@ interface Profile {
   avatar_url: string | null;
   bio: string | null;
   tier: string;
+  is_premium: boolean;
 }
 
 interface GarageCarRow {
@@ -65,7 +66,7 @@ export default function ProfilePage() {
     if (isUuid) {
       supabase
         .from("profiles")
-        .select("id, display_name, avatar_url, bio, tier")
+        .select("id, display_name, avatar_url, bio, tier, is_premium")
         .eq("id", username)
         .single()
         .then(({ data, error }) => {
@@ -77,7 +78,7 @@ export default function ProfilePage() {
       const decoded = decodeURIComponent(username).replace(/-/g, " ");
       supabase
         .from("profiles")
-        .select("id, display_name, avatar_url, bio, tier")
+        .select("id, display_name, avatar_url, bio, tier, is_premium")
         .ilike("display_name", decoded)
         .limit(1)
         .single()
@@ -238,7 +239,7 @@ export default function ProfilePage() {
                   <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
                     {displayName}
                   </h1>
-                  {profile.tier === "premium" && (
+                  {(profile.is_premium || profile.tier === "premium") && (
                     <span className="rounded-full bg-accent-red/10 px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-accent-red">
                       PRO
                     </span>

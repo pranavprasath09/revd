@@ -30,6 +30,7 @@ const BuildsPage = lazy(() => import("@/pages/BuildsPage"));
 const CreateBuildPage = lazy(() => import("@/pages/CreateBuildPage"));
 const BuildDetailPage = lazy(() => import("@/pages/BuildDetailPage"));
 const AddBuildEntryPage = lazy(() => import("@/pages/AddBuildEntryPage"));
+const PremiumPage = lazy(() => import("@/pages/PremiumPage"));
 const PhotosPage = lazy(() => import("@/pages/PhotosPage"));
 const CreateAlbumPage = lazy(() => import("@/pages/CreateAlbumPage"));
 const AlbumDetailPage = lazy(() => import("@/pages/AlbumDetailPage"));
@@ -69,6 +70,7 @@ export default function App() {
                 <Route path="/builds/create" element={<CreateBuildPage />} />
                 <Route path="/builds/:id" element={<BuildDetailPage />} />
                 <Route path="/builds/:id/add-entry" element={<AddBuildEntryPage />} />
+                <Route path="/premium" element={<PremiumPage />} />
                 <Route path="/photos" element={<PhotosPage />} />
                 <Route path="/photos/create" element={<CreateAlbumPage />} />
                 <Route path="/photos/:id" element={<AlbumDetailPage />} />
