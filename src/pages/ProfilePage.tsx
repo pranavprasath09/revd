@@ -223,6 +223,7 @@ export default function ProfilePage() {
                   <img
                     src={profile.avatar_url}
                     alt={displayName}
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     className="h-full w-full rounded-full object-cover"
                   />
                 ) : (

@@ -17,11 +17,11 @@ function MiniSparkline() {
     .join(" ");
 
   return (
-    <svg width="54" height="24" viewBox="0 0 54 24" className="shrink-0">
+    <svg width="54" height="24" viewBox="0 0 54 24" className="shrink-0 text-accent-red">
       <path
         d={path}
         fill="none"
-        stroke="#e63946"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

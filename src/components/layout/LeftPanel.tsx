@@ -84,7 +84,7 @@ export default function LeftPanel() {
               onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent" />
           </div>
           <div className="px-5 pb-5 pt-3">
             <p className="font-display text-xl uppercase tracking-wide text-white group-hover:text-accent-red transition-colors">
