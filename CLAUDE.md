@@ -57,7 +57,7 @@ and photographers — all in one place built specifically for them.
 ### NOT YET BUILT
 - Photo Albums / Photographer Profiles (Sprint 3) — NEXT
 - Community Forums (Sprint 4)
-- Build Logs (Sprint 5)
+- Build Logs (Sprint 5) — DONE
 - Notifications + Feed (Sprint 6)
 - Stripe / Premium (Sprint 7)
 - Featured Photographer (Sprint 8)
@@ -252,7 +252,8 @@ Sprint 1 — DONE: Supabase auth, profiles, garage_cars, useAuth, useGarage, Sig
 Sprint 2 — DONE: Car Meets, meets table, meet_rsvps, useMeets, MeetsPage, CreateMeetPage, MeetDetailPage, RSVP system, redirect flow
 Sprint 3 — DONE: Photo Albums, Photographer Profiles, Follow System, Storage bucket, /photos, /photos/create, /photos/:id, /profile/:username
 Sprint 4 — DONE: Community Forums, communities table, posts, comments, post_votes, comment_votes, useForums, CommunitiesPage, CommunityDetailPage, PostDetailPage, CreatePostPage, voting system
-Sprint 5 — Upcoming: Build Logs
+Full Audit — DONE & VERIFIED (March 2026): 47-issue audit completed across all sprints. All fixes verified file-by-file: auth flows, snapshot/rollback, error handling, .maybeSingle(), publicUrl null checks, file size validation, explicit select columns, design token consistency (zero hardcoded hex remaining), image loading/alt/onError on every image, URL.revokeObjectURL cleanup, cursor-pointer, aspect-ratio locks, content-based React keys, empty state cross-links. Zero TypeScript errors.
+Sprint 5 — DONE: Build Logs, build_logs table, build_entries, build_likes, useBuildLogs, BuildsPage, CreateBuildPage, BuildDetailPage, AddBuildEntryPage, like system, image uploads, sidebar nav
 Sprint 6 — Upcoming: Notifications + Feed
 Sprint 7 — Upcoming: Stripe + Premium
 Sprint 8 — Upcoming: Featured Photographer

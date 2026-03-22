@@ -9,6 +9,7 @@ import {
   Gauge,
   CalendarDays,
   MessageSquare,
+  Hammer,
   Camera,
   User,
   Menu,
@@ -26,6 +27,7 @@ const NAV_ITEMS = [
   { to: "/garage", label: "My Garage", icon: Gauge },
   { to: "/meets", label: "Car Meets", icon: CalendarDays },
   { to: "/communities", label: "Communities", icon: MessageSquare },
+  { to: "/builds", label: "Builds", icon: Hammer },
   { to: "/photos", label: "Photos", icon: Camera },
 ];
 

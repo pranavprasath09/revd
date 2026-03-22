@@ -25,6 +25,10 @@ const CreateCommunityPage = lazy(() => import("@/pages/CreateCommunityPage"));
 const CommunityDetailPage = lazy(() => import("@/pages/CommunityDetailPage"));
 const PostDetailPage = lazy(() => import("@/pages/PostDetailPage"));
 const CreatePostPage = lazy(() => import("@/pages/CreatePostPage"));
+const BuildsPage = lazy(() => import("@/pages/BuildsPage"));
+const CreateBuildPage = lazy(() => import("@/pages/CreateBuildPage"));
+const BuildDetailPage = lazy(() => import("@/pages/BuildDetailPage"));
+const AddBuildEntryPage = lazy(() => import("@/pages/AddBuildEntryPage"));
 const PhotosPage = lazy(() => import("@/pages/PhotosPage"));
 const CreateAlbumPage = lazy(() => import("@/pages/CreateAlbumPage"));
 const AlbumDetailPage = lazy(() => import("@/pages/AlbumDetailPage"));
@@ -59,6 +63,10 @@ export default function App() {
                 <Route path="/communities/:slug" element={<CommunityDetailPage />} />
                 <Route path="/communities/:slug/post/:postId" element={<PostDetailPage />} />
                 <Route path="/communities/:slug/create" element={<CreatePostPage />} />
+                <Route path="/builds" element={<BuildsPage />} />
+                <Route path="/builds/create" element={<CreateBuildPage />} />
+                <Route path="/builds/:id" element={<BuildDetailPage />} />
+                <Route path="/builds/:id/add-entry" element={<AddBuildEntryPage />} />
                 <Route path="/photos" element={<PhotosPage />} />
                 <Route path="/photos/create" element={<CreateAlbumPage />} />
                 <Route path="/photos/:id" element={<AlbumDetailPage />} />
