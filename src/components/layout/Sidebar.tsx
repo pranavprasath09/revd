@@ -11,15 +11,18 @@ import {
   MessageSquare,
   Hammer,
   Camera,
+  Activity,
   User,
   Menu,
   X,
   LogOut,
 } from "lucide-react";
 import { useAuthContext } from "@/context/AuthContext";
+import NotificationBell from "@/components/layout/NotificationBell";
 
 const NAV_ITEMS = [
   { to: "/", label: "Home", icon: House },
+  { to: "/feed", label: "Feed", icon: Activity },
   { to: "/cars", label: "Cars", icon: Car },
   { to: "/news", label: "News", icon: Newspaper },
   { to: "/reliability", label: "Reliability", icon: Shield },
@@ -49,13 +52,16 @@ export default function Sidebar() {
         <Link to="/" className="font-display text-xl uppercase tracking-tight text-white">
           REV<span className="text-accent-red">D</span>
         </Link>
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-white cursor-pointer"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-1">
+          {isSignedIn && <NotificationBell />}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-white cursor-pointer"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile overlay */}
@@ -74,8 +80,8 @@ export default function Sidebar() {
           md:translate-x-0 md:w-16 lg:w-[240px]
         `}
       >
-        {/* Logo */}
-        <div className="flex h-16 shrink-0 items-center border-b border-white/10 px-5 lg:px-6">
+        {/* Logo + Notification bell */}
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5 lg:px-6">
           <Link
             to="/"
             onClick={() => setMobileOpen(false)}
@@ -84,6 +90,11 @@ export default function Sidebar() {
             <span className="md:hidden lg:inline">REV<span className="text-accent-red">D</span></span>
             <span className="hidden md:inline lg:hidden text-accent-red">D</span>
           </Link>
+          {isSignedIn && (
+            <div className="hidden md:block">
+              <NotificationBell />
+            </div>
+          )}
         </div>
 
         {/* Nav items */}

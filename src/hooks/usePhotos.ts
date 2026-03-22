@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Album, AlbumPhoto, CreateAlbumInput } from "@/types/photo";
+import { createNotificationDirect } from "@/lib/notifications";
 
 export default function usePhotos() {
   const { user } = useAuthContext();
@@ -190,6 +191,16 @@ export default function usePhotos() {
           .insert({ follower_id: user.id, following_id: followingId });
 
         if (error) throw error;
+
+        // Notify the followed user (non-blocking)
+        createNotificationDirect({
+          actorId: user.id,
+          userId: followingId,
+          type: "follow",
+          entityType: "profile",
+          entityId: user.id,
+        }).catch(() => {});
+
         return true;
       } catch (err) {
         console.error("Failed to follow:", (err as Error).message);

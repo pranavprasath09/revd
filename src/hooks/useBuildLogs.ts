@@ -7,6 +7,7 @@ import type {
   CreateBuildLogInput,
   CreateBuildEntryInput,
 } from "@/types/buildlog";
+import { createNotificationDirect } from "@/lib/notifications";
 
 const BUILD_LOG_COLUMNS =
   "id, owner_id, car_id, title, description, is_public, total_cost, created_at, updated_at";
@@ -236,6 +237,23 @@ export default function useBuildLogs() {
           await supabase
             .from("build_likes")
             .insert({ build_log_id: buildLogId, user_id: user.id });
+
+          // Notify build owner (non-blocking)
+          const { data: buildLog } = await supabase
+            .from("build_logs")
+            .select("owner_id")
+            .eq("id", buildLogId)
+            .single();
+
+          if (buildLog) {
+            createNotificationDirect({
+              actorId: user.id,
+              userId: buildLog.owner_id,
+              type: "build_like",
+              entityType: "build_log",
+              entityId: buildLogId,
+            }).catch(() => {});
+          }
         }
         return true;
       } catch (err) {

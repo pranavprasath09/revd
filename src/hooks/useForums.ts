@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Community, Post, Comment, CreateCommunityInput, CreatePostInput } from "@/types/forum";
+import { createNotificationDirect } from "@/lib/notifications";
 
 export default function useForums() {
   const { user } = useAuthContext();
@@ -203,6 +204,23 @@ export default function useForums() {
             .from("posts")
             .update({ comment_count: count })
             .eq("id", postId);
+        }
+
+        // Notify post author (non-blocking)
+        const { data: post } = await supabase
+          .from("posts")
+          .select("author_id")
+          .eq("id", postId)
+          .single();
+
+        if (post) {
+          createNotificationDirect({
+            actorId: user.id,
+            userId: post.author_id,
+            type: "comment",
+            entityType: "post",
+            entityId: postId,
+          }).catch(() => {});
         }
 
         return data as Comment;

@@ -254,7 +254,7 @@ Sprint 3 — DONE: Photo Albums, Photographer Profiles, Follow System, Storage b
 Sprint 4 — DONE: Community Forums, communities table, posts, comments, post_votes, comment_votes, useForums, CommunitiesPage, CommunityDetailPage, PostDetailPage, CreatePostPage, voting system
 Full Audit — DONE & VERIFIED (March 2026): 47-issue audit completed across all sprints. All fixes verified file-by-file: auth flows, snapshot/rollback, error handling, .maybeSingle(), publicUrl null checks, file size validation, explicit select columns, design token consistency (zero hardcoded hex remaining), image loading/alt/onError on every image, URL.revokeObjectURL cleanup, cursor-pointer, aspect-ratio locks, content-based React keys, empty state cross-links. Zero TypeScript errors.
 Sprint 5 — DONE: Build Logs, build_logs table, build_entries, build_likes, useBuildLogs, BuildsPage, CreateBuildPage, BuildDetailPage, AddBuildEntryPage, like system, image uploads, sidebar nav
-Sprint 6 — Upcoming: Notifications + Feed
+Sprint 6 — DONE: Notifications + Feed, notifications table, feed_events table, useNotifications, useFeed, NotificationBell, FeedPage, realtime unread count, notification wiring (follow, build_like, comment), sidebar feed link
 Sprint 7 — Upcoming: Stripe + Premium
 Sprint 8 — Upcoming: Featured Photographer
 

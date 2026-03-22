@@ -25,6 +25,7 @@ const CreateCommunityPage = lazy(() => import("@/pages/CreateCommunityPage"));
 const CommunityDetailPage = lazy(() => import("@/pages/CommunityDetailPage"));
 const PostDetailPage = lazy(() => import("@/pages/PostDetailPage"));
 const CreatePostPage = lazy(() => import("@/pages/CreatePostPage"));
+const FeedPage = lazy(() => import("@/pages/FeedPage"));
 const BuildsPage = lazy(() => import("@/pages/BuildsPage"));
 const CreateBuildPage = lazy(() => import("@/pages/CreateBuildPage"));
 const BuildDetailPage = lazy(() => import("@/pages/BuildDetailPage"));
@@ -46,6 +47,7 @@ export default function App() {
             <Suspense fallback={<LoadingState />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/feed" element={<FeedPage />} />
                 <Route path="/cars" element={<CarsPage />} />
                 <Route path="/cars/:make/:model/:year" element={<CarDetailPage />} />
                 <Route path="/news" element={<NewsPage />} />
