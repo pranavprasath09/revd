@@ -44,7 +44,7 @@ export default function App() {
         <Sidebar />
 
         {/* Main content area — offset for sidebar */}
-        <div className="flex min-h-screen flex-1 flex-col pt-14 md:pt-0 md:pl-16 lg:pl-[240px]">
+        <div className="flex min-h-screen flex-1 flex-col overflow-x-hidden pt-12 md:pt-0 md:pl-14 lg:pl-[220px]">
           <main className="flex-1">
             <Suspense fallback={<LoadingState />}>
               <Routes>

@@ -119,7 +119,7 @@ export default function CreateCommunityPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Rotary Enthusiasts"
                 required
-                className="w-full rounded-xl border border-white/10 bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
+                className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
               />
               {name.trim() && (
                 <p className="mt-1.5 font-body text-xs text-text-muted">
@@ -138,7 +138,7 @@ export default function CreateCommunityPage() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="What's this community about?"
                 rows={3}
-                className="w-full resize-none rounded-xl border border-white/10 bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
+                className="w-full resize-none rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
               />
             </div>
 
@@ -160,7 +160,7 @@ export default function CreateCommunityPage() {
               </button>
               <Link
                 to="/communities"
-                className="rounded-lg border border-white/10 px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
+                className="rounded-lg border border-border px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
               >
                 Cancel
               </Link>

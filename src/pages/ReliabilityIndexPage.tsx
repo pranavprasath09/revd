@@ -222,7 +222,7 @@ export default function ReliabilityIndexPage() {
                   <Link
                     key={car.id}
                     to={`/reliability/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="card-corner group relative overflow-hidden rounded-xl border border-white/5 bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
+                    className="card-corner group relative overflow-hidden rounded-xl border border-border bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
                     style={{ animationDelay: `${index * 60}ms` }}
                   >
                     {/* Car image */}
@@ -234,7 +234,7 @@ export default function ReliabilityIndexPage() {
                         onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/20 to-transparent" />
 
                       {/* Score overlay */}
                       <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
@@ -257,7 +257,7 @@ export default function ReliabilityIndexPage() {
                       </p>
 
                       {/* Score bar */}
-                      <div className="mt-3 h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+                      <div className="mt-3 h-1.5 w-full rounded-full bg-bg-elevated/50 overflow-hidden">
                         <div
                           className={`h-full rounded-full ${getScoreBg(data.overallScore)} transition-all duration-700`}
                           style={{ width: `${data.overallScore}%` }}
@@ -265,7 +265,7 @@ export default function ReliabilityIndexPage() {
                       </div>
 
                       {/* Issue counts */}
-                      <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-3">
+                      <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
                         <div className="flex items-center gap-3">
                           {highIssues > 0 && (
                             <div className="flex items-center gap-1">

@@ -29,7 +29,7 @@ export default function Navbar() {
 
   const navBg = isHome && !scrolled
     ? "bg-transparent"
-    : "bg-bg-base/95 backdrop-blur-xl border-b border-white/5";
+    : "bg-bg-base/95 backdrop-blur-xl border-b border-border";
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
@@ -90,7 +90,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="border-t border-white/5 bg-bg-base/98 backdrop-blur-xl sm:hidden">
+        <div className="border-t border-border bg-bg-base/98 backdrop-blur-xl sm:hidden">
           <div className="space-y-1 px-4 py-4">
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname.startsWith(link.to);
@@ -101,7 +101,7 @@ export default function Navbar() {
                   className={`block rounded-lg px-4 py-3 font-display text-lg uppercase tracking-wider transition-colors ${
                     isActive
                       ? "bg-white/10 text-white"
-                      : "text-text-secondary hover:bg-white/5 hover:text-white"
+                      : "text-text-secondary hover:bg-bg-elevated/50 hover:text-white"
                   }`}
                 >
                   {link.label}

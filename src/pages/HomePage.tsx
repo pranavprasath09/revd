@@ -139,10 +139,9 @@ export default function HomePage() {
       {/* ── Stats Bar ───────────────────────────────── */}
       <section
         ref={statsSection.ref}
-        className="border-y border-white/5"
-        style={{ background: "#1a0a0a" }}
+        className="border-y border-border bg-bg-surface/50"
       >
-        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-white/5 sm:grid-cols-4">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-border sm:grid-cols-4">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
@@ -156,7 +155,7 @@ export default function HomePage() {
                   <AnimatedCounter target={stat.target} suffix={stat.suffix} visible={statsSection.visible} />
                 )}
               </p>
-              <p className="mt-2 font-body text-[11px] font-bold uppercase tracking-widest text-white/40">
+              <p className="mt-2 font-body text-[11px] font-bold uppercase tracking-widest text-text-muted">
                 {stat.label}
               </p>
             </div>
@@ -202,7 +201,7 @@ export default function HomePage() {
           <div className="mt-10 text-center sm:hidden">
             <Link
               to="/news"
-              className="inline-block rounded-lg border border-white/15 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-bg-elevated"
+              className="inline-block rounded-lg border border-border px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white transition-colors hover:bg-bg-elevated"
             >
               All News
             </Link>
@@ -234,7 +233,7 @@ export default function HomePage() {
             Ready to go deeper?
           </h2>
           <p
-            className={`mx-auto mt-4 max-w-lg font-body text-base text-white/40 sm:text-lg transition-all duration-700 ease-out delay-150 ${ctaSection.visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            className={`mx-auto mt-4 max-w-lg font-body text-base text-text-muted sm:text-lg transition-all duration-700 ease-out delay-150 ${ctaSection.visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
           >
             Join thousands of enthusiasts. Free forever, premium when you want it.
           </p>

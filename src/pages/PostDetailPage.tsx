@@ -30,7 +30,7 @@ function CommentItem({
   const authorInitial = authorName[0]?.toUpperCase() ?? "?";
 
   return (
-    <div className="flex gap-3 py-4 border-b border-white/5 last:border-0">
+    <div className="flex gap-3 py-4 border-b border-border last:border-0">
       {/* Avatar */}
       {comment.author?.avatar_url ? (
         <img
@@ -57,7 +57,7 @@ function CommentItem({
           className={`mt-2 inline-flex items-center gap-1 rounded-md px-2 py-1 font-body text-xs transition-colors cursor-pointer ${
             hasVoted
               ? "text-accent-red bg-accent-red/10"
-              : "text-text-muted hover:text-text-secondary hover:bg-white/5"
+              : "text-text-muted hover:text-text-secondary hover:bg-bg-elevated/50"
           }`}
         >
           <svg
@@ -241,7 +241,7 @@ export default function PostDetailPage() {
           </div>
 
           {/* Post */}
-          <article className="rounded-xl border border-white/10 bg-bg-surface p-6 sm:p-8">
+          <article className="rounded-xl border border-border bg-bg-surface p-6 sm:p-8">
             <div className="flex gap-4">
               {/* Vote column */}
               <div className="flex flex-col items-center gap-1">
@@ -251,7 +251,7 @@ export default function PostDetailPage() {
                   className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors cursor-pointer disabled:cursor-default ${
                     hasVotedPost
                       ? "bg-accent-red/10 text-accent-red"
-                      : "text-text-muted hover:bg-white/5 hover:text-text-secondary"
+                      : "text-text-muted hover:bg-bg-elevated/50 hover:text-text-secondary"
                   }`}
                 >
                   <svg
@@ -375,7 +375,7 @@ export default function PostDetailPage() {
             {/* Comment form */}
             {user ? (
               <form onSubmit={handleSubmitComment} className="mb-6">
-                <div className="rounded-xl border border-white/10 bg-bg-surface overflow-hidden">
+                <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
                   <textarea
                     value={commentBody}
                     onChange={(e) => setCommentBody(e.target.value)}
@@ -383,7 +383,7 @@ export default function PostDetailPage() {
                     rows={3}
                     className="w-full resize-none bg-transparent px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
                   />
-                  <div className="flex justify-end border-t border-white/5 px-4 py-2">
+                  <div className="flex justify-end border-t border-border px-4 py-2">
                     <button
                       type="submit"
                       disabled={!commentBody.trim() || submitting}
@@ -395,7 +395,7 @@ export default function PostDetailPage() {
                 </div>
               </form>
             ) : (
-              <div className="mb-6 rounded-xl border border-white/10 bg-bg-surface p-4 text-center">
+              <div className="mb-6 rounded-xl border border-border bg-bg-surface p-4 text-center">
                 <Link
                   to={`/sign-in?redirect=/communities/${slug}/post/${postId}`}
                   className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
@@ -407,7 +407,7 @@ export default function PostDetailPage() {
 
             {/* Comments list */}
             {comments.length > 0 ? (
-              <div className="rounded-xl border border-white/10 bg-bg-surface px-5">
+              <div className="rounded-xl border border-border bg-bg-surface px-5">
                 {comments.map((comment) => (
                   <CommentItem
                     key={comment.id}
@@ -418,7 +418,7 @@ export default function PostDetailPage() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-white/10 bg-bg-surface p-8 text-center">
+              <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">
                 <p className="font-body text-sm text-text-muted">
                   No comments yet. Be the first to share your thoughts.
                 </p>

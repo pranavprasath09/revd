@@ -78,7 +78,7 @@ export default function AnimatedHero() {
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(to bottom, transparent 0%, rgba(15,15,15,0.3) 50%, #0f0f0f 100%)",
+          background: "linear-gradient(to bottom, transparent 0%, var(--color-bg-base, #0A0B0D)33 50%, var(--color-bg-base, #0A0B0D) 100%)",
         }}
         aria-hidden="true"
       />
@@ -87,7 +87,7 @@ export default function AnimatedHero() {
       <div
         className="absolute inset-0"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 40%, rgba(15,15,15,0.5) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 40%, var(--color-bg-base, #0A0B0D)80 100%)",
         }}
         aria-hidden="true"
       />
@@ -149,7 +149,7 @@ export default function AnimatedHero() {
           </Link>
           <Link
             to="/meets"
-            className="inline-flex items-center gap-2.5 rounded-lg border border-white/20 bg-white/5 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
+            className="inline-flex items-center gap-2.5 rounded-lg border border-white/20 bg-bg-elevated/50 px-8 py-3.5 font-display text-lg uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
           >
             Find Meets
           </Link>

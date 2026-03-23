@@ -32,7 +32,7 @@ function BuildCard({ data }: { data: BuildCardData }) {
   return (
     <Link
       to={`/builds/${data.log.id}`}
-      className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+      className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
     >
       {/* Cover image */}
       <div className="relative aspect-[16/10] overflow-hidden">

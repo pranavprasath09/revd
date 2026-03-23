@@ -284,8 +284,7 @@ export default function ReliabilityPage() {
             onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-bg-base/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/25 to-transparent" />
         </div>
       )}
 
@@ -477,7 +476,7 @@ export default function ReliabilityPage() {
                       <Link
                         key={c.id}
                         to={`/reliability/${c.make.toLowerCase()}/${c.model.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="card-corner group flex items-center gap-4 rounded-xl border border-white/5 bg-bg-surface p-4 transition-all hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+                        className="card-corner group flex items-center gap-4 rounded-xl border border-border bg-bg-surface p-4 transition-all hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
                       >
                         <img
                           src={c.heroImage}

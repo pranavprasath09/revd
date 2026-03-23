@@ -186,7 +186,7 @@ export default function AlbumDetailPage() {
                   disabled={followLoading}
                   className={`rounded-lg px-4 py-2 font-body text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     following
-                      ? "border border-white/10 text-text-secondary hover:border-accent-red/40 hover:text-accent-red"
+                      ? "border border-border text-text-secondary hover:border-accent-red/40 hover:text-accent-red"
                       : "bg-accent-red text-white hover:bg-accent-hover"
                   }`}
                 >
@@ -266,7 +266,7 @@ export default function AlbumDetailPage() {
                   className="mb-4 break-inside-avoid cursor-pointer group"
                   onClick={() => setLightboxIndex(index)}
                 >
-                  <div className="relative overflow-hidden rounded-lg border border-white/5">
+                  <div className="relative overflow-hidden rounded-lg border border-border">
                     <img
                       src={photo.image_url}
                       alt={photo.caption || `Photo ${index + 1}`}
@@ -298,7 +298,7 @@ export default function AlbumDetailPage() {
         >
           <button
             onClick={() => setLightboxIndex(null)}
-            className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
+            className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-bg-elevated transition-colors cursor-pointer"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -309,7 +309,7 @@ export default function AlbumDetailPage() {
           {lightboxIndex > 0 && (
             <button
               onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex - 1); }}
-              className="absolute left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
+              className="absolute left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-bg-elevated transition-colors cursor-pointer"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -319,7 +319,7 @@ export default function AlbumDetailPage() {
           {lightboxIndex < photos.length - 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex + 1); }}
-              className="absolute right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
+              className="absolute right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-bg-elevated transition-colors cursor-pointer"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

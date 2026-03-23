@@ -188,7 +188,7 @@ export default function CreatePostPage() {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="What's on your mind?"
                 required
-                className="w-full rounded-xl border border-white/10 bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
+                className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
               />
             </div>
 
@@ -202,7 +202,7 @@ export default function CreatePostPage() {
                 onChange={(e) => setBody(e.target.value)}
                 placeholder="Share more details..."
                 rows={6}
-                className="w-full resize-none rounded-xl border border-white/10 bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
+                className="w-full resize-none rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
               />
             </div>
 
@@ -213,7 +213,7 @@ export default function CreatePostPage() {
               </label>
 
               {imagePreview ? (
-                <div className="relative rounded-xl overflow-hidden border border-white/10">
+                <div className="relative rounded-xl overflow-hidden border border-border">
                   <img
                     src={imagePreview}
                     alt="Preview"
@@ -233,7 +233,7 @@ export default function CreatePostPage() {
                   </button>
                 </div>
               ) : (
-                <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-white/10 bg-bg-surface py-8 transition-colors hover:border-accent-red/30">
+                <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-border bg-bg-surface py-8 transition-colors hover:border-accent-red/30">
                   <svg
                     className="h-8 w-8 text-text-muted mb-2"
                     viewBox="0 0 24 24"
@@ -276,7 +276,7 @@ export default function CreatePostPage() {
               </button>
               <Link
                 to={`/communities/${slug}`}
-                className="rounded-lg border border-white/10 px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
+                className="rounded-lg border border-border px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
               >
                 Cancel
               </Link>

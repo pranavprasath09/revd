@@ -15,12 +15,12 @@ function CommunityCard({ community, isPremiumUser }: { community: Community; isP
       className={`group rounded-xl border bg-bg-surface p-6 transition-all duration-300 hover:shadow-lg ${
         locked
           ? "border-accent-red/20 opacity-80 hover:border-accent-red/40 hover:shadow-accent-red/5"
-          : "border-white/10 hover:border-accent-red/30 hover:shadow-accent-red/5"
+          : "border-border hover:border-accent-red/30 hover:shadow-accent-red/5"
       }`}
     >
       <div className="flex items-start gap-4">
         {/* Icon */}
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-white/5 text-2xl">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-border text-2xl">
           {locked ? (
             <svg className="h-6 w-6 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />

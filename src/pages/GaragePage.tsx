@@ -107,7 +107,7 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
                         className={`flex w-full items-center gap-4 px-4 py-3 text-left transition-colors border-b border-border last:border-0 ${
                           alreadyAdded
                             ? "opacity-40 cursor-not-allowed"
-                            : "hover:bg-white/5 cursor-pointer"
+                            : "hover:bg-bg-elevated/50 cursor-pointer"
                         }`}
                       >
                         <img
@@ -350,7 +350,7 @@ function GarageCarCard({ garageCar, car, onRemove, onUpdate, onAddMod, onRemoveM
   }
 
   return (
-    <div className="card-corner rounded-xl border border-white/5 bg-bg-surface overflow-hidden transition-all duration-300 animate-fade-up">
+    <div className="card-corner rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 animate-fade-up">
       {/* Hero */}
       <div className="relative h-44 sm:h-52 overflow-hidden cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <img
@@ -513,7 +513,7 @@ function GarageCarCard({ garageCar, car, onRemove, onUpdate, onAddMod, onRemoveM
                 {garageCar.mods.map((mod) => (
                   <div
                     key={mod.id}
-                    className="group flex items-start gap-3 rounded-lg bg-white/[0.02] p-3 border border-white/5"
+                    className="group flex items-start gap-3 rounded-lg bg-white/[0.02] p-3 border border-border"
                   >
                     <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-accent-red" />
                     <div className="flex-1 min-w-0">

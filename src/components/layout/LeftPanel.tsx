@@ -25,7 +25,7 @@ export default function LeftPanel() {
   return (
     <div className="sticky top-6 hidden w-[280px] shrink-0 space-y-6 2xl:block">
       {/* Quick Stats */}
-      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
+      <div className="rounded-xl border border-border bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Quick Stats
         </h3>
@@ -47,7 +47,7 @@ export default function LeftPanel() {
       </div>
 
       {/* Top Searched */}
-      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
+      <div className="rounded-xl border border-border bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Top Searched
         </h3>
@@ -56,7 +56,7 @@ export default function LeftPanel() {
             <Link
               key={item.term}
               to="/cars"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-body text-xs font-medium text-text-secondary transition-all hover:border-accent-red/30 hover:bg-accent-red/10 hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-elevated/50 px-3 py-1.5 font-body text-xs font-medium text-text-secondary transition-all hover:border-accent-red/30 hover:bg-accent-red/10 hover:text-white"
             >
               {item.term}
               <span className="font-mono text-[10px] text-accent-red/60">{item.count}</span>
@@ -66,7 +66,7 @@ export default function LeftPanel() {
       </div>
 
       {/* Featured Build of the Week */}
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-bg-surface">
+      <div className="overflow-hidden rounded-xl border border-border bg-bg-surface">
         <div className="p-5 pb-3">
           <h3 className="font-display text-lg uppercase tracking-wider text-white">
             <span className="text-accent-red">//</span> Build of the Week
@@ -92,7 +92,7 @@ export default function LeftPanel() {
             </p>
             <div className="mt-2 flex items-center gap-3">
               {/* Owner avatar placeholder */}
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-bg-elevated border border-white/10">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-bg-elevated border border-border">
                 <span className="font-body text-[10px] font-bold text-text-muted">JT</span>
               </div>
               <span className="font-body text-xs text-text-secondary">by <span className="font-semibold text-text-primary">@jt_builds</span></span>

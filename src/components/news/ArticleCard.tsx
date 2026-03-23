@@ -18,7 +18,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Link
       to={`/news/${article.slug}`}
-      className="card-corner group relative flex gap-4 rounded-xl border border-white/5 bg-bg-surface p-3 transition-all duration-300 hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
+      className="card-corner group relative flex gap-4 rounded-xl border border-border bg-bg-surface p-3 transition-all duration-300 hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
     >
       <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-36">
         <img

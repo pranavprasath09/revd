@@ -199,7 +199,7 @@ export default function CreateBuildPage() {
                         className={`flex w-full items-center gap-4 rounded-xl border p-4 text-left transition-all cursor-pointer ${
                           selected
                             ? "border-accent-red bg-accent-red/5"
-                            : "border-white/10 bg-bg-surface hover:border-accent-red/30"
+                            : "border-border bg-bg-surface hover:border-accent-red/30"
                         }`}
                       >
                         <div className="h-16 w-24 shrink-0 overflow-hidden rounded-lg">
@@ -263,7 +263,7 @@ export default function CreateBuildPage() {
               {(() => {
                 const info = getCarInfo(selectedCar);
                 return (
-                  <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-bg-surface p-4">
+                  <div className="flex items-center gap-4 rounded-xl border border-border bg-bg-surface p-4">
                     <div className="h-12 w-18 shrink-0 overflow-hidden rounded-lg">
                       <img
                         src={info.image || fallbackImage}

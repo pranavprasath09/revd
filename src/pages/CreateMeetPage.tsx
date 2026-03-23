@@ -222,7 +222,7 @@ export default function CreateMeetPage() {
                   className={`shrink-0 cursor-pointer rounded-full px-5 py-2 font-body text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
                     meetType === type
                       ? "bg-accent-red text-white shadow-md shadow-accent-red/25"
-                      : "border border-white/10 bg-bg-surface text-text-secondary hover:border-accent-red/40 hover:text-text-primary"
+                      : "border border-border bg-bg-surface text-text-secondary hover:border-accent-red/40 hover:text-text-primary"
                   }`}
                 >
                   {type}

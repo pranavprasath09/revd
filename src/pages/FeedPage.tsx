@@ -93,10 +93,10 @@ function FeedCard({ event }: { event: FeedEvent }) {
   const previewImage = (event.metadata?.preview_image as string) ?? null;
 
   const cardContent = (
-    <div className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5">
+    <div className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5">
       <div className="flex gap-4 p-4">
         {/* Actor avatar */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-white/10">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-border">
           <span className="font-mono text-sm font-bold text-text-muted">
             {event.actor?.display_name?.charAt(0)?.toUpperCase() ?? "?"}
           </span>
@@ -244,7 +244,7 @@ export default function FeedPage() {
                 <button
                   onClick={() => fetchFeed(events.length)}
                   disabled={loading}
-                  className="w-full rounded-lg border border-white/10 bg-bg-surface py-3 font-body text-sm text-text-secondary transition-colors hover:border-accent-red/30 hover:text-text-primary disabled:opacity-50 cursor-pointer"
+                  className="w-full rounded-lg border border-border bg-bg-surface py-3 font-body text-sm text-text-secondary transition-colors hover:border-accent-red/30 hover:text-text-primary disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? "Loading..." : "Load More"}
                 </button>
@@ -282,7 +282,7 @@ export default function FeedPage() {
                 </Link>
                 <Link
                   to="/builds"
-                  className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-bg-surface px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-text-primary transition-colors hover:border-accent-red/30"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-surface px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-text-primary transition-colors hover:border-accent-red/30"
                 >
                   Browse Builds
                 </Link>

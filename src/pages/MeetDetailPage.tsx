@@ -235,15 +235,14 @@ export default function MeetDetailPage() {
             }}
           />
 
-          {/* Gradient overlays for depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-bg-base/60 via-transparent to-transparent" />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/30 to-transparent" />
 
           {/* Back button */}
           <div className="absolute top-6 left-6 z-10">
             <Link
               to="/meets"
-              className="inline-flex items-center gap-2 rounded-full bg-bg-base/70 px-4 py-2 backdrop-blur-md border border-white/10 font-body text-sm text-white/80 hover:text-white hover:bg-bg-base/90 transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-bg-base/70 px-4 py-2 backdrop-blur-md border border-border font-body text-sm text-white/80 hover:text-white hover:bg-bg-base/90 transition-all"
             >
               <svg
                 className="h-4 w-4"
@@ -283,7 +282,7 @@ export default function MeetDetailPage() {
         </div>
 
         {/* ─── Floating Stats Bar ──────────────────────────── */}
-        <div className="relative z-10 mx-4 -mt-12 rounded-xl border border-white/10 bg-bg-surface/80 px-5 py-5 shadow-2xl shadow-black/40 backdrop-blur-md sm:mx-8 sm:px-8 lg:mx-auto lg:max-w-5xl">
+        <div className="relative z-10 mx-4 -mt-12 rounded-xl border border-border bg-bg-surface/80 px-5 py-5 shadow-2xl shadow-black/40 backdrop-blur-md sm:mx-8 sm:px-8 lg:mx-auto lg:max-w-5xl">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {/* Date */}
             <div className="flex items-center gap-3">
@@ -307,7 +306,7 @@ export default function MeetDetailPage() {
 
             {/* Time */}
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-white/5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-border">
                 <svg
                   className="h-5 w-5 text-text-secondary"
                   viewBox="0 0 24 24"
@@ -333,7 +332,7 @@ export default function MeetDetailPage() {
 
             {/* Attendees */}
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-white/5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-border">
                 <svg
                   className="h-5 w-5 text-text-secondary"
                   viewBox="0 0 24 24"
@@ -364,7 +363,7 @@ export default function MeetDetailPage() {
 
             {/* Countdown */}
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-white/5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-bg-elevated border border-border">
                 <svg
                   className="h-5 w-5 text-text-secondary"
                   viewBox="0 0 24 24"
@@ -480,7 +479,7 @@ export default function MeetDetailPage() {
                     {attendees.map((a) => (
                       <div
                         key={a.user_id}
-                        className="flex items-center gap-2.5 rounded-full bg-bg-elevated border border-white/5 px-4 py-2"
+                        className="flex items-center gap-2.5 rounded-full bg-bg-elevated border border-border px-4 py-2"
                       >
                         {a.avatar_url ? (
                           <img

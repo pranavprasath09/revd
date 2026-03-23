@@ -106,9 +106,9 @@ export default function NotificationBell() {
 
       {/* Dropdown panel */}
       {open && (
-        <div className="absolute left-0 top-12 z-50 w-80 rounded-xl border border-white/10 bg-bg-surface shadow-2xl lg:left-auto lg:right-0">
+        <div className="absolute left-0 top-12 z-50 w-80 rounded-xl border border-border bg-bg-surface shadow-2xl lg:left-auto lg:right-0">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <h3 className="font-display text-sm uppercase tracking-wide text-text-primary">
               Notifications
             </h3>
@@ -145,7 +145,7 @@ export default function NotificationBell() {
                       }}
                     >
                       {/* Actor avatar */}
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-white/10">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-border">
                         <span className="font-mono text-xs font-bold text-text-muted">
                           {n.actor?.display_name?.charAt(0)?.toUpperCase() ?? "?"}
                         </span>

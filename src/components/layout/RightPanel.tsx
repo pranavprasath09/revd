@@ -47,7 +47,7 @@ export default function RightPanel() {
   return (
     <div className="sticky top-6 hidden w-[280px] shrink-0 space-y-6 xl:block">
       {/* Trending Now */}
-      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
+      <div className="rounded-xl border border-border bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Trending Now
         </h3>
@@ -56,7 +56,7 @@ export default function RightPanel() {
             <li key={car.id}>
               <Link
                 to={`/cars/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}/${car.years.split("–")[0]}`}
-                className="group flex items-center gap-3 rounded-lg p-1.5 -mx-1.5 transition-colors hover:bg-white/5"
+                className="group flex items-center gap-3 rounded-lg p-1.5 -mx-1.5 transition-colors hover:bg-bg-elevated/50"
               >
                 <span className="font-display text-2xl leading-none text-accent-red/60 w-7 text-right">
                   {i + 1}
@@ -77,7 +77,7 @@ export default function RightPanel() {
       </div>
 
       {/* Latest Drop */}
-      <div className="rounded-xl border border-white/10 bg-bg-surface p-5">
+      <div className="rounded-xl border border-border bg-bg-surface p-5">
         <h3 className="font-display text-lg uppercase tracking-wider text-white">
           <span className="text-accent-red">//</span> Latest Drop
         </h3>
@@ -86,7 +86,7 @@ export default function RightPanel() {
             <Link
               key={article.id}
               to={`/news/${article.slug}`}
-              className="group block rounded-lg p-2 -mx-2 transition-colors hover:bg-white/5"
+              className="group block rounded-lg p-2 -mx-2 transition-colors hover:bg-bg-elevated/50"
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="rounded-full bg-accent-red/10 px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-wider text-accent-red">

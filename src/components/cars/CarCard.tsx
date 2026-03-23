@@ -12,7 +12,7 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
   return (
     <Link
       to={`/cars/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}/${car.years.split("–")[0]}`}
-      className="card-corner group relative overflow-hidden rounded-xl border border-white/5 bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(230,57,70,0.3)]"
+      className="card-corner group relative overflow-hidden rounded-xl border border-border bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(230,57,70,0.3)]"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Image with permanent red gradient */}
@@ -67,7 +67,7 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
         </p>
 
         {/* Stats bar — monospace numbers */}
-        <div className="mt-3 grid grid-cols-3 gap-2 border-t border-white/5 pt-3">
+        <div className="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3">
           <div>
             <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">
               Power

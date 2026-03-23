@@ -68,18 +68,18 @@ export default function SearchBar({ cars, placeholder = "Search cars..." }: Sear
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
-          className="h-14 w-full rounded-full border border-white/10 bg-white/5 pl-14 pr-6 font-body text-sm text-white placeholder:text-text-muted backdrop-blur-md transition-all duration-300 focus:border-accent-red/50 focus:outline-none focus:shadow-[0_0_30px_8px_rgba(230,57,70,0.15)] sm:h-16 sm:text-base"
+          className="h-14 w-full rounded-full border border-border bg-bg-elevated/50 pl-14 pr-6 font-body text-sm text-white placeholder:text-text-muted backdrop-blur-md transition-all duration-300 focus:border-accent-red/50 focus:outline-none focus:shadow-[0_0_30px_8px_rgba(230,57,70,0.15)] sm:h-16 sm:text-base"
         />
       </div>
 
       {isOpen && results.length > 0 && (
-        <ul className="absolute top-full z-50 mt-3 w-full overflow-hidden rounded-2xl border border-white/10 bg-bg-elevated/95 shadow-2xl shadow-black/50 backdrop-blur-xl">
+        <ul className="absolute top-full z-50 mt-3 w-full overflow-hidden rounded-2xl border border-border bg-bg-elevated/95 shadow-2xl shadow-black/50 backdrop-blur-xl">
           {results.map((car) => (
             <li key={car.id}>
               <button
                 type="button"
                 onClick={() => handleSelect(car)}
-                className="flex w-full items-center gap-4 px-5 py-3.5 text-left transition-colors hover:bg-white/5"
+                className="flex w-full items-center gap-4 px-5 py-3.5 text-left transition-colors hover:bg-bg-elevated/50"
               >
                 <img
                   src={car.heroImage}

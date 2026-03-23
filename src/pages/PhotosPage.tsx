@@ -19,7 +19,7 @@ function AlbumCard({ album, creatorName }: AlbumCardProps) {
   return (
     <Link
       to={`/photos/${album.id}`}
-      className="group block rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5 break-inside-avoid mb-5"
+      className="group block rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5 break-inside-avoid mb-5"
     >
       <div className="relative overflow-hidden">
         <img

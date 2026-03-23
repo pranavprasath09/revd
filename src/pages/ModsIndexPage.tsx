@@ -217,7 +217,7 @@ export default function ModsIndexPage() {
                   <Link
                     key={car.id}
                     to={`/mods/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="card-corner group relative overflow-hidden rounded-xl border border-white/5 bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
+                    className="card-corner group relative overflow-hidden rounded-xl border border-border bg-bg-surface transition-all duration-300 animate-fade-up hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-xl hover:shadow-accent-red/10"
                     style={{ animationDelay: `${index * 60}ms` }}
                   >
                     {/* Car image */}
@@ -229,7 +229,7 @@ export default function ModsIndexPage() {
                         onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/20 to-transparent" />
 
                       {/* Mod count overlay */}
                       <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
@@ -263,7 +263,7 @@ export default function ModsIndexPage() {
                       </p>
 
                       {/* Difficulty breakdown bar */}
-                      <div className="mt-3 flex h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                      <div className="mt-3 flex h-1.5 w-full overflow-hidden rounded-full bg-bg-elevated/50">
                         {beginnerCount > 0 && (
                           <div
                             className="h-full bg-emerald-400"
@@ -285,7 +285,7 @@ export default function ModsIndexPage() {
                       </div>
 
                       {/* Difficulty counts */}
-                      <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-3">
+                      <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
                         <div className="flex items-center gap-3">
                           {beginnerCount > 0 && (
                             <div className="flex items-center gap-1">

@@ -281,7 +281,7 @@ export default function ProfilePage() {
                     disabled={followLoading}
                     className={`mt-4 rounded-lg px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
                       following
-                        ? "border border-white/10 text-text-secondary hover:border-accent-red/40 hover:text-accent-red"
+                        ? "border border-border text-text-secondary hover:border-accent-red/40 hover:text-accent-red"
                         : "bg-accent-red text-white hover:bg-accent-hover"
                     }`}
                   >
@@ -307,7 +307,7 @@ export default function ProfilePage() {
                   <Link
                     key={album.id}
                     to={`/photos/${album.id}`}
-                    className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
+                    className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
                   >
                     <div className="relative h-44 overflow-hidden">
                       <img
@@ -372,7 +372,7 @@ export default function ProfilePage() {
                   return (
                     <div
                       key={gc.id}
-                      className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+                      className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
                     >
                       {/* Car hero image */}
                       <div className="relative h-44 overflow-hidden">
@@ -434,7 +434,7 @@ export default function ProfilePage() {
                             {gc.mods.slice(0, 3).map((mod) => (
                               <span
                                 key={mod.id}
-                                className="rounded-full bg-white/5 border border-white/5 px-2.5 py-0.5 font-body text-[10px] font-medium text-text-secondary"
+                                className="rounded-full bg-bg-elevated/50 border border-border px-2.5 py-0.5 font-body text-[10px] font-medium text-text-secondary"
                               >
                                 {mod.name}
                               </span>
@@ -469,7 +469,7 @@ export default function ProfilePage() {
                   <Link
                     key={meet.id}
                     to={`/meets/${meet.id}`}
-                    className="group rounded-xl border border-white/10 bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
+                    className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
                   >
                     <div className="relative h-32 overflow-hidden">
                       <img

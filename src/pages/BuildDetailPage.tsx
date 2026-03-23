@@ -54,7 +54,7 @@ function EntryCard({ entry }: { entry: BuildEntry }) {
       {/* Timeline dot */}
       <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-accent-red bg-bg-base" />
 
-      <div className="rounded-xl border border-white/10 bg-bg-surface overflow-hidden">
+      <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
         {/* Entry images */}
         {entry.images.length > 0 && (
           <div
@@ -283,7 +283,7 @@ export default function BuildDetailPage() {
           <div className="absolute top-6 left-6 z-10">
             <Link
               to="/builds"
-              className="inline-flex items-center gap-2 rounded-full bg-bg-base/70 px-4 py-2 backdrop-blur-md border border-white/10 font-body text-sm text-white/80 hover:text-white hover:bg-bg-base/90 transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-bg-base/70 px-4 py-2 backdrop-blur-md border border-border font-body text-sm text-white/80 hover:text-white hover:bg-bg-base/90 transition-all"
             >
               <svg
                 className="h-4 w-4"
@@ -316,7 +316,7 @@ export default function BuildDetailPage() {
 
       {/* Stats bar */}
       <PageWrapper>
-        <div className="-mt-4 relative z-10 mb-8 rounded-xl border border-white/10 bg-bg-surface/80 px-5 py-4 shadow-2xl shadow-black/40 backdrop-blur-md">
+        <div className="-mt-4 relative z-10 mb-8 rounded-xl border border-border bg-bg-surface/80 px-5 py-4 shadow-2xl shadow-black/40 backdrop-blur-md">
           <div className="flex flex-wrap items-center gap-6">
             {/* Total cost */}
             <div>
@@ -356,7 +356,7 @@ export default function BuildDetailPage() {
                 className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-body text-sm font-bold transition-all cursor-pointer disabled:cursor-not-allowed ${
                   liked
                     ? "bg-accent-red/10 border border-accent-red/30 text-accent-red"
-                    : "border border-white/10 text-text-secondary hover:border-accent-red/30 hover:text-accent-red"
+                    : "border border-border text-text-secondary hover:border-accent-red/30 hover:text-accent-red"
                 }`}
               >
                 <svg

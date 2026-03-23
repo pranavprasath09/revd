@@ -184,7 +184,7 @@ export default function PremiumPage() {
                 <button
                   onClick={handleManage}
                   disabled={actionLoading}
-                  className="rounded-lg border border-white/10 bg-bg-surface px-5 py-2.5 font-body text-sm font-bold text-text-primary transition-colors hover:border-accent-red/30 disabled:opacity-50 cursor-pointer"
+                  className="rounded-lg border border-border bg-bg-surface px-5 py-2.5 font-body text-sm font-bold text-text-primary transition-colors hover:border-accent-red/30 disabled:opacity-50 cursor-pointer"
                 >
                   {actionLoading ? "Loading..." : "Manage Subscription"}
                 </button>
@@ -197,7 +197,7 @@ export default function PremiumPage() {
             {FEATURES.map((feature) => (
               <div
                 key={feature.title}
-                className="rounded-xl border border-white/10 bg-bg-surface p-5 transition-all hover:border-accent-red/20"
+                className="rounded-xl border border-border bg-bg-surface p-5 transition-all hover:border-accent-red/20"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-red/10 text-accent-red">

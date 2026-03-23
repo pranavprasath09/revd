@@ -12,9 +12,9 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-accent-red text-white font-semibold hover:bg-accent-hover shadow-sm hover:shadow-md hover:shadow-accent-red/20",
   secondary:
-    "border border-white/10 bg-white/5 text-text-primary font-semibold hover:bg-white/10 hover:border-white/20",
+    "border border-border bg-bg-elevated/50 text-text-primary font-semibold hover:bg-white/10 hover:border-white/20",
   ghost:
-    "text-text-secondary font-medium hover:bg-white/5 hover:text-text-primary",
+    "text-text-secondary font-medium hover:bg-bg-elevated/50 hover:text-text-primary",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

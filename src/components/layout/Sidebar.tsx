@@ -20,26 +20,45 @@ import {
 } from "lucide-react";
 import { useAuthContext } from "@/context/AuthContext";
 import NotificationBell from "@/components/layout/NotificationBell";
+import ThemePicker from "@/components/ui/ThemePicker";
 
-const NAV_ITEMS = [
-  { to: "/", label: "Home", icon: House },
-  { to: "/feed", label: "Feed", icon: Activity },
-  { to: "/cars", label: "Cars", icon: Car },
-  { to: "/news", label: "News", icon: Newspaper },
-  { to: "/reliability", label: "Reliability", icon: Shield },
-  { to: "/mods", label: "Mod Guides", icon: Wrench },
-  { to: "/garage", label: "My Garage", icon: Gauge },
-  { to: "/meets", label: "Car Meets", icon: CalendarDays },
-  { to: "/communities", label: "Communities", icon: MessageSquare },
-  { to: "/builds", label: "Builds", icon: Hammer },
-  { to: "/photos", label: "Photos", icon: Camera },
-  { to: "/premium", label: "Premium", icon: Sparkles },
+/* ── Nav structure with section grouping ─────────────── */
+const NAV_SECTIONS = [
+  {
+    label: "Workspace",
+    items: [
+      { to: "/", label: "Home", icon: House },
+      { to: "/feed", label: "Feed", icon: Activity },
+      { to: "/garage", label: "My Garage", icon: Gauge },
+      { to: "/builds", label: "Builds", icon: Hammer },
+    ],
+  },
+  {
+    label: "Explore",
+    items: [
+      { to: "/cars", label: "Cars", icon: Car },
+      { to: "/news", label: "News", icon: Newspaper },
+      { to: "/reliability", label: "Reliability", icon: Shield },
+      { to: "/mods", label: "Mod Guides", icon: Wrench },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { to: "/meets", label: "Car Meets", icon: CalendarDays },
+      { to: "/communities", label: "Communities", icon: MessageSquare },
+      { to: "/photos", label: "Photos", icon: Camera },
+    ],
+  },
 ];
 
 function isActive(pathname: string, to: string): boolean {
   if (to === "/") return pathname === "/";
   return pathname.startsWith(to);
 }
+
+/** Shared border style using theme var */
+const themeBorder = { borderColor: "var(--theme-border, rgba(255,255,255,0.08))" };
 
 export default function Sidebar() {
   const location = useLocation();
@@ -49,140 +68,199 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile top bar */}
-      <div className="fixed top-0 left-0 right-0 z-40 flex h-14 items-center justify-between border-b border-white/10 bg-bg-base px-4 md:hidden">
-        <Link to="/" className="font-display text-xl uppercase tracking-tight text-white">
-          REV<span className="text-accent-red">D</span>
+      {/* ── Mobile top bar ─────────────────────────────── */}
+      <div
+        className="fixed top-0 left-0 right-0 z-40 flex h-12 items-center justify-between border-b bg-bg-base px-4 md:hidden"
+        style={themeBorder}
+      >
+        <Link to="/" className="flex items-center gap-1.5">
+          <span className="font-display text-[15px] tracking-[-0.03em] text-text-primary">
+            rev<span className="text-accent-amber">d</span>
+          </span>
         </Link>
         <div className="flex items-center gap-1">
           {isSignedIn && <NotificationBell />}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-white cursor-pointer"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-text-secondary transition-colors duration-100 hover:text-text-primary cursor-pointer"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile overlay */}
+      {/* ── Mobile overlay ─────────────────────────────── */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* ── Sidebar ────────────────────────────────────── */}
       <aside
-        className={`fixed top-0 left-0 z-50 flex h-screen flex-col border-r border-white/10 bg-bg-base transition-all duration-300 ease-in-out
+        className={`fixed top-0 left-0 z-50 flex h-screen flex-col border-r bg-bg-base transition-transform duration-150 ease-out
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
-          w-[240px]
-          md:translate-x-0 md:w-16 lg:w-[240px]
+          w-[220px]
+          md:translate-x-0 md:w-14 lg:w-[220px]
         `}
+        style={themeBorder}
       >
-        {/* Logo + Notification bell */}
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5 lg:px-6">
+        {/* ── Logo area ─────────────────────────────────── */}
+        <div className="flex h-12 shrink-0 items-center justify-between border-b px-4 lg:px-5" style={themeBorder}>
           <Link
             to="/"
             onClick={() => setMobileOpen(false)}
-            className="font-display text-2xl uppercase tracking-tight text-white"
+            className="flex items-center"
           >
-            <span className="md:hidden lg:inline">REV<span className="text-accent-red">D</span></span>
-            <span className="hidden md:inline lg:hidden text-accent-red">D</span>
+            <span className="font-display text-[15px] tracking-[-0.03em] text-text-primary md:hidden lg:inline">
+              rev<span className="text-accent-amber">d</span>
+            </span>
+            <span className="hidden md:inline lg:hidden font-display text-[15px] text-accent-amber">d</span>
           </Link>
           {isSignedIn && (
-            <div className="hidden md:block">
+            <div className="hidden md:flex">
               <NotificationBell />
             </div>
           )}
         </div>
 
-        {/* Nav items */}
-        <nav className="flex-1 overflow-y-auto py-4 px-2 lg:px-3">
-          <ul className="space-y-1">
-            {NAV_ITEMS.map((item) => {
-              const active = isActive(location.pathname, item.to);
-              const Icon = item.icon;
-              return (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    onClick={() => setMobileOpen(false)}
-                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-3 font-body text-sm font-medium transition-all duration-200
-                      ${active
-                        ? "bg-bg-surface text-white"
-                        : "text-text-muted hover:bg-bg-surface hover:text-white"
-                      }
-                      md:justify-center md:px-0 lg:justify-start lg:px-3
-                    `}
-                    title={item.label}
-                  >
-                    {/* Red left border for active */}
-                    {active && (
-                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-accent-red" />
-                    )}
-                    <Icon
-                      size={20}
-                      className={`shrink-0 transition-colors ${
-                        active ? "text-accent-red" : "text-text-muted group-hover:text-accent-red"
-                      }`}
-                    />
-                    <span className="md:hidden lg:inline">{item.label}</span>
-                  </Link>
-                </li>
-              );
-            })}
-            {isSignedIn && user && (() => {
-              const profilePath = `/profile/${user.displayName ? encodeURIComponent(user.displayName.replace(/\s+/g, "-")) : user.id}`;
-              const active = isActive(location.pathname, "/profile");
-              return (
-                <li>
-                  <Link
-                    to={profilePath}
-                    onClick={() => setMobileOpen(false)}
-                    className={`group relative flex items-center gap-3 rounded-lg px-3 py-3 font-body text-sm font-medium transition-all duration-200
-                      ${active
-                        ? "bg-bg-surface text-white"
-                        : "text-text-muted hover:bg-bg-surface hover:text-white"
-                      }
-                      md:justify-center md:px-0 lg:justify-start lg:px-3
-                    `}
-                    title="Profile"
-                  >
-                    {active && (
-                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-accent-red" />
-                    )}
-                    <User
-                      size={20}
-                      className={`shrink-0 transition-colors ${
-                        active ? "text-accent-red" : "text-text-muted group-hover:text-accent-red"
-                      }`}
-                    />
-                    <span className="md:hidden lg:inline">Profile</span>
-                  </Link>
-                </li>
-              );
-            })()}
-          </ul>
+        {/* ── Navigation sections ───────────────────────── */}
+        <nav className="flex-1 overflow-y-auto py-3 px-2 lg:px-2.5">
+          {NAV_SECTIONS.map((section, sectionIdx) => (
+            <div key={section.label} className={sectionIdx > 0 ? "mt-5" : ""}>
+              <div className="nav-section-label mb-1 hidden lg:block">
+                {section.label}
+              </div>
+              {sectionIdx > 0 && (
+                <div className="mx-2 mb-2 hidden border-t md:block lg:hidden" style={{ borderColor: "var(--theme-border, rgba(255,255,255,0.06))" }} />
+              )}
+              <ul className="space-y-0.5">
+                {section.items.map((item) => {
+                  const active = isActive(location.pathname, item.to);
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.to}>
+                      <Link
+                        to={item.to}
+                        onClick={() => setMobileOpen(false)}
+                        className={`group relative flex h-8 items-center gap-2.5 rounded-md px-2.5 font-body text-[13px] font-medium transition-colors duration-100
+                          ${active
+                            ? "bg-bg-elevated text-text-primary"
+                            : "text-text-secondary hover:bg-bg-elevated/60 hover:text-text-primary"
+                          }
+                          md:justify-center md:h-9 md:w-9 md:mx-auto md:rounded-md md:px-0 lg:justify-start lg:h-8 lg:w-auto lg:mx-0 lg:px-2.5
+                        `}
+                        title={item.label}
+                      >
+                        {active && (
+                          <span className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r-sm bg-accent-amber" />
+                        )}
+                        <Icon
+                          size={16}
+                          strokeWidth={active ? 2 : 1.5}
+                          className={`shrink-0 transition-colors duration-100 ${
+                            active ? "text-accent-amber" : "text-text-muted group-hover:text-text-secondary"
+                          }`}
+                        />
+                        <span className="md:hidden lg:inline truncate">{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+
+          {/* ── Premium + Profile ─────────────────────────── */}
+          <div className="mt-5">
+            <div className="nav-section-label mb-1 hidden lg:block">Account</div>
+            <div className="mx-2 mb-2 hidden border-t md:block lg:hidden" style={{ borderColor: "var(--theme-border, rgba(255,255,255,0.06))" }} />
+            <ul className="space-y-0.5">
+              <li>
+                <Link
+                  to="/premium"
+                  onClick={() => setMobileOpen(false)}
+                  className={`group relative flex h-8 items-center gap-2.5 rounded-md px-2.5 font-body text-[13px] font-medium transition-colors duration-100
+                    ${isActive(location.pathname, "/premium")
+                      ? "bg-bg-elevated text-text-primary"
+                      : "text-text-secondary hover:bg-bg-elevated/60 hover:text-text-primary"
+                    }
+                    md:justify-center md:h-9 md:w-9 md:mx-auto md:rounded-md md:px-0 lg:justify-start lg:h-8 lg:w-auto lg:mx-0 lg:px-2.5
+                  `}
+                  title="Premium"
+                >
+                  {isActive(location.pathname, "/premium") && (
+                    <span className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r-sm bg-accent-amber" />
+                  )}
+                  <Sparkles
+                    size={16}
+                    strokeWidth={isActive(location.pathname, "/premium") ? 2 : 1.5}
+                    className={`shrink-0 transition-colors duration-100 ${
+                      isActive(location.pathname, "/premium") ? "text-accent-amber" : "text-text-muted group-hover:text-text-secondary"
+                    }`}
+                  />
+                  <span className="md:hidden lg:inline">Premium</span>
+                </Link>
+              </li>
+              {isSignedIn && user && (() => {
+                const profilePath = `/profile/${user.displayName ? encodeURIComponent(user.displayName.replace(/\s+/g, "-")) : user.id}`;
+                const active = isActive(location.pathname, "/profile");
+                return (
+                  <li>
+                    <Link
+                      to={profilePath}
+                      onClick={() => setMobileOpen(false)}
+                      className={`group relative flex h-8 items-center gap-2.5 rounded-md px-2.5 font-body text-[13px] font-medium transition-colors duration-100
+                        ${active
+                          ? "bg-bg-elevated text-text-primary"
+                          : "text-text-secondary hover:bg-bg-elevated/60 hover:text-text-primary"
+                        }
+                        md:justify-center md:h-9 md:w-9 md:mx-auto md:rounded-md md:px-0 lg:justify-start lg:h-8 lg:w-auto lg:mx-0 lg:px-2.5
+                      `}
+                      title="Profile"
+                    >
+                      {active && (
+                        <span className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r-sm bg-accent-amber" />
+                      )}
+                      <User
+                        size={16}
+                        strokeWidth={active ? 2 : 1.5}
+                        className={`shrink-0 transition-colors duration-100 ${
+                          active ? "text-accent-amber" : "text-text-muted group-hover:text-text-secondary"
+                        }`}
+                      />
+                      <span className="md:hidden lg:inline">Profile</span>
+                    </Link>
+                  </li>
+                );
+              })()}
+            </ul>
+          </div>
         </nav>
 
-        {/* Bottom section — Auth */}
-        <div className="shrink-0 border-t border-white/10 p-3 lg:p-4">
+        {/* ── Bottom — Auth section ────────────────────── */}
+        <div className="shrink-0 border-t p-2.5 lg:p-3" style={themeBorder}>
+          {/* Theme picker */}
+          <div className="mb-1 flex items-center md:justify-center lg:justify-start">
+            <ThemePicker />
+          </div>
           {isSignedIn && user ? (
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 md:justify-center md:px-0 lg:justify-start lg:px-3">
-                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 ${isPremium ? "bg-accent-red/20" : "bg-bg-elevated"}`}>
-                  <span className={`font-mono text-xs font-bold ${isPremium ? "text-accent-red" : "text-text-muted"}`}>
-                    {user.avatar ?? user.displayName.charAt(0)}
+            <div className="space-y-1">
+              <div className="flex items-center gap-2.5 rounded-md px-2.5 py-2 md:justify-center md:px-0 lg:justify-start lg:px-2.5">
+                <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${isPremium ? "bg-accent-dim" : "bg-bg-elevated"}`}
+                  style={{ border: `1px solid var(--theme-border, rgba(255,255,255,0.08))` }}
+                >
+                  <span className={`font-mono text-[10px] font-semibold ${isPremium ? "text-accent-amber" : "text-text-secondary"}`}>
+                    {user.avatar ?? user.displayName.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="text-left md:hidden lg:block min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <p className="font-body text-xs font-bold text-text-primary truncate">{user.displayName}</p>
+                    <p className="font-body text-[12px] font-medium text-text-primary truncate">{user.displayName}</p>
                     {isPremium && (
-                      <span className="rounded-full bg-accent-red/10 px-1.5 py-0.5 font-body text-[8px] font-bold uppercase tracking-wider text-accent-red">
+                      <span className="rounded bg-accent-dim px-1 py-px font-mono text-[9px] font-semibold tracking-wide text-accent-amber">
                         PRO
                       </span>
                     )}
@@ -192,28 +270,30 @@ export default function Sidebar() {
               </div>
               <button
                 onClick={async () => { await signOut(); setMobileOpen(false); navigate("/sign-in"); }}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-bg-surface hover:text-white transition-all md:justify-center md:px-0 lg:justify-start lg:px-3 cursor-pointer"
+                className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-text-muted hover:bg-bg-elevated/60 hover:text-text-secondary transition-colors duration-100 md:justify-center md:px-0 lg:justify-start lg:px-2.5 cursor-pointer"
                 title="Sign out"
               >
-                <LogOut size={16} className="shrink-0" />
-                <span className="font-body text-xs md:hidden lg:inline">Sign Out</span>
+                <LogOut size={14} strokeWidth={1.5} className="shrink-0" />
+                <span className="font-body text-[12px] md:hidden lg:inline">Sign Out</span>
               </button>
             </div>
           ) : (
             <Link
               to="/sign-in"
               onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all hover:bg-bg-surface md:justify-center md:px-0 lg:justify-start lg:px-3"
+              className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 transition-colors duration-100 hover:bg-bg-elevated/60 md:justify-center md:px-0 lg:justify-start lg:px-2.5"
             >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-white/10">
-                <svg className="h-4 w-4 text-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bg-elevated"
+                style={{ border: `1px solid var(--theme-border, rgba(255,255,255,0.08))` }}
+              >
+                <svg className="h-3.5 w-3.5 text-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </div>
               <div className="text-left md:hidden lg:block">
-                <p className="font-body text-xs font-bold text-accent-red">Sign In</p>
-                <p className="font-body text-[10px] text-text-muted">Join the community</p>
+                <p className="font-body text-[12px] font-medium text-accent-amber">Sign In</p>
+                <p className="font-body text-[10px] text-text-muted">Access your workspace</p>
               </div>
             </Link>
           )}

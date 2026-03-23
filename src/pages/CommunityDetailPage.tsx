@@ -24,7 +24,7 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
   return (
     <Link
       to={`/communities/${slug}/post/${post.id}`}
-      className="group block rounded-xl border border-white/10 bg-bg-surface p-5 transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
+      className="group block rounded-xl border border-border bg-bg-surface p-5 transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
     >
       <div className="flex gap-4">
         {/* Upvote column */}
@@ -255,7 +255,7 @@ export default function CommunityDetailPage() {
           <div className="py-8 sm:py-10">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-white/5 text-3xl">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-border text-3xl">
                   {community.icon || "💬"}
                 </div>
                 <div>
@@ -292,7 +292,7 @@ export default function CommunityDetailPage() {
                     className={`inline-flex items-center gap-2 rounded-lg px-5 py-3 font-body text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50 ${
                       isMember
                         ? "border-2 border-accent-red text-accent-red hover:bg-accent-red/10"
-                        : "bg-white/10 text-white hover:bg-white/20"
+                        : "bg-white/10 text-white hover:bg-bg-elevated"
                     }`}
                   >
                     <svg
@@ -320,7 +320,7 @@ export default function CommunityDetailPage() {
                 ) : (
                   <Link
                     to={`/sign-in?redirect=/communities/${slug}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white hover:bg-bg-elevated transition-colors"
                   >
                     <svg
                       className="h-4 w-4"
