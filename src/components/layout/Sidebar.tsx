@@ -205,7 +205,7 @@ export default function Sidebar() {
                 </Link>
               </li>
               {isSignedIn && user && (() => {
-                const profilePath = `/profile/${user.displayName ? encodeURIComponent(user.displayName.replace(/\s+/g, "-")) : user.id}`;
+                const profilePath = `/profile/${user.id}`;
                 const active = isActive(location.pathname, "/profile");
                 return (
                   <li>
