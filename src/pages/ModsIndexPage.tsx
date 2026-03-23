@@ -50,17 +50,7 @@ const makes = [ALL, ...Array.from(new Set(carsWithMods.map((c) => c.make))).sort
 
 const DIFFICULTY_FILTERS = [ALL, "Beginner", "Intermediate", "Advanced"];
 
-const DIFFICULTY_COLOR: Record<string, string> = {
-  Beginner: "text-emerald-400",
-  Intermediate: "text-amber-400",
-  Advanced: "text-red-400",
-};
-
-const DIFFICULTY_BG: Record<string, string> = {
-  Beginner: "bg-emerald-400",
-  Intermediate: "bg-amber-400",
-  Advanced: "bg-red-400",
-};
+/* DIFFICULTY_COLOR and DIFFICULTY_BG reserved for future use */
 
 export default function ModsIndexPage() {
   const [activeMake, setActiveMake] = useState(ALL);
@@ -106,9 +96,7 @@ export default function ModsIndexPage() {
   const totalAdvanced = Array.from(modsMap.values()).reduce(
     (sum, d) => sum + d.mods.filter((m) => m.difficulty === "Advanced").length, 0
   );
-  const premiumMods = Array.from(modsMap.values()).reduce(
-    (sum, d) => sum + d.mods.filter((m) => m.isPremium).length, 0
-  );
+  /* premiumMods stat reserved for future use */
 
   return (
     <div className="page-enter">

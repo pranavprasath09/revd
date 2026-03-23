@@ -685,7 +685,7 @@ export default function GaragePage() {
       <AddCarModal
         open={addCarOpen}
         onClose={() => setAddCarOpen(false)}
-        onAdd={addCar}
+        onAdd={async (carId: string, nickname?: string, year?: string) => { await addCar(carId, nickname, year); }}
         existingCarIds={existingCarIds}
       />
       <AddModModal

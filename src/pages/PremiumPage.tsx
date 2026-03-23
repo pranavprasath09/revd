@@ -46,7 +46,7 @@ const FEATURES = [
 
 export default function PremiumPage() {
   const { user } = useAuthContext();
-  const { isPremium, plan, status, currentPeriodEnd, subscribe, manageSubscription, loading } =
+  const { isPremium, status, currentPeriodEnd, subscribe, manageSubscription, loading } =
     useSubscription();
   const [searchParams] = useSearchParams();
   const [actionLoading, setActionLoading] = useState(false);

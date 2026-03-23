@@ -109,6 +109,26 @@ export default function useAuth() {
     setUser(null);
   }, []);
 
+  const resetPassword = useCallback(
+    async (email: string): Promise<{ success: boolean; error?: string }> => {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    },
+    []
+  );
+
+  const updatePassword = useCallback(
+    async (newPassword: string): Promise<{ success: boolean; error?: string }> => {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    },
+    []
+  );
+
   const isPremium = useMemo(() => user?.tier === "premium", [user]);
   const isSignedIn = useMemo(() => user !== null, [user]);
 
@@ -121,5 +141,7 @@ export default function useAuth() {
     signUp,
     signInWithGoogle,
     signOut,
+    resetPassword,
+    updatePassword,
   };
 }

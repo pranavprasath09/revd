@@ -45,7 +45,10 @@ export default function useNotifications() {
           .range(offset, offset + PAGE_SIZE - 1);
 
         if (error) throw error;
-        const results = (data as Notification[]) ?? [];
+        const results = ((data ?? []) as unknown as Notification[]).map((n: any) => ({
+          ...n,
+          actor: Array.isArray(n.actor) ? n.actor[0] ?? { display_name: null, avatar_url: null } : n.actor,
+        })) as Notification[];
         setHasMore(results.length === PAGE_SIZE);
 
         if (offset === 0) {

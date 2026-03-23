@@ -116,7 +116,7 @@ export default function CommunityDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { user, isPremium } = useAuthContext();
   const navigate = useNavigate();
-  const { loading, fetchCommunityBySlug, fetchPosts, deleteCommunity, joinCommunity, leaveCommunity, checkMembership, getMemberCount } = useForums();
+  const { fetchCommunityBySlug, fetchPosts, deleteCommunity, joinCommunity, leaveCommunity, checkMembership, getMemberCount } = useForums();
 
   const [community, setCommunity] = useState<Community | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);

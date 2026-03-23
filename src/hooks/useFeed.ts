@@ -27,7 +27,10 @@ export default function useFeed() {
           .range(offset, offset + PAGE_SIZE - 1);
 
         if (error) throw error;
-        const results = (data as FeedEvent[]) ?? [];
+        const results = ((data ?? []) as unknown as FeedEvent[]).map((e: any) => ({
+          ...e,
+          actor: Array.isArray(e.actor) ? e.actor[0] ?? { display_name: null, avatar_url: null } : e.actor,
+        })) as FeedEvent[];
         setHasMore(results.length === PAGE_SIZE);
 
         if (offset === 0) {

@@ -158,7 +158,7 @@ export default function useBuildLogs() {
           await supabase.rpc("increment_build_cost", {
             log_id: input.build_log_id,
             amount: input.cost,
-          }).catch(() => {
+          }).then(undefined, () => {
             // Fallback: manual update if RPC doesn't exist
             supabase
               .from("build_logs")

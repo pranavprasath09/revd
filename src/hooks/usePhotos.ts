@@ -149,7 +149,7 @@ export default function usePhotos() {
 
         // Cleanup: delete album record if created
         if (albumId) {
-          await supabase.from("albums").delete().eq("id", albumId).catch(() => {});
+          await supabase.from("albums").delete().eq("id", albumId).then(undefined, () => {});
         }
         // Cleanup: delete uploaded files
         if (uploadedPaths.length > 0) {

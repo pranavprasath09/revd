@@ -56,26 +56,7 @@ function getScoreBg(score: number): string {
   return "bg-red-400";
 }
 
-function getScoreLabel(score: number): string {
-  if (score >= 85) return "Excellent";
-  if (score >= 75) return "Good";
-  if (score >= 60) return "Average";
-  if (score >= 50) return "Below Avg";
-  return "Poor";
-}
-
-function ScoreBadge({ score }: { score: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${getScoreBg(score)}/10`}>
-        <span className={`font-mono text-lg font-bold ${getScoreColor(score)}`}>{score}</span>
-      </div>
-      <span className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">
-        {getScoreLabel(score)}
-      </span>
-    </div>
-  );
-}
+/* getScoreLabel and ScoreBadge reserved for future use */
 
 export default function ReliabilityIndexPage() {
   const [activeMake, setActiveMake] = useState(ALL);

@@ -75,7 +75,7 @@ export default function NewsPage() {
 
         {/* Article Grid */}
         {loading ? (
-          <LoadingState message="Fetching latest news…" />
+          <LoadingState />
         ) : error ? (
           <div className="py-20 text-center">
             <p className="text-sm text-accent-red">{error}</p>

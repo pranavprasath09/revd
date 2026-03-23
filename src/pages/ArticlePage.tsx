@@ -31,7 +31,7 @@ export default function ArticlePage() {
   }, [articles, article]);
 
   if (loading) {
-    return <LoadingState message="Loading article…" />;
+    return <LoadingState />;
   }
 
   if (!article) {

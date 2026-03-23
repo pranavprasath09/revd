@@ -17,6 +17,7 @@ const ReliabilityPage = lazy(() => import("@/pages/ReliabilityPage"));
 const GaragePage = lazy(() => import("@/pages/GaragePage"));
 const ComparePage = lazy(() => import("@/pages/ComparePage"));
 const SignInPage = lazy(() => import("@/pages/SignInPage"));
+const ResetPasswordPage = lazy(() => import("@/pages/ResetPasswordPage"));
 const MeetsPage = lazy(() => import("@/pages/MeetsPage"));
 const CreateMeetPage = lazy(() => import("@/pages/CreateMeetPage"));
 const MeetDetailPage = lazy(() => import("@/pages/MeetDetailPage"));
@@ -77,6 +78,7 @@ export default function App() {
                 <Route path="/profile/:username" element={<ProfilePage />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
               </Routes>
             </Suspense>
           </main>
