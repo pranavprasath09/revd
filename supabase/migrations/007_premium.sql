@@ -1,4 +1,5 @@
 -- Sprint 7: Stripe + Premium
+-- Idempotent: every create policy is preceded by drop policy if exists.
 
 -- ─── subscriptions ─────────────────────────────────────────────
 create table if not exists subscriptions (
@@ -16,10 +17,12 @@ create table if not exists subscriptions (
 alter table subscriptions enable row level security;
 
 -- Users can only read their own subscription
+drop policy if exists "subscriptions_select_own" on subscriptions;
 create policy "subscriptions_select_own" on subscriptions
   for select using (auth.uid() = user_id);
 
 -- Users can only update their own subscription (for client-side status checks)
+drop policy if exists "subscriptions_update_own" on subscriptions;
 create policy "subscriptions_update_own" on subscriptions
   for update using (auth.uid() = user_id);
 

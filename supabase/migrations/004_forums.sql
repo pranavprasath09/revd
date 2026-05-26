@@ -1,5 +1,6 @@
 -- Sprint 4: Community Forums
 -- ─────────────────────────────────────────────
+-- Idempotent: every create policy is preceded by drop policy if exists.
 
 -- Communities
 create table if not exists communities (
@@ -16,12 +17,15 @@ create table if not exists communities (
 
 alter table communities enable row level security;
 
+drop policy if exists "Communities are viewable by everyone" on communities;
 create policy "Communities are viewable by everyone"
   on communities for select using (true);
 
+drop policy if exists "Authenticated users can insert communities" on communities;
 create policy "Authenticated users can insert communities"
   on communities for insert with check (auth.uid() is not null);
 
+drop policy if exists "Creators can delete their own communities" on communities;
 create policy "Creators can delete their own communities"
   on communities for delete using (auth.uid() = creator_id);
 
@@ -40,12 +44,15 @@ create table if not exists posts (
 
 alter table posts enable row level security;
 
+drop policy if exists "Posts are viewable by everyone" on posts;
 create policy "Posts are viewable by everyone"
   on posts for select using (true);
 
+drop policy if exists "Authenticated users can create posts" on posts;
 create policy "Authenticated users can create posts"
   on posts for insert with check (auth.uid() = author_id);
 
+drop policy if exists "Users can delete their own posts" on posts;
 create policy "Users can delete their own posts"
   on posts for delete using (auth.uid() = author_id);
 
@@ -61,12 +68,15 @@ create table if not exists comments (
 
 alter table comments enable row level security;
 
+drop policy if exists "Comments are viewable by everyone" on comments;
 create policy "Comments are viewable by everyone"
   on comments for select using (true);
 
+drop policy if exists "Authenticated users can create comments" on comments;
 create policy "Authenticated users can create comments"
   on comments for insert with check (auth.uid() = author_id);
 
+drop policy if exists "Users can delete their own comments" on comments;
 create policy "Users can delete their own comments"
   on comments for delete using (auth.uid() = author_id);
 
@@ -80,12 +90,15 @@ create table if not exists post_votes (
 
 alter table post_votes enable row level security;
 
+drop policy if exists "Post votes are viewable by everyone" on post_votes;
 create policy "Post votes are viewable by everyone"
   on post_votes for select using (true);
 
+drop policy if exists "Authenticated users can vote on posts" on post_votes;
 create policy "Authenticated users can vote on posts"
   on post_votes for insert with check (auth.uid() = user_id);
 
+drop policy if exists "Users can remove their own post votes" on post_votes;
 create policy "Users can remove their own post votes"
   on post_votes for delete using (auth.uid() = user_id);
 
@@ -99,12 +112,15 @@ create table if not exists comment_votes (
 
 alter table comment_votes enable row level security;
 
+drop policy if exists "Comment votes are viewable by everyone" on comment_votes;
 create policy "Comment votes are viewable by everyone"
   on comment_votes for select using (true);
 
+drop policy if exists "Authenticated users can vote on comments" on comment_votes;
 create policy "Authenticated users can vote on comments"
   on comment_votes for insert with check (auth.uid() = user_id);
 
+drop policy if exists "Users can remove their own comment votes" on comment_votes;
 create policy "Users can remove their own comment votes"
   on comment_votes for delete using (auth.uid() = user_id);
 
@@ -119,12 +135,15 @@ create table if not exists community_members (
 
 alter table community_members enable row level security;
 
+drop policy if exists "Community members are viewable by everyone" on community_members;
 create policy "Community members are viewable by everyone"
   on community_members for select using (true);
 
+drop policy if exists "Authenticated users can join communities" on community_members;
 create policy "Authenticated users can join communities"
   on community_members for insert with check (auth.uid() = user_id);
 
+drop policy if exists "Users can leave communities" on community_members;
 create policy "Users can leave communities"
   on community_members for delete using (auth.uid() = user_id);
 

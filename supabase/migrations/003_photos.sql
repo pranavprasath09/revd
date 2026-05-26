@@ -1,5 +1,6 @@
 -- Sprint 3: Photo Albums, Album Photos, Follows
 -- ─────────────────────────────────────────────
+-- Idempotent: every create policy is preceded by drop policy if exists.
 
 -- Albums
 create table if not exists albums (
@@ -15,15 +16,19 @@ create table if not exists albums (
 
 alter table albums enable row level security;
 
+drop policy if exists "Albums are viewable by everyone" on albums;
 create policy "Albums are viewable by everyone"
   on albums for select using (true);
 
+drop policy if exists "Users can insert their own albums" on albums;
 create policy "Users can insert their own albums"
   on albums for insert with check (auth.uid() = creator_id);
 
+drop policy if exists "Users can update their own albums" on albums;
 create policy "Users can update their own albums"
   on albums for update using (auth.uid() = creator_id);
 
+drop policy if exists "Users can delete their own albums" on albums;
 create policy "Users can delete their own albums"
   on albums for delete using (auth.uid() = creator_id);
 
@@ -40,14 +45,17 @@ create table if not exists album_photos (
 
 alter table album_photos enable row level security;
 
+drop policy if exists "Album photos are viewable by everyone" on album_photos;
 create policy "Album photos are viewable by everyone"
   on album_photos for select using (true);
 
+drop policy if exists "Users can insert photos to their own albums" on album_photos;
 create policy "Users can insert photos to their own albums"
   on album_photos for insert with check (
     auth.uid() = (select creator_id from albums where id = album_id)
   );
 
+drop policy if exists "Users can delete photos from their own albums" on album_photos;
 create policy "Users can delete photos from their own albums"
   on album_photos for delete using (
     auth.uid() = (select creator_id from albums where id = album_id)
@@ -64,12 +72,15 @@ create table if not exists follows (
 
 alter table follows enable row level security;
 
+drop policy if exists "Follows are viewable by everyone" on follows;
 create policy "Follows are viewable by everyone"
   on follows for select using (true);
 
+drop policy if exists "Users can follow others" on follows;
 create policy "Users can follow others"
   on follows for insert with check (auth.uid() = follower_id);
 
+drop policy if exists "Users can unfollow" on follows;
 create policy "Users can unfollow"
   on follows for delete using (auth.uid() = follower_id);
 

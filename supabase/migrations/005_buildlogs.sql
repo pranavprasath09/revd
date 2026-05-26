@@ -1,5 +1,6 @@
 -- Sprint 5: Build Logs
 -- Tables: build_logs, build_entries, build_likes
+-- Idempotent: every create policy is preceded by drop policy if exists.
 
 -- ─── build_logs ──────────────────────────────────────────────
 create table if not exists build_logs (
@@ -17,22 +18,27 @@ create table if not exists build_logs (
 alter table build_logs enable row level security;
 
 -- Anyone can read public build logs
+drop policy if exists "build_logs_select_public" on build_logs;
 create policy "build_logs_select_public" on build_logs
   for select using (is_public = true);
 
 -- Owner can read their own (including private)
+drop policy if exists "build_logs_select_own" on build_logs;
 create policy "build_logs_select_own" on build_logs
   for select using (auth.uid() = owner_id);
 
 -- Owner can insert
+drop policy if exists "build_logs_insert" on build_logs;
 create policy "build_logs_insert" on build_logs
   for insert with check (auth.uid() = owner_id);
 
 -- Owner can update
+drop policy if exists "build_logs_update" on build_logs;
 create policy "build_logs_update" on build_logs
   for update using (auth.uid() = owner_id);
 
 -- Owner can delete
+drop policy if exists "build_logs_delete" on build_logs;
 create policy "build_logs_delete" on build_logs
   for delete using (auth.uid() = owner_id);
 
@@ -51,6 +57,7 @@ create table if not exists build_entries (
 alter table build_entries enable row level security;
 
 -- Anyone can read entries for public build logs
+drop policy if exists "build_entries_select_public" on build_entries;
 create policy "build_entries_select_public" on build_entries
   for select using (
     exists (
@@ -59,6 +66,7 @@ create policy "build_entries_select_public" on build_entries
   );
 
 -- Owner can read entries for their own logs
+drop policy if exists "build_entries_select_own" on build_entries;
 create policy "build_entries_select_own" on build_entries
   for select using (
     exists (
@@ -67,6 +75,7 @@ create policy "build_entries_select_own" on build_entries
   );
 
 -- Owner can insert entries for their own logs
+drop policy if exists "build_entries_insert" on build_entries;
 create policy "build_entries_insert" on build_entries
   for insert with check (
     exists (
@@ -75,6 +84,7 @@ create policy "build_entries_insert" on build_entries
   );
 
 -- Owner can delete entries for their own logs
+drop policy if exists "build_entries_delete" on build_entries;
 create policy "build_entries_delete" on build_entries
   for delete using (
     exists (
@@ -94,13 +104,16 @@ create table if not exists build_likes (
 alter table build_likes enable row level security;
 
 -- Anyone can read likes
+drop policy if exists "build_likes_select" on build_likes;
 create policy "build_likes_select" on build_likes
   for select using (true);
 
 -- Authenticated users can like
+drop policy if exists "build_likes_insert" on build_likes;
 create policy "build_likes_insert" on build_likes
   for insert with check (auth.uid() = user_id);
 
 -- Users can remove their own likes
+drop policy if exists "build_likes_delete" on build_likes;
 create policy "build_likes_delete" on build_likes
   for delete using (auth.uid() = user_id);
