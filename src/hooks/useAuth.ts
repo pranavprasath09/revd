@@ -71,7 +71,7 @@ export default function useAuth() {
       password: string,
       displayName?: string
     ): Promise<{ success: boolean; error?: string }> => {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
         options: displayName
@@ -80,19 +80,9 @@ export default function useAuth() {
       });
       if (error) return { success: false, error: error.message };
 
-      // Always upsert profile — handles both email signups and ensures row exists
-      if (data.user) {
-        await supabase
-          .from("profiles")
-          .upsert(
-            {
-              id: data.user.id,
-              display_name: displayName || data.user.email?.split("@")[0] || "User",
-            },
-            { onConflict: "id" }
-          );
-      }
-
+      // The profile row is created server-side by the handle_new_user trigger on
+      // auth.users (migration 011). That works under email confirmation too, where
+      // no client session exists yet — so we no longer upsert from the client.
       return { success: true };
     },
     []
