@@ -19,14 +19,17 @@ The app runs at `http://localhost:5173`.
 
 ### Environment variables
 
-Create a `.env` in the project root. None of these are secrets beyond the Supabase
-anon key (which is safe to ship to the client); never commit real values.
+Copy `.env.example` to `.env` and fill in the values. Every variable is a
+client-side `VITE_` value safe to ship to the browser; server secrets (Stripe
+secret key, webhook signing secret, service role key) live in Supabase Edge
+Function secrets, never here. Never commit `.env`.
 
-| Variable                  | Purpose                                          |
-| ------------------------- | ------------------------------------------------ |
-| `VITE_SUPABASE_URL`       | Supabase project URL                             |
-| `VITE_SUPABASE_ANON_KEY`  | Supabase anonymous (public) key                  |
-| `VITE_STRIPE_PRICE_ID`    | Stripe price ID for the premium plan (Sprint 7)  |
+| Variable                       | Purpose                                          |
+| ------------------------------ | ------------------------------------------------ |
+| `VITE_SUPABASE_URL`            | Supabase project URL                             |
+| `VITE_SUPABASE_ANON_KEY`       | Supabase anonymous (public) key                  |
+| `VITE_STRIPE_PUBLISHABLE_KEY`  | Stripe publishable key (client)                  |
+| `VITE_STRIPE_PRICE_ID`         | Stripe price ID for the premium plan (Sprint 7)  |
 
 ## Scripts
 

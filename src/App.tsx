@@ -4,6 +4,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import Sidebar from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
 import LoadingState from "@/components/ui/LoadingState";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
 
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const CarsPage = lazy(() => import("@/pages/CarsPage"));
@@ -36,6 +37,7 @@ const PhotosPage = lazy(() => import("@/pages/PhotosPage"));
 const CreateAlbumPage = lazy(() => import("@/pages/CreateAlbumPage"));
 const AlbumDetailPage = lazy(() => import("@/pages/AlbumDetailPage"));
 const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 export default function App() {
   return (
@@ -46,8 +48,9 @@ export default function App() {
         {/* Main content area — offset for sidebar */}
         <div className="flex min-h-screen flex-1 flex-col overflow-x-hidden pt-12 md:pt-0 md:pl-14 lg:pl-[220px]">
           <main className="flex-1">
-            <Suspense fallback={<LoadingState />}>
-              <Routes>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingState />}>
+                <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/feed" element={<FeedPage />} />
                 <Route path="/cars" element={<CarsPage />} />
@@ -79,8 +82,10 @@ export default function App() {
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
-            </Suspense>
+              </Suspense>
+            </ErrorBoundary>
           </main>
           <Footer />
         </div>
