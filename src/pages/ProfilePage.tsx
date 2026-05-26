@@ -121,8 +121,8 @@ export default function ProfilePage() {
           return;
         }
         if (!data) return;
-        const meets = data
-          .map((r: any) => r.meets as MeetRow | null)
+        const meets = (data as unknown as { meets: MeetRow | null }[])
+          .map((r) => r.meets)
           .filter(Boolean) as MeetRow[];
         setRsvpMeets(meets);
       });

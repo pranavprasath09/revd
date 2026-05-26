@@ -44,8 +44,8 @@ export default function CreateCommunityPage() {
         description: description.trim() || undefined,
       });
       navigate(`/communities/${community.slug}`);
-    } catch (err: any) {
-      const msg = err?.message || "Something went wrong.";
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong.";
       if (msg.includes("duplicate") || msg.includes("unique")) {
         setError("A community with that name already exists. Try a different name.");
       } else {

@@ -45,10 +45,19 @@ export default function useNotifications() {
           .range(offset, offset + PAGE_SIZE - 1);
 
         if (error) throw error;
-        const results = ((data ?? []) as unknown as Notification[]).map((n: any) => ({
+        const results: Notification[] = (
+          (data ?? []) as unknown as (Omit<Notification, "actor"> & {
+            actor:
+              | { display_name: string | null; avatar_url: string | null }
+              | { display_name: string | null; avatar_url: string | null }[]
+              | null;
+          })[]
+        ).map((n) => ({
           ...n,
-          actor: Array.isArray(n.actor) ? n.actor[0] ?? { display_name: null, avatar_url: null } : n.actor,
-        })) as Notification[];
+          actor: Array.isArray(n.actor)
+            ? n.actor[0] ?? { display_name: null, avatar_url: null }
+            : n.actor ?? undefined,
+        }));
         setHasMore(results.length === PAGE_SIZE);
 
         if (offset === 0) {

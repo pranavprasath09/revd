@@ -178,7 +178,7 @@ export default function CarDetailPage() {
     if (loader) {
       loader().then((data) => setModData(data as ModData)).catch(() => setModData(null));
     }
-  }, [car?.slug]);
+  }, [car]);
 
   // Load reliability data dynamically
   useEffect(() => {
@@ -197,7 +197,7 @@ export default function CarDetailPage() {
         .then((data) => setReliabilityData(data as ReliabilityData))
         .catch(() => setReliabilityData(null));
     }
-  }, [car?.slug]);
+  }, [car]);
 
   // Not found state
   if (!car) {

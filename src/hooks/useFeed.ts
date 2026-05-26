@@ -28,10 +28,19 @@ export default function useFeed() {
           .range(offset, offset + PAGE_SIZE - 1);
 
         if (error) throw error;
-        const results = ((data ?? []) as unknown as FeedEvent[]).map((e: any) => ({
+        const results: FeedEvent[] = (
+          (data ?? []) as unknown as (Omit<FeedEvent, "actor"> & {
+            actor:
+              | { display_name: string | null; avatar_url: string | null }
+              | { display_name: string | null; avatar_url: string | null }[]
+              | null;
+          })[]
+        ).map((e) => ({
           ...e,
-          actor: Array.isArray(e.actor) ? e.actor[0] ?? { display_name: null, avatar_url: null } : e.actor,
-        })) as FeedEvent[];
+          actor: Array.isArray(e.actor)
+            ? e.actor[0] ?? { display_name: null, avatar_url: null }
+            : e.actor ?? undefined,
+        }));
         setHasMore(results.length === PAGE_SIZE);
 
         if (offset === 0) {

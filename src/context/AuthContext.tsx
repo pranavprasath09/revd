@@ -22,6 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook intentionally colocated with its provider; HMR-only warning
 export function useAuthContext(): AuthContextValue {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuthContext must be used within AuthProvider");

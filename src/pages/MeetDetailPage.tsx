@@ -93,7 +93,12 @@ export default function MeetDetailPage() {
       return;
     }
 
-    const attendeeList: Attendee[] = data.map((r: any) => ({
+    const attendeeList: Attendee[] = (
+      data as unknown as {
+        user_id: string;
+        profiles: { display_name: string | null; avatar_url: string | null } | null;
+      }[]
+    ).map((r) => ({
       user_id: r.user_id,
       display_name: r.profiles?.display_name ?? null,
       avatar_url: r.profiles?.avatar_url ?? null,

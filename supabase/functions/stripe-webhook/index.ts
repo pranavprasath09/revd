@@ -39,7 +39,7 @@ Deno.serve(async (req: Request) => {
       undefined,
       cryptoProvider
     );
-  } catch (err) {
+  } catch {
     console.error("Webhook signature verification failed");
     return new Response("Invalid signature", { status: 400 });
   }
@@ -191,7 +191,7 @@ Deno.serve(async (req: Request) => {
       .from("processed_stripe_events")
       .insert({ event_id: event.id });
 
-  } catch (err) {
+  } catch {
     console.error("Error processing webhook event");
     return new Response("Webhook handler error", { status: 500 });
   }
