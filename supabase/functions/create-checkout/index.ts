@@ -1,4 +1,5 @@
 // Supabase Edge Function: Create Stripe Checkout Session
+// SECURITY: Derives userId from JWT — never trusts client-supplied identifiers
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import Stripe from "https://esm.sh/stripe@14?target=deno";
@@ -7,43 +8,67 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
   apiVersion: "2024-04-10",
 });
 
-const supabase = createClient(
-  Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-);
-
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const SITE_URL = Deno.env.get("SITE_URL") ?? "https://revd.vercel.app";
 
+// Hardcoded allowed price IDs — never trust client-supplied priceId
+const ALLOWED_PRICE_IDS = new Set(
+  (Deno.env.get("ALLOWED_STRIPE_PRICE_IDS") ?? "").split(",").filter(Boolean)
+);
+
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": SITE_URL,
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req: Request) => {
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    const { priceId, userId } = await req.json();
-
-    if (!priceId || !userId) {
+    // --- Authenticate caller via JWT ---
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: "Missing priceId or userId" }),
+        JSON.stringify({ error: "Missing authorization header" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseAuth = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      global: { headers: { Authorization: authHeader } },
+    });
+    const { data: { user: caller }, error: authError } = await supabaseAuth.auth.getUser();
+    if (authError || !caller) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = caller.id; // Derived from JWT — not from request body
+
+    // --- Validate priceId ---
+    const { priceId } = await req.json();
+    if (!priceId || (ALLOWED_PRICE_IDS.size > 0 && !ALLOWED_PRICE_IDS.has(priceId))) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing priceId" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // Get user email from profiles
+    // --- Use service role for DB operations ---
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    // Get user profile
     const { data: profile } = await supabase
       .from("profiles")
       .select("id, display_name")
       .eq("id", userId)
-      .single();
-
-    // Get user email from auth
-    const { data: { user: authUser } } = await supabase.auth.admin.getUserById(userId);
+      .maybeSingle();
 
     // Check if customer already exists
     const { data: existingSub } = await supabase
@@ -55,27 +80,21 @@ Deno.serve(async (req: Request) => {
     let customerId = existingSub?.stripe_customer_id;
 
     if (!customerId) {
-      // Create new Stripe customer
       const customer = await stripe.customers.create({
-        email: authUser?.email ?? undefined,
+        email: caller.email ?? undefined,
         name: profile?.display_name ?? undefined,
         metadata: { user_id: userId },
       });
       customerId = customer.id;
 
-      // Upsert subscription record with customer ID
       await supabase
         .from("subscriptions")
         .upsert(
-          {
-            user_id: userId,
-            stripe_customer_id: customerId,
-          },
+          { user_id: userId, stripe_customer_id: customerId },
           { onConflict: "user_id" }
         );
     }
 
-    // Create checkout session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       mode: "subscription",
@@ -90,9 +109,8 @@ Deno.serve(async (req: Request) => {
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (err) {
-    console.error("Error creating checkout:", (err as Error).message);
     return new Response(
-      JSON.stringify({ error: (err as Error).message }),
+      JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

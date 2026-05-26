@@ -28,5 +28,11 @@ dist-ssr
 .env.local
 .env.*
 
+# MCP config (contains access tokens)
+.mcp.json
+
 # Superpowers
 .superpowers/
+
+# Supabase CLI scratch
+supabase/.temp/

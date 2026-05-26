@@ -1,5 +1,5 @@
 // Supabase Edge Function: Stripe Webhook Handler
-// Handles checkout.session.completed, customer.subscription.updated, customer.subscription.deleted
+// SECURITY: Uses constructEventAsync for Deno, idempotency tracking, .maybeSingle()
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import Stripe from "https://esm.sh/stripe@14?target=deno";
@@ -15,6 +15,9 @@ const supabase = createClient(
 
 const WEBHOOK_SECRET = Deno.env.get("STRIPE_WEBHOOK_SECRET")!;
 
+// Use Stripe's SubtleCrypto provider for Deno async signature verification
+const cryptoProvider = Stripe.createSubtleCryptoProvider();
+
 Deno.serve(async (req: Request) => {
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
@@ -29,10 +32,30 @@ Deno.serve(async (req: Request) => {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(body, signature, WEBHOOK_SECRET);
+    event = await stripe.webhooks.constructEventAsync(
+      body,
+      signature,
+      WEBHOOK_SECRET,
+      undefined,
+      cryptoProvider
+    );
   } catch (err) {
-    console.error("Webhook signature verification failed:", (err as Error).message);
+    console.error("Webhook signature verification failed");
     return new Response("Invalid signature", { status: 400 });
+  }
+
+  // --- Idempotency check ---
+  const { data: existing } = await supabase
+    .from("processed_stripe_events")
+    .select("event_id")
+    .eq("event_id", event.id)
+    .maybeSingle();
+
+  if (existing) {
+    return new Response(JSON.stringify({ received: true, duplicate: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
@@ -48,7 +71,6 @@ Deno.serve(async (req: Request) => {
           break;
         }
 
-        // Fetch subscription details from Stripe
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
         // Upsert subscription record
@@ -67,13 +89,14 @@ Deno.serve(async (req: Request) => {
             { onConflict: "user_id" }
           );
 
-        // Set is_premium on profiles
+        // Upsert profile (handles case where profile row doesn't exist yet)
         await supabase
           .from("profiles")
-          .update({ is_premium: true, tier: "premium" })
-          .eq("id", userId);
+          .upsert(
+            { id: userId, is_premium: true, tier: "premium" },
+            { onConflict: "id" }
+          );
 
-        console.log(`Checkout completed for user ${userId}`);
         break;
       }
 
@@ -81,12 +104,11 @@ Deno.serve(async (req: Request) => {
         const subscription = event.data.object as Stripe.Subscription;
         const customerId = subscription.customer as string;
 
-        // Find user by stripe_customer_id
         const { data: sub } = await supabase
           .from("subscriptions")
           .select("user_id")
           .eq("stripe_customer_id", customerId)
-          .single();
+          .maybeSingle();
 
         if (sub) {
           const isActive = ["active", "trialing"].includes(subscription.status);
@@ -105,8 +127,6 @@ Deno.serve(async (req: Request) => {
             .from("profiles")
             .update({ is_premium: isActive, tier: isActive ? "premium" : "free" })
             .eq("id", sub.user_id);
-
-          console.log(`Subscription updated for customer ${customerId}: ${subscription.status}`);
         }
         break;
       }
@@ -119,7 +139,7 @@ Deno.serve(async (req: Request) => {
           .from("subscriptions")
           .select("user_id")
           .eq("stripe_customer_id", customerId)
-          .single();
+          .maybeSingle();
 
         if (sub) {
           await supabase
@@ -135,17 +155,44 @@ Deno.serve(async (req: Request) => {
             .from("profiles")
             .update({ is_premium: false, tier: "free" })
             .eq("id", sub.user_id);
+        }
+        break;
+      }
 
-          console.log(`Subscription deleted for customer ${customerId}`);
+      case "invoice.payment_failed": {
+        const invoice = event.data.object as Stripe.Invoice;
+        const customerId = invoice.customer as string;
+
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("user_id")
+          .eq("stripe_customer_id", customerId)
+          .maybeSingle();
+
+        if (sub) {
+          await supabase
+            .from("subscriptions")
+            .update({
+              status: "past_due",
+              updated_at: new Date().toISOString(),
+            })
+            .eq("stripe_customer_id", customerId);
         }
         break;
       }
 
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        // Unhandled event — still mark as processed
+        break;
     }
+
+    // --- Mark event as processed for idempotency ---
+    await supabase
+      .from("processed_stripe_events")
+      .insert({ event_id: event.id });
+
   } catch (err) {
-    console.error("Error processing webhook:", (err as Error).message);
+    console.error("Error processing webhook event");
     return new Response("Webhook handler error", { status: 500 });
   }
 

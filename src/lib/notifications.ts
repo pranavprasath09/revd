@@ -1,67 +1,69 @@
 import { supabase } from "@/lib/supabase";
-import type { NotificationType } from "@/types/notification";
 
 /**
- * Direct notification creator for use in hooks.
- * Avoids hook-in-hook dependency by calling supabase directly.
+ * Notify a user about a follow action via SECURITY DEFINER RPC.
  * Non-blocking — errors are logged but never thrown.
  */
-export async function createNotificationDirect(params: {
-  actorId: string;
-  userId: string;
-  type: NotificationType;
-  entityType?: string;
-  entityId?: string;
-  message?: string;
-}): Promise<void> {
-  // Don't notify yourself
-  if (params.userId === params.actorId) return;
-
+export async function notifyOnFollow(targetUserId: string): Promise<void> {
   try {
-    await supabase.from("notifications").insert({
-      user_id: params.userId,
-      actor_id: params.actorId,
-      type: params.type,
-      entity_type: params.entityType ?? null,
-      entity_id: params.entityId ?? null,
-      message: params.message ?? null,
+    const { error } = await supabase.rpc("notify_on_follow", {
+      target_user_id: targetUserId,
     });
+    if (error) throw error;
   } catch (err) {
-    console.error("Failed to create notification:", (err as Error).message);
+    if (import.meta.env.DEV) console.error("Failed to create follow notification:", (err as Error).message);
   }
 }
 
 /**
- * Create feed events for all followers of the actor.
+ * Notify a post author about a comment via SECURITY DEFINER RPC.
  * Non-blocking — errors are logged but never thrown.
  */
-export async function createFeedEventDirect(params: {
-  actorId: string;
+export async function notifyOnComment(postId: string): Promise<void> {
+  try {
+    const { error } = await supabase.rpc("notify_on_comment", {
+      p_post_id: postId,
+    });
+    if (error) throw error;
+  } catch (err) {
+    if (import.meta.env.DEV) console.error("Failed to create comment notification:", (err as Error).message);
+  }
+}
+
+/**
+ * Notify a build log owner about a like via SECURITY DEFINER RPC.
+ * Non-blocking — errors are logged but never thrown.
+ */
+export async function notifyOnBuildLike(buildLogId: string): Promise<void> {
+  try {
+    const { error } = await supabase.rpc("notify_on_build_like", {
+      p_build_log_id: buildLogId,
+    });
+    if (error) throw error;
+  } catch (err) {
+    if (import.meta.env.DEV) console.error("Failed to create build_like notification:", (err as Error).message);
+  }
+}
+
+/**
+ * Create feed events for all followers of the current user via SECURITY DEFINER RPC.
+ * Non-blocking — errors are logged but never thrown.
+ */
+export async function emitFeedEvent(params: {
   eventType: string;
   entityType?: string;
   entityId?: string;
   metadata?: Record<string, unknown>;
 }): Promise<void> {
   try {
-    const { data: followers, error } = await supabase
-      .from("follows")
-      .select("follower_id")
-      .eq("following_id", params.actorId);
-
+    const { error } = await supabase.rpc("emit_feed_event", {
+      p_event_type: params.eventType,
+      p_entity_type: params.entityType ?? null,
+      p_entity_id: params.entityId ?? null,
+      p_metadata: params.metadata ?? null,
+    });
     if (error) throw error;
-    if (!followers || followers.length === 0) return;
-
-    const entries = followers.map((f) => ({
-      user_id: f.follower_id,
-      actor_id: params.actorId,
-      event_type: params.eventType,
-      entity_type: params.entityType ?? null,
-      entity_id: params.entityId ?? null,
-      metadata: params.metadata ?? null,
-    }));
-
-    await supabase.from("feed_events").insert(entries);
   } catch (err) {
-    console.error("Failed to create feed events:", (err as Error).message);
+    if (import.meta.env.DEV) console.error("Failed to emit feed event:", (err as Error).message);
   }
 }

@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Community, Post, Comment, CreateCommunityInput, CreatePostInput } from "@/types/forum";
-import { createNotificationDirect } from "@/lib/notifications";
+import { notifyOnComment } from "@/lib/notifications";
 
 export default function useForums() {
   const { user } = useAuthContext();
@@ -193,35 +193,11 @@ export default function useForums() {
 
         if (error) throw error;
 
-        // Update comment_count based on actual count
-        const { count } = await supabase
-          .from("comments")
-          .select("*", { count: "exact", head: true })
-          .eq("post_id", postId);
+        // Update comment_count via trusted RPC
+        await supabase.rpc("update_comment_count", { p_post_id: postId });
 
-        if (count !== null) {
-          await supabase
-            .from("posts")
-            .update({ comment_count: count })
-            .eq("id", postId);
-        }
-
-        // Notify post author (non-blocking)
-        const { data: post } = await supabase
-          .from("posts")
-          .select("author_id")
-          .eq("id", postId)
-          .single();
-
-        if (post) {
-          createNotificationDirect({
-            actorId: user.id,
-            userId: post.author_id,
-            type: "comment",
-            entityType: "post",
-            entityId: postId,
-          }).catch(() => {});
-        }
+        // Notify post author via trusted RPC (non-blocking)
+        notifyOnComment(postId).catch(() => {});
 
         return data as Comment;
       } catch (err) {

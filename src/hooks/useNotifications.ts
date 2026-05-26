@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
-import type { Notification, NotificationType } from "@/types/notification";
+import type { Notification } from "@/types/notification";
 
 const NOTIFICATION_COLUMNS =
   "id, user_id, actor_id, type, entity_type, entity_id, message, is_read, created_at";
@@ -106,36 +106,6 @@ export default function useNotifications() {
     }
   }, [user]);
 
-  // ─── Create a notification ──────────────────────────────────
-  const createNotification = useCallback(
-    async (params: {
-      userId: string;
-      type: NotificationType;
-      entityType?: string;
-      entityId?: string;
-      message?: string;
-    }) => {
-      if (!user) return;
-      // Don't notify yourself
-      if (params.userId === user.id) return;
-
-      try {
-        await supabase.from("notifications").insert({
-          user_id: params.userId,
-          actor_id: user.id,
-          type: params.type,
-          entity_type: params.entityType ?? null,
-          entity_id: params.entityId ?? null,
-          message: params.message ?? null,
-        });
-      } catch (err) {
-        // Non-blocking — don't break the main action
-        console.error("Failed to create notification:", (err as Error).message);
-      }
-    },
-    [user]
-  );
-
   // ─── Realtime subscription for live count updates ───────────
   useEffect(() => {
     if (!user) {
@@ -188,6 +158,5 @@ export default function useNotifications() {
     fetchUnreadCount,
     markAsRead,
     markAllAsRead,
-    createNotification,
   };
 }

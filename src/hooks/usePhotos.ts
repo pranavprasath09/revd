@@ -2,7 +2,8 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Album, AlbumPhoto, CreateAlbumInput } from "@/types/photo";
-import { createNotificationDirect } from "@/lib/notifications";
+import { notifyOnFollow } from "@/lib/notifications";
+import { validateImageFile } from "@/lib/upload";
 
 export default function usePhotos() {
   const { user } = useAuthContext();
@@ -86,12 +87,9 @@ export default function usePhotos() {
       let albumId: string | null = null;
 
       try {
-        // Validate file sizes (10MB max)
-        const MAX_FILE_SIZE = 10 * 1024 * 1024;
+        // Validate file type, extension, and size
         for (const file of photos) {
-          if (file.size > MAX_FILE_SIZE) {
-            throw new Error(`File "${file.name}" exceeds 10MB limit`);
-          }
+          validateImageFile(file);
         }
 
         // Upload photos to Supabase Storage
@@ -192,14 +190,8 @@ export default function usePhotos() {
 
         if (error) throw error;
 
-        // Notify the followed user (non-blocking)
-        createNotificationDirect({
-          actorId: user.id,
-          userId: followingId,
-          type: "follow",
-          entityType: "profile",
-          entityId: user.id,
-        }).catch(() => {});
+        // Notify the followed user via trusted RPC (non-blocking)
+        notifyOnFollow(followingId).catch(() => {});
 
         return true;
       } catch (err) {

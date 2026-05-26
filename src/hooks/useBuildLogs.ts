@@ -7,13 +7,14 @@ import type {
   CreateBuildLogInput,
   CreateBuildEntryInput,
 } from "@/types/buildlog";
-import { createNotificationDirect } from "@/lib/notifications";
+import { notifyOnBuildLike } from "@/lib/notifications";
+import { validateImageFile } from "@/lib/upload";
 
 const BUILD_LOG_COLUMNS =
   "id, owner_id, car_id, title, description, is_public, total_cost, created_at, updated_at";
 const BUILD_ENTRY_COLUMNS =
   "id, build_log_id, title, body, cost, entry_date, images, created_at";
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+// File size is validated by validateImageFile in upload.ts
 
 export default function useBuildLogs() {
   const { user } = useAuthContext();
@@ -110,10 +111,12 @@ export default function useBuildLogs() {
     ): Promise<{ data: BuildEntry | null; error?: string }> => {
       if (!user) return { data: null, error: "Not signed in" };
 
-      // Validate file sizes
+      // Validate file type, extension, and size
       for (const file of photos) {
-        if (file.size > MAX_FILE_SIZE) {
-          return { data: null, error: `File "${file.name}" exceeds 10MB limit` };
+        try {
+          validateImageFile(file);
+        } catch (err) {
+          return { data: null, error: (err as Error).message };
         }
       }
 
@@ -153,29 +156,11 @@ export default function useBuildLogs() {
 
         if (error) throw error;
 
-        // Update total_cost on build_log
+        // Update total_cost via SECURITY DEFINER RPC
         if (input.cost && input.cost > 0) {
           await supabase.rpc("increment_build_cost", {
             log_id: input.build_log_id,
             amount: input.cost,
-          }).then(undefined, () => {
-            // Fallback: manual update if RPC doesn't exist
-            supabase
-              .from("build_logs")
-              .select("total_cost")
-              .eq("id", input.build_log_id)
-              .single()
-              .then(({ data: logData }) => {
-                if (logData) {
-                  supabase
-                    .from("build_logs")
-                    .update({
-                      total_cost: (logData.total_cost ?? 0) + (input.cost ?? 0),
-                      updated_at: new Date().toISOString(),
-                    })
-                    .eq("id", input.build_log_id);
-                }
-              });
           });
         }
 
@@ -238,22 +223,8 @@ export default function useBuildLogs() {
             .from("build_likes")
             .insert({ build_log_id: buildLogId, user_id: user.id });
 
-          // Notify build owner (non-blocking)
-          const { data: buildLog } = await supabase
-            .from("build_logs")
-            .select("owner_id")
-            .eq("id", buildLogId)
-            .single();
-
-          if (buildLog) {
-            createNotificationDirect({
-              actorId: user.id,
-              userId: buildLog.owner_id,
-              type: "build_like",
-              entityType: "build_log",
-              entityId: buildLogId,
-            }).catch(() => {});
-          }
+          // Notify build owner via trusted RPC (non-blocking)
+          notifyOnBuildLike(buildLogId).catch(() => {});
         }
         return true;
       } catch (err) {

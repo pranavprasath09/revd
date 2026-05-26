@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 
+/** Validate redirect param: must start with / and not // (prevents open redirect) */
+function safeRedirect(raw: string | null): string {
+  if (!raw) return "/garage";
+  return /^\/(?!\/)/.test(raw) ? raw : "/garage";
+}
+
 export default function SignInPage() {
   const { signIn, signUp, resetPassword, isSignedIn } = useAuthContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/garage";
+  const redirectTo = useMemo(() => safeRedirect(searchParams.get("redirect")), [searchParams]);
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,11 +23,10 @@ export default function SignInPage() {
   const [successMsg, setSuccessMsg] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Redirect if already signed in
-  if (isSignedIn) {
-    navigate(redirectTo, { replace: true });
-    return null;
-  }
+  // Redirect if already signed in (in useEffect, not during render)
+  useEffect(() => {
+    if (isSignedIn) navigate(redirectTo, { replace: true });
+  }, [isSignedIn, redirectTo, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -52,7 +57,7 @@ export default function SignInPage() {
           setError("Display name must be at least 2 characters.");
           return;
         }
-        const result = await signUp(email, password);
+        const result = await signUp(email, password, displayName.trim());
         if (result.success) {
           setError("");
           setSuccessMsg("Account created! Check your email to confirm, then sign in.");

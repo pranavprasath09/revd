@@ -20,7 +20,7 @@ async function fetchTier(userId: string): Promise<"free" | "premium"> {
     .from("profiles")
     .select("tier")
     .eq("id", userId)
-    .single();
+    .maybeSingle();
   return data?.tier === "premium" ? "premium" : "free";
 }
 
@@ -80,11 +80,17 @@ export default function useAuth() {
       });
       if (error) return { success: false, error: error.message };
 
-      // Upsert profile with display_name
-      if (data.user && displayName) {
+      // Always upsert profile — handles both email signups and ensures row exists
+      if (data.user) {
         await supabase
           .from("profiles")
-          .upsert({ id: data.user.id, display_name: displayName }, { onConflict: "id" });
+          .upsert(
+            {
+              id: data.user.id,
+              display_name: displayName || data.user.email?.split("@")[0] || "User",
+            },
+            { onConflict: "id" }
+          );
       }
 
       return { success: true };
@@ -102,7 +108,7 @@ export default function useAuth() {
 
   const signOut = useCallback(async () => {
     try {
-      await supabase.auth.signOut();
+      await supabase.auth.signOut({ scope: "global" });
     } catch (err) {
       console.error("Failed to sign out:", (err as Error).message);
     }

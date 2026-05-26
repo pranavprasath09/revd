@@ -26,7 +26,9 @@ export default function SEOHead({
       {ogImage && <meta property="og:image" content={ogImage} />}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       {jsonLd && (
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
+        </script>
       )}
     </Helmet>
   );

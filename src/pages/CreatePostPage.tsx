@@ -6,6 +6,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
 import { supabase } from "@/lib/supabase";
 import type { Community } from "@/types/forum";
+import { validateImageFile } from "@/lib/upload";
 
 export default function CreatePostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -33,6 +34,12 @@ export default function CreatePostPage() {
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    try {
+      validateImageFile(file);
+    } catch (err) {
+      setError((err as Error).message);
+      return;
+    }
     if (imagePreview) URL.revokeObjectURL(imagePreview);
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));

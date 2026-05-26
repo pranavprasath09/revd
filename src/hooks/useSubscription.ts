@@ -6,7 +6,6 @@ import { createCheckoutSession, createPortalSession } from "@/lib/stripe";
 interface Subscription {
   plan: string;
   status: string;
-  stripe_customer_id: string | null;
   current_period_end: string | null;
 }
 
@@ -17,7 +16,7 @@ export default function useSubscription() {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch subscription data
+  // Fetch subscription data (no longer exposes stripe_customer_id to client)
   useEffect(() => {
     if (!user) {
       setSubscription(null);
@@ -28,35 +27,33 @@ export default function useSubscription() {
     setLoading(true);
     supabase
       .from("subscriptions")
-      .select("plan, status, stripe_customer_id, current_period_end")
+      .select("plan, status, current_period_end")
       .eq("user_id", user.id)
       .maybeSingle()
       .then(({ data, error }) => {
-        if (error) console.error("Failed to fetch subscription:", error.message);
+        if (error && import.meta.env.DEV) console.error("Failed to fetch subscription:", error.message);
         setSubscription(data as Subscription | null);
         setLoading(false);
       });
   }, [user]);
 
-  // Subscribe — redirect to Stripe Checkout
+  // Subscribe — redirect to Stripe Checkout (no userId sent)
   const subscribe = useCallback(async (): Promise<{ error?: string }> => {
     if (!user) return { error: "Not signed in" };
     if (!PRICE_ID) return { error: "Stripe price not configured" };
 
-    const { url, error } = await createCheckoutSession(PRICE_ID, user.id);
+    const { url, error } = await createCheckoutSession(PRICE_ID);
     if (error || !url) return { error: error ?? "Failed to create checkout session" };
 
     window.location.href = url;
     return {};
   }, [user]);
 
-  // Manage subscription — redirect to Stripe Portal
+  // Manage subscription — redirect to Stripe Portal (no customerId sent)
   const manageSubscription = useCallback(async (): Promise<{ error?: string }> => {
-    if (!subscription?.stripe_customer_id) {
-      return { error: "No active subscription found" };
-    }
+    if (!subscription) return { error: "No active subscription found" };
 
-    const { url, error } = await createPortalSession(subscription.stripe_customer_id);
+    const { url, error } = await createPortalSession();
     if (error || !url) return { error: error ?? "Failed to open billing portal" };
 
     window.location.href = url;

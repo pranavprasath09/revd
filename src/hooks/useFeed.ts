@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
+import { emitFeedEvent } from "@/lib/notifications";
 import type { FeedEvent } from "@/types/notification";
 
 const FEED_COLUMNS =
@@ -40,7 +41,7 @@ export default function useFeed() {
         }
         return results;
       } catch (err) {
-        console.error("Failed to fetch feed:", (err as Error).message);
+        if (import.meta.env.DEV) console.error("Failed to fetch feed:", (err as Error).message);
         return [];
       } finally {
         setLoading(false);
@@ -49,7 +50,7 @@ export default function useFeed() {
     [user]
   );
 
-  // ─── Create feed events for all followers ───────────────────
+  // ─── Create feed events for all followers via trusted RPC ───
   const createFeedEvent = useCallback(
     async (params: {
       eventType: string;
@@ -58,32 +59,7 @@ export default function useFeed() {
       metadata?: Record<string, unknown>;
     }) => {
       if (!user) return;
-
-      try {
-        // Get all followers of the current user
-        const { data: followers, error: followError } = await supabase
-          .from("follows")
-          .select("follower_id")
-          .eq("following_id", user.id);
-
-        if (followError) throw followError;
-        if (!followers || followers.length === 0) return;
-
-        // Create feed event for each follower
-        const feedEntries = followers.map((f) => ({
-          user_id: f.follower_id,
-          actor_id: user.id,
-          event_type: params.eventType,
-          entity_type: params.entityType ?? null,
-          entity_id: params.entityId ?? null,
-          metadata: params.metadata ?? null,
-        }));
-
-        await supabase.from("feed_events").insert(feedEntries);
-      } catch (err) {
-        // Non-blocking
-        console.error("Failed to create feed events:", (err as Error).message);
-      }
+      await emitFeedEvent(params);
     },
     [user]
   );
