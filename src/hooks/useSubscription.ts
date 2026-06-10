@@ -17,25 +17,35 @@ export default function useSubscription() {
   const [loading, setLoading] = useState(true);
 
   // Fetch subscription data (no longer exposes stripe_customer_id to client)
+  // Keyed on user.id, not the user object — the object's identity changes on
+  // every token refresh. Stale flag stops a sign-out race from restoring the
+  // previous user's subscription.
+  const userId = user?.id ?? null;
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
       setSubscription(null);
       setLoading(false);
       return;
     }
 
+    let stale = false;
     setLoading(true);
     supabase
       .from("subscriptions")
       .select("plan, status, current_period_end")
-      .eq("user_id", user.id)
+      .eq("user_id", userId)
       .maybeSingle()
       .then(({ data, error }) => {
+        if (stale) return;
         if (error && import.meta.env.DEV) console.error("Failed to fetch subscription:", error.message);
         setSubscription(data as Subscription | null);
         setLoading(false);
       });
-  }, [user]);
+
+    return () => {
+      stale = true;
+    };
+  }, [userId]);
 
   // Subscribe — redirect to Stripe Checkout (no userId sent)
   const subscribe = useCallback(async (): Promise<{ error?: string }> => {

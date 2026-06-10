@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { NotificationsProvider } from "@/context/NotificationsContext";
 import Sidebar from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
 import LoadingState from "@/components/ui/LoadingState";
@@ -42,6 +43,7 @@ const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 export default function App() {
   return (
     <AuthProvider>
+      <NotificationsProvider>
       <div className="min-h-screen flex">
         <Sidebar />
 
@@ -90,6 +92,7 @@ export default function App() {
           <Footer />
         </div>
       </div>
+      </NotificationsProvider>
     </AuthProvider>
   );
 }

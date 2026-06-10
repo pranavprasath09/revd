@@ -556,10 +556,25 @@ function GarageCarCard({ garageCar, car, onRemove, onUpdate, onAddMod, onRemoveM
 
 // ─── Main Page ─────────────────────────────────────────────────
 export default function GaragePage() {
-  const { user } = useAuthContext();
-  const { cars: garageCars, addCar, removeCar, updateCar, addMod, removeMod } = useGarage();
+  const { user, loading: authLoading } = useAuthContext();
+  const { cars: garageCars, loading: garageLoading, addCar, removeCar, updateCar, addMod, removeMod } = useGarage();
   const [addCarOpen, setAddCarOpen] = useState(false);
   const [addModTarget, setAddModTarget] = useState<string | null>(null);
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -605,7 +620,7 @@ export default function GaragePage() {
             </h1>
             <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
               Track your builds, log every mod, and document your automotive journey.
-              Everything saves automatically to your browser.
+              Everything saves automatically to your account.
             </p>
 
             {/* Stats */}
@@ -636,7 +651,13 @@ export default function GaragePage() {
       {/* Garage content */}
       <PageWrapper>
         <div className="py-8">
-          {garageCars.length > 0 ? (
+          {garageLoading ? (
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {[1, 2].map((i) => (
+                <div key={i} className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+              ))}
+            </div>
+          ) : garageCars.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {garageCars.map((gc) => {
                 const car = carById(gc.carId);

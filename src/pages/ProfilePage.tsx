@@ -52,12 +52,14 @@ export default function ProfilePage() {
   const [rsvpMeets, setRsvpMeets] = useState<MeetRow[]>([]);
   const [followerCount, setFollowerCount] = useState(0);
   const [following, setFollowing] = useState(false);
+  const [followStatusLoaded, setFollowStatusLoaded] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Find profile by id first, then fall back to case-insensitive display_name
   useEffect(() => {
     if (!username) return;
+    let stale = false;
     setLoading(true);
 
     // Try UUID lookup first (direct id link)
@@ -70,6 +72,7 @@ export default function ProfilePage() {
         .eq("id", username)
         .single()
         .then(({ data, error }) => {
+          if (stale) return;
           if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
@@ -83,22 +86,32 @@ export default function ProfilePage() {
         .limit(1)
         .single()
         .then(({ data, error }) => {
+          if (stale) return;
           if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
         });
     }
+
+    return () => {
+      stale = true;
+    };
   }, [username]);
 
   // Load profile data once profile is found
   useEffect(() => {
     if (!profile) return;
+    let stale = false;
 
     // Albums
-    fetchUserAlbums(profile.id).then(setAlbums);
+    fetchUserAlbums(profile.id).then((data) => {
+      if (!stale) setAlbums(data);
+    });
 
     // Follower count
-    getFollowerCount(profile.id).then(setFollowerCount);
+    getFollowerCount(profile.id).then((count) => {
+      if (!stale) setFollowerCount(count);
+    });
 
     // Garage cars
     supabase
@@ -106,6 +119,7 @@ export default function ProfilePage() {
       .select("id, car_id, nickname, year, notes, mods")
       .eq("user_id", profile.id)
       .then(({ data, error }) => {
+        if (stale) return;
         if (error) console.error("Failed to load garage:", error.message);
         setGarageCars((data as GarageCarRow[]) ?? []);
       });
@@ -116,6 +130,7 @@ export default function ProfilePage() {
       .select("meet_id, meets(id, name, date, meet_type, cover_image_url)")
       .eq("user_id", profile.id)
       .then(({ data, error }) => {
+        if (stale) return;
         if (error) {
           console.error("Failed to load meets:", error.message);
           return;
@@ -129,8 +144,17 @@ export default function ProfilePage() {
 
     // Follow status
     if (user) {
-      isFollowing(profile.id).then(setFollowing);
+      setFollowStatusLoaded(false);
+      isFollowing(profile.id).then((f) => {
+        if (stale) return;
+        setFollowing(f);
+        setFollowStatusLoaded(true);
+      });
     }
+
+    return () => {
+      stale = true;
+    };
   }, [profile, user, fetchUserAlbums, getFollowerCount, isFollowing]);
 
   async function handleFollow() {
@@ -141,12 +165,17 @@ export default function ProfilePage() {
       if (ok) {
         setFollowing(false);
         setFollowerCount((c) => Math.max(0, c - 1));
+      } else {
+        // Re-sync with the server rather than guessing
+        setFollowing(await isFollowing(profile.id));
       }
     } else {
       const ok = await followUser(profile.id);
       if (ok) {
         setFollowing(true);
         setFollowerCount((c) => c + 1);
+      } else {
+        setFollowing(await isFollowing(profile.id));
       }
     }
     setFollowLoading(false);
@@ -278,7 +307,7 @@ export default function ProfilePage() {
                 {user && !isOwnProfile && (
                   <button
                     onClick={handleFollow}
-                    disabled={followLoading}
+                    disabled={followLoading || !followStatusLoaded}
                     className={`mt-4 rounded-lg px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
                       following
                         ? "border border-border text-text-secondary hover:border-accent-red/40 hover:text-accent-red"

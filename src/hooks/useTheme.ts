@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import { DEFAULT_THEME_ID, getThemeById, applyTheme } from "@/lib/themes";
@@ -10,6 +10,8 @@ export function useTheme() {
   const [themeId, setThemeId] = useState<string>(() => {
     return localStorage.getItem(LOCAL_STORAGE_KEY) ?? DEFAULT_THEME_ID;
   });
+  // An explicit user pick always beats the DB value loading in the background
+  const userPickedRef = useRef(false);
 
   // Apply theme on mount and when themeId changes
   useEffect(() => {
@@ -17,18 +19,23 @@ export function useTheme() {
     applyTheme(theme);
   }, [themeId]);
 
-  // Load user's saved theme from Supabase on sign-in
+  // Load user's saved theme from Supabase on sign-in.
+  // Keyed on the stable id, with a stale flag so a slow response can't
+  // clobber a theme the user picked while the request was in flight.
+  const userId = user?.id ?? null;
   useEffect(() => {
-    if (!isSignedIn || !user) return;
+    if (!isSignedIn || !userId) return;
 
+    let stale = false;
     async function loadUserTheme() {
       try {
         const { data, error } = await supabase
           .from("profiles")
           .select("theme")
-          .eq("id", user!.id)
+          .eq("id", userId!)
           .maybeSingle();
 
+        if (stale || userPickedRef.current) return;
         if (!error && data?.theme) {
           setThemeId(data.theme);
           localStorage.setItem(LOCAL_STORAGE_KEY, data.theme);
@@ -39,10 +46,14 @@ export function useTheme() {
     }
 
     loadUserTheme();
-  }, [isSignedIn, user]);
+    return () => {
+      stale = true;
+    };
+  }, [isSignedIn, userId]);
 
   const setTheme = useCallback(
     async (newThemeId: string) => {
+      userPickedRef.current = true;
       setThemeId(newThemeId);
       localStorage.setItem(LOCAL_STORAGE_KEY, newThemeId);
 

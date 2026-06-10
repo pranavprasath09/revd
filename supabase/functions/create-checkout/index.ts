@@ -52,8 +52,10 @@ Deno.serve(async (req: Request) => {
     const userId = caller.id; // Derived from JWT — not from request body
 
     // --- Validate priceId ---
+    // Fail closed: an empty allowlist (env var unset) rejects everything rather
+    // than accepting any client-supplied price ID.
     const { priceId } = await req.json();
-    if (!priceId || (ALLOWED_PRICE_IDS.size > 0 && !ALLOWED_PRICE_IDS.has(priceId))) {
+    if (!priceId || !ALLOWED_PRICE_IDS.has(priceId)) {
       return new Response(
         JSON.stringify({ error: "Invalid or missing priceId" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }

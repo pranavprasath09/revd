@@ -114,7 +114,7 @@ function PostCard({ post, slug }: { post: Post; slug: string }) {
 
 export default function CommunityDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { user, isPremium } = useAuthContext();
+  const { user, tierLoaded, isPremium } = useAuthContext();
   const navigate = useNavigate();
   const { fetchCommunityBySlug, fetchPosts, deleteCommunity, joinCommunity, leaveCommunity, checkMembership, getMemberCount } = useForums();
 
@@ -129,8 +129,10 @@ export default function CommunityDetailPage() {
 
   useEffect(() => {
     if (!slug) return;
+    let stale = false;
     setPageLoading(true);
     fetchCommunityBySlug(slug).then((c) => {
+      if (stale) return;
       setCommunity(c);
       if (c) {
         Promise.all([
@@ -138,6 +140,7 @@ export default function CommunityDetailPage() {
           checkMembership(c.id),
           getMemberCount(c.id),
         ]).then(([p, membership, count]) => {
+          if (stale) return;
           setPosts(p);
           setIsMember(membership);
           setMemberCount(count);
@@ -147,6 +150,10 @@ export default function CommunityDetailPage() {
         setPageLoading(false);
       }
     });
+
+    return () => {
+      stale = true;
+    };
   }, [slug, fetchCommunityBySlug, fetchPosts, checkMembership, getMemberCount]);
 
   const handleToggleMembership = useCallback(async () => {
@@ -168,7 +175,9 @@ export default function CommunityDetailPage() {
     setMemberLoading(false);
   }, [community, user, isMember, joinCommunity, leaveCommunity]);
 
-  if (pageLoading) {
+  // While the tier is still resolving for a premium community, keep showing the
+  // skeleton — a paying member hard-refreshing must not flash the lock screen.
+  if (pageLoading || (community?.is_premium_only && !isPremium && !tierLoaded)) {
     return (
       <div className="page-enter">
         <div className="h-48 animate-pulse bg-bg-surface" />
@@ -203,8 +212,8 @@ export default function CommunityDetailPage() {
     );
   }
 
-  // Premium gate
-  if (community.is_premium_only && !isPremium) {
+  // Premium gate — only once the tier has actually been fetched
+  if (community.is_premium_only && tierLoaded && !isPremium) {
     return (
       <div className="page-enter">
         <SEOHead title={`${community.name} — PRO Community`} description="This is a PRO-only community." />

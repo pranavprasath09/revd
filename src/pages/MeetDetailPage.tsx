@@ -58,13 +58,15 @@ export default function MeetDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const { fetchMeet, deleteMeet, rsvpToMeet, unrsvpFromMeet } = useMeets();
+  const { fetchMeet, deleteMeet, unrsvpFromMeet } = useMeets();
 
   const [meet, setMeet] = useState<Meet | null>(null);
   const [loading, setLoading] = useState(true);
   const [attendees, setAttendees] = useState<Attendee[]>([]);
   const [hasRsvped, setHasRsvped] = useState(false);
+  const [rsvpStatusLoaded, setRsvpStatusLoaded] = useState(false);
   const [rsvpLoading, setRsvpLoading] = useState(false);
+  const [rsvpError, setRsvpError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [creatorName, setCreatorName] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -73,55 +75,87 @@ export default function MeetDetailPage() {
   // Fetch meet
   useEffect(() => {
     if (!id) return;
+    let stale = false;
     setLoading(true);
+    setRsvpError(null);
     fetchMeet(id).then((data) => {
+      if (stale) return;
       setMeet(data);
       setLoading(false);
     });
+    return () => {
+      stale = true;
+    };
   }, [id, fetchMeet]);
 
-  // Fetch attendees with profiles
-  const loadAttendees = useCallback(async () => {
-    if (!id) return;
-    const { data } = await supabase
+  // Fetch attendees, then their profiles in a second query. Deliberately NOT
+  // a PostgREST embed: on databases where meet_rsvps.user_id still points at
+  // auth.users instead of profiles (the table predates migration 001), the
+  // embed fails with PGRST200 and the attendee list silently renders empty.
+  const loadAttendees = useCallback(async (): Promise<Attendee[]> => {
+    if (!id) return [];
+    const { data: rsvps, error } = await supabase
       .from("meet_rsvps")
-      .select("user_id, profiles(display_name, avatar_url)")
+      .select("user_id")
       .eq("meet_id", id);
 
-    if (!data || data.length === 0) {
-      setAttendees([]);
-      return;
+    if (error) {
+      console.error("Failed to load attendees:", error.message);
+      return [];
     }
+    if (!rsvps || rsvps.length === 0) return [];
 
-    const attendeeList: Attendee[] = (
-      data as unknown as {
-        user_id: string;
-        profiles: { display_name: string | null; avatar_url: string | null } | null;
-      }[]
-    ).map((r) => ({
-      user_id: r.user_id,
-      display_name: r.profiles?.display_name ?? null,
-      avatar_url: r.profiles?.avatar_url ?? null,
+    const userIds = rsvps.map((r) => r.user_id);
+    const { data: profiles, error: profilesError } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+
+    if (profilesError) {
+      console.error("Failed to load attendee profiles:", profilesError.message);
+    }
+    const byId = new Map(
+      (profiles ?? []).map((p) => [
+        p.id,
+        { display_name: p.display_name, avatar_url: p.avatar_url },
+      ])
+    );
+
+    return userIds.map((userId) => ({
+      user_id: userId,
+      display_name: byId.get(userId)?.display_name ?? null,
+      avatar_url: byId.get(userId)?.avatar_url ?? null,
     }));
-
-    setAttendees(attendeeList);
   }, [id]);
 
   useEffect(() => {
-    loadAttendees();
+    let stale = false;
+    loadAttendees().then((list) => {
+      if (!stale) setAttendees(list);
+    });
+    return () => {
+      stale = true;
+    };
   }, [loadAttendees]);
 
   // Check if current user has RSVPed
   useEffect(() => {
     if (!user || !id) return;
+    let stale = false;
+    setRsvpStatusLoaded(false);
     supabase
       .from("meet_rsvps")
       .select("id")
       .eq("meet_id", id)
       .eq("user_id", user.id)
       .then(({ data }) => {
+        if (stale) return;
         setHasRsvped((data?.length ?? 0) > 0);
+        setRsvpStatusLoaded(true);
       });
+    return () => {
+      stale = true;
+    };
   }, [user, id]);
 
   // Fetch creator name
@@ -138,19 +172,34 @@ export default function MeetDetailPage() {
   }, [meet]);
 
   async function handleRsvp() {
-    if (!id) return;
+    if (!id || !user) return;
     setRsvpLoading(true);
+    setRsvpError(null);
     if (hasRsvped) {
       const success = await unrsvpFromMeet(id);
       if (success) {
         setHasRsvped(false);
-        await loadAttendees();
+        setAttendees(await loadAttendees());
+      } else {
+        setRsvpError("Couldn't cancel your RSVP. Please try again.");
       }
     } else {
-      const success = await rsvpToMeet(id);
-      if (success) {
+      try {
+        const { error } = await supabase
+          .from("meet_rsvps")
+          .insert({ meet_id: id, user_id: user.id });
+        if (error) throw error;
         setHasRsvped(true);
-        await loadAttendees();
+        setAttendees(await loadAttendees());
+      } catch (err) {
+        const message = (err as Error).message;
+        console.error("Failed to RSVP:", message);
+        if (message.includes("This meet is full")) {
+          setRsvpError("This meet is full.");
+          setAttendees(await loadAttendees());
+        } else {
+          setRsvpError(message || "Couldn't RSVP. Please try again.");
+        }
       }
     }
     setRsvpLoading(false);
@@ -543,7 +592,7 @@ export default function MeetDetailPage() {
                     {user ? (
                       <button
                         onClick={handleRsvp}
-                        disabled={rsvpLoading || (isFull && !hasRsvped)}
+                        disabled={rsvpLoading || !rsvpStatusLoaded || (isFull && !hasRsvped)}
                         className={`w-full rounded-lg py-3.5 font-body text-sm font-bold uppercase tracking-wider transition-all cursor-pointer disabled:cursor-not-allowed ${
                           hasRsvped
                             ? "border-2 border-accent-red text-accent-red hover:bg-accent-red/10"
@@ -565,6 +614,11 @@ export default function MeetDetailPage() {
                       >
                         Sign In to RSVP
                       </Link>
+                    )}
+                    {rsvpError && (
+                      <p className="mt-2 font-body text-xs text-signal-red">
+                        {rsvpError}
+                      </p>
                     )}
                   </>
                 )}

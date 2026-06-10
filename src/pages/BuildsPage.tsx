@@ -119,6 +119,7 @@ export default function BuildsPage() {
   const { loading, fetchBuildLogs } = useBuildLogs();
   const [buildLogs, setBuildLogs] = useState<BuildLog[]>([]);
   const [cardData, setCardData] = useState<BuildCardData[]>([]);
+  const [enriching, setEnriching] = useState(false);
 
   useEffect(() => {
     fetchBuildLogs().then(setBuildLogs);
@@ -128,8 +129,12 @@ export default function BuildsPage() {
   useEffect(() => {
     if (buildLogs.length === 0) {
       setCardData([]);
+      setEnriching(false);
       return;
     }
+
+    let stale = false;
+    setEnriching(true);
 
     async function enrich() {
       const ownerIds = [...new Set(buildLogs.map((b) => b.owner_id))];
@@ -204,10 +209,15 @@ export default function BuildsPage() {
         };
       });
 
+      if (stale) return;
       setCardData(enriched);
+      setEnriching(false);
     }
 
     enrich();
+    return () => {
+      stale = true;
+    };
   }, [buildLogs]);
 
   return (
@@ -263,7 +273,7 @@ export default function BuildsPage() {
       {/* Content */}
       <PageWrapper>
         <div className="py-8">
-          {loading ? (
+          {loading || enriching ? (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((i) => (
                 <div

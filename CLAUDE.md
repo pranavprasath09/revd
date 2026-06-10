@@ -1,5 +1,5 @@
 # CLAUDE.md — RevD Master Context
-# Last updated: March 2026 — Post Sprint 2
+# Last updated: June 2026 — All sprints complete, full security/correctness audit done
 
 ---
 
@@ -33,7 +33,14 @@ and photographers — all in one place built specifically for them.
 
 ---
 
-## CURRENT STATE (Post Sprint 2 — March 2026)
+## CURRENT STATE (June 2026 — all sprints shipped)
+
+All 8 sprints are complete (see SPRINT HISTORY below for the full list).
+A June 2026 full audit (security, RLS, race conditions, performance, page
+correctness) was completed and fixed; see migrations 012–014 — these must be
+applied via the Supabase dashboard SQL editor before the related features
+(featured photographer, premium RLS enforcement, vote/member counters,
+meet capacity) work against the live database.
 
 ### COMPLETED — Sprint 1
 - Supabase project connected (project ID: wzetatmqlenzndsycqza)
@@ -55,12 +62,7 @@ and photographers — all in one place built specifically for them.
 - Attendee names pulled from profiles table via joined query
 
 ### NOT YET BUILT
-- Photo Albums / Photographer Profiles (Sprint 3) — NEXT
-- Community Forums (Sprint 4)
-- Build Logs (Sprint 5) — DONE
-- Notifications + Feed (Sprint 6)
-- Stripe / Premium (Sprint 7)
-- Featured Photographer (Sprint 8)
+- Nothing — Sprints 1–8 are all shipped. Next work is growth/polish driven.
 
 ---
 
@@ -256,7 +258,7 @@ Full Audit — DONE & VERIFIED (March 2026): 47-issue audit completed across all
 Sprint 5 — DONE: Build Logs, build_logs table, build_entries, build_likes, useBuildLogs, BuildsPage, CreateBuildPage, BuildDetailPage, AddBuildEntryPage, like system, image uploads, sidebar nav
 Sprint 6 — DONE: Notifications + Feed, notifications table, feed_events table, useNotifications, useFeed, NotificationBell, FeedPage, realtime unread count, notification wiring (follow, build_like, comment), sidebar feed link
 Sprint 7 — DONE: Stripe + Premium, subscriptions table, is_premium on profiles, is_premium_only on communities, useSubscription, PremiumPage, Edge Functions (create-checkout, create-portal, stripe-webhook), PRO badge on profiles, premium community gating, sidebar premium link
-Sprint 8 — Upcoming: Featured Photographer
+Sprint 8 — DONE: Featured Photographer, get_featured_photographer RPC (migration 012), useFeaturedPhotographer hook, FeaturedPhotographer hero on /photos (most-followed photographer with public albums, ties broken by latest album)
 
 ---
 

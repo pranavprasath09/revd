@@ -8,7 +8,7 @@ import type { BuildLog } from "@/types/buildlog";
 
 export default function AddBuildEntryPage() {
   const { id } = useParams<{ id: string }>();
-  const { user } = useAuthContext();
+  const { user, loading: authLoading } = useAuthContext();
   const { fetchBuildLog, addEntry } = useBuildLogs();
   const navigate = useNavigate();
 
@@ -58,7 +58,8 @@ export default function AddBuildEntryPage() {
     setError("");
 
     try {
-      const costNum = cost ? parseInt(cost, 10) : 0;
+      const parsedCost = Math.round(parseFloat(cost));
+      const costNum = Number.isNaN(parsedCost) ? 0 : parsedCost;
       const result = await addEntry(
         {
           build_log_id: id,
@@ -86,6 +87,20 @@ export default function AddBuildEntryPage() {
     }
   }
 
+  // Wait for session restore before gating on auth
+  if (authLoading || pageLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
+  }
+
   // Auth gate
   if (!user) {
     return (
@@ -105,19 +120,6 @@ export default function AddBuildEntryPage() {
             Sign In
           </Link>
         </div>
-      </div>
-    );
-  }
-
-  if (pageLoading) {
-    return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-          </div>
-        </PageWrapper>
       </div>
     );
   }
@@ -244,6 +246,7 @@ export default function AddBuildEntryPage() {
                 onChange={(e) => setCost(e.target.value)}
                 placeholder="0"
                 min={0}
+                step="0.01"
                 className="font-body w-full rounded-lg border border-border bg-bg-surface py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
               />
             </div>

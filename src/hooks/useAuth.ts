@@ -27,6 +27,9 @@ async function fetchTier(userId: string): Promise<"free" | "premium"> {
 export default function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  // True once the profile tier has actually been fetched — premium gates
+  // should wait for this instead of treating the placeholder "free" as truth.
+  const [tierLoaded, setTierLoaded] = useState(false);
 
   useEffect(() => {
     const {
@@ -34,12 +37,19 @@ export default function useAuth() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         const mapped = mapSupabaseUser(session.user);
-        setUser(mapped);
+        // Preserve the already-resolved tier across token refreshes — mapped
+        // hardcodes "free", and flashing a premium user down to free slams the
+        // paywall in their face for a second every TOKEN_REFRESHED event.
+        setUser((prev) =>
+          prev?.id === mapped.id ? { ...mapped, tier: prev.tier } : mapped
+        );
         fetchTier(session.user.id).then((tier) => {
           setUser((prev) => (prev?.id === mapped.id ? { ...prev, tier } : prev));
+          setTierLoaded(true);
         });
       } else {
         setUser(null);
+        setTierLoaded(true);
       }
       setLoading(false);
     });
@@ -131,6 +141,7 @@ export default function useAuth() {
   return {
     user,
     loading,
+    tierLoaded,
     isSignedIn,
     isPremium,
     signIn,

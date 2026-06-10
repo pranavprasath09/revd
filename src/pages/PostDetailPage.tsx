@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
@@ -20,10 +20,12 @@ function timeAgo(dateStr: string): string {
 function CommentItem({
   comment,
   hasVoted,
+  voteOffset,
   onVote,
 }: {
   comment: Comment;
   hasVoted: boolean;
+  voteOffset: number;
   onVote: (id: string) => void;
 }) {
   const authorName = comment.author?.display_name ?? "Anonymous";
@@ -71,7 +73,7 @@ function CommentItem({
           >
             <path d="m18 15-6-6-6 6" />
           </svg>
-          {comment.upvotes + (hasVoted ? 1 : 0)}
+          {comment.upvotes + voteOffset}
         </button>
       </div>
     </div>
@@ -80,7 +82,7 @@ function CommentItem({
 
 export default function PostDetailPage() {
   const { slug, postId } = useParams<{ slug: string; postId: string }>();
-  const { user } = useAuthContext();
+  const { user, tierLoaded, isPremium } = useAuthContext();
   const navigate = useNavigate();
   const {
     fetchCommunityBySlug,
@@ -103,12 +105,16 @@ export default function PostDetailPage() {
   const [hasVotedPost, setHasVotedPost] = useState(false);
   const [votedComments, setVotedComments] = useState<Set<string>>(new Set());
   const [localUpvoteOffset, setLocalUpvoteOffset] = useState(0);
+  const [commentVoteOffsets, setCommentVoteOffsets] = useState<Record<string, number>>({});
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const postVoteInFlight = useRef(false);
+  const commentVotesInFlight = useRef<Set<string>>(new Set());
 
   // Load everything
   useEffect(() => {
     if (!slug || !postId) return;
+    let stale = false;
     setPageLoading(true);
 
     Promise.all([
@@ -116,11 +122,16 @@ export default function PostDetailPage() {
       fetchPost(postId),
       fetchComments(postId),
     ]).then(([c, p, cmts]) => {
+      if (stale) return;
       setCommunity(c);
       setPost(p);
       setComments(cmts);
       setPageLoading(false);
     });
+
+    return () => {
+      stale = true;
+    };
   }, [slug, postId, fetchCommunityBySlug, fetchPost, fetchComments]);
 
   // Load user votes
@@ -137,29 +148,47 @@ export default function PostDetailPage() {
   }, [comments, user, getUserCommentVotes]);
 
   const handlePostVote = useCallback(async () => {
-    if (!user || !postId) return;
-    const result = await togglePostVote(postId);
-    if (result === true) {
-      setHasVotedPost(true);
-      setLocalUpvoteOffset((p) => p + 1);
-    } else if (result === false) {
-      setHasVotedPost(false);
-      setLocalUpvoteOffset((p) => p - 1);
+    if (!user || !postId || postVoteInFlight.current) return;
+    postVoteInFlight.current = true;
+    try {
+      const result = await togglePostVote(postId);
+      if (result === true) {
+        setHasVotedPost(true);
+        setLocalUpvoteOffset((p) => p + 1);
+      } else if (result === false) {
+        setHasVotedPost(false);
+        setLocalUpvoteOffset((p) => p - 1);
+      }
+    } finally {
+      postVoteInFlight.current = false;
     }
   }, [user, postId, togglePostVote]);
 
   const handleCommentVote = useCallback(
     async (commentId: string) => {
-      if (!user) return;
-      const result = await toggleCommentVote(commentId);
-      if (result === true) {
-        setVotedComments((prev) => new Set([...prev, commentId]));
-      } else if (result === false) {
-        setVotedComments((prev) => {
-          const next = new Set(prev);
-          next.delete(commentId);
-          return next;
-        });
+      if (!user || commentVotesInFlight.current.has(commentId)) return;
+      commentVotesInFlight.current.add(commentId);
+      try {
+        const result = await toggleCommentVote(commentId);
+        if (result === true) {
+          setVotedComments((prev) => new Set([...prev, commentId]));
+          setCommentVoteOffsets((prev) => ({
+            ...prev,
+            [commentId]: (prev[commentId] ?? 0) + 1,
+          }));
+        } else if (result === false) {
+          setVotedComments((prev) => {
+            const next = new Set(prev);
+            next.delete(commentId);
+            return next;
+          });
+          setCommentVoteOffsets((prev) => ({
+            ...prev,
+            [commentId]: (prev[commentId] ?? 0) - 1,
+          }));
+        }
+      } finally {
+        commentVotesInFlight.current.delete(commentId);
       }
     },
     [user, toggleCommentVote]
@@ -177,7 +206,9 @@ export default function PostDetailPage() {
     setSubmitting(false);
   };
 
-  if (pageLoading) {
+  // While the tier is still resolving for a premium community, keep showing the
+  // skeleton instead of flashing a 404 or a false lock screen.
+  if (pageLoading || (community?.is_premium_only && !isPremium && !tierLoaded)) {
     return (
       <div className="page-enter">
         <PageWrapper>
@@ -187,6 +218,33 @@ export default function PostDetailPage() {
             <div className="h-32 w-full animate-pulse rounded-lg bg-bg-surface" />
           </div>
         </PageWrapper>
+      </div>
+    );
+  }
+
+  // Premium gate — RLS already hides the post server-side (it may be null here),
+  // this is the friendly UX instead of a 404.
+  if (community?.is_premium_only && tierLoaded && !isPremium) {
+    return (
+      <div className="page-enter">
+        <SEOHead
+          title={`${community.name} — PRO Community`}
+          description="This post is in a PRO-only community."
+        />
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
+            PRO Members Only
+          </h1>
+          <p className="font-body text-sm text-text-secondary mb-6 max-w-md">
+            This post is in {community.name}, a premium community. Upgrade to RevD PRO to view it.
+          </p>
+          <Link
+            to="/premium"
+            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+          >
+            Upgrade to PRO
+          </Link>
+        </div>
       </div>
     );
   }
@@ -413,6 +471,7 @@ export default function PostDetailPage() {
                     key={comment.id}
                     comment={comment}
                     hasVoted={votedComments.has(comment.id)}
+                    voteOffset={commentVoteOffsets[comment.id] ?? 0}
                     onVote={handleCommentVote}
                   />
                 ))}

@@ -4,9 +4,10 @@ import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import usePhotos from "@/hooks/usePhotos";
+import { validateImageFile } from "@/lib/upload";
 
 export default function CreateAlbumPage() {
-  const { user } = useAuthContext();
+  const { user, loading: authLoading } = useAuthContext();
   const { createAlbum } = usePhotos();
   const navigate = useNavigate();
 
@@ -21,6 +22,15 @@ export default function CreateAlbumPage() {
   function handleFilesChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selected = Array.from(e.target.files ?? []);
     if (selected.length === 0) return;
+
+    // Validate up front so the user sees the real reason a file is rejected
+    try {
+      selected.forEach(validateImageFile);
+    } catch (err) {
+      setError((err as Error).message);
+      return;
+    }
+    setError("");
 
     setFiles((prev) => [...prev, ...selected]);
 
@@ -73,6 +83,21 @@ export default function CreateAlbumPage() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
   }
 
   // Not signed in

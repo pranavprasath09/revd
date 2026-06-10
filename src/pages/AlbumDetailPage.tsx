@@ -17,8 +17,8 @@ export default function AlbumDetailPage() {
   const [photos, setPhotos] = useState<AlbumPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [creatorName, setCreatorName] = useState<string | null>(null);
-  const [creatorUsername, setCreatorUsername] = useState<string | null>(null);
   const [following, setFollowing] = useState(false);
+  const [followStatusLoaded, setFollowStatusLoaded] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -27,16 +27,23 @@ export default function AlbumDetailPage() {
   // Fetch album + photos
   useEffect(() => {
     if (!id) return;
+    let stale = false;
     setLoading(true);
     Promise.all([fetchAlbum(id), fetchAlbumPhotos(id)])
       .then(([albumData, photosData]) => {
+        if (stale) return;
         setAlbum(albumData);
         setPhotos(photosData);
       })
       .catch((err) => {
         console.error("Failed to load album:", err);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!stale) setLoading(false);
+      });
+    return () => {
+      stale = true;
+    };
   }, [id, fetchAlbum, fetchAlbumPhotos]);
 
   // Fetch creator info
@@ -49,14 +56,22 @@ export default function AlbumDetailPage() {
       .single()
       .then(({ data }) => {
         setCreatorName(data?.display_name ?? "Anonymous");
-        setCreatorUsername(album.creator_id);
       });
   }, [album]);
 
   // Check follow status
   useEffect(() => {
     if (!album || !user) return;
-    isFollowing(album.creator_id).then(setFollowing);
+    let stale = false;
+    setFollowStatusLoaded(false);
+    isFollowing(album.creator_id).then((f) => {
+      if (stale) return;
+      setFollowing(f);
+      setFollowStatusLoaded(true);
+    });
+    return () => {
+      stale = true;
+    };
   }, [album, user, isFollowing]);
 
   async function handleFollow() {
@@ -64,10 +79,19 @@ export default function AlbumDetailPage() {
     setFollowLoading(true);
     if (following) {
       const ok = await unfollowUser(album.creator_id);
-      if (ok) setFollowing(false);
+      if (ok) {
+        setFollowing(false);
+      } else {
+        // Re-sync with the server rather than guessing
+        setFollowing(await isFollowing(album.creator_id));
+      }
     } else {
       const ok = await followUser(album.creator_id);
-      if (ok) setFollowing(true);
+      if (ok) {
+        setFollowing(true);
+      } else {
+        setFollowing(await isFollowing(album.creator_id));
+      }
     }
     setFollowLoading(false);
   }
@@ -162,7 +186,7 @@ export default function AlbumDetailPage() {
             {/* Photographer info + follow */}
             <div className="mt-6 flex items-center gap-4">
               <Link
-                to={`/profile/${creatorUsername ?? ""}`}
+                to={`/profile/${album.creator_id}`}
                 className="flex items-center gap-3 group"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-red/20 border border-accent-red/30">
@@ -183,7 +207,7 @@ export default function AlbumDetailPage() {
               {user && !isOwner && (
                 <button
                   onClick={handleFollow}
-                  disabled={followLoading}
+                  disabled={followLoading || !followStatusLoaded}
                   className={`rounded-lg px-4 py-2 font-body text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     following
                       ? "border border-border text-text-secondary hover:border-accent-red/40 hover:text-accent-red"

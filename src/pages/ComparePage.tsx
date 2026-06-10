@@ -399,10 +399,13 @@ export default function ComparePage() {
 
   const slugs = useMemo(() => {
     const raw = searchParams.get("cars") ?? "";
+    // Drop slugs that don't match a known car so slot indices always line up
+    // with the rendered cards (a bogus slug in the URL would otherwise make
+    // remove/add target the wrong entry)
     return raw
       .split(",")
       .map((s) => s.trim())
-      .filter(Boolean)
+      .filter((slug) => cars.some((c) => c.slug === slug))
       .slice(0, 2);
   }, [searchParams]);
 

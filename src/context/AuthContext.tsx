@@ -5,6 +5,7 @@ import type { User } from "@/types/auth";
 interface AuthContextValue {
   user: User | null;
   loading: boolean;
+  tierLoaded: boolean;
   isSignedIn: boolean;
   isPremium: boolean;
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;

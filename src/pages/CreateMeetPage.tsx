@@ -8,7 +8,7 @@ import useMeets from "@/hooks/useMeets";
 const MEET_TYPE_OPTIONS = ["Cars & Coffee", "Track Day", "Cruise", "Show", "Private"];
 
 export default function CreateMeetPage() {
-  const { user } = useAuthContext();
+  const { user, loading: authLoading } = useAuthContext();
   const { createMeet } = useMeets();
   const navigate = useNavigate();
 
@@ -52,6 +52,21 @@ export default function CreateMeetPage() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
   }
 
   // Not signed in — redirect prompt

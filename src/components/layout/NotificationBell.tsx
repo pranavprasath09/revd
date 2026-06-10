@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Bell } from "lucide-react";
-import useNotifications from "@/hooks/useNotifications";
+import { useNotificationsContext } from "@/context/NotificationsContext";
 import type { Notification } from "@/types/notification";
 
 function timeAgo(dateStr: string): string {
@@ -61,10 +61,9 @@ export default function NotificationBell() {
     fetchNotifications,
     markAsRead,
     markAllAsRead,
-  } = useNotifications();
+  } = useNotificationsContext();
 
   const [open, setOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Close on outside click
@@ -81,9 +80,11 @@ export default function NotificationBell() {
   }, [open]);
 
   function handleToggle() {
-    if (!open && !loaded) {
+    // Refetch on every open — the old load-once latch meant the badge counted
+    // new notifications the list never showed (and "Mark all read" nuked them
+    // unseen). One cheap query per open.
+    if (!open) {
       fetchNotifications(0);
-      setLoaded(true);
     }
     setOpen(!open);
   }

@@ -4,6 +4,7 @@ import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import usePhotos from "@/hooks/usePhotos";
+import FeaturedPhotographer from "@/components/photos/FeaturedPhotographer";
 import { supabase } from "@/lib/supabase";
 import type { Album } from "@/types/photo";
 
@@ -155,6 +156,7 @@ export default function PhotosPage() {
       {/* Content */}
       <PageWrapper>
         <div className="py-8">
+          <FeaturedPhotographer />
           {loading ? (
             <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
               {[1, 2, 3, 4, 5, 6].map((i) => (

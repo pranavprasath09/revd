@@ -150,7 +150,7 @@ function FeedCard({ event }: { event: FeedEvent }) {
 }
 
 export default function FeedPage() {
-  const { user } = useAuthContext();
+  const { user, loading: authLoading } = useAuthContext();
   const { events, loading, hasMore, fetchFeed } = useFeed();
   const [initialLoaded, setInitialLoaded] = useState(false);
 
@@ -159,6 +159,21 @@ export default function FeedPage() {
       fetchFeed(0).then(() => setInitialLoaded(true));
     }
   }, [user, fetchFeed, initialLoaded]);
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
+  }
 
   // Auth gate
   if (!user) {

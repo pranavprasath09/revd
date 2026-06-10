@@ -15,7 +15,7 @@ function slugify(text: string): string {
 }
 
 export default function CreateCommunityPage() {
-  const { user } = useAuthContext();
+  const { user, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
   const { createCommunity } = useForums();
 
@@ -53,6 +53,21 @@ export default function CreateCommunityPage() {
       }
       setSubmitting(false);
     }
+  }
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
   }
 
   if (!user) {

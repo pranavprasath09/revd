@@ -6,15 +6,18 @@ import { notifyOnComment } from "@/lib/notifications";
 
 export default function useForums() {
   const { user } = useAuthContext();
-  const [loading, setLoading] = useState(false);
+  // Starts true: every consumer fetches on mount, and initializing false
+  // painted the "No X Yet" empty state for a frame before the skeleton.
+  const [loading, setLoading] = useState(true);
 
   const fetchCommunities = useCallback(async (): Promise<Community[]> => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, created_at")
-        .order("name", { ascending: true });
+        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, member_count, created_at")
+        .order("name", { ascending: true })
+        .limit(200);
 
       if (error) throw error;
       return (data as Community[]) ?? [];
@@ -31,7 +34,7 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("communities")
-        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, created_at")
+        .select("id, name, slug, description, icon, banner_image, creator_id, is_premium_only, member_count, created_at")
         .eq("slug", slug)
         .single();
 
@@ -91,7 +94,8 @@ export default function useForums() {
         .from("posts")
         .select("*, author:profiles(display_name, avatar_url)")
         .eq("community_id", communityId)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .limit(100);
 
       if (error) throw error;
       return (data as Post[]) ?? [];
@@ -171,7 +175,8 @@ export default function useForums() {
         .from("comments")
         .select("*, author:profiles(display_name, avatar_url)")
         .eq("post_id", postId)
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: true })
+        .limit(300);
 
       if (error) throw error;
       return (data as Comment[]) ?? [];
@@ -193,8 +198,7 @@ export default function useForums() {
 
         if (error) throw error;
 
-        // Update comment_count via trusted RPC
-        await supabase.rpc("update_comment_count", { p_post_id: postId });
+        // comment_count is maintained by a DB trigger (migration 014)
 
         // Notify post author via trusted RPC (non-blocking)
         notifyOnComment(postId).catch(() => {});
@@ -222,17 +226,20 @@ export default function useForums() {
 
         if (existing) {
           // Remove vote
-          await supabase
+          const { error } = await supabase
             .from("post_votes")
             .delete()
             .eq("post_id", postId)
             .eq("user_id", user.id);
+          if (error) throw error;
           return false; // vote removed
         } else {
-          // Add vote
-          await supabase
+          // Add vote — a unique-violation here means a concurrent vote already
+          // landed; report failure so the UI doesn't double-count
+          const { error } = await supabase
             .from("post_votes")
             .insert({ post_id: postId, user_id: user.id });
+          if (error) throw error;
           return true; // vote added
         }
       } catch (err) {
@@ -255,16 +262,18 @@ export default function useForums() {
           .maybeSingle();
 
         if (existing) {
-          await supabase
+          const { error } = await supabase
             .from("comment_votes")
             .delete()
             .eq("comment_id", commentId)
             .eq("user_id", user.id);
+          if (error) throw error;
           return false;
         } else {
-          await supabase
+          const { error } = await supabase
             .from("comment_votes")
             .insert({ comment_id: commentId, user_id: user.id });
+          if (error) throw error;
           return true;
         }
       } catch (err) {

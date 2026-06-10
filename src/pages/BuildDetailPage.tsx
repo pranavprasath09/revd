@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import PageWrapper from "@/components/layout/PageWrapper";
@@ -133,6 +133,7 @@ export default function BuildDetailPage() {
   const [carInfo, setCarInfo] = useState<CarInfo | null>(null);
   const [likeCount, setLikeCount] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [likesLoaded, setLikesLoaded] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -140,14 +141,21 @@ export default function BuildDetailPage() {
   // Fetch build log and entries
   useEffect(() => {
     if (!id) return;
+    let stale = false;
     setLoading(true);
     Promise.all([fetchBuildLog(id), fetchEntries(id)])
       .then(([buildData, entriesData]) => {
+        if (stale) return;
         setBuild(buildData);
         setEntries(entriesData);
       })
       .catch((err) => console.error("Failed to load build:", err))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!stale) setLoading(false);
+      });
+    return () => {
+      stale = true;
+    };
   }, [id, fetchBuildLog, fetchEntries]);
 
   // Fetch owner name and car info
@@ -187,16 +195,20 @@ export default function BuildDetailPage() {
   }, [build]);
 
   // Fetch likes
-  const loadLikes = useCallback(async () => {
-    if (!id) return;
-    const info = await getLikeInfo(id);
-    setLikeCount(info.count);
-    setLiked(info.liked);
-  }, [id, getLikeInfo]);
-
   useEffect(() => {
-    loadLikes();
-  }, [loadLikes]);
+    if (!id) return;
+    let stale = false;
+    setLikesLoaded(false);
+    getLikeInfo(id).then((info) => {
+      if (stale) return;
+      setLikeCount(info.count);
+      setLiked(info.liked);
+      setLikesLoaded(true);
+    });
+    return () => {
+      stale = true;
+    };
+  }, [id, getLikeInfo]);
 
   async function handleLike() {
     if (!id || !user) return;
@@ -352,7 +364,7 @@ export default function BuildDetailPage() {
             <div className="ml-auto flex items-center gap-3">
               <button
                 onClick={handleLike}
-                disabled={likeLoading || !user}
+                disabled={likeLoading || !likesLoaded || !user}
                 className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-body text-sm font-bold transition-all cursor-pointer disabled:cursor-not-allowed ${
                   liked
                     ? "bg-accent-red/10 border border-accent-red/30 text-accent-red"

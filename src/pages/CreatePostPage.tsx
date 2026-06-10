@@ -6,11 +6,11 @@ import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
 import { supabase } from "@/lib/supabase";
 import type { Community } from "@/types/forum";
-import { validateImageFile } from "@/lib/upload";
+import { validateImageFile, prepareImageForUpload } from "@/lib/upload";
 
 export default function CreatePostPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { user } = useAuthContext();
+  const { user, loading: authLoading, isPremium, tierLoaded } = useAuthContext();
   const navigate = useNavigate();
   const { fetchCommunityBySlug, createPost } = useForums();
 
@@ -54,13 +54,14 @@ export default function CreatePostPage() {
     try {
       let imageUrl: string | undefined;
 
-      // Upload image if provided
+      // Upload image if provided (downscaled to 2048px WebP)
       if (imageFile) {
-        const ext = imageFile.name.split(".").pop();
+        const prepared = await prepareImageForUpload(imageFile);
+        const ext = prepared.name.split(".").pop();
         const path = `${user.id}/${Date.now()}.${ext}`;
         const { error: uploadError } = await supabase.storage
           .from("posts")
-          .upload(path, imageFile);
+          .upload(path, prepared);
 
         if (uploadError) throw uploadError;
 
@@ -89,6 +90,21 @@ export default function CreatePostPage() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  // Wait for session restore before gating — otherwise a signed-in user
+  // hard-refreshing sees "Sign In Required" flash
+  if (authLoading) {
+    return (
+      <div className="page-enter">
+        <PageWrapper>
+          <div className="py-12 space-y-4">
+            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
+            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          </div>
+        </PageWrapper>
+      </div>
+    );
   }
 
   // Auth gate
@@ -139,6 +155,29 @@ export default function CreatePostPage() {
             className="mt-6 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
           >
             Browse Communities
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Premium gate — RLS enforces this server-side (migration 013); this is the
+  // friendly version. Wait for tierLoaded so PRO members don't see it flash.
+  if (community.is_premium_only && tierLoaded && !isPremium) {
+    return (
+      <div className="page-enter">
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
+            PRO Members Only
+          </h1>
+          <p className="font-body text-sm text-text-secondary mb-6 max-w-md">
+            {community.name} is a premium community. Upgrade to RevD PRO to post here.
+          </p>
+          <Link
+            to="/premium"
+            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+          >
+            Upgrade to PRO
           </Link>
         </div>
       </div>

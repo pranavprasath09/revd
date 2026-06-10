@@ -5,7 +5,8 @@ import type { Meet, CreateMeetInput } from "@/types/meet";
 
 export default function useMeets() {
   const { user } = useAuthContext();
-  const [loading, setLoading] = useState(false);
+  // Starts true: consumers fetch on mount; false flashed the empty state first
+  const [loading, setLoading] = useState(true);
 
   const fetchMeets = useCallback(async (): Promise<Meet[]> => {
     setLoading(true);
@@ -15,7 +16,8 @@ export default function useMeets() {
         .from("meets")
         .select("id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at")
         .gte("date", today)
-        .order("date", { ascending: true });
+        .order("date", { ascending: true })
+        .limit(100);
 
       if (error) throw error;
       return (data as Meet[]) ?? [];

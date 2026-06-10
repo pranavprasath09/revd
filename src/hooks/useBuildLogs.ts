@@ -8,7 +8,7 @@ import type {
   CreateBuildEntryInput,
 } from "@/types/buildlog";
 import { notifyOnBuildLike } from "@/lib/notifications";
-import { validateImageFile } from "@/lib/upload";
+import { prepareImageForUpload } from "@/lib/upload";
 
 const BUILD_LOG_COLUMNS =
   "id, owner_id, car_id, title, description, is_public, total_cost, created_at, updated_at";
@@ -18,7 +18,8 @@ const BUILD_ENTRY_COLUMNS =
 
 export default function useBuildLogs() {
   const { user } = useAuthContext();
-  const [loading, setLoading] = useState(false);
+  // Starts true: consumers fetch on mount; false flashed the empty state first
+  const [loading, setLoading] = useState(true);
 
   // ─── Fetch all public build logs ───────────────────────────
   const fetchBuildLogs = useCallback(async (): Promise<BuildLog[]> => {
@@ -28,7 +29,8 @@ export default function useBuildLogs() {
         .from("build_logs")
         .select(BUILD_LOG_COLUMNS)
         .eq("is_public", true)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .limit(50);
 
       if (error) throw error;
       return (data as BuildLog[]) ?? [];
@@ -111,10 +113,11 @@ export default function useBuildLogs() {
     ): Promise<{ data: BuildEntry | null; error?: string }> => {
       if (!user) return { data: null, error: "Not signed in" };
 
-      // Validate file type, extension, and size
+      // Validate + downscale (max 2048px edge, WebP) before upload
+      const prepared: File[] = [];
       for (const file of photos) {
         try {
-          validateImageFile(file);
+          prepared.push(await prepareImageForUpload(file));
         } catch (err) {
           return { data: null, error: (err as Error).message };
         }
@@ -125,7 +128,7 @@ export default function useBuildLogs() {
 
       try {
         // Upload images
-        for (const file of photos) {
+        for (const file of prepared) {
           const ext = file.name.split(".").pop();
           const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
           const { error: uploadError } = await supabase.storage

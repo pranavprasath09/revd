@@ -3,11 +3,12 @@ import { supabase } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Album, AlbumPhoto, CreateAlbumInput } from "@/types/photo";
 import { notifyOnFollow } from "@/lib/notifications";
-import { validateImageFile } from "@/lib/upload";
+import { prepareImageForUpload } from "@/lib/upload";
 
 export default function usePhotos() {
   const { user } = useAuthContext();
-  const [loading, setLoading] = useState(false);
+  // Starts true: consumers fetch on mount; false flashed the empty state first
+  const [loading, setLoading] = useState(true);
 
   const fetchAlbums = useCallback(async (): Promise<Album[]> => {
     setLoading(true);
@@ -16,7 +17,8 @@ export default function usePhotos() {
         .from("albums")
         .select("id, creator_id, title, description, cover_image, car_tags, is_public, created_at")
         .eq("is_public", true)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .limit(60);
 
       if (error) throw error;
       return (data as Album[]) ?? [];
@@ -87,14 +89,15 @@ export default function usePhotos() {
       let albumId: string | null = null;
 
       try {
-        // Validate file type, extension, and size
+        // Validate + downscale (max 2048px edge, WebP) before upload
+        const prepared: File[] = [];
         for (const file of photos) {
-          validateImageFile(file);
+          prepared.push(await prepareImageForUpload(file));
         }
 
         // Upload photos to Supabase Storage
         const uploadedUrls: string[] = [];
-        for (const file of photos) {
+        for (const file of prepared) {
           const ext = file.name.split(".").pop();
           const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
           const { error: uploadError } = await supabase.storage
