@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import CarHero from "@/components/cars/CarHero";
 import SpecsTable from "@/components/cars/SpecsTable";
+import TrimSection from "@/components/cars/TrimSection";
 import GenerationSelector from "@/components/cars/GenerationSelector";
 import CarCard from "@/components/cars/CarCard";
 import Badge from "@/components/ui/Badge";
@@ -398,6 +399,9 @@ export default function CarDetailPage() {
 
               <SpecsTable specs={engineSpecs} />
             </section>
+
+            {/* Trims & variants (trim-verified data; renders only when present) */}
+            <TrimSection car={car} />
 
             {/* Performance */}
             <section>

@@ -24,9 +24,9 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
           onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        {/* Permanent red gradient overlay at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-accent-red/40 via-black/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {/* Bottom scrim only — kept short and light so the photo stays clean
+            (full-image red/black washes muddied images, badly on light themes) */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
 
         {/* Tags */}
         <div className="absolute bottom-3 left-3 flex gap-1.5">

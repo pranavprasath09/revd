@@ -55,7 +55,71 @@
       "Drift"
     ],
     "heroImage": "https://images.unsplash.com/photo-1606498151733-344ed85af302?w=1200&q=100",
-    "slug": "bmw-3-series-e46"
+    "slug": "bmw-3-series-e46",
+    "trims": [
+      {
+        "id": "e46-325i",
+        "name": "325i",
+        "tier": "base",
+        "yearsOffered": "2001–2006",
+        "engine": "2.5L naturally aspirated inline-6 (M54B25)",
+        "power": "192hp",
+        "torque": "245Nm",
+        "zeroTo100": "7.2s",
+        "topSpeedKph": 240,
+        "weightKg": 1395,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 5-speed Steptronic automatic",
+        "highlights": [
+          "Introduced with the 2001 facelift, replacing the 323i",
+          "Same M54 engine family as the 330i in a smaller 2.5L displacement",
+          "Optional all-wheel-drive 325xi variant",
+          "Rare 6-speed SMG automated manual was available"
+        ]
+      },
+      {
+        "id": "e46-330i",
+        "name": "330i",
+        "tier": "mid",
+        "yearsOffered": "2000–2006",
+        "engine": "3.0L naturally aspirated inline-6 (M54B30)",
+        "power": "231hp",
+        "torque": "300Nm",
+        "zeroTo100": "6.5s",
+        "topSpeedKph": 250,
+        "weightKg": 1400,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 5-speed Steptronic automatic",
+        "highlights": [
+          "Top non-M engine in the E46 range",
+          "Larger front brakes than the 325i",
+          "US-market ZHP Performance Package (2003–2005) added a 6-speed manual, sharper camshafts (rated 235 hp SAE) and firmer suspension",
+          "Top speed electronically limited to 250 km/h"
+        ]
+      },
+      {
+        "id": "e46-m3",
+        "name": "M3",
+        "tier": "flagship",
+        "yearsOffered": "2000–2006",
+        "engine": "3.2L naturally aspirated inline-6 (S54B32)",
+        "power": "343hp",
+        "torque": "365Nm",
+        "zeroTo100": "5.2s",
+        "topSpeedKph": 250,
+        "weightKg": 1570,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed SMG-II automated manual",
+        "highlights": [
+          "S54 engine revs to an 8,000 rpm redline with individual throttle bodies",
+          "Wider fender flares, power-dome hood and quad exhaust unique to the M3",
+          "M variable differential lock on the rear axle",
+          "Lightweight CSL version (2003) cut roughly 110 kg with a carbon-fibre roof",
+          "Top speed electronically limited to 250 km/h"
+        ],
+        "funFact": "The M3's S54 straight-six won the overall International Engine of the Year award in 2001."
+      }
+    ]
   },
   {
     "id": "bmw-3-series-e90",
@@ -112,7 +176,88 @@
       "Tuner"
     ],
     "heroImage": "https://images.pexels.com/photos/5269526/pexels-photo-5269526.jpeg?w=1200&q=100",
-    "slug": "bmw-3-series-e90"
+    "slug": "bmw-3-series-e90",
+    "trims": [
+      {
+        "id": "e90-325i",
+        "name": "325i",
+        "tier": "base",
+        "yearsOffered": "2005–2007",
+        "engine": "2.5L naturally aspirated inline-6 (N52B25)",
+        "power": "218hp",
+        "torque": "250Nm",
+        "zeroTo100": "7.0s",
+        "topSpeedKph": 245,
+        "weightKg": 1490,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Entry six-cylinder petrol of the E90 launch range",
+          "N52 engine used a lightweight magnesium-aluminium composite block",
+          "Optional all-wheel-drive 325xi variant"
+        ]
+      },
+      {
+        "id": "e90-330i",
+        "name": "330i",
+        "tier": "mid",
+        "yearsOffered": "2005–2007",
+        "engine": "3.0L naturally aspirated inline-6 (N52B30)",
+        "power": "258hp",
+        "torque": "300Nm",
+        "zeroTo100": "6.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1525,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Top naturally aspirated petrol E90 at launch",
+          "Replaced by the 272 hp direct-injection N53 330i with the 2007 update",
+          "Top speed electronically limited to 250 km/h"
+        ]
+      },
+      {
+        "id": "e90-335i",
+        "name": "335i",
+        "tier": "performance",
+        "yearsOffered": "2006–2011",
+        "engine": "3.0L twin-turbocharged inline-6 (N54B30; single twin-scroll turbo N55 from 2010)",
+        "power": "306hp",
+        "torque": "400Nm",
+        "zeroTo100": "5.5s",
+        "topSpeedKph": 250,
+        "weightKg": 1610,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "BMW's first mass-produced twin-turbocharged petrol straight-six (N54)",
+          "Full 400 Nm available from just 1,300 rpm",
+          "Switched to the single twin-scroll-turbo N55 in 2010 with identical outputs",
+          "Top speed electronically limited to 250 km/h"
+        ]
+      },
+      {
+        "id": "e90-m3",
+        "name": "M3",
+        "tier": "flagship",
+        "yearsOffered": "2007–2013",
+        "engine": "4.0L naturally aspirated V8 (S65B40)",
+        "power": "420hp",
+        "torque": "400Nm",
+        "zeroTo100": "4.8s",
+        "topSpeedKph": 250,
+        "weightKg": 1580,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 7-speed M-DCT (from 2008)",
+        "highlights": [
+          "Only M3 generation powered by a V8, revving to 8,400 rpm",
+          "Carbon-fibre roof on the coupe (E92)",
+          "M variable differential lock and optional EDC adaptive dampers",
+          "Limited-run M3 GTS (2010) enlarged the V8 to 4.4L and 450 hp"
+        ],
+        "funFact": "The E9x is the only V8-powered M3 ever made, and its S65 engine shares its architecture with the E60 M5's S85 V10."
+      }
+    ]
   },
   {
     "id": "bmw-3-series-f30",
@@ -167,7 +312,90 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1734554275379-9600817f5655?w=1200&q=100",
-    "slug": "bmw-3-series-f30"
+    "slug": "bmw-3-series-f30",
+    "trims": [
+      {
+        "id": "f30-320i",
+        "name": "320i",
+        "tier": "base",
+        "yearsOffered": "2012–2019",
+        "engine": "2.0L turbocharged inline-4 (N20B20; B48 from 2015 facelift)",
+        "power": "184hp",
+        "torque": "270Nm",
+        "zeroTo100": "7.3s",
+        "topSpeedKph": 235,
+        "weightKg": 1490,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 8-speed automatic",
+        "highlights": [
+          "Volume entry petrol model of the F30 range in most markets",
+          "Same 2.0L turbo engine as the 328i in a lower state of tune",
+          "Optional xDrive all-wheel drive"
+        ]
+      },
+      {
+        "id": "f30-328i",
+        "name": "328i",
+        "tier": "mid",
+        "yearsOffered": "2012–2015",
+        "engine": "2.0L turbocharged inline-4 (N20B20)",
+        "power": "245hp",
+        "torque": "350Nm",
+        "zeroTo100": "5.9s",
+        "topSpeedKph": 250,
+        "weightKg": 1455,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 8-speed automatic",
+        "highlights": [
+          "Replaced the E90's naturally aspirated straight-six with a turbo four",
+          "Full 350 Nm available from just 1,250 rpm",
+          "Renamed 330i with the new B48 engine after the 2015 facelift",
+          "Top speed electronically limited to 250 km/h"
+        ]
+      },
+      {
+        "id": "f30-340i",
+        "name": "340i",
+        "tier": "performance",
+        "yearsOffered": "2015–2018",
+        "engine": "3.0L turbocharged inline-6 (B58B30)",
+        "power": "326hp",
+        "torque": "450Nm",
+        "zeroTo100": "5.2s",
+        "topSpeedKph": 250,
+        "weightKg": 1530,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 8-speed automatic",
+        "highlights": [
+          "Debut model for BMW's B58 turbocharged straight-six",
+          "Replaced the 335i as part of the 2015 LCI facelift",
+          "Optional xDrive all-wheel drive",
+          "Top speed electronically limited to 250 km/h"
+        ]
+      },
+      {
+        "id": "f80-m3",
+        "name": "M3 (F80)",
+        "tier": "flagship",
+        "yearsOffered": "2014–2018",
+        "engine": "3.0L twin-turbocharged inline-6 (S55B30)",
+        "power": "431hp",
+        "torque": "550Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1560,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 7-speed M-DCT",
+        "highlights": [
+          "First turbocharged M3",
+          "Carbon-fibre roof, strut brace and prop shaft cut weight versus the E90 M3",
+          "Active M Differential and optional Adaptive M suspension",
+          "Competition Package (2016) raised output to 450 hp",
+          "0–100 km/h in 4.1 s with the DCT (4.3 s manual); limited to 250 km/h"
+        ],
+        "funFact": "From this generation the M3 name was reserved for the four-door sedan only — the two-door coupe and convertible became the M4."
+      }
+    ]
   },
   {
     "id": "porsche-911-997",
@@ -224,7 +452,89 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1722445717735-8f74dc6fa052?w=1200&q=100",
-    "slug": "porsche-911-997"
+    "slug": "porsche-911-997",
+    "trims": [
+      {
+        "id": "997-carrera",
+        "name": "Carrera",
+        "tier": "base",
+        "yearsOffered": "2004–2008",
+        "engine": "3.6L naturally aspirated flat-6 (M96)",
+        "power": "325hp",
+        "torque": "370Nm",
+        "zeroTo100": "5.0s",
+        "topSpeedKph": 285,
+        "weightKg": 1395,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 5-speed Tiptronic S automatic",
+        "highlights": [
+          "Returned to classic round headlights after the 996",
+          "Optional PASM adaptive dampers",
+          "Optional Sport Chrono package with sharper throttle mapping"
+        ]
+      },
+      {
+        "id": "997-carrera-s",
+        "name": "Carrera S",
+        "tier": "mid",
+        "yearsOffered": "2004–2008",
+        "engine": "3.8L naturally aspirated flat-6 (M97)",
+        "power": "355hp",
+        "torque": "400Nm",
+        "zeroTo100": "4.8s",
+        "topSpeedKph": 293,
+        "weightKg": 1420,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 5-speed Tiptronic S automatic",
+        "highlights": [
+          "3.8L engine with 30 hp over the base Carrera",
+          "PASM adaptive suspension standard, lowered 10 mm",
+          "Larger brakes and 19-inch wheels standard",
+          "Optional carbon-ceramic PCCB brakes"
+        ]
+      },
+      {
+        "id": "997-gt3",
+        "name": "GT3",
+        "tier": "performance",
+        "yearsOffered": "2006–2009",
+        "engine": "3.6L naturally aspirated flat-6 (race-derived Mezger M97/76)",
+        "power": "415hp",
+        "torque": "405Nm",
+        "zeroTo100": "4.3s",
+        "topSpeedKph": 310,
+        "weightKg": 1395,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Race-derived Mezger engine revving to 8,400 rpm",
+          "Manual transmission only",
+          "First GT3 with PASM adaptive dampers and traction control",
+          "Lowered suspension and fixed rear wing"
+        ]
+      },
+      {
+        "id": "997-turbo",
+        "name": "Turbo",
+        "tier": "flagship",
+        "yearsOffered": "2006–2009",
+        "engine": "3.6L twin-turbocharged flat-6 (Mezger M97/70)",
+        "power": "480hp",
+        "torque": "620Nm",
+        "zeroTo100": "3.9s",
+        "topSpeedKph": 310,
+        "weightKg": 1585,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual / 5-speed Tiptronic S automatic",
+        "highlights": [
+          "Standard all-wheel drive",
+          "Overboost function lifts torque to 680 Nm with Sport Chrono",
+          "Optional Tiptronic S was quicker to 100 km/h (3.7 s) than the manual",
+          "Wider rear body and dedicated intakes ahead of the rear wheels"
+        ],
+        "funFact": "The 997 Turbo was the first production petrol car to use variable turbine geometry (VTG) turbochargers, co-developed with BorgWarner."
+      }
+    ]
   },
   {
     "id": "porsche-911-991",
@@ -281,7 +591,89 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1715610475231-c5887836a7c9?w=1200&q=100",
-    "slug": "porsche-911-991"
+    "slug": "porsche-911-991",
+    "trims": [
+      {
+        "id": "991-carrera",
+        "name": "Carrera",
+        "tier": "base",
+        "yearsOffered": "2011–2015",
+        "engine": "3.4L naturally aspirated flat-6 (9A1)",
+        "power": "350hp",
+        "torque": "390Nm",
+        "zeroTo100": "4.8s",
+        "topSpeedKph": 289,
+        "weightKg": 1380,
+        "drivetrain": "RWD",
+        "transmission": "7-speed manual / 7-speed PDK",
+        "highlights": [
+          "World's first 7-speed manual gearbox in a production car",
+          "100 mm longer wheelbase than the 997, with electric power steering",
+          "Aluminium-steel composite body cut weight versus the 997"
+        ]
+      },
+      {
+        "id": "991-carrera-s",
+        "name": "Carrera S",
+        "tier": "mid",
+        "yearsOffered": "2011–2015",
+        "engine": "3.8L naturally aspirated flat-6 (9A1)",
+        "power": "400hp",
+        "torque": "440Nm",
+        "zeroTo100": "4.5s",
+        "topSpeedKph": 304,
+        "weightKg": 1395,
+        "drivetrain": "RWD",
+        "transmission": "7-speed manual / 7-speed PDK",
+        "highlights": [
+          "400 hp from the 3.8L flat-six, 50 hp over the base 3.4L Carrera",
+          "PASM adaptive suspension standard",
+          "First Carrera offered with PDCC active roll stabilisation",
+          "Sport Chrono with PDK cuts 0–100 km/h to 4.1 s"
+        ]
+      },
+      {
+        "id": "991-gt3",
+        "name": "GT3",
+        "tier": "performance",
+        "yearsOffered": "2013–2016",
+        "engine": "3.8L naturally aspirated flat-6 (9A1-based race engine)",
+        "power": "475hp",
+        "torque": "440Nm",
+        "zeroTo100": "3.5s",
+        "topSpeedKph": 315,
+        "weightKg": 1430,
+        "drivetrain": "RWD",
+        "transmission": "7-speed PDK",
+        "highlights": [
+          "First GT3 sold exclusively with PDK — no manual offered",
+          "9,000 rpm redline",
+          "First GT3 with rear-axle steering",
+          "Electronically controlled rear differential lock"
+        ]
+      },
+      {
+        "id": "991-turbo-s",
+        "name": "Turbo S",
+        "tier": "flagship",
+        "yearsOffered": "2013–2016",
+        "engine": "3.8L twin-turbocharged flat-6 with VTG turbos",
+        "power": "560hp",
+        "torque": "700Nm",
+        "zeroTo100": "3.1s",
+        "topSpeedKph": 318,
+        "weightKg": 1605,
+        "drivetrain": "AWD",
+        "transmission": "7-speed PDK",
+        "highlights": [
+          "Overboost raises torque to 750 Nm",
+          "PCCB carbon-ceramic brakes, PDCC and Sport Chrono standard",
+          "Active aerodynamics with extendable front spoiler and rear wing",
+          "PDK and all-wheel drive only — no manual offered"
+        ],
+        "funFact": "Together with the 991 GT3, the 991 Turbo S was among the first 911s ever fitted with rear-axle steering."
+      }
+    ]
   },
   {
     "id": "porsche-cayman-987",
@@ -335,7 +727,69 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1718063360400-8e0eeb8e33ef?w=1200&q=100",
-    "slug": "porsche-cayman-987"
+    "slug": "porsche-cayman-987",
+    "trims": [
+      {
+        "id": "987-cayman",
+        "name": "Cayman",
+        "tier": "base",
+        "yearsOffered": "2006–2008",
+        "engine": "2.7L naturally aspirated flat-6 (M97.20)",
+        "power": "245hp",
+        "torque": "273Nm",
+        "zeroTo100": "6.1s",
+        "topSpeedKph": 258,
+        "weightKg": 1300,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual (6-speed optional) / 5-speed Tiptronic S",
+        "highlights": [
+          "Launched a year after the Cayman S as the entry model",
+          "Mid-engine coupe derived from the Boxster platform with a hatchback tailgate",
+          "5-speed manual standard, 6-speed manual optional"
+        ]
+      },
+      {
+        "id": "987-cayman-s",
+        "name": "Cayman S",
+        "tier": "mid",
+        "yearsOffered": "2005–2008",
+        "engine": "3.4L naturally aspirated flat-6 (M97.21)",
+        "power": "295hp",
+        "torque": "340Nm",
+        "zeroTo100": "5.4s",
+        "topSpeedKph": 275,
+        "weightKg": 1350,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 5-speed Tiptronic S",
+        "highlights": [
+          "Launched first, debuting at the 2005 Frankfurt Motor Show",
+          "3.4L engine pairs the Boxster-derived block with 911-style VarioCam Plus cylinder heads",
+          "6-speed manual and larger brakes standard",
+          "Facelifted 987.2 version (2009) gained direct injection and 320 hp"
+        ]
+      },
+      {
+        "id": "987-cayman-r",
+        "name": "Cayman R",
+        "tier": "flagship",
+        "yearsOffered": "2011–2012",
+        "engine": "3.4L naturally aspirated flat-6 with direct injection (9A1)",
+        "power": "330hp",
+        "torque": "370Nm",
+        "zeroTo100": "5.0s",
+        "topSpeedKph": 282,
+        "weightKg": 1295,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 7-speed PDK",
+        "highlights": [
+          "55 kg lighter than the contemporary Cayman S via aluminium doors, lightweight bucket seats and deleted air-con and radio",
+          "10 hp over the Cayman S with a 20 mm lower sport suspension",
+          "Limited-slip differential standard",
+          "Fixed rear wing instead of the retractable spoiler"
+        ],
+        "funFact": "The Cayman R revived Porsche's 'R' badge, used on a road-going Porsche only once before — the 1967 911 R."
+      }
+    ]
   },
   {
     "id": "honda-s2000-ap1",
@@ -390,7 +844,53 @@
       "Legend"
     ],
     "heroImage": "https://images.unsplash.com/photo-1742445128077-5170a79a92b9?w=1200&q=100",
-    "slug": "honda-s2000-ap1"
+    "slug": "honda-s2000-ap1",
+    "trims": [
+      {
+        "id": "ap1",
+        "name": "AP1 (F20C)",
+        "tier": "base",
+        "yearsOffered": "1999–2003",
+        "engine": "2.0L naturally aspirated DOHC VTEC inline-4 (F20C)",
+        "power": "240hp",
+        "torque": "208Nm",
+        "zeroTo100": "6.2s",
+        "topSpeedKph": 240,
+        "weightKg": 1270,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "8,800 rpm redline with 9,000 rpm fuel cut — the high-rev icon",
+          "High X-bone monocoque frame for roadster rigidity",
+          "50:50 front/rear weight distribution",
+          "Torsen limited-slip differential standard",
+          "F1-style digital instrument cluster"
+        ],
+        "funFact": "At launch the F20C made about 120 hp per liter — the highest specific output of any mass-production naturally aspirated engine at the time."
+      },
+      {
+        "id": "ap2",
+        "name": "AP2 (F22C1)",
+        "tier": "flagship",
+        "yearsOffered": "2004–2009",
+        "engine": "2.2L naturally aspirated DOHC VTEC inline-4 (F22C1)",
+        "power": "237hp",
+        "torque": "220Nm",
+        "zeroTo100": "6.1s",
+        "topSpeedKph": 240,
+        "weightKg": 1300,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Stroked 2.2L F22C1 adds midrange torque (220 Nm vs 208 Nm)",
+          "Revised suspension geometry and retuned dampers to tame the AP1's snap oversteer",
+          "17-inch wheels with wider tires",
+          "Updated gearbox with carbon-fiber synchros",
+          "Stability control (VSC) added on later US model years"
+        ],
+        "funFact": "To gain torque, the F22C1 gave up revs — the redline dropped from the AP1's 8,800 rpm to 8,000 rpm."
+      }
+    ]
   },
   {
     "id": "honda-civic-type-r-fk8",
@@ -434,7 +934,52 @@
       "Tuner"
     ],
     "heroImage": "https://images.unsplash.com/photo-1682020245785-4619e7a89d2f?w=1200&q=100",
-    "slug": "honda-civic-type-r-fk8"
+    "slug": "honda-civic-type-r-fk8",
+    "trims": [
+      {
+        "id": "type-r-touring",
+        "name": "Type R Touring",
+        "tier": "performance",
+        "yearsOffered": "2017–2021",
+        "engine": "2.0L turbocharged DOHC VTEC inline-4 (K20C1)",
+        "power": "306hp",
+        "torque": "400Nm",
+        "zeroTo100": "5.8s",
+        "topSpeedKph": 272,
+        "weightKg": 1414,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Dual-axis front strut suspension to minimize torque steer",
+          "Helical limited-slip differential standard",
+          "Adaptive dampers with Comfort, Sport and +R drive modes",
+          "Automatic rev-matching on the 6-speed manual",
+          "Triple-outlet center exhaust and 20-inch wheels"
+        ]
+      },
+      {
+        "id": "limited-edition",
+        "name": "Limited Edition",
+        "tier": "flagship",
+        "yearsOffered": "2021",
+        "engine": "2.0L turbocharged DOHC VTEC inline-4 (K20C1)",
+        "power": "306hp",
+        "torque": "400Nm",
+        "zeroTo100": "5.8s",
+        "topSpeedKph": 272,
+        "weightKg": 1393,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "About 50 lb lighter via removed sound deadening, rear wiper and cargo cover",
+          "Forged BBS aluminum wheels cut 18 lb of unsprung weight",
+          "Michelin Pilot Sport Cup 2 tires",
+          "Recalibrated adaptive dampers and steering for track use",
+          "Only 600 US units, all in exclusive Phoenix Yellow"
+        ],
+        "funFact": "The Limited Edition set a front-wheel-drive lap record of 2:23.993 at Suzuka Circuit — Honda's home Grand Prix track."
+      }
+    ]
   },
   {
     "id": "toyota-supra-a80",
@@ -489,7 +1034,72 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1603811478698-0b1d6256f79a?w=1200&q=100",
-    "slug": "toyota-supra-a80"
+    "slug": "toyota-supra-a80",
+    "trims": [
+      {
+        "id": "sz",
+        "name": "SZ (JDM)",
+        "tier": "base",
+        "yearsOffered": "1993–2002",
+        "engine": "3.0L naturally aspirated inline-6 (2JZ-GE)",
+        "power": "225hp",
+        "torque": "284Nm",
+        "zeroTo100": "6.9s",
+        "topSpeedKph": 180,
+        "weightKg": 1460,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual (W58)",
+        "highlights": [
+          "Lightest A80 variant — same chassis as the turbo cars",
+          "Naturally aspirated 2JZ-GE shares its block architecture with the legendary 2JZ-GTE",
+          "16-inch wheels and smaller brakes than turbo models",
+          "Top speed electronically limited to 180 km/h in Japan"
+        ]
+      },
+      {
+        "id": "turbo-us",
+        "name": "Turbo (US)",
+        "tier": "performance",
+        "yearsOffered": "1993–1998",
+        "engine": "3.0L sequential twin-turbo inline-6 (2JZ-GTE)",
+        "power": "320hp",
+        "torque": "427Nm",
+        "zeroTo100": "4.8s",
+        "topSpeedKph": 250,
+        "weightKg": 1550,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual (Getrag V160)",
+        "highlights": [
+          "Sequential twin turbochargers for low-lag, broad boost delivery",
+          "Export-spec 2JZ-GTE with bigger injectors and uprated turbos vs JDM",
+          "17-inch wheels and larger 4-piston front brakes",
+          "Available Sport Roof removable targa panel",
+          "Top speed electronically limited to 155 mph"
+        ]
+      },
+      {
+        "id": "rz",
+        "name": "RZ (JDM)",
+        "tier": "flagship",
+        "yearsOffered": "1993–2002",
+        "engine": "3.0L sequential twin-turbo inline-6 (2JZ-GTE)",
+        "power": "280hp",
+        "torque": "431Nm",
+        "zeroTo100": "5.1s",
+        "topSpeedKph": 180,
+        "weightKg": 1510,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual (Getrag V161)",
+        "highlights": [
+          "JDM flagship with the twin-turbo 2JZ-GTE",
+          "August 1997 update added VVT-i, lifting torque to 451 Nm",
+          "17-inch wheels and larger brakes than NA models",
+          "Recaro SR2 front seats fitted from 1998",
+          "Outlived the US Supra — JDM production ran until August 2002"
+        ],
+        "funFact": "The RZ was officially rated at 280 PS only because of Japan's 'gentlemen's agreement' power cap — the same 2JZ-GTE was rated 320+ hp in export markets."
+      }
+    ]
   },
   {
     "id": "toyota-supra-a90",
@@ -543,7 +1153,71 @@
       "Tuner"
     ],
     "heroImage": "https://images.unsplash.com/photo-1654704089490-2ed8dc3285cd?w=1200&q=100",
-    "slug": "toyota-supra-a90"
+    "slug": "toyota-supra-a90",
+    "trims": [
+      {
+        "id": "2-0",
+        "name": "2.0",
+        "tier": "base",
+        "yearsOffered": "2021–present",
+        "engine": "2.0L twin-scroll turbo inline-4 (B48)",
+        "power": "255hp",
+        "torque": "400Nm",
+        "zeroTo100": "5.2s",
+        "topSpeedKph": 250,
+        "weightKg": 1443,
+        "drivetrain": "RWD",
+        "transmission": "8-speed automatic",
+        "highlights": [
+          "About 100 kg lighter than the 3.0 — sharper turn-in over the nose",
+          "18-inch wheels vs the 3.0's 19s",
+          "Fixed suspension and smaller single-piston front brakes",
+          "Manually adjustable seats and 4-speaker audio keep weight and price down"
+        ]
+      },
+      {
+        "id": "3-0",
+        "name": "3.0",
+        "tier": "performance",
+        "yearsOffered": "2019–present",
+        "engine": "3.0L twin-scroll turbo inline-6 (B58)",
+        "power": "382hp",
+        "torque": "499Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1542,
+        "drivetrain": "RWD",
+        "transmission": "8-speed automatic",
+        "highlights": [
+          "2021 update bumped power from 335 hp to 382 hp with a new dual-branch exhaust manifold",
+          "Adaptive Variable Sport suspension standard",
+          "Active rear sport differential",
+          "4-piston front Brembo brakes",
+          "6-speed manual added as an option for 2023"
+        ]
+      },
+      {
+        "id": "3-0-premium",
+        "name": "3.0 Premium",
+        "tier": "flagship",
+        "yearsOffered": "2019–present",
+        "engine": "3.0L twin-scroll turbo inline-6 (B58)",
+        "power": "382hp",
+        "torque": "499Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1542,
+        "drivetrain": "RWD",
+        "transmission": "8-speed automatic",
+        "highlights": [
+          "Identical drivetrain to the 3.0 — adds luxury, not lap time",
+          "12-speaker JBL audio and 8.8-inch navigation display",
+          "Color head-up display and wireless phone charging",
+          "Heated leather sport seats, 14-way power adjustable"
+        ],
+        "funFact": "The A90 Supra was co-developed with the BMW Z4 and is built alongside it by Magna Steyr in Graz, Austria — the first Supra not assembled in Japan."
+      }
+    ]
   },
   {
     "id": "toyota-gr86",
@@ -588,7 +1262,51 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1713174016692-04aca2230b18?w=1200&q=100",
-    "slug": "toyota-gr86"
+    "slug": "toyota-gr86",
+    "trims": [
+      {
+        "id": "base",
+        "name": "GR86",
+        "tier": "base",
+        "yearsOffered": "2021–present",
+        "engine": "2.4L naturally aspirated flat-4 (FA24)",
+        "power": "228hp",
+        "torque": "250Nm",
+        "zeroTo100": "6.3s",
+        "topSpeedKph": 225,
+        "weightKg": 1275,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "New 2.4L flat-four fixes the old 86's midrange torque dip — peak torque at 3,700 rpm",
+          "Torsen limited-slip differential standard on every trim",
+          "17-inch wheels on Michelin Primacy HP tires",
+          "Nearly 18% more horsepower than the outgoing 86",
+          "6-speed automatic with paddles optional"
+        ]
+      },
+      {
+        "id": "premium",
+        "name": "GR86 Premium",
+        "tier": "flagship",
+        "yearsOffered": "2021–present",
+        "engine": "2.4L naturally aspirated flat-4 (FA24)",
+        "power": "228hp",
+        "torque": "250Nm",
+        "zeroTo100": "6.3s",
+        "topSpeedKph": 225,
+        "weightKg": 1275,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "18-inch black alloys on Michelin Pilot Sport 4 tires — the big grip upgrade",
+          "Large duckbill rear spoiler",
+          "Heated front seats trimmed in leather and perforated Alcantara",
+          "8-speaker audio system vs the base car's 6 speakers"
+        ],
+        "funFact": "Despite the Toyota badge, every GR86 is built by Subaru at its Gunma plant in Japan, on the same line as the Subaru BRZ."
+      }
+    ]
   },
   {
     "id": "nissan-370z-z34",
@@ -646,7 +1364,73 @@
       "Drift"
     ],
     "heroImage": "https://images.unsplash.com/photo-1674451899249-07138fde3746?w=1200&q=100",
-    "slug": "nissan-370z-z34"
+    "slug": "nissan-370z-z34",
+    "trims": [
+      {
+        "id": "base",
+        "name": "370Z",
+        "tier": "base",
+        "yearsOffered": "2009–2020",
+        "engine": "3.7L naturally aspirated V6 (VQ37VHR)",
+        "power": "332hp",
+        "torque": "366Nm",
+        "zeroTo100": "5.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1466,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "VVEL variable valve lift for sharper throttle response",
+          "Shorter wheelbase and wider track than the 350Z it replaced",
+          "Aluminum hood, doors and hatch to cut weight",
+          "18-inch wheels standard; 7-speed automatic optional"
+        ]
+      },
+      {
+        "id": "sport",
+        "name": "Sport",
+        "tier": "mid",
+        "yearsOffered": "2009–2020",
+        "engine": "3.7L naturally aspirated V6 (VQ37VHR)",
+        "power": "332hp",
+        "torque": "366Nm",
+        "zeroTo100": "5.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1536,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "SynchroRev Match — the world's first automatic rev-matching manual transmission",
+          "19-inch RAYS forged alloy wheels",
+          "Akebono 4-piston front / 2-piston rear sport brakes",
+          "Viscous limited-slip differential",
+          "Front chin spoiler and rear spoiler"
+        ],
+        "funFact": "The 2009 370Z Sport introduced SynchroRev Match, the first system ever to automatically blip the throttle on downshifts in a production manual gearbox."
+      },
+      {
+        "id": "nismo",
+        "name": "NISMO",
+        "tier": "flagship",
+        "yearsOffered": "2009–2020",
+        "engine": "3.7L naturally aspirated V6 (VQ37VHR, NISMO-tuned)",
+        "power": "350hp",
+        "torque": "374Nm",
+        "zeroTo100": "5.0s",
+        "topSpeedKph": 250,
+        "weightKg": 1547,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "NISMO-tuned exhaust and ECU lift output to 350 hp",
+          "Stiffer springs, dampers and extra body bracing",
+          "Aggressive aero bodywork stretches the car several inches longer",
+          "Recaro seats co-developed with NISMO from the 2015 refresh",
+          "19-inch NISMO RAYS forged wheels with wider rubber"
+        ],
+        "funFact": "The 370Z had one of the longest runs of any modern sports car — a single generation sold for 11 years (2009–2020) with the same VQ37VHR V6 throughout."
+      }
+    ]
   },
   {
     "id": "nissan-skyline-gtr-r32",
@@ -691,7 +1475,93 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1717869290720-dce1c0301fb0?w=1200&q=100",
-    "slug": "nissan-skyline-gtr-r32"
+    "slug": "nissan-skyline-gtr-r32",
+    "trims": [
+      {
+        "id": "gtr",
+        "name": "GT-R",
+        "tier": "base",
+        "yearsOffered": "1989-1994",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "353Nm",
+        "zeroTo100": "5.6s",
+        "topSpeedKph": 180,
+        "weightKg": 1430,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "ATTESA E-TS torque-split AWD plus Super HICAS four-wheel steering",
+          "Official 280hp (280PS) per the Japanese gentlemen's agreement",
+          "JDM cars electronically limited to 180 km/h",
+          "Won all 29 races it entered in the Japanese Touring Car Championship (1990-1993)"
+        ],
+        "funFact": "Australia's Wheels magazine coined the nickname 'Godzilla' for the R32 GT-R in 1989."
+      },
+      {
+        "id": "nismo",
+        "name": "GT-R NISMO",
+        "tier": "mid",
+        "yearsOffered": "1990",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "353Nm",
+        "zeroTo100": "5.6s",
+        "topSpeedKph": 180,
+        "weightKg": 1400,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Group A homologation special - 560 built from February 1990",
+          "About 30kg lighter: ABS, rear wiper and audio deleted",
+          "Extra aero: front bumper cooling ducts, bonnet lip and rear spoiler extension",
+          "Larger turbochargers fitted to homologate race hardware"
+        ],
+        "funFact": "Every GT-R NISMO left the factory in a single color: Gun Grey Metallic (paint code KH2)."
+      },
+      {
+        "id": "v-spec",
+        "name": "GT-R V-Spec",
+        "tier": "performance",
+        "yearsOffered": "1993-1994",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "353Nm",
+        "zeroTo100": "5.6s",
+        "topSpeedKph": 180,
+        "weightKg": 1480,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Brembo brakes front and rear",
+          "17-inch BBS wheels with 225/50R17 tires",
+          "Retuned ATTESA E-TS all-wheel-drive system",
+          "Launched 3 February 1993 - 'V' stands for Victory"
+        ],
+        "funFact": "The V-Spec name celebrated the R32's back-to-back victories in Group A and JTC racing."
+      },
+      {
+        "id": "v-spec-ii",
+        "name": "GT-R V-Spec II",
+        "tier": "flagship",
+        "yearsOffered": "1994",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "353Nm",
+        "zeroTo100": "5.6s",
+        "topSpeedKph": 180,
+        "weightKg": 1480,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Final factory evolution of the R32 GT-R",
+          "Wider 245/45R17 tires over the V-Spec's 225s",
+          "Retains V-Spec Brembo brakes, BBS 17s and retuned ATTESA E-TS",
+          "Introduced 14 February 1994"
+        ],
+        "funFact": "Just 1,306 V-Spec IIs were built in the R32's final year - the only change over the V-Spec was wider 245/45R17 rubber."
+      }
+    ]
   },
   {
     "id": "nissan-skyline-gtr-r33",
@@ -736,7 +1606,71 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1717673485367-75d43aa8f86d?w=1200&q=100",
-    "slug": "nissan-skyline-gtr-r33"
+    "slug": "nissan-skyline-gtr-r33",
+    "trims": [
+      {
+        "id": "gtr",
+        "name": "GT-R",
+        "tier": "base",
+        "yearsOffered": "1995-1998",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "368Nm",
+        "zeroTo100": "5.4s",
+        "topSpeedKph": 180,
+        "weightKg": 1530,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Torque up from 353Nm to 368Nm over the R32",
+          "Stiffer body shell and improved weight distribution",
+          "5-speed manual with stronger synchros",
+          "Official 280hp (280PS) under the gentlemen's agreement; JDM 180 km/h limiter"
+        ],
+        "funFact": "Nissan promoted the R33 GT-R as the first production car to lap the Nurburgring Nordschleife in under 8 minutes."
+      },
+      {
+        "id": "v-spec",
+        "name": "GT-R V-Spec",
+        "tier": "performance",
+        "yearsOffered": "1995-1998",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "368Nm",
+        "zeroTo100": "5.4s",
+        "topSpeedKph": 180,
+        "weightKg": 1540,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "ATTESA E-TS Pro all-wheel drive with active limited-slip differential",
+          "Sportier, lower suspension than the standard GT-R",
+          "10kg heavier than the base car due to the Pro hardware"
+        ],
+        "funFact": "UK-market R33 V-Specs officially imported in 1997 had their speed limiters reprogrammed to 250 km/h instead of the JDM 180 km/h."
+      },
+      {
+        "id": "nismo-400r",
+        "name": "NISMO 400R",
+        "tier": "flagship",
+        "yearsOffered": "1997-1998",
+        "engine": "2.8L twin-turbo inline-6 (RB-X GT2)",
+        "power": "400hp",
+        "torque": "469Nm",
+        "zeroTo100": "4.0s",
+        "topSpeedKph": 300,
+        "weightKg": 1540,
+        "drivetrain": "AWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "RB26 bored and stroked to 2.8L with N1-spec turbos - official 47.8kg-m (469Nm)",
+          "Openly rated at 400PS, ignoring the 280PS gentlemen's agreement",
+          "Carbon fiber aero parts and 18x10-inch NISMO LM-GT1 forged wheels with 275/35R18 tires",
+          "Upgraded brakes (Brembo with NISMO pads), intercooler and exhaust"
+        ],
+        "funFact": "NISMO planned 100 units of the 400R, but only 44 were completed before R33 production ended in 1998."
+      }
+    ]
   },
   {
     "id": "nissan-skyline-gtr-r34",
@@ -781,7 +1715,92 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1772450339608-d7c1c34f2efb?w=1200&q=100",
-    "slug": "nissan-skyline-gtr-r34"
+    "slug": "nissan-skyline-gtr-r34",
+    "trims": [
+      {
+        "id": "gtr",
+        "name": "GT-R",
+        "tier": "base",
+        "yearsOffered": "1999-2002",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "392Nm",
+        "zeroTo100": "4.9s",
+        "topSpeedKph": 180,
+        "weightKg": 1540,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (Getrag)",
+        "highlights": [
+          "First GT-R with a Getrag 6-speed manual",
+          "Torque raised to 392Nm (40.0kg-m)",
+          "5.8-inch multifunction display showing boost, temps and G-forces",
+          "Official 280hp (280PS) per the gentlemen's agreement; JDM 180 km/h limiter"
+        ],
+        "funFact": "Though advertised at 280PS to honor the gentlemen's agreement, real R34 output was widely reported to exceed 300hp."
+      },
+      {
+        "id": "v-spec",
+        "name": "GT-R V-Spec",
+        "tier": "mid",
+        "yearsOffered": "1999-2000",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "392Nm",
+        "zeroTo100": "4.9s",
+        "topSpeedKph": 180,
+        "weightKg": 1560,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (Getrag)",
+        "highlights": [
+          "ATTESA E-TS Pro with active rear limited-slip differential",
+          "Firmer suspension and lower ride height",
+          "Carbon fiber rear air diffuser"
+        ],
+        "funFact": "The V-Spec outsold the standard car - 4,193 Series 1 V-Specs versus 2,709 base GT-Rs."
+      },
+      {
+        "id": "v-spec-ii",
+        "name": "GT-R V-Spec II",
+        "tier": "performance",
+        "yearsOffered": "2000-2002",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT)",
+        "power": "280hp",
+        "torque": "392Nm",
+        "zeroTo100": "4.9s",
+        "topSpeedKph": 180,
+        "weightKg": 1560,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (Getrag)",
+        "highlights": [
+          "Carbon fiber bonnet with NACA duct",
+          "Larger rear brake rotors",
+          "Stiffer suspension than the original V-Spec",
+          "Aluminum pedals and white-faced turn lenses"
+        ],
+        "funFact": "Nissan's official curb weight for the V-Spec II is 1,560kg with 245/40ZR18 tires - 1,855 were built for Japan."
+      },
+      {
+        "id": "v-spec-ii-nur",
+        "name": "V-Spec II Nur",
+        "tier": "flagship",
+        "yearsOffered": "2002",
+        "engine": "2.6L twin-turbo inline-6 (RB26DETT N1-based)",
+        "power": "280hp",
+        "torque": "392Nm",
+        "zeroTo100": "4.9s",
+        "topSpeedKph": 180,
+        "weightKg": 1560,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (Getrag)",
+        "highlights": [
+          "N1-based race engine with larger turbochargers and steel turbine wheels",
+          "300 km/h speedometer and gold valve covers",
+          "Named after the Nurburgring, where the GT-R was developed",
+          "Still quoted at 280hp on paper - the JDM 180 km/h limiter applied"
+        ],
+        "funFact": "Only 718 V-Spec II Nurs were built (1,003 Nur models total with the M-Spec Nur) - the final Skyline GT-Rs before the R35."
+      }
+    ]
   },
   {
     "id": "ford-mustang-gt-s550",
@@ -836,7 +1855,94 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1642308203936-0e59b541ce22?w=1200&q=100",
-    "slug": "ford-mustang-gt-s550"
+    "slug": "ford-mustang-gt-s550",
+    "trims": [
+      {
+        "id": "gt",
+        "name": "GT",
+        "tier": "base",
+        "yearsOffered": "2015-2017",
+        "engine": "5.0L V8 (Gen 2 Coyote)",
+        "power": "435hp",
+        "torque": "542Nm",
+        "zeroTo100": "4.5s",
+        "topSpeedKph": 250,
+        "weightKg": 1681,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual (6-speed auto optional)",
+        "highlights": [
+          "First Mustang generation with independent rear suspension",
+          "435hp at 6,500rpm from the Gen 2 Coyote V8",
+          "Car and Driver tested 0-60mph in 4.5 seconds (manual)",
+          "Launch control and line-lock standard"
+        ],
+        "funFact": "The 2015 GT introduced factory line-lock, which locks the front brakes so owners can do legal-ish burnouts at the drag strip."
+      },
+      {
+        "id": "gt-performance-package",
+        "name": "GT Performance Package",
+        "tier": "mid",
+        "yearsOffered": "2018-2023",
+        "engine": "5.0L V8 (Gen 3 Coyote)",
+        "power": "460hp",
+        "torque": "569Nm",
+        "zeroTo100": "4.0s",
+        "topSpeedKph": 250,
+        "weightKg": 1681,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual or 10-speed automatic",
+        "highlights": [
+          "2018 refresh added dual fuel injection: 460hp and a 7,400rpm redline",
+          "Six-piston Brembo front brakes, Torsen 3.73 rear axle, chassis bracing",
+          "Sub-4.0s 0-60mph claim requires the 10-speed auto and Drag Strip mode",
+          "Performance Package offered across the S550 run; figures shown for 2018+ cars"
+        ],
+        "funFact": "Ford's launch pitch for the 2018 GT was that it out-accelerated a Porsche 911 Carrera to 60mph."
+      },
+      {
+        "id": "bullitt",
+        "name": "Bullitt",
+        "tier": "performance",
+        "yearsOffered": "2019-2020",
+        "engine": "5.0L V8 (Gen 3 Coyote, GT350 intake manifold)",
+        "power": "480hp",
+        "torque": "569Nm",
+        "zeroTo100": "4.6s",
+        "topSpeedKph": 262,
+        "weightKg": 1746,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "480hp via GT350 intake manifold, open airbox and 87mm throttle body",
+          "Top speed raised to 163mph (262 km/h) over the standard GT",
+          "Manual only, with a white cue-ball shift knob",
+          "Dark Highland Green paint and de-badged grille"
+        ],
+        "funFact": "The Bullitt marked the 50th anniversary of the 1968 Steve McQueen film and debuted alongside the original movie car at Detroit 2018."
+      },
+      {
+        "id": "mach-1",
+        "name": "Mach 1",
+        "tier": "flagship",
+        "yearsOffered": "2021-2023",
+        "engine": "5.0L V8 (Gen 3 Coyote)",
+        "power": "480hp",
+        "torque": "569Nm",
+        "zeroTo100": "4.2s",
+        "topSpeedKph": 270,
+        "weightKg": 1754,
+        "drivetrain": "RWD",
+        "transmission": "6-speed Tremec manual (10-speed auto optional)",
+        "highlights": [
+          "480hp at 7,000rpm; 168mph (270 km/h) top speed with the manual",
+          "Tremec 3160 6-speed from the Shelby GT350 with rev matching",
+          "GT350/GT500-derived chassis hardware, oil coolers and aero",
+          "Optional Handling Package adds Cup 2 tires and a swing spoiler with Gurney flap",
+          "MotorTrend tested 0-60mph in 4.2 seconds"
+        ],
+        "funFact": "The 2021 Mach 1 revived the badge for the first time since 2004 and became the top non-Shelby S550 Mustang."
+      }
+    ]
   },
   {
     "id": "ford-mustang-shelby-gt500-s550",
@@ -880,7 +1986,51 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1753475560073-597230a4fd5e?w=1200&q=100",
-    "slug": "ford-mustang-shelby-gt500-s550"
+    "slug": "ford-mustang-shelby-gt500-s550",
+    "trims": [
+      {
+        "id": "gt500",
+        "name": "Shelby GT500",
+        "tier": "performance",
+        "yearsOffered": "2020-2022",
+        "engine": "5.2L supercharged V8 (Predator)",
+        "power": "760hp",
+        "torque": "847Nm",
+        "zeroTo100": "3.4s",
+        "topSpeedKph": 290,
+        "weightKg": 1916,
+        "drivetrain": "RWD",
+        "transmission": "7-speed dual-clutch (Tremec TR-9070)",
+        "highlights": [
+          "Most powerful street-legal Ford ever at launch: 760hp from a hand-built supercharged 5.2L V8",
+          "2.65L Eaton supercharger nestled in the engine valley",
+          "Dual-clutch only - no manual offered",
+          "Electronically limited to 180mph (290 km/h); Ford claimed 0-60 in 3.3s, Car and Driver tested 3.4s"
+        ],
+        "funFact": "Ford's dealer guide listed the GT500 at 4,225lb (1,916kg) - about 500lb more than a Mustang GT, nearly all of it supercharged V8 and cooling."
+      },
+      {
+        "id": "gt500-carbon-fiber-track-pack",
+        "name": "GT500 Carbon Fiber Track Package",
+        "tier": "flagship",
+        "yearsOffered": "2020-2022",
+        "engine": "5.2L supercharged V8 (Predator)",
+        "power": "760hp",
+        "torque": "847Nm",
+        "zeroTo100": "3.6s",
+        "topSpeedKph": 290,
+        "weightKg": 1916,
+        "drivetrain": "RWD",
+        "transmission": "7-speed dual-clutch (Tremec TR-9070)",
+        "highlights": [
+          "20-inch exposed carbon fiber wheels by Carbon Revolution with Michelin Pilot Sport Cup 2 tires",
+          "Adjustable exposed-carbon GT4-style rear wing and splitter wickers",
+          "Rear-seat delete and carbon instrument panel; real-world weighings show roughly 30lb saved (Ford quotes one curb figure)",
+          "Cup 2 tires trade drag-strip launch grip for track pace - Car and Driver tested 0-60 in 3.6s vs 3.4s standard"
+        ],
+        "funFact": "The Carbon Fiber Track Package cost $18,500 - most of it for the Carbon Revolution wheels, which weigh about 17lb each."
+      }
+    ]
   },
   {
     "id": "ford-focus-rs-mk3",
@@ -925,7 +2075,53 @@
       "Tuner"
     ],
     "heroImage": "https://images.unsplash.com/photo-1742445135822-2d58865613f7?w=1200&q=100",
-    "slug": "ford-focus-rs-mk3"
+    "slug": "ford-focus-rs-mk3",
+    "trims": [
+      {
+        "id": "rs",
+        "name": "RS",
+        "tier": "performance",
+        "yearsOffered": "2016-2018",
+        "engine": "2.3L turbocharged inline-4 (EcoBoost)",
+        "power": "350hp",
+        "torque": "470Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 266,
+        "weightKg": 1524,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Ford Performance AWD with Dynamic Torque Vectoring - up to 70% of torque to the rear axle",
+          "Industry-first factory Drift Mode plus launch control",
+          "Brembo four-piston front brakes and manual-only gearbox",
+          "0-62mph in 4.7 seconds, 165mph (266 km/h) top speed",
+          "Torque note: overboost; 440Nm sustained"
+        ],
+        "funFact": "Rally and Gymkhana star Ken Block helped develop the Mk3 RS, including its headline-grabbing Drift Mode."
+      },
+      {
+        "id": "rs-limited-edition",
+        "name": "RS Limited Edition",
+        "tier": "flagship",
+        "yearsOffered": "2018",
+        "engine": "2.3L turbocharged inline-4 (EcoBoost)",
+        "power": "350hp",
+        "torque": "470Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 266,
+        "weightKg": 1524,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Quaife mechanical limited-slip differential on the front axle - the standard RS's one missing piece",
+          "Nitrous Blue or Race Red only, with black roof, mirrors and rear wing",
+          "Forged 19-inch wheels in gloss black",
+          "Final-year send-off for the Mk3 RS",
+          "Torque note: overboost; 440Nm sustained"
+        ],
+        "funFact": "Just 1,500 Limited Editions were built for North America - 1,000 for the US and 500 for Canada."
+      }
+    ]
   },
   {
     "id": "subaru-wrx-sti-gd",
@@ -970,7 +2166,53 @@
       "Legend"
     ],
     "heroImage": "https://images.unsplash.com/photo-1572471275423-a6e40c020a46?w=1200&q=100",
-    "slug": "subaru-wrx-sti-gd"
+    "slug": "subaru-wrx-sti-gd",
+    "trims": [
+      {
+        "id": "sti",
+        "name": "STI",
+        "tier": "base",
+        "yearsOffered": "2004–2007",
+        "engine": "2.5L turbocharged flat-4 (EJ257)",
+        "power": "300hp",
+        "torque": "407Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 250,
+        "weightKg": 1480,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Driver Controlled Center Differential (DCCD) AWD",
+          "Brembo brakes — gold 4-piston front, 2-piston rear calipers",
+          "Intercooler water-spray system",
+          "Forged BBS wheels from 2005",
+          "Massive dual-plane rear wing and hood scoop"
+        ],
+        "funFact": "2004 was the first model year the STI was officially sold in the United States."
+      },
+      {
+        "id": "sti-limited",
+        "name": "STI Limited",
+        "tier": "flagship",
+        "yearsOffered": "2007",
+        "engine": "2.5L turbocharged flat-4 (EJ257)",
+        "power": "293hp",
+        "torque": "393Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 250,
+        "weightKg": 1520,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Low-key trunk lip spoiler replaces the tall dual-plane wing",
+          "First-ever power glass moonroof on a WRX STI",
+          "Anthracite perforated leather, heated front seats",
+          "Black-painted Brembo calipers with white lettering",
+          "Individually numbered plaque in every car"
+        ],
+        "funFact": "Only 800 numbered cars were built — 400 in Satin White Pearl and 400 in Urban Gray Metallic — making it the stealthiest and rarest US-market GD STI."
+      }
+    ]
   },
   {
     "id": "subaru-wrx-sti-va",
@@ -1015,7 +2257,95 @@
       "Tuner"
     ],
     "heroImage": "https://images.unsplash.com/photo-1663641632687-c0597c0572f5?w=1200&q=100",
-    "slug": "subaru-wrx-sti-va"
+    "slug": "subaru-wrx-sti-va",
+    "trims": [
+      {
+        "id": "sti",
+        "name": "STI",
+        "tier": "base",
+        "yearsOffered": "2015–2021",
+        "engine": "2.5L turbocharged flat-4 (EJ257)",
+        "power": "305hp",
+        "torque": "393Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 256,
+        "weightKg": 1536,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Multi-Mode Driver Controlled Center Differential (DCCD) AWD",
+          "Brembo brakes, 18-inch wheels with 245/40R18 summer tires",
+          "Active Torque Vectoring",
+          "Reinforced 6-speed manual only — no automatic ever offered"
+        ],
+        "funFact": "The VA was the final STI generation: the EJ25-powered nameplate was retired after 2021 with no successor."
+      },
+      {
+        "id": "sti-limited",
+        "name": "STI Limited",
+        "tier": "mid",
+        "yearsOffered": "2015–2021",
+        "engine": "2.5L turbocharged flat-4 (EJ257)",
+        "power": "305hp",
+        "torque": "393Nm",
+        "zeroTo100": "4.7s",
+        "topSpeedKph": 256,
+        "weightKg": 1562,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Leather-trimmed upholstery with 8-way power driver's seat",
+          "Power moonroof",
+          "harman/kardon premium audio",
+          "Same 305hp drivetrain as the base STI"
+        ],
+        "funFact": "The Limited's power moonroof opened one inch farther than the previous-generation STI's — a detail Subaru highlighted in the 2015 press kit."
+      },
+      {
+        "id": "type-ra",
+        "name": "Type RA",
+        "tier": "performance",
+        "yearsOffered": "2018",
+        "engine": "2.5L turbocharged flat-4 (EJ257, STI-tuned)",
+        "power": "310hp",
+        "torque": "393Nm",
+        "zeroTo100": "5.7s",
+        "topSpeedKph": 255,
+        "weightKg": 1540,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Carbon fiber roof panel and pedestal rear wing",
+          "Lightweight 19-inch forged BBS wheels",
+          "Bilstein STI Sport suspension",
+          "Cold-air intake, high-flow exhaust, stronger pistons, retuned ECU",
+          "About 53 lb lighter than a standard 2018 STI"
+        ],
+        "funFact": "RA stands for 'Record Attempt' — only 500 were built for the US market."
+      },
+      {
+        "id": "s209",
+        "name": "S209",
+        "tier": "flagship",
+        "yearsOffered": "2019",
+        "engine": "2.5L turbocharged flat-4 (EJ25 with HKS turbocharger)",
+        "power": "341hp",
+        "torque": "447Nm",
+        "zeroTo100": "4.9s",
+        "topSpeedKph": 261,
+        "weightKg": 1581,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "Larger HKS turbo with higher boost — most powerful factory STI",
+          "Wide-body fenders with 19-inch forged BBS wheels",
+          "Bilstein dampers and flexible tower braces",
+          "Brembo brakes with cross-drilled rotors",
+          "Driver-operated intercooler water-spray paddles"
+        ],
+        "funFact": "The S209 was the first of STI's Japan-only 'S-line' specials ever sold outside Japan — all 209 cars were built for the US."
+      }
+    ]
   },
   {
     "id": "subaru-brz-zc6",
@@ -1060,7 +2390,74 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1595251793833-b3d9e186a326?w=1200&q=100",
-    "slug": "subaru-brz-zc6"
+    "slug": "subaru-brz-zc6",
+    "trims": [
+      {
+        "id": "premium",
+        "name": "Premium",
+        "tier": "base",
+        "yearsOffered": "2013–2020",
+        "engine": "2.0L naturally aspirated flat-4 (FA20, D-4S injection)",
+        "power": "200hp",
+        "torque": "205Nm",
+        "zeroTo100": "6.4s",
+        "topSpeedKph": 226,
+        "weightKg": 1253,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Torsen limited-slip rear differential standard",
+          "Ultra-low boxer engine mounting for handling balance",
+          "Double-wishbone rear suspension",
+          "Lightest ZC6 configuration",
+          "Power note: 205hp with manual from 2017"
+        ],
+        "funFact": "At launch Subaru touted the BRZ as having one of the lowest centers of gravity of any production car."
+      },
+      {
+        "id": "limited",
+        "name": "Limited",
+        "tier": "mid",
+        "yearsOffered": "2013–2020",
+        "engine": "2.0L naturally aspirated flat-4 (FA20, D-4S injection)",
+        "power": "200hp",
+        "torque": "205Nm",
+        "zeroTo100": "6.4s",
+        "topSpeedKph": 226,
+        "weightKg": 1263,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Leather/Alcantara-trimmed heated front seats",
+          "Keyless access with push-button start",
+          "Rear deck spoiler and fog lights",
+          "Same Torsen LSD chassis as Premium",
+          "Power note: 205hp with manual from 2017"
+        ],
+        "funFact": "The 2017 facelift gave manual-transmission Limiteds a 5hp bump to 205hp along with a stiffer chassis and retuned suspension."
+      },
+      {
+        "id": "ts",
+        "name": "tS",
+        "tier": "flagship",
+        "yearsOffered": "2018, 2020",
+        "engine": "2.0L naturally aspirated flat-4 (FA20, D-4S injection)",
+        "power": "205hp",
+        "torque": "212Nm",
+        "zeroTo100": "6.3s",
+        "topSpeedKph": 226,
+        "weightKg": 1289,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual",
+        "highlights": [
+          "STI-tuned Sachs dampers and coil springs",
+          "Brembo brakes — 4-piston front, 2-piston rear",
+          "18-inch STI wheels with Michelin Pilot Sport 4 tires",
+          "Flexible V-braces plus chassis and subframe draw stiffeners"
+        ],
+        "funFact": "tS stands for 'tuned by STI' — the 2018 US run was capped at 500 cars, and the suspension was developed by Subaru Tecnica International."
+      }
+    ]
   },
   {
     "id": "mazda-mx5-na",
@@ -1116,7 +2513,95 @@
       "Legend"
     ],
     "heroImage": "https://images.unsplash.com/photo-1720741824732-ac56047945f5?w=1200&q=100",
-    "slug": "mazda-mx5-na"
+    "slug": "mazda-mx5-na",
+    "trims": [
+      {
+        "id": "1-6",
+        "name": "1.6",
+        "tier": "base",
+        "yearsOffered": "1990–1993",
+        "engine": "1.6L naturally aspirated inline-4 (B6-ZE)",
+        "power": "116hp",
+        "torque": "136Nm",
+        "zeroTo100": "8.6s",
+        "topSpeedKph": 187,
+        "weightKg": 990,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 4-speed automatic",
+        "highlights": [
+          "Pop-up headlights and near 50:50 weight distribution",
+          "Double-wishbone suspension at all four corners",
+          "Optional viscous limited-slip differential",
+          "Powerplant frame ties engine to differential for crisp throttle response"
+        ],
+        "funFact": "The NA revived the affordable roadster formula in 1989 and put the entire segment back on the map."
+      },
+      {
+        "id": "1-8",
+        "name": "1.8",
+        "tier": "mid",
+        "yearsOffered": "1994–1997",
+        "engine": "1.8L naturally aspirated inline-4 (BP-ZE)",
+        "power": "128hp",
+        "torque": "149Nm",
+        "zeroTo100": "8.2s",
+        "topSpeedKph": 197,
+        "weightKg": 1040,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 4-speed automatic",
+        "highlights": [
+          "Larger 1.8L engine replaced the 1.6 for 1994",
+          "Added chassis bracing and bigger brakes",
+          "Optional Torsen limited-slip differential",
+          "Standard dual airbags from 1994"
+        ],
+        "funFact": "OBD-II-era engine updates for 1996 nudged output from 128hp to 133hp."
+      },
+      {
+        "id": "r-package",
+        "name": "R Package",
+        "tier": "performance",
+        "yearsOffered": "1994–1997",
+        "engine": "1.8L naturally aspirated inline-4 (BP-ZE)",
+        "power": "128hp",
+        "torque": "149Nm",
+        "zeroTo100": "8.2s",
+        "topSpeedKph": 197,
+        "weightKg": 1040,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Bilstein dampers with stiffer springs and sway bars",
+          "Torsen limited-slip differential standard",
+          "Subtle front airdam and rear underbody spoilers",
+          "Could not be ordered with power steering, leather, or an automatic",
+          "Power note: 133hp from 1996"
+        ],
+        "funFact": "The no-frills R Package was aimed squarely at SCCA club racers — Mazda deliberately blocked luxury options on it."
+      },
+      {
+        "id": "m-edition",
+        "name": "M Edition",
+        "tier": "flagship",
+        "yearsOffered": "1994–1997",
+        "engine": "1.8L naturally aspirated inline-4 (BP-ZE)",
+        "power": "128hp",
+        "torque": "149Nm",
+        "zeroTo100": "8.2s",
+        "topSpeedKph": 197,
+        "weightKg": 1040,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 4-speed automatic",
+        "highlights": [
+          "Exclusive annual paint: Montego Blue, Merlot, Starlight Blue, Marina Green",
+          "Tan leather interior and Torsen limited-slip differential",
+          "Year-specific wheels — chrome 7-spoke ('94), 15-inch BBS ('95), Enkei ('96)",
+          "Nardi wood shift knob and handbrake handle on later cars",
+          "Power note: 133hp for 1996–97"
+        ],
+        "funFact": "Each M Edition got a one-year-only color and wheel combo; the 1995 Merlot Mica car with 15-inch BBS wheels was the biggest run at roughly 3,500 units."
+      }
+    ]
   },
   {
     "id": "mazda-mx5-nd",
@@ -1164,7 +2649,74 @@
       "NA"
     ],
     "heroImage": "https://images.unsplash.com/photo-1719645651020-3afae47c8bcd?w=1200&q=100",
-    "slug": "mazda-mx5-nd"
+    "slug": "mazda-mx5-nd",
+    "trims": [
+      {
+        "id": "sport",
+        "name": "Sport",
+        "tier": "base",
+        "yearsOffered": "2016–present",
+        "engine": "2.0L naturally aspirated inline-4 (SKYACTIV-G)",
+        "power": "181hp",
+        "torque": "205Nm",
+        "zeroTo100": "6.5s",
+        "topSpeedKph": 219,
+        "weightKg": 1061,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Lightest ND configuration — about 2,339 lb with the manual",
+          "Cloth seats and 16-inch wheels",
+          "LED headlights standard",
+          "Same engine and gearbox as the upper trims",
+          "Power note: 155hp before 2019"
+        ],
+        "funFact": "The 2019 engine update raised the redline from 6,800 to 7,500 rpm along with the jump to 181hp."
+      },
+      {
+        "id": "club",
+        "name": "Club",
+        "tier": "performance",
+        "yearsOffered": "2016–present",
+        "engine": "2.0L naturally aspirated inline-4 (SKYACTIV-G)",
+        "power": "181hp",
+        "torque": "205Nm",
+        "zeroTo100": "6.5s",
+        "topSpeedKph": 219,
+        "weightKg": 1062,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Limited-slip differential and Bilstein dampers (manual cars)",
+          "Front shock-tower brace",
+          "Aero kit with front air dam and rear lip spoiler",
+          "Optional Brembo front brakes and forged BBS wheels",
+          "Power note: 155hp before 2019"
+        ],
+        "funFact": "The factory Brembo/BBS/Recaro package is exclusive to manual-transmission Club models in the US."
+      },
+      {
+        "id": "grand-touring",
+        "name": "Grand Touring",
+        "tier": "flagship",
+        "yearsOffered": "2016–present",
+        "engine": "2.0L naturally aspirated inline-4 (SKYACTIV-G)",
+        "power": "181hp",
+        "torque": "205Nm",
+        "zeroTo100": "6.5s",
+        "topSpeedKph": 219,
+        "weightKg": 1082,
+        "drivetrain": "RWD",
+        "transmission": "6-speed manual / 6-speed automatic",
+        "highlights": [
+          "Heated leather seats and automatic climate control",
+          "Adaptive front headlights and lane-departure warning",
+          "Navigation and premium audio",
+          "Manual GTs gained the GT-S handling package option (LSD, Bilsteins, brace) in 2019"
+        ],
+        "funFact": "The ND MX-5 won both 2016 World Car of the Year and World Car Design of the Year — the first car to take both titles in the same year."
+      }
+    ]
   },
   {
     "id": "mazda-rx7-fd",
@@ -1210,7 +2762,94 @@
       "Lightweight"
     ],
     "heroImage": "https://images.unsplash.com/photo-1745514326843-86fd44c211e8?w=1200&q=100",
-    "slug": "mazda-rx7-fd"
+    "slug": "mazda-rx7-fd",
+    "trims": [
+      {
+        "id": "base",
+        "name": "Base",
+        "tier": "base",
+        "yearsOffered": "1993–1995",
+        "engine": "1.3L twin-rotor with sequential twin turbochargers (13B-REW)",
+        "power": "255hp",
+        "torque": "294Nm",
+        "zeroTo100": "5.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1265,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 4-speed automatic",
+        "highlights": [
+          "Sequential twin-turbo rotary — a production first",
+          "Just 2,789 lb curb weight",
+          "Driver airbag and ABS standard",
+          "Softer shocks and bushings than the R models"
+        ],
+        "funFact": "Mazda quoted a 0–60 mph time of just 4.9 seconds for the FD at its US launch."
+      },
+      {
+        "id": "touring",
+        "name": "Touring",
+        "tier": "mid",
+        "yearsOffered": "1993–1994",
+        "engine": "1.3L twin-rotor with sequential twin turbochargers (13B-REW)",
+        "power": "255hp",
+        "torque": "294Nm",
+        "zeroTo100": "5.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1302,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual / 4-speed automatic",
+        "highlights": [
+          "Glass sunroof, fog lights and leather seats",
+          "Bose Acoustic Wave audio with CD player",
+          "Rear window wiper",
+          "Comfort-focused counterpart to the R1/R2"
+        ],
+        "funFact": "The Touring was replaced by the PEP package for 1995 — a year in which an estimated 500 RX-7s were produced for the US."
+      },
+      {
+        "id": "r1-r2",
+        "name": "R1/R2",
+        "tier": "performance",
+        "yearsOffered": "1993–1995",
+        "engine": "1.3L twin-rotor with sequential twin turbochargers (13B-REW)",
+        "power": "255hp",
+        "torque": "294Nm",
+        "zeroTo100": "5.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1270,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Bilstein shocks with upgraded springs",
+          "Additional engine oil cooler",
+          "Front lip and rear wing aero package",
+          "Suede-trimmed seats and Z-rated tires",
+          "No cruise control — manual transmission only"
+        ],
+        "funFact": "The 1993 R1's suspension was so stiff that the renamed 1994 R2 was retuned slightly softer."
+      },
+      {
+        "id": "spirit-r-type-a",
+        "name": "Spirit R Type A",
+        "tier": "flagship",
+        "yearsOffered": "2002",
+        "engine": "1.3L twin-rotor with sequential twin turbochargers (13B-REW)",
+        "power": "276hp",
+        "torque": "314Nm",
+        "zeroTo100": "5.2s",
+        "topSpeedKph": 250,
+        "weightKg": 1270,
+        "drivetrain": "RWD",
+        "transmission": "5-speed manual",
+        "highlights": [
+          "Exclusive red Recaro full bucket seats, saving about 10 kg",
+          "Cross-drilled brake rotors and Bilstein dampers",
+          "17-inch forged BBS wheels",
+          "Two-seater layout with 5-speed manual only"
+        ],
+        "funFact": "The Spirit R was the RX-7's 2002 send-off: 1,504 cars were built, 1,044 of them two-seat Type As, and 719 wore the exclusive Titanium Grey paint."
+      }
+    ]
   },
   {
     "id": "audi-tt-8j",
@@ -1265,7 +2904,93 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1554936526-0e88154e0e2e?w=1200&q=100",
-    "slug": "audi-tt-8j"
+    "slug": "audi-tt-8j",
+    "trims": [
+      {
+        "id": "tt-2-0-tfsi",
+        "name": "2.0 TFSI",
+        "tier": "base",
+        "yearsOffered": "2006–2010",
+        "engine": "2.0L turbo I4 (EA113 TFSI)",
+        "power": "200hp",
+        "torque": "280Nm",
+        "zeroTo100": "6.6s",
+        "topSpeedKph": 240,
+        "weightKg": 1260,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual (6-speed S tronic optional)",
+        "highlights": [
+          "Aluminium-intensive Audi Space Frame (ASF) hybrid construction keeps weight low",
+          "Direct-injection turbo four shared with the Golf GTI Mk5",
+          "Electrically deploying rear spoiler",
+          "Replaced by a 211hp 2.0 TFSI with the 2010 update"
+        ],
+        "funFact": "The 8J's body is roughly 69% aluminium up front with steel at the rear, deliberately balancing weight distribution."
+      },
+      {
+        "id": "tt-3-2-quattro",
+        "name": "3.2 quattro",
+        "tier": "mid",
+        "yearsOffered": "2006–2010",
+        "engine": "3.2L VR6 (BUB)",
+        "power": "250hp",
+        "torque": "320Nm",
+        "zeroTo100": "5.9s",
+        "topSpeedKph": 250,
+        "weightKg": 1410,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (6-speed S tronic optional)",
+        "highlights": [
+          "Narrow-angle VR6 carried over from the Mk1 TT 3.2",
+          "quattro all-wheel drive standard on V6 models",
+          "Optional Audi magnetic ride adaptive dampers"
+        ],
+        "funFact": "The naturally aspirated VR6 was the only non-turbo petrol engine offered in the 8J TT and was dropped after 2010 as the lighter TTS outperformed it."
+      },
+      {
+        "id": "tts",
+        "name": "TTS",
+        "tier": "performance",
+        "yearsOffered": "2008–2014",
+        "engine": "2.0L turbo I4 (EA113 TFSI)",
+        "power": "272hp",
+        "torque": "350Nm",
+        "zeroTo100": "5.4s",
+        "topSpeedKph": 250,
+        "weightKg": 1395,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual or 6-speed S tronic",
+        "highlights": [
+          "Strengthened EA113 2.0 TFSI tuned to 272hp",
+          "quattro all-wheel drive standard",
+          "Audi magnetic ride standard with 10mm lower suspension",
+          "Quad exhaust tips and TTS-specific styling",
+          "S tronic cuts 0-100 km/h to around 5.2s"
+        ],
+        "funFact": "The TTS launched in 2008 to mark the TT's 10th anniversary, a decade after the original 8N debuted."
+      },
+      {
+        "id": "tt-rs",
+        "name": "TT RS",
+        "tier": "flagship",
+        "yearsOffered": "2009–2014",
+        "engine": "2.5L turbo inline-5 (2.5 TFSI)",
+        "power": "340hp",
+        "torque": "450Nm",
+        "zeroTo100": "4.6s",
+        "topSpeedKph": 250,
+        "weightKg": 1450,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (7-speed S tronic from 2010)",
+        "highlights": [
+          "Revived Audi's turbocharged inline-5, echoing the original quattro era",
+          "Fixed rear wing and RS-specific body kit",
+          "250 km/h limiter could be optionally raised to 280 km/h",
+          "TT RS plus (2012) upped output to 360hp and 465Nm"
+        ],
+        "funFact": "Its 2.5 TFSI five-cylinder won the International Engine of the Year award in its class nine years in a row (2010–2018)."
+      }
+    ]
   },
   {
     "id": "audi-rs3-8v",
@@ -1311,7 +3036,71 @@
       "Daily"
     ],
     "heroImage": "https://images.unsplash.com/photo-1754369764475-033c33421843?w=1200&q=100",
-    "slug": "audi-rs3-8v"
+    "slug": "audi-rs3-8v",
+    "trims": [
+      {
+        "id": "rs3-sportback-prefacelift",
+        "name": "RS3 Sportback (pre-facelift)",
+        "tier": "performance",
+        "yearsOffered": "2015–2016",
+        "engine": "2.5L turbo inline-5 (2.5 TFSI)",
+        "power": "367hp",
+        "torque": "465Nm",
+        "zeroTo100": "4.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1520,
+        "drivetrain": "AWD",
+        "transmission": "7-speed S tronic",
+        "highlights": [
+          "Most powerful compact hatch in its class at launch",
+          "quattro drive with electro-hydraulic multi-plate clutch",
+          "250 km/h limiter optionally raised to 280 km/h",
+          "Sportback body only — no sedan pre-facelift"
+        ],
+        "funFact": "Audi quoted 4.3s to 100 km/h, making it quicker off the line than many contemporary sports cars with twice the cylinders."
+      },
+      {
+        "id": "rs3-sportback-facelift",
+        "name": "RS3 Sportback (facelift)",
+        "tier": "performance",
+        "yearsOffered": "2017–2020",
+        "engine": "2.5L turbo inline-5 (EA855 evo, DAZA)",
+        "power": "400hp",
+        "torque": "480Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1510,
+        "drivetrain": "AWD",
+        "transmission": "7-speed S tronic",
+        "highlights": [
+          "All-new aluminium-block 2.5 TFSI, around 26 kg lighter than the old iron-block unit",
+          "Output raised to 400hp and 480Nm",
+          "250 km/h limiter optionally raised to 280 km/h"
+        ],
+        "funFact": "Despite gaining 33hp over the pre-facelift car, the lighter new engine helped trim overall kerb weight."
+      },
+      {
+        "id": "rs3-sedan",
+        "name": "RS3 Sedan",
+        "tier": "flagship",
+        "yearsOffered": "2017–2020",
+        "engine": "2.5L turbo inline-5 (EA855 evo, DAZA)",
+        "power": "400hp",
+        "torque": "480Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1515,
+        "drivetrain": "AWD",
+        "transmission": "7-speed S tronic",
+        "highlights": [
+          "First sedan body style in RS3 history",
+          "Same 400hp aluminium-block 2.5 TFSI as the facelift Sportback",
+          "Brought the RS3 to the US market for the first time",
+          "Optional 280 km/h raised limiter"
+        ],
+        "funFact": "At launch its 2.5 TFSI was the world's most powerful series-production five-cylinder engine."
+      }
+    ]
   },
   {
     "id": "vw-golf-gti-mk7",
@@ -1355,7 +3144,93 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1746184842826-73fd144a4587?w=1200&q=100",
-    "slug": "vw-golf-gti-mk7"
+    "slug": "vw-golf-gti-mk7",
+    "trims": [
+      {
+        "id": "gti",
+        "name": "GTI",
+        "tier": "base",
+        "yearsOffered": "2013–2020",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "220hp",
+        "torque": "350Nm",
+        "zeroTo100": "6.5s",
+        "topSpeedKph": 246,
+        "weightKg": 1306,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual (6-speed DSG optional)",
+        "highlights": [
+          "First GTI on the lightweight MQB platform",
+          "EA888 Gen 3 with 350Nm from just 1500 rpm",
+          "Progressive-ratio steering standard",
+          "2017 facelift raised standard output to 230PS"
+        ],
+        "funFact": "The Mk7 GTI was up to 42 kg lighter than the Mk6 it replaced thanks to the MQB platform."
+      },
+      {
+        "id": "gti-performance",
+        "name": "GTI Performance Pack",
+        "tier": "mid",
+        "yearsOffered": "2013–2020",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "230hp",
+        "torque": "350Nm",
+        "zeroTo100": "6.4s",
+        "topSpeedKph": 250,
+        "weightKg": 1307,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual (6-speed DSG optional)",
+        "highlights": [
+          "VAQ electronically controlled front locking differential",
+          "Larger brake discs with GTI-logo calipers",
+          "Top speed raised from 246 to 250 km/h",
+          "2017 facelift version bumped to 245PS and 370Nm"
+        ],
+        "funFact": "The Performance Pack's VAQ diff was the first factory locking front differential ever fitted to a GTI."
+      },
+      {
+        "id": "gti-clubsport",
+        "name": "GTI Clubsport",
+        "tier": "performance",
+        "yearsOffered": "2016",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "265hp",
+        "torque": "350Nm",
+        "zeroTo100": "6.3s",
+        "topSpeedKph": 250,
+        "weightKg": 1300,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual or 6-speed DSG",
+        "highlights": [
+          "Overboost function briefly lifts output to 290PS",
+          "Clubsport-specific front splitter and rear wing add real downforce",
+          "VAQ locking front differential standard",
+          "Built to celebrate 40 years of the GTI"
+        ],
+        "funFact": "Sold in the UK as the 'GTI Clubsport Edition 40' to mark the GTI's 40th anniversary in 2016."
+      },
+      {
+        "id": "gti-clubsport-s",
+        "name": "GTI Clubsport S",
+        "tier": "flagship",
+        "yearsOffered": "2016",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "310hp",
+        "torque": "380Nm",
+        "zeroTo100": "5.8s",
+        "topSpeedKph": 265,
+        "weightKg": 1285,
+        "drivetrain": "FWD",
+        "transmission": "6-speed manual only",
+        "highlights": [
+          "Rear seats deleted and sound insulation reduced to save weight",
+          "Derestricted 265 km/h top speed",
+          "Limited to 400 units worldwide",
+          "Special Nürburgring suspension mode in the driving profile selector"
+        ],
+        "funFact": "In May 2016 it lapped the Nürburgring Nordschleife in 7:49.21 with Benny Leuchter driving, a new record for front-wheel-drive production cars."
+      }
+    ]
   },
   {
     "id": "vw-golf-r-mk7",
@@ -1400,7 +3275,51 @@
       "Tuner"
     ],
     "heroImage": "https://images.unsplash.com/photo-1572811298797-9eecadf6cb24?w=1200&q=100",
-    "slug": "vw-golf-r-mk7"
+    "slug": "vw-golf-r-mk7",
+    "trims": [
+      {
+        "id": "golf-r-prefacelift",
+        "name": "Golf R (pre-facelift)",
+        "tier": "performance",
+        "yearsOffered": "2014–2016",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "300hp",
+        "torque": "380Nm",
+        "zeroTo100": "5.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1476,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual (6-speed DSG optional)",
+        "highlights": [
+          "4MOTION all-wheel drive with fifth-generation Haldex coupling",
+          "DSG version cuts 0-100 km/h to 4.9s",
+          "Shares its 300PS EA888 tune with the Audi S3 8V",
+          "Quad exhaust and R-specific bumpers"
+        ],
+        "funFact": "At launch it was the most powerful production Golf VW had ever built."
+      },
+      {
+        "id": "golf-r-facelift",
+        "name": "Golf R (facelift)",
+        "tier": "flagship",
+        "yearsOffered": "2017–2020",
+        "engine": "2.0L turbo I4 (EA888 Gen 3)",
+        "power": "310hp",
+        "torque": "400Nm",
+        "zeroTo100": "4.6s",
+        "topSpeedKph": 250,
+        "weightKg": 1460,
+        "drivetrain": "AWD",
+        "transmission": "6-speed manual or 7-speed DSG",
+        "highlights": [
+          "Power up from 300 to 310PS, torque up to 400Nm",
+          "New 7-speed DSG replaced the old 6-speed unit",
+          "0-100 km/h in 4.6s with DSG",
+          "Optional Akrapovic titanium exhaust offered from the factory"
+        ],
+        "funFact": "The optional Performance package removed the 250 km/h limiter, lifting top speed to around 267 km/h (166 mph)."
+      }
+    ]
   },
   {
     "id": "mercedes-amg-c63-w205",
@@ -1456,7 +3375,51 @@
       "Turbo"
     ],
     "heroImage": "https://images.unsplash.com/photo-1635011747457-d12e594be1c6?w=1200&q=100",
-    "slug": "mercedes-amg-c63-w205"
+    "slug": "mercedes-amg-c63-w205",
+    "trims": [
+      {
+        "id": "c63",
+        "name": "C63",
+        "tier": "performance",
+        "yearsOffered": "2015–2021",
+        "engine": "4.0L twin-turbo V8 (M177)",
+        "power": "476hp",
+        "torque": "650Nm",
+        "zeroTo100": "4.1s",
+        "topSpeedKph": 250,
+        "weightKg": 1715,
+        "drivetrain": "RWD",
+        "transmission": "7-speed AMG SPEEDSHIFT MCT (9-speed from 2018 facelift)",
+        "highlights": [
+          "Hand-built M177 V8 with turbos mounted inside the V",
+          "Mechanical limited-slip rear differential",
+          "Three-stage AMG Ride Control adaptive suspension",
+          "2018 facelift brought the 9-speed MCT and AMG Dynamics modes"
+        ],
+        "funFact": "Each M177 engine is assembled by a single technician in Affalterbach under AMG's 'one man, one engine' principle."
+      },
+      {
+        "id": "c63-s",
+        "name": "C63 S",
+        "tier": "flagship",
+        "yearsOffered": "2015–2021",
+        "engine": "4.0L twin-turbo V8 (M177)",
+        "power": "510hp",
+        "torque": "700Nm",
+        "zeroTo100": "4.0s",
+        "topSpeedKph": 250,
+        "weightKg": 1730,
+        "drivetrain": "RWD",
+        "transmission": "7-speed AMG SPEEDSHIFT MCT (9-speed from 2018 facelift)",
+        "highlights": [
+          "Electronically controlled limited-slip rear differential",
+          "Dynamic engine and transmission mounts",
+          "Higher boost pressure lifts output to 510hp and 700Nm",
+          "AMG Driver's Package raises the limiter to 290 km/h"
+        ],
+        "funFact": "The M177's 'hot inside V' layout places both turbochargers between the cylinder banks and is closely related to the M178 in the AMG GT."
+      }
+    ]
   },
   {
     "id": "mercedes-amg-a45-w176",
@@ -1501,6 +3464,50 @@
       "Luxury"
     ],
     "heroImage": "https://images.unsplash.com/photo-1682594232758-b9d0877813eb?w=1200&q=100",
-    "slug": "mercedes-amg-a45-w176"
+    "slug": "mercedes-amg-a45-w176",
+    "trims": [
+      {
+        "id": "a45-prefacelift",
+        "name": "A45 AMG (pre-facelift)",
+        "tier": "performance",
+        "yearsOffered": "2013–2015",
+        "engine": "2.0L turbo I4 (M133)",
+        "power": "360hp",
+        "torque": "450Nm",
+        "zeroTo100": "4.6s",
+        "topSpeedKph": 250,
+        "weightKg": 1555,
+        "drivetrain": "AWD",
+        "transmission": "7-speed AMG SPEEDSHIFT DCT",
+        "highlights": [
+          "World's most powerful series-production 2.0L four-cylinder at launch",
+          "4MATIC all-wheel drive with electro-hydraulically controlled rear clutch",
+          "Hand-built M133 engine with twin-scroll turbocharger",
+          "AMG's first transverse-engined compact performance car"
+        ],
+        "funFact": "Its 181hp-per-litre specific output beat contemporary supercars at launch in 2013."
+      },
+      {
+        "id": "a45-facelift",
+        "name": "A45 (facelift)",
+        "tier": "flagship",
+        "yearsOffered": "2016–2018",
+        "engine": "2.0L turbo I4 (M133)",
+        "power": "381hp",
+        "torque": "475Nm",
+        "zeroTo100": "4.2s",
+        "topSpeedKph": 250,
+        "weightKg": 1555,
+        "drivetrain": "AWD",
+        "transmission": "7-speed AMG SPEEDSHIFT DCT",
+        "highlights": [
+          "Output raised to 381hp and 475Nm",
+          "0-100 km/h cut from 4.6s to 4.2s",
+          "Shorter ratios and faster shifts for the 7-speed DCT",
+          "Optional AMG Dynamic Plus package with mechanical front axle locking differential"
+        ],
+        "funFact": "At launch Mercedes billed the facelifted A45 as the world's most powerful compact sports model, with a specific output of roughly 191hp per litre."
+      }
+    ]
   }
 ]

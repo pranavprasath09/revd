@@ -4,7 +4,7 @@ import SEOHead from "@/components/ui/SEOHead";
 import Button from "@/components/ui/Button";
 import PageWrapper from "@/components/layout/PageWrapper";
 import carsData from "@/data/cars.json";
-import type { Car } from "@/types/car";
+import type { Car, CarTrim } from "@/types/car";
 
 const cars = carsData as Car[];
 
@@ -19,51 +19,60 @@ function carLabel(car: Car): string {
   return `${car.make} ${car.model} ${car.generation}`;
 }
 
+/** A car plus an optionally selected trim. No trim = generation overview. */
+interface CompareSubject {
+  car: Car;
+  trim?: CarTrim;
+}
+
+function subjectLabel(s: CompareSubject): string {
+  return s.trim
+    ? `${s.car.make} ${s.car.model} ${s.trim.name}`
+    : carLabel(s.car);
+}
+
 type WinDirection = "higher" | "lower";
 
 interface SpecRow {
   label: string;
   key: string;
-  getValue: (car: Car) => string;
-  getNumeric: (car: Car) => number;
+  getValue: (s: CompareSubject) => string;
+  getNumeric: (s: CompareSubject) => number;
   winDirection: WinDirection;
-  unit?: string;
 }
 
 const ENGINE_SPECS: SpecRow[] = [
   {
-    label: "Engine Code",
-    key: "engine-code",
-    getValue: (c) => c.engines[0]?.code ?? "—",
-    getNumeric: () => 0,
-    winDirection: "higher",
-  },
-  {
-    label: "Displacement",
-    key: "displacement",
-    getValue: (c) => c.engines[0]?.displacement ?? "—",
-    getNumeric: (c) => parseNumeric(c.engines[0]?.displacement ?? "0"),
-    winDirection: "higher",
-  },
-  {
-    label: "Configuration",
-    key: "configuration",
-    getValue: (c) => c.engines[0]?.configuration ?? "—",
+    label: "Engine",
+    key: "engine",
+    getValue: (s) =>
+      s.trim
+        ? s.trim.engine
+        : `${s.car.engines[0]?.displacement ?? ""} ${s.car.engines[0]?.configuration ?? ""} (${s.car.engines[0]?.code ?? "—"})`,
     getNumeric: () => 0,
     winDirection: "higher",
   },
   {
     label: "Power",
     key: "power",
-    getValue: (c) => c.engines[0]?.power ?? "—",
-    getNumeric: (c) => parseNumeric(c.engines[0]?.power ?? "0"),
+    getValue: (s) => (s.trim ? s.trim.power : s.car.engines[0]?.power ?? "—"),
+    getNumeric: (s) =>
+      parseNumeric(s.trim ? s.trim.power : s.car.engines[0]?.power ?? "0"),
     winDirection: "higher",
   },
   {
     label: "Torque",
     key: "torque",
-    getValue: (c) => c.engines[0]?.torque ?? "—",
-    getNumeric: (c) => parseNumeric(c.engines[0]?.torque ?? "0"),
+    getValue: (s) => (s.trim ? s.trim.torque : s.car.engines[0]?.torque ?? "—"),
+    getNumeric: (s) =>
+      parseNumeric(s.trim ? s.trim.torque : s.car.engines[0]?.torque ?? "0"),
+    winDirection: "higher",
+  },
+  {
+    label: "Transmission",
+    key: "transmission",
+    getValue: (s) => s.trim?.transmission ?? "—",
+    getNumeric: () => 0,
     winDirection: "higher",
   },
 ];
@@ -72,28 +81,54 @@ const PERFORMANCE_SPECS: SpecRow[] = [
   {
     label: "0–100 km/h",
     key: "0-100",
-    getValue: (c) => c.performance["0_to_100_kph"],
-    getNumeric: (c) => parseNumeric(c.performance["0_to_100_kph"]),
+    getValue: (s) =>
+      s.trim ? s.trim.zeroTo100 : s.car.performance["0_to_100_kph"],
+    getNumeric: (s) =>
+      parseNumeric(s.trim ? s.trim.zeroTo100 : s.car.performance["0_to_100_kph"]),
     winDirection: "lower",
   },
   {
     label: "Top Speed",
     key: "top-speed",
-    getValue: (c) => `${c.performance.top_speed_kph} km/h`,
-    getNumeric: (c) => c.performance.top_speed_kph,
+    getValue: (s) =>
+      `${s.trim ? s.trim.topSpeedKph : s.car.performance.top_speed_kph} km/h`,
+    getNumeric: (s) =>
+      s.trim ? s.trim.topSpeedKph : s.car.performance.top_speed_kph,
     winDirection: "higher",
   },
   {
     label: "Weight",
     key: "weight",
-    getValue: (c) => `${c.performance.weight_kg} kg`,
-    getNumeric: (c) => c.performance.weight_kg,
+    getValue: (s) =>
+      `${s.trim ? s.trim.weightKg : s.car.performance.weight_kg} kg`,
+    getNumeric: (s) => (s.trim ? s.trim.weightKg : s.car.performance.weight_kg),
     winDirection: "lower",
+  },
+  {
+    label: "Power-to-weight",
+    key: "power-to-weight",
+    getValue: (s) => {
+      const power = parseNumeric(
+        s.trim ? s.trim.power : s.car.engines[0]?.power ?? "0"
+      );
+      const weight = s.trim ? s.trim.weightKg : s.car.performance.weight_kg;
+      if (!power || !weight) return "—";
+      return `${Math.round(power / (weight / 1000))} hp/ton`;
+    },
+    getNumeric: (s) => {
+      const power = parseNumeric(
+        s.trim ? s.trim.power : s.car.engines[0]?.power ?? "0"
+      );
+      const weight = s.trim ? s.trim.weightKg : s.car.performance.weight_kg;
+      if (!power || !weight) return 0;
+      return Math.round(power / (weight / 1000));
+    },
+    winDirection: "higher",
   },
   {
     label: "Drivetrain",
     key: "drivetrain",
-    getValue: (c) => c.performance.drivetrain,
+    getValue: (s) => (s.trim ? s.trim.drivetrain : s.car.performance.drivetrain),
     getNumeric: () => 0,
     winDirection: "higher",
   },
@@ -103,29 +138,29 @@ const DIMENSION_SPECS: SpecRow[] = [
   {
     label: "Length",
     key: "length",
-    getValue: (c) => `${c.dimensions.length_mm} mm`,
-    getNumeric: (c) => c.dimensions.length_mm,
+    getValue: (s) => `${s.car.dimensions.length_mm} mm`,
+    getNumeric: (s) => s.car.dimensions.length_mm,
     winDirection: "higher",
   },
   {
     label: "Width",
     key: "width",
-    getValue: (c) => `${c.dimensions.width_mm} mm`,
-    getNumeric: (c) => c.dimensions.width_mm,
+    getValue: (s) => `${s.car.dimensions.width_mm} mm`,
+    getNumeric: (s) => s.car.dimensions.width_mm,
     winDirection: "higher",
   },
   {
     label: "Height",
     key: "height",
-    getValue: (c) => `${c.dimensions.height_mm} mm`,
-    getNumeric: (c) => c.dimensions.height_mm,
+    getValue: (s) => `${s.car.dimensions.height_mm} mm`,
+    getNumeric: (s) => s.car.dimensions.height_mm,
     winDirection: "lower",
   },
   {
     label: "Wheelbase",
     key: "wheelbase",
-    getValue: (c) => `${c.dimensions.wheelbase_mm} mm`,
-    getNumeric: (c) => c.dimensions.wheelbase_mm,
+    getValue: (s) => `${s.car.dimensions.wheelbase_mm} mm`,
+    getNumeric: (s) => s.car.dimensions.wheelbase_mm,
     winDirection: "higher",
   },
 ];
@@ -237,13 +272,13 @@ function WinnerBadge() {
 function CompareSection({
   title,
   specs,
-  carA,
-  carB,
+  a,
+  b,
 }: {
   title: string;
   specs: SpecRow[];
-  carA: Car;
-  carB: Car;
+  a: CompareSubject;
+  b: CompareSubject;
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-border">
@@ -254,10 +289,10 @@ function CompareSection({
       </div>
       <div className="divide-y divide-border">
         {specs.map((spec, i) => {
-          const valA = spec.getValue(carA);
-          const valB = spec.getValue(carB);
-          const numA = spec.getNumeric(carA);
-          const numB = spec.getNumeric(carB);
+          const valA = spec.getValue(a);
+          const valB = spec.getValue(b);
+          const numA = spec.getNumeric(a);
+          const numB = spec.getNumeric(b);
 
           let aWins = false;
           let bWins = false;
@@ -283,7 +318,7 @@ function CompareSection({
               <span className="font-body text-sm font-medium text-text-secondary">
                 {spec.label}
               </span>
-              {/* Car A */}
+              {/* Subject A */}
               <span
                 className={`font-mono text-center text-sm font-semibold ${
                   aWins ? "text-green-400" : "text-text-primary"
@@ -292,7 +327,7 @@ function CompareSection({
                 {valA}
                 {aWins && <WinnerBadge />}
               </span>
-              {/* Car B */}
+              {/* Subject B */}
               <span
                 className={`font-mono text-center text-sm font-semibold ${
                   bWins ? "text-green-400" : "text-text-primary"
@@ -314,13 +349,13 @@ function CompareSection({
 function MobileCompareSection({
   title,
   specs,
-  carA,
-  carB,
+  a,
+  b,
 }: {
   title: string;
   specs: SpecRow[];
-  carA: Car;
-  carB: Car;
+  a: CompareSubject;
+  b: CompareSubject;
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-border">
@@ -331,10 +366,10 @@ function MobileCompareSection({
       </div>
       <div className="divide-y divide-border">
         {specs.map((spec, i) => {
-          const valA = spec.getValue(carA);
-          const valB = spec.getValue(carB);
-          const numA = spec.getNumeric(carA);
-          const numB = spec.getNumeric(carB);
+          const valA = spec.getValue(a);
+          const valB = spec.getValue(b);
+          const numA = spec.getNumeric(a);
+          const numB = spec.getNumeric(b);
 
           let aWins = false;
           let bWins = false;
@@ -358,7 +393,7 @@ function MobileCompareSection({
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="font-body mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
-                    {carA.make} {carA.model}
+                    {a.car.make} {a.trim?.name ?? a.car.model}
                   </div>
                   <span
                     className={`font-mono text-sm font-semibold ${
@@ -371,7 +406,7 @@ function MobileCompareSection({
                 </div>
                 <div>
                   <div className="font-body mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
-                    {carB.make} {carB.model}
+                    {b.car.make} {b.trim?.name ?? b.car.model}
                   </div>
                   <span
                     className={`font-mono text-sm font-semibold ${
@@ -391,36 +426,101 @@ function MobileCompareSection({
   );
 }
 
+/* ── Trim Highlights ──────────────────────────────────────── */
+
+function TrimHighlightCard({ subject }: { subject: CompareSubject }) {
+  const { car, trim } = subject;
+  if (!trim) {
+    return (
+      <div className="rounded-xl border border-dashed border-border p-5">
+        <p className="font-body text-sm text-text-muted">
+          Select a trim of the {car.make} {car.model} above to see what it
+          offers.
+        </p>
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-xl border border-border bg-bg-surface p-5">
+      <h3 className="font-display text-base uppercase tracking-wide text-text-primary">
+        {car.make} {car.model} {trim.name}
+      </h3>
+      <p className="font-body mt-0.5 text-xs text-text-muted">
+        {trim.engine} · {trim.yearsOffered}
+      </p>
+      <ul className="mt-4 space-y-2">
+        {trim.highlights.map((h) => (
+          <li
+            key={h}
+            className="font-body flex items-start gap-2.5 text-sm leading-relaxed text-text-secondary"
+          >
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-red" />
+            {h}
+          </li>
+        ))}
+      </ul>
+      {trim.funFact && (
+        <div className="mt-4 rounded-lg border border-accent-red/25 bg-accent-red/5 px-3.5 py-2.5">
+          <p className="font-body text-[10px] font-bold uppercase tracking-wider text-accent-red mb-1">
+            Did you know
+          </p>
+          <p className="font-body text-sm leading-relaxed text-text-secondary">
+            {trim.funFact}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Main Page ────────────────────────────────────────────── */
+
+interface CompareEntry {
+  slug: string;
+  trimId?: string;
+}
 
 export default function ComparePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [toastVisible, setToastVisible] = useState(false);
 
-  const slugs = useMemo(() => {
+  // URL format: ?cars=slugA:trimId,slugB  — :trimId optional per car, so old
+  // plain-slug links keep working and trim choices are shareable.
+  const entries = useMemo<CompareEntry[]>(() => {
     const raw = searchParams.get("cars") ?? "";
-    // Drop slugs that don't match a known car so slot indices always line up
-    // with the rendered cards (a bogus slug in the URL would otherwise make
-    // remove/add target the wrong entry)
     return raw
       .split(",")
-      .map((s) => s.trim())
-      .filter((slug) => cars.some((c) => c.slug === slug))
+      .map((part) => {
+        const [slug, trimId] = part.trim().split(":");
+        return { slug, trimId: trimId || undefined };
+      })
+      .filter((e) => cars.some((c) => c.slug === e.slug))
       .slice(0, 2);
   }, [searchParams]);
 
-  const selectedCars = useMemo(() => {
-    return slugs
-      .map((slug) => cars.find((c) => c.slug === slug))
-      .filter((c): c is Car => c !== undefined);
-  }, [slugs]);
+  const subjects = useMemo<CompareSubject[]>(() => {
+    return entries
+      .map((entry): CompareSubject | undefined => {
+        const car = cars.find((c) => c.slug === entry.slug);
+        if (!car) return undefined;
+        const trim = entry.trimId
+          ? car.trims?.find((t) => t.id === entry.trimId)
+          : undefined;
+        return trim ? { car, trim } : { car };
+      })
+      .filter((s): s is CompareSubject => s !== undefined);
+  }, [entries]);
 
-  const updateSlugs = useCallback(
-    (newSlugs: string[]) => {
-      if (newSlugs.length === 0) {
+  const updateEntries = useCallback(
+    (newEntries: CompareEntry[]) => {
+      if (newEntries.length === 0) {
         setSearchParams({});
       } else {
-        setSearchParams({ cars: newSlugs.join(",") });
+        setSearchParams({
+          cars: newEntries
+            .map((e) => (e.trimId ? `${e.slug}:${e.trimId}` : e.slug))
+            .join(","),
+        });
       }
     },
     [setSearchParams]
@@ -428,18 +528,27 @@ export default function ComparePage() {
 
   const handleAddCar = useCallback(
     (car: Car) => {
-      const newSlugs = [...slugs, car.slug].slice(0, 2);
-      updateSlugs(newSlugs);
+      updateEntries([...entries, { slug: car.slug }].slice(0, 2));
     },
-    [slugs, updateSlugs]
+    [entries, updateEntries]
   );
 
   const handleRemoveCar = useCallback(
     (index: number) => {
-      const newSlugs = slugs.filter((_, i) => i !== index);
-      updateSlugs(newSlugs);
+      updateEntries(entries.filter((_, i) => i !== index));
     },
-    [slugs, updateSlugs]
+    [entries, updateEntries]
+  );
+
+  const handleTrimChange = useCallback(
+    (index: number, trimId: string) => {
+      updateEntries(
+        entries.map((e, i) =>
+          i === index ? { ...e, trimId: trimId || undefined } : e
+        )
+      );
+    },
+    [entries, updateEntries]
   );
 
   const handleShare = useCallback(() => {
@@ -449,17 +558,15 @@ export default function ComparePage() {
     });
   }, []);
 
-  const seoTitle =
-    selectedCars.length === 2
-      ? `${carLabel(selectedCars[0])} vs ${carLabel(selectedCars[1])}`
-      : "Compare Cars";
+  const hasTwoCars = subjects.length === 2;
 
-  const seoDescription =
-    selectedCars.length === 2
-      ? `Side-by-side specs comparison: ${carLabel(selectedCars[0])} vs ${carLabel(selectedCars[1])}. Power, performance, dimensions and more.`
-      : "Compare specs side by side for any enthusiast cars on RevHub.";
+  const seoTitle = hasTwoCars
+    ? `${subjectLabel(subjects[0])} vs ${subjectLabel(subjects[1])}`
+    : "Compare Cars";
 
-  const hasTwoCars = selectedCars.length === 2;
+  const seoDescription = hasTwoCars
+    ? `Side-by-side specs comparison: ${subjectLabel(subjects[0])} vs ${subjectLabel(subjects[1])}. Power, performance, dimensions and more.`
+    : "Compare specs side by side for any enthusiast cars on RevHub.";
 
   return (
     <div className="page-enter">
@@ -474,12 +581,12 @@ export default function ComparePage() {
             </p>
             <h1 className="font-display text-3xl uppercase tracking-wide text-text-primary sm:text-4xl">
               {hasTwoCars
-                ? `${selectedCars[0].make} ${selectedCars[0].model} vs ${selectedCars[1].make} ${selectedCars[1].model}`
+                ? `${subjects[0].car.make} ${subjects[0].car.model} vs ${subjects[1].car.make} ${subjects[1].car.model}`
                 : "Compare Cars"}
             </h1>
             <p className="font-body mt-1 text-sm text-text-secondary">
               {hasTwoCars
-                ? "Side-by-side specs breakdown"
+                ? "Side-by-side specs breakdown — pick a trim on each side for trim-level numbers"
                 : "Select two cars to compare specs, performance, and dimensions."}
             </p>
           </div>
@@ -507,45 +614,70 @@ export default function ComparePage() {
         {/* Car Selectors + Selected Cards */}
         <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {[0, 1].map((slotIndex) => {
-            const car = selectedCars[slotIndex];
-            if (car) {
+            const subject = subjects[slotIndex];
+            if (subject) {
+              const { car, trim } = subject;
+              const trims = car.trims ?? [];
               return (
                 <div
                   key={car.slug}
-                  className="flex items-center justify-between rounded-xl border border-border bg-bg-surface px-5 py-4"
+                  className="rounded-xl border border-border bg-bg-surface px-5 py-4"
                 >
-                  <div>
-                    <p className="mb-0.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
-                      Car {slotIndex + 1}
-                    </p>
-                    <p className="text-lg font-bold text-text-primary">
-                      {car.make} {car.model}
-                    </p>
-                    <p className="text-sm text-text-secondary">
-                      {car.generation} &middot; {car.years}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveCar(slotIndex)}
-                    className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-elevated hover:text-accent-red"
-                    aria-label={`Remove ${carLabel(car)}`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="mb-0.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
+                        Car {slotIndex + 1}
+                      </p>
+                      <p className="text-lg font-bold text-text-primary">
+                        {car.make} {car.model}
+                      </p>
+                      <p className="text-sm text-text-secondary">
+                        {car.generation} &middot; {car.years}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCar(slotIndex)}
+                      className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-elevated hover:text-accent-red"
+                      aria-label={`Remove ${carLabel(car)}`}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  {trims.length > 0 && (
+                    <div className="mt-3 border-t border-border pt-3">
+                      <label className="font-body mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-text-muted">
+                        Trim
+                      </label>
+                      <select
+                        value={trim?.id ?? ""}
+                        onChange={(e) =>
+                          handleTrimChange(slotIndex, e.target.value)
+                        }
+                        className="font-body w-full cursor-pointer rounded-lg border border-border bg-bg-base px-3 py-2 text-sm text-text-primary outline-none transition-colors focus:border-accent-red"
+                      >
+                        <option value="">Generation overview</option>
+                        {trims.map((t) => (
+                          <option key={t.id} value={t.id}>
+                            {t.name} — {t.power}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
               );
             }
@@ -553,7 +685,7 @@ export default function ComparePage() {
               <CarSelector
                 key={`selector-${slotIndex}`}
                 slotIndex={slotIndex}
-                excludeSlugs={slugs}
+                excludeSlugs={entries.map((e) => e.slug)}
                 onSelect={handleAddCar}
               />
             );
@@ -578,12 +710,10 @@ export default function ComparePage() {
               />
             </svg>
             <p className="mb-1 text-lg font-semibold text-text-primary">
-              {selectedCars.length === 0
-                ? "No cars selected"
-                : "Add one more car"}
+              {subjects.length === 0 ? "No cars selected" : "Add one more car"}
             </p>
             <p className="text-sm text-text-secondary">
-              {selectedCars.length === 0
+              {subjects.length === 0
                 ? "Search and select two cars above to compare specs side by side."
                 : "Search for another car above to start comparing."}
             </p>
@@ -599,30 +729,36 @@ export default function ComparePage() {
               <div className="grid grid-cols-3 gap-4 px-5">
                 <span />
                 <span className="text-center text-xs font-bold uppercase tracking-widest text-text-muted">
-                  {selectedCars[0].make} {selectedCars[0].model}
+                  {subjects[0].car.make} {subjects[0].car.model}
+                  {subjects[0].trim && (
+                    <span className="text-accent-red"> {subjects[0].trim.name}</span>
+                  )}
                 </span>
                 <span className="text-center text-xs font-bold uppercase tracking-widest text-text-muted">
-                  {selectedCars[1].make} {selectedCars[1].model}
+                  {subjects[1].car.make} {subjects[1].car.model}
+                  {subjects[1].trim && (
+                    <span className="text-accent-red"> {subjects[1].trim.name}</span>
+                  )}
                 </span>
               </div>
 
               <CompareSection
                 title="Engine"
                 specs={ENGINE_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
               <CompareSection
                 title="Performance"
                 specs={PERFORMANCE_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
               <CompareSection
                 title="Dimensions"
                 specs={DIMENSION_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
             </div>
 
@@ -631,22 +767,35 @@ export default function ComparePage() {
               <MobileCompareSection
                 title="Engine"
                 specs={ENGINE_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
               <MobileCompareSection
                 title="Performance"
                 specs={PERFORMANCE_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
               <MobileCompareSection
                 title="Dimensions"
                 specs={DIMENSION_SPECS}
-                carA={selectedCars[0]}
-                carB={selectedCars[1]}
+                a={subjects[0]}
+                b={subjects[1]}
               />
             </div>
+
+            {/* What each trim offers */}
+            {(subjects[0].trim || subjects[1].trim) && (
+              <div className="mt-8">
+                <h2 className="font-display mb-4 text-sm uppercase tracking-widest text-text-muted">
+                  What each trim offers
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <TrimHighlightCard subject={subjects[0]} />
+                  <TrimHighlightCard subject={subjects[1]} />
+                </div>
+              </div>
+            )}
           </>
         )}
       </PageWrapper>

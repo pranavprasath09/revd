@@ -40,8 +40,9 @@ export default function CarHero({ car }: CarHeroProps) {
           height={600}
         />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        {/* Bottom-weighted scrim — protects the title text without veiling the
+            upper image (the old full-height wash dulled photos on light themes) */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
 
         {/* Text overlay */}
         <div className="absolute inset-x-0 bottom-0 px-5 pb-20 sm:px-10 sm:pb-24">
