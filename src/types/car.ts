@@ -24,8 +24,14 @@ export interface CarTrim {
   transmission: string;
   highlights: string[];
   funFact?: string;
-  /** Optional trim-specific photo (official press image URL). Falls back to the car's heroImage. */
+  /** Optional trim-specific photo. Falls back to the car's heroImage. */
   image?: string;
+  /** Attribution for the trim photo — required for CC BY / CC BY-SA images. */
+  imageCredit?: {
+    author: string;
+    license: string;
+    sourceUrl: string;
+  };
 }
 
 export interface Car {

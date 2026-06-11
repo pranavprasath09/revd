@@ -113,6 +113,17 @@ export default function TrimSection({ car }: TrimSectionProps) {
               Generation photo
             </span>
           )}
+          {trim.image && trim.imageCredit && (
+            <a
+              href={trim.imageCredit.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="absolute bottom-3 right-4 font-body text-[10px] text-white/60 transition-colors hover:text-white/90"
+            >
+              Photo: {trim.imageCredit.author} · {trim.imageCredit.license}
+            </a>
+          )}
         </div>
 
         <div className="p-5 sm:p-6">

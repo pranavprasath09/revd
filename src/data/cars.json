@@ -75,7 +75,13 @@
           "Same M54 engine family as the 330i in a smaller 2.5L displacement",
           "Optional all-wheel-drive 325xi variant",
           "Rare 6-speed SMG automated manual was available"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/BMW_E46_LCI_325i_Titanium_Silver_Metallic_%281%29.jpg/1280px-BMW_E46_LCI_325i_Titanium_Silver_Metallic_%281%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_E46_LCI_325i_Titanium_Silver_Metallic_(1).jpg"
+        }
       },
       {
         "id": "e46-330i",
@@ -95,7 +101,13 @@
           "Larger front brakes than the 325i",
           "US-market ZHP Performance Package (2003–2005) added a 6-speed manual, sharper camshafts (rated 235 hp SAE) and firmer suspension",
           "Top speed electronically limited to 250 km/h"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/BMW_330i_E46_%288016148267%29.jpg/1280px-BMW_330i_E46_%288016148267%29.jpg",
+        "imageCredit": {
+          "author": "nakhon100",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_330i_E46_(8016148267).jpg"
+        }
       },
       {
         "id": "e46-m3",
@@ -117,7 +129,13 @@
           "Lightweight CSL version (2003) cut roughly 110 kg with a carbon-fibre roof",
           "Top speed electronically limited to 250 km/h"
         ],
-        "funFact": "The M3's S54 straight-six won the overall International Engine of the Year award in 2001."
+        "funFact": "The M3's S54 straight-six won the overall International Engine of the Year award in 2001.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2001-2006_BMW_M3_%28E46%29_coupe_%282018-11-02%29_01.jpg/1280px-2001-2006_BMW_M3_%28E46%29_coupe_%282018-11-02%29_01.jpg",
+        "imageCredit": {
+          "author": "EurovisionNim",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2001-2006_BMW_M3_(E46)_coupe_(2018-11-02)_01.jpg"
+        }
       }
     ]
   },
@@ -195,7 +213,13 @@
           "Entry six-cylinder petrol of the E90 launch range",
           "N52 engine used a lightweight magnesium-aluminium composite block",
           "Optional all-wheel-drive 325xi variant"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/2005-2008_BMW_325i_%28E90%29_sedan_03.jpg/1280px-2005-2008_BMW_325i_%28E90%29_sedan_03.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2005-2008_BMW_325i_(E90)_sedan_03.jpg"
+        }
       },
       {
         "id": "e90-330i",
@@ -214,7 +238,13 @@
           "Top naturally aspirated petrol E90 at launch",
           "Replaced by the 272 hp direct-injection N53 330i with the 2007 update",
           "Top speed electronically limited to 250 km/h"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/2005-2006_BMW_330i_%28E90%29_sedan_02.jpg/1280px-2005-2006_BMW_330i_%28E90%29_sedan_02.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2005-2006_BMW_330i_(E90)_sedan_02.jpg"
+        }
       },
       {
         "id": "e90-335i",
@@ -234,7 +264,13 @@
           "Full 400 Nm available from just 1,300 rpm",
           "Switched to the single twin-scroll-turbo N55 in 2010 with identical outputs",
           "Top speed electronically limited to 250 km/h"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/BMW_335i_E90_%286819460116%29.jpg/1280px-BMW_335i_E90_%286819460116%29.jpg",
+        "imageCredit": {
+          "author": "nakhon100",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_335i_E90_(6819460116).jpg"
+        }
       },
       {
         "id": "e90-m3",
@@ -255,7 +291,13 @@
           "M variable differential lock and optional EDC adaptive dampers",
           "Limited-run M3 GTS (2010) enlarged the V8 to 4.4L and 450 hp"
         ],
-        "funFact": "The E9x is the only V8-powered M3 ever made, and its S65 engine shares its architecture with the E60 M5's S85 V10."
+        "funFact": "The E9x is the only V8-powered M3 ever made, and its S65 engine shares its architecture with the E60 M5's S85 V10.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2008-2010_BMW_M3_%28E90%29_sedan_01.jpg/1280px-2008-2010_BMW_M3_%28E90%29_sedan_01.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2008-2010_BMW_M3_(E90)_sedan_01.jpg"
+        }
       }
     ]
   },
@@ -331,7 +373,13 @@
           "Volume entry petrol model of the F30 range in most markets",
           "Same 2.0L turbo engine as the 328i in a lower state of tune",
           "Optional xDrive all-wheel drive"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/BMW_F30_LCI_320i_Luxury_Line_Alpine_White_%281%29.jpg/1280px-BMW_F30_LCI_320i_Luxury_Line_Alpine_White_%281%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_F30_LCI_320i_Luxury_Line_Alpine_White_(1).jpg"
+        }
       },
       {
         "id": "f30-328i",
@@ -351,7 +399,13 @@
           "Full 350 Nm available from just 1,250 rpm",
           "Renamed 330i with the new B48 engine after the 2015 facelift",
           "Top speed electronically limited to 250 km/h"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/BMW_328i_F30_2012_vl.jpg/1280px-BMW_328i_F30_2012_vl.jpg",
+        "imageCredit": {
+          "author": "HLW",
+          "license": "CC BY-SA 3.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_328i_F30_2012_vl.jpg"
+        }
       },
       {
         "id": "f30-340i",
@@ -371,7 +425,13 @@
           "Replaced the 335i as part of the 2015 LCI facelift",
           "Optional xDrive all-wheel drive",
           "Top speed electronically limited to 250 km/h"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/2017_BMW_340i_%28F30_LCI%29_Luxury_Line_sedan_%282018-02-20%29_01.jpg/1280px-2017_BMW_340i_%28F30_LCI%29_Luxury_Line_sedan_%282018-02-20%29_01.jpg",
+        "imageCredit": {
+          "author": "EurovisionNim",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2017_BMW_340i_(F30_LCI)_Luxury_Line_sedan_(2018-02-20)_01.jpg"
+        }
       },
       {
         "id": "f80-m3",
@@ -393,7 +453,13 @@
           "Competition Package (2016) raised output to 450 hp",
           "0–100 km/h in 4.1 s with the DCT (4.3 s manual); limited to 250 km/h"
         ],
-        "funFact": "From this generation the M3 name was reserved for the four-door sedan only — the two-door coupe and convertible became the M4."
+        "funFact": "From this generation the M3 name was reserved for the four-door sedan only — the two-door coupe and convertible became the M4.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/BMW_M3_F80_%2814143148898%29.jpg/1280px-BMW_M3_F80_%2814143148898%29.jpg",
+        "imageCredit": {
+          "author": "nakhon100",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:BMW_M3_F80_(14143148898).jpg"
+        }
       }
     ]
   },
@@ -471,7 +537,13 @@
           "Returned to classic round headlights after the 996",
           "Optional PASM adaptive dampers",
           "Optional Sport Chrono package with sharper throttle mapping"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Porsche_997_Carrera_%282892729523%29.jpg/1280px-Porsche_997_Carrera_%282892729523%29.jpg",
+        "imageCredit": {
+          "author": "nakhon100",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porsche_997_Carrera_(2892729523).jpg"
+        }
       },
       {
         "id": "997-carrera-s",
@@ -491,7 +563,13 @@
           "PASM adaptive suspension standard, lowered 10 mm",
           "Larger brakes and 19-inch wheels standard",
           "Optional carbon-ceramic PCCB brakes"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Porsche_911_Carrera_S_%28997%2C_2005%29_%2853998783762%29.jpg/1280px-Porsche_911_Carrera_S_%28997%2C_2005%29_%2853998783762%29.jpg",
+        "imageCredit": {
+          "author": "Charles from Port Chester, New York",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porsche_911_Carrera_S_(997,_2005)_(53998783762).jpg"
+        }
       },
       {
         "id": "997-gt3",
@@ -511,7 +589,13 @@
           "Manual transmission only",
           "First GT3 with PASM adaptive dampers and traction control",
           "Lowered suspension and fixed rear wing"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/2007_Porsche_911_997_GT3.jpg/1280px-2007_Porsche_911_997_GT3.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2007_Porsche_911_997_GT3.jpg"
+        }
       },
       {
         "id": "997-turbo",
@@ -532,7 +616,13 @@
           "Optional Tiptronic S was quicker to 100 km/h (3.7 s) than the manual",
           "Wider rear body and dedicated intakes ahead of the rear wheels"
         ],
-        "funFact": "The 997 Turbo was the first production petrol car to use variable turbine geometry (VTG) turbochargers, co-developed with BorgWarner."
+        "funFact": "The 997 Turbo was the first production petrol car to use variable turbine geometry (VTG) turbochargers, co-developed with BorgWarner.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/2010_Porsche_911_997_Turbo.jpg/1280px-2010_Porsche_911_997_Turbo.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2010_Porsche_911_997_Turbo.jpg"
+        }
       }
     ]
   },
@@ -610,7 +700,13 @@
           "World's first 7-speed manual gearbox in a production car",
           "100 mm longer wheelbase than the 997, with electric power steering",
           "Aluminium-steel composite body cut weight versus the 997"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Porsche_991.2_911_Carrera_Graphite_Blue_Metallic_%285%29.jpg/1280px-Porsche_991.2_911_Carrera_Graphite_Blue_Metallic_%285%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porsche_991.2_911_Carrera_Graphite_Blue_Metallic_(5).jpg"
+        }
       },
       {
         "id": "991-carrera-s",
@@ -630,7 +726,13 @@
           "PASM adaptive suspension standard",
           "First Carrera offered with PDCC active roll stabilisation",
           "Sport Chrono with PDK cuts 0–100 km/h to 4.1 s"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/2018_Porsche_911_Carrera_S.jpg/1280px-2018_Porsche_911_Carrera_S.jpg",
+        "imageCredit": {
+          "author": "TTTNIS",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2018_Porsche_911_Carrera_S.jpg"
+        }
       },
       {
         "id": "991-gt3",
@@ -650,7 +752,13 @@
           "9,000 rpm redline",
           "First GT3 with rear-axle steering",
           "Electronically controlled rear differential lock"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Porsche_911_GT3_%28991.1%29_Washington_DC_Metro_Area%2C_USA.jpg/1280px-Porsche_911_GT3_%28991.1%29_Washington_DC_Metro_Area%2C_USA.jpg",
+        "imageCredit": {
+          "author": "OWS Photography",
+          "license": "CC BY 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porsche_911_GT3_(991.1)_Washington_DC_Metro_Area,_USA.jpg"
+        }
       },
       {
         "id": "991-turbo-s",
@@ -671,7 +779,13 @@
           "Active aerodynamics with extendable front spoiler and rear wing",
           "PDK and all-wheel drive only — no manual offered"
         ],
-        "funFact": "Together with the 991 GT3, the 991 Turbo S was among the first 911s ever fitted with rear-axle steering."
+        "funFact": "Together with the 991 GT3, the 991 Turbo S was among the first 911s ever fitted with rear-axle steering.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2014_Porsche_911_991_Turbo_S.jpg/1280px-2014_Porsche_911_991_Turbo_S.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2014_Porsche_911_991_Turbo_S.jpg"
+        }
       }
     ]
   },
@@ -746,7 +860,13 @@
           "Launched a year after the Cayman S as the entry model",
           "Mid-engine coupe derived from the Boxster platform with a hatchback tailgate",
           "5-speed manual standard, 6-speed manual optional"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Porsche_Cayman_%28987%29_Washington_DC_Metro_Area%2C_USA_%281%29.jpg/1280px-Porsche_Cayman_%28987%29_Washington_DC_Metro_Area%2C_USA_%281%29.jpg",
+        "imageCredit": {
+          "author": "OWS Photography",
+          "license": "CC BY 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porsche_Cayman_(987)_Washington_DC_Metro_Area,_USA_(1).jpg"
+        }
       },
       {
         "id": "987-cayman-s",
@@ -766,7 +886,13 @@
           "3.4L engine pairs the Boxster-derived block with 911-style VarioCam Plus cylinder heads",
           "6-speed manual and larger brakes standard",
           "Facelifted 987.2 version (2009) gained direct injection and 320 hp"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/2006_Porsche_Cayman_%28987%29_S_coupe_%282015-06-03%29_01.jpg/1280px-2006_Porsche_Cayman_%28987%29_S_coupe_%282015-06-03%29_01.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2006_Porsche_Cayman_(987)_S_coupe_(2015-06-03)_01.jpg"
+        }
       },
       {
         "id": "987-cayman-r",
@@ -787,7 +913,13 @@
           "Limited-slip differential standard",
           "Fixed rear wing instead of the retractable spoiler"
         ],
-        "funFact": "The Cayman R revived Porsche's 'R' badge, used on a road-going Porsche only once before — the 1967 911 R."
+        "funFact": "The Cayman R revived Porsche's 'R' badge, used on a road-going Porsche only once before — the 1967 911 R.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/2011_Porsche_Cayman_R_%2814676%29.jpg/1280px-2011_Porsche_Cayman_R_%2814676%29.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2011_Porsche_Cayman_R_(14676).jpg"
+        }
       }
     ]
   },
@@ -866,7 +998,13 @@
           "Torsen limited-slip differential standard",
           "F1-style digital instrument cluster"
         ],
-        "funFact": "At launch the F20C made about 120 hp per liter — the highest specific output of any mass-production naturally aspirated engine at the time."
+        "funFact": "At launch the F20C made about 120 hp per liter — the highest specific output of any mass-production naturally aspirated engine at the time.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Honda_S2000_%28AP1%29_front.JPG/1280px-Honda_S2000_%28AP1%29_front.JPG",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Honda_S2000_(AP1)_front.JPG"
+        }
       },
       {
         "id": "ap2",
@@ -888,7 +1026,13 @@
           "Updated gearbox with carbon-fiber synchros",
           "Stability control (VSC) added on later US model years"
         ],
-        "funFact": "To gain torque, the F22C1 gave up revs — the redline dropped from the AP1's 8,800 rpm to 8,000 rpm."
+        "funFact": "To gain torque, the F22C1 gave up revs — the redline dropped from the AP1's 8,800 rpm to 8,000 rpm.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Honda_S2000_AP2_Suzuka_Blue_Metallic_%281%29.jpg/1280px-Honda_S2000_AP2_Suzuka_Blue_Metallic_%281%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Honda_S2000_AP2_Suzuka_Blue_Metallic_(1).jpg"
+        }
       }
     ]
   },
@@ -977,7 +1121,13 @@
           "Recalibrated adaptive dampers and steering for track use",
           "Only 600 US units, all in exclusive Phoenix Yellow"
         ],
-        "funFact": "The Limited Edition set a front-wheel-drive lap record of 2:23.993 at Suzuka Circuit — Honda's home Grand Prix track."
+        "funFact": "The Limited Edition set a front-wheel-drive lap record of 2:23.993 at Suzuka Circuit — Honda's home Grand Prix track.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Honda_Civic_Type_R_Limited_Edition_%2851952333899%29.jpg/1280px-Honda_Civic_Type_R_Limited_Edition_%2851952333899%29.jpg",
+        "imageCredit": {
+          "author": "Alexandre Prevot",
+          "license": "CC BY-SA 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Honda_Civic_Type_R_Limited_Edition_(51952333899).jpg"
+        }
       }
     ]
   },
@@ -1054,7 +1204,13 @@
           "Naturally aspirated 2JZ-GE shares its block architecture with the legendary 2JZ-GTE",
           "16-inch wheels and smaller brakes than turbo models",
           "Top speed electronically limited to 180 km/h in Japan"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Toyota_E-JZA80_Supra_SZ_%2822022011161%29.jpg/1280px-Toyota_E-JZA80_Supra_SZ_%2822022011161%29.jpg",
+        "imageCredit": {
+          "author": "先従隗始",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_E-JZA80_Supra_SZ_(22022011161).jpg"
+        }
       },
       {
         "id": "turbo-us",
@@ -1075,7 +1231,13 @@
           "17-inch wheels and larger 4-piston front brakes",
           "Available Sport Roof removable targa panel",
           "Top speed electronically limited to 155 mph"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Toyota_Supra_Turbo_%281997%29_%2852875096015%29.jpg/1280px-Toyota_Supra_Turbo_%281997%29_%2852875096015%29.jpg",
+        "imageCredit": {
+          "author": "Charles from Port Chester, New York",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Supra_Turbo_(1997)_(52875096015).jpg"
+        }
       },
       {
         "id": "rz",
@@ -1097,7 +1259,13 @@
           "Recaro SR2 front seats fitted from 1998",
           "Outlived the US Supra — JDM production ran until August 2002"
         ],
-        "funFact": "The RZ was officially rated at 280 PS only because of Japan's 'gentlemen's agreement' power cap — the same 2JZ-GTE was rated 320+ hp in export markets."
+        "funFact": "The RZ was officially rated at 280 PS only because of Japan's 'gentlemen's agreement' power cap — the same 2JZ-GTE was rated 320+ hp in export markets.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Toyota_Supra_RZ_%28E-JZA80%29.jpg/1280px-Toyota_Supra_RZ_%28E-JZA80%29.jpg",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Supra_RZ_(E-JZA80).jpg"
+        }
       }
     ]
   },
@@ -1173,7 +1341,13 @@
           "18-inch wheels vs the 3.0's 19s",
           "Fixed suspension and smaller single-piston front brakes",
           "Manually adjustable seats and 4-speaker audio keep weight and price down"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/The_frontview_of_Toyota_GR_SUPRA_SZ_%283BA-DB82-ZSRW%29.jpg/1280px-The_frontview_of_Toyota_GR_SUPRA_SZ_%283BA-DB82-ZSRW%29.jpg",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_frontview_of_Toyota_GR_SUPRA_SZ_(3BA-DB82-ZSRW).jpg"
+        }
       },
       {
         "id": "3-0",
@@ -1194,7 +1368,13 @@
           "Active rear sport differential",
           "4-piston front Brembo brakes",
           "6-speed manual added as an option for 2023"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Toyota_GR_Supra_3.0_SZ_2021_%282%29.jpg/1280px-Toyota_GR_Supra_3.0_SZ_2021_%282%29.jpg",
+        "imageCredit": {
+          "author": "Ethan Llamas",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_GR_Supra_3.0_SZ_2021_(2).jpg"
+        }
       },
       {
         "id": "3-0-premium",
@@ -1215,7 +1395,13 @@
           "Color head-up display and wireless phone charging",
           "Heated leather sport seats, 14-way power adjustable"
         ],
-        "funFact": "The A90 Supra was co-developed with the BMW Z4 and is built alongside it by Magna Steyr in Graz, Austria — the first Supra not assembled in Japan."
+        "funFact": "The A90 Supra was co-developed with the BMW Z4 and is built alongside it by Magna Steyr in Graz, Austria — the first Supra not assembled in Japan.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/2022_Toyota_GR_Supra_3.0_Premium_in_Phantom%2C_Front_Left%2C_07-31-2022.jpg/1280px-2022_Toyota_GR_Supra_3.0_Premium_in_Phantom%2C_Front_Left%2C_07-31-2022.jpg",
+        "imageCredit": {
+          "author": "Elise240SX",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2022_Toyota_GR_Supra_3.0_Premium_in_Phantom,_Front_Left,_07-31-2022.jpg"
+        }
       }
     ]
   },
@@ -1283,7 +1469,13 @@
           "17-inch wheels on Michelin Primacy HP tires",
           "Nearly 18% more horsepower than the outgoing 86",
           "6-speed automatic with paddles optional"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Toyota_3BA-ZN8_GR86_SZ_%2823081217262%29.jpg/1280px-Toyota_3BA-ZN8_GR86_SZ_%2823081217262%29.jpg",
+        "imageCredit": {
+          "author": "先従隗始",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_3BA-ZN8_GR86_SZ_(23081217262).jpg"
+        }
       },
       {
         "id": "premium",
@@ -1304,7 +1496,13 @@
           "Heated front seats trimmed in leather and perforated Alcantara",
           "8-speaker audio system vs the base car's 6 speakers"
         ],
-        "funFact": "Despite the Toyota badge, every GR86 is built by Subaru at its Gunma plant in Japan, on the same line as the Subaru BRZ."
+        "funFact": "Despite the Toyota badge, every GR86 is built by Subaru at its Gunma plant in Japan, on the same line as the Subaru BRZ.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Toyota_GR86_2.4_6MT_Premium_ZN8_Crystal_Black_Silica_%281%29.jpg/1280px-Toyota_GR86_2.4_6MT_Premium_ZN8_Crystal_Black_Silica_%281%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_GR86_2.4_6MT_Premium_ZN8_Crystal_Black_Silica_(1).jpg"
+        }
       }
     ]
   },
@@ -1384,7 +1582,13 @@
           "Shorter wheelbase and wider track than the 350Z it replaced",
           "Aluminum hood, doors and hatch to cut weight",
           "18-inch wheels standard; 7-speed automatic optional"
-        ]
+        ],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Nissan_370Z_Z34_Magnetic_Black_%281%29.jpg/1280px-Nissan_370Z_Z34_Magnetic_Black_%281%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_370Z_Z34_Magnetic_Black_(1).jpg"
+        }
       },
       {
         "id": "sport",
@@ -1428,7 +1632,13 @@
           "Recaro seats co-developed with NISMO from the 2015 refresh",
           "19-inch NISMO RAYS forged wheels with wider rubber"
         ],
-        "funFact": "The 370Z had one of the longest runs of any modern sports car — a single generation sold for 11 years (2009–2020) with the same VQ37VHR V6 throughout."
+        "funFact": "The 370Z had one of the longest runs of any modern sports car — a single generation sold for 11 years (2009–2020) with the same VQ37VHR V6 throughout.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Nissan_370Z_Nismo_%28Z34%29_Washington_DC_Metro_Area%2C_USA.jpg/1280px-Nissan_370Z_Nismo_%28Z34%29_Washington_DC_Metro_Area%2C_USA.jpg",
+        "imageCredit": {
+          "author": "OWS Photography",
+          "license": "CC BY 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_370Z_Nismo_(Z34)_Washington_DC_Metro_Area,_USA.jpg"
+        }
       }
     ]
   },
@@ -1496,7 +1706,13 @@
           "JDM cars electronically limited to 180 km/h",
           "Won all 29 races it entered in the Japanese Touring Car Championship (1990-1993)"
         ],
-        "funFact": "Australia's Wheels magazine coined the nickname 'Godzilla' for the R32 GT-R in 1989."
+        "funFact": "Australia's Wheels magazine coined the nickname 'Godzilla' for the R32 GT-R in 1989.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Nissan_E-BNR32_Skyline_GT-R_%2816042321415%29.jpg/1280px-Nissan_E-BNR32_Skyline_GT-R_%2816042321415%29.jpg",
+        "imageCredit": {
+          "author": "Jacob Frey 4A",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_E-BNR32_Skyline_GT-R_(16042321415).jpg"
+        }
       },
       {
         "id": "nismo",
@@ -1517,7 +1733,13 @@
           "Extra aero: front bumper cooling ducts, bonnet lip and rear spoiler extension",
           "Larger turbochargers fitted to homologate race hardware"
         ],
-        "funFact": "Every GT-R NISMO left the factory in a single color: Gun Grey Metallic (paint code KH2)."
+        "funFact": "Every GT-R NISMO left the factory in a single color: Gun Grey Metallic (paint code KH2).",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Nissan_E-BNR32_Skyline_GT-R_NISMO_%2814012900351%29.jpg/1280px-Nissan_E-BNR32_Skyline_GT-R_NISMO_%2814012900351%29.jpg",
+        "imageCredit": {
+          "author": "FotoSleuth",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_E-BNR32_Skyline_GT-R_NISMO_(14012900351).jpg"
+        }
       },
       {
         "id": "v-spec",
@@ -1538,7 +1760,13 @@
           "Retuned ATTESA E-TS all-wheel-drive system",
           "Launched 3 February 1993 - 'V' stands for Victory"
         ],
-        "funFact": "The V-Spec name celebrated the R32's back-to-back victories in Group A and JTC racing."
+        "funFact": "The V-Spec name celebrated the R32's back-to-back victories in Group A and JTC racing.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Nissan_Skyline_GT-R_V-spec_%28BNR32%29_front.JPG/1280px-Nissan_Skyline_GT-R_V-spec_%28BNR32%29_front.JPG",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_Skyline_GT-R_V-spec_(BNR32)_front.JPG"
+        }
       },
       {
         "id": "v-spec-ii",
@@ -1559,7 +1787,13 @@
           "Retains V-Spec Brembo brakes, BBS 17s and retuned ATTESA E-TS",
           "Introduced 14 February 1994"
         ],
-        "funFact": "Just 1,306 V-Spec IIs were built in the R32's final year - the only change over the V-Spec was wider 245/45R17 rubber."
+        "funFact": "Just 1,306 V-Spec IIs were built in the R32's final year - the only change over the V-Spec was wider 245/45R17 rubber.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/HK_Grey_Nissan_Skyline_GTR_BNR32_V-spec_II_%28front%29.jpg/1280px-HK_Grey_Nissan_Skyline_GTR_BNR32_V-spec_II_%28front%29.jpg",
+        "imageCredit": {
+          "author": "Corsadent56709",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:HK_Grey_Nissan_Skyline_GTR_BNR32_V-spec_II_(front).jpg"
+        }
       }
     ]
   },
@@ -1627,7 +1861,13 @@
           "5-speed manual with stronger synchros",
           "Official 280hp (280PS) under the gentlemen's agreement; JDM 180 km/h limiter"
         ],
-        "funFact": "Nissan promoted the R33 GT-R as the first production car to lap the Nurburgring Nordschleife in under 8 minutes."
+        "funFact": "Nissan promoted the R33 GT-R as the first production car to lap the Nurburgring Nordschleife in under 8 minutes.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Nissan_Skyline_GT-R_%28R33%2C_1995%29_%2854094861111%29.jpg/1280px-Nissan_Skyline_GT-R_%28R33%2C_1995%29_%2854094861111%29.jpg",
+        "imageCredit": {
+          "author": "Charles from Port Chester, New York",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_Skyline_GT-R_(R33,_1995)_(54094861111).jpg"
+        }
       },
       {
         "id": "v-spec",
@@ -1647,7 +1887,13 @@
           "Sportier, lower suspension than the standard GT-R",
           "10kg heavier than the base car due to the Pro hardware"
         ],
-        "funFact": "UK-market R33 V-Specs officially imported in 1997 had their speed limiters reprogrammed to 250 km/h instead of the JDM 180 km/h."
+        "funFact": "UK-market R33 V-Specs officially imported in 1997 had their speed limiters reprogrammed to 250 km/h instead of the JDM 180 km/h.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/1996_Nissan_Skyline_GT-R_R33_V-Spec.jpg/1280px-1996_Nissan_Skyline_GT-R_R33_V-Spec.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:1996_Nissan_Skyline_GT-R_R33_V-Spec.jpg"
+        }
       },
       {
         "id": "nismo-400r",
@@ -1736,7 +1982,13 @@
           "5.8-inch multifunction display showing boost, temps and G-forces",
           "Official 280hp (280PS) per the gentlemen's agreement; JDM 180 km/h limiter"
         ],
-        "funFact": "Though advertised at 280PS to honor the gentlemen's agreement, real R34 output was widely reported to exceed 300hp."
+        "funFact": "Though advertised at 280PS to honor the gentlemen's agreement, real R34 output was widely reported to exceed 300hp.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Nissan_Skyline_GT-R_R34%2C_09-21-2025.jpg/1280px-Nissan_Skyline_GT-R_R34%2C_09-21-2025.jpg",
+        "imageCredit": {
+          "author": "2000chevymontecarlo",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissan_Skyline_GT-R_R34,_09-21-2025.jpg"
+        }
       },
       {
         "id": "v-spec",
@@ -1756,7 +2008,13 @@
           "Firmer suspension and lower ride height",
           "Carbon fiber rear air diffuser"
         ],
-        "funFact": "The V-Spec outsold the standard car - 4,193 Series 1 V-Specs versus 2,709 base GT-Rs."
+        "funFact": "The V-Spec outsold the standard car - 4,193 Series 1 V-Specs versus 2,709 base GT-Rs.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/1999_Nissan_Skyline_%28R34%29_GT-R_IMG_4990.jpg/1280px-1999_Nissan_Skyline_%28R34%29_GT-R_IMG_4990.jpg",
+        "imageCredit": {
+          "author": "Alexander Migl",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:1999_Nissan_Skyline_(R34)_GT-R_IMG_4990.jpg"
+        }
       },
       {
         "id": "v-spec-ii",
@@ -1777,7 +2035,13 @@
           "Stiffer suspension than the original V-Spec",
           "Aluminum pedals and white-faced turn lenses"
         ],
-        "funFact": "Nissan's official curb weight for the V-Spec II is 1,560kg with 245/40ZR18 tires - 1,855 were built for Japan."
+        "funFact": "Nissan's official curb weight for the V-Spec II is 1,560kg with 245/40ZR18 tires - 1,855 were built for Japan.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/2001_Nissan_Skyline_GT-R_V-Spec_II.jpg/1280px-2001_Nissan_Skyline_GT-R_V-Spec_II.jpg",
+        "imageCredit": {
+          "author": "MrWalkr",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2001_Nissan_Skyline_GT-R_V-Spec_II.jpg"
+        }
       },
       {
         "id": "v-spec-ii-nur",
@@ -1798,7 +2062,13 @@
           "Named after the Nurburgring, where the GT-R was developed",
           "Still quoted at 280hp on paper - the JDM 180 km/h limiter applied"
         ],
-        "funFact": "Only 718 V-Spec II Nurs were built (1,003 Nur models total with the M-Spec Nur) - the final Skyline GT-Rs before the R35."
+        "funFact": "Only 718 V-Spec II Nurs were built (1,003 Nur models total with the M-Spec Nur) - the final Skyline GT-Rs before the R35.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/2002_Nissan_Skyline_GT-R_V-Spec_II_Nur_SCD24.jpg/1280px-2002_Nissan_Skyline_GT-R_V-Spec_II_Nur_SCD24.jpg",
+        "imageCredit": {
+          "author": "MrWalkr",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2002_Nissan_Skyline_GT-R_V-Spec_II_Nur_SCD24.jpg"
+        }
       }
     ]
   },
@@ -1876,7 +2146,13 @@
           "Car and Driver tested 0-60mph in 4.5 seconds (manual)",
           "Launch control and line-lock standard"
         ],
-        "funFact": "The 2015 GT introduced factory line-lock, which locks the front brakes so owners can do legal-ish burnouts at the drag strip."
+        "funFact": "The 2015 GT introduced factory line-lock, which locks the front brakes so owners can do legal-ish burnouts at the drag strip.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/2018_Ford_Mustang_GT_5.0_Front.jpg/1280px-2018_Ford_Mustang_GT_5.0_Front.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2018_Ford_Mustang_GT_5.0_Front.jpg"
+        }
       },
       {
         "id": "gt-performance-package",
@@ -1918,7 +2194,13 @@
           "Manual only, with a white cue-ball shift knob",
           "Dark Highland Green paint and de-badged grille"
         ],
-        "funFact": "The Bullitt marked the 50th anniversary of the 1968 Steve McQueen film and debuted alongside the original movie car at Detroit 2018."
+        "funFact": "The Bullitt marked the 50th anniversary of the 1968 Steve McQueen film and debuted alongside the original movie car at Detroit 2018.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/2019_Ford_Bullitt_Mustang_%2833574531518%29.jpg/1280px-2019_Ford_Bullitt_Mustang_%2833574531518%29.jpg",
+        "imageCredit": {
+          "author": "Sicnag",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019_Ford_Bullitt_Mustang_(33574531518).jpg"
+        }
       },
       {
         "id": "mach-1",
@@ -1940,7 +2222,13 @@
           "Optional Handling Package adds Cup 2 tires and a swing spoiler with Gurney flap",
           "MotorTrend tested 0-60mph in 4.2 seconds"
         ],
-        "funFact": "The 2021 Mach 1 revived the badge for the first time since 2004 and became the top non-Shelby S550 Mustang."
+        "funFact": "The 2021 Mach 1 revived the badge for the first time since 2004 and became the top non-Shelby S550 Mustang.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/2021_Ford_Mustang_Mach_1_Automatic_5.0.jpg/1280px-2021_Ford_Mustang_Mach_1_Automatic_5.0.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2021_Ford_Mustang_Mach_1_Automatic_5.0.jpg"
+        }
       }
     ]
   },
@@ -2007,7 +2295,13 @@
           "Dual-clutch only - no manual offered",
           "Electronically limited to 180mph (290 km/h); Ford claimed 0-60 in 3.3s, Car and Driver tested 3.4s"
         ],
-        "funFact": "Ford's dealer guide listed the GT500 at 4,225lb (1,916kg) - about 500lb more than a Mustang GT, nearly all of it supercharged V8 and cooling."
+        "funFact": "Ford's dealer guide listed the GT500 at 4,225lb (1,916kg) - about 500lb more than a Mustang GT, nearly all of it supercharged V8 and cooling.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/2020_Ford_Mustang_Shelby_GT500_Coupe%2C_Cleveland_Auto_Show.jpg/1280px-2020_Ford_Mustang_Shelby_GT500_Coupe%2C_Cleveland_Auto_Show.jpg",
+        "imageCredit": {
+          "author": "Syntaxlord",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2020_Ford_Mustang_Shelby_GT500_Coupe,_Cleveland_Auto_Show.jpg"
+        }
       },
       {
         "id": "gt500-carbon-fiber-track-pack",
@@ -2097,7 +2391,13 @@
           "0-62mph in 4.7 seconds, 165mph (266 km/h) top speed",
           "Torque note: overboost; 440Nm sustained"
         ],
-        "funFact": "Rally and Gymkhana star Ken Block helped develop the Mk3 RS, including its headline-grabbing Drift Mode."
+        "funFact": "Rally and Gymkhana star Ken Block helped develop the Mk3 RS, including its headline-grabbing Drift Mode.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/2016_Ford_Focus_RS_2.0.jpg/1280px-2016_Ford_Focus_RS_2.0.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2016_Ford_Focus_RS_2.0.jpg"
+        }
       },
       {
         "id": "rs-limited-edition",
@@ -2188,7 +2488,13 @@
           "Forged BBS wheels from 2005",
           "Massive dual-plane rear wing and hood scoop"
         ],
-        "funFact": "2004 was the first model year the STI was officially sold in the United States."
+        "funFact": "2004 was the first model year the STI was officially sold in the United States.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/2006_Subaru_Impreza_WRX_STI_sedan_%2821733354913%29.jpg/1280px-2006_Subaru_Impreza_WRX_STI_sedan_%2821733354913%29.jpg",
+        "imageCredit": {
+          "author": "Jeremy from Sydney, Australia",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2006_Subaru_Impreza_WRX_STI_sedan_(21733354913).jpg"
+        }
       },
       {
         "id": "sti-limited",
@@ -2278,7 +2584,13 @@
           "Active Torque Vectoring",
           "Reinforced 6-speed manual only — no automatic ever offered"
         ],
-        "funFact": "The VA was the final STI generation: the EJ25-powered nameplate was retired after 2021 with no successor."
+        "funFact": "The VA was the final STI generation: the EJ25-powered nameplate was retired after 2021 with no successor.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/SUBARU_WRX_STI_%28VA%29_Color_by_WR_Blue-Pearl.jpg/1280px-SUBARU_WRX_STI_%28VA%29_Color_by_WR_Blue-Pearl.jpg",
+        "imageCredit": {
+          "author": "根川孝太郎 (Kotaro Negawa)",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:SUBARU_WRX_STI_(VA)_Color_by_WR_Blue-Pearl.jpg"
+        }
       },
       {
         "id": "sti-limited",
@@ -2321,7 +2633,13 @@
           "Cold-air intake, high-flow exhaust, stronger pistons, retuned ECU",
           "About 53 lb lighter than a standard 2018 STI"
         ],
-        "funFact": "RA stands for 'Record Attempt' — only 500 were built for the US market."
+        "funFact": "RA stands for 'Record Attempt' — only 500 were built for the US market.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/2018_Subaru_WRX_STI_Type-RA_in_World_Rally_Blue_Pearl%2C_Front_Left%2C_07-13-2022.jpg/1280px-2018_Subaru_WRX_STI_Type-RA_in_World_Rally_Blue_Pearl%2C_Front_Left%2C_07-13-2022.jpg",
+        "imageCredit": {
+          "author": "Elise240SX",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2018_Subaru_WRX_STI_Type-RA_in_World_Rally_Blue_Pearl,_Front_Left,_07-13-2022.jpg"
+        }
       },
       {
         "id": "s209",
@@ -2343,7 +2661,13 @@
           "Brembo brakes with cross-drilled rotors",
           "Driver-operated intercooler water-spray paddles"
         ],
-        "funFact": "The S209 was the first of STI's Japan-only 'S-line' specials ever sold outside Japan — all 209 cars were built for the US."
+        "funFact": "The S209 was the first of STI's Japan-only 'S-line' specials ever sold outside Japan — all 209 cars were built for the US.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Subaru_WRX_STI_S209.jpg/1280px-Subaru_WRX_STI_S209.jpg",
+        "imageCredit": {
+          "author": "UltraTech66",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Subaru_WRX_STI_S209.jpg"
+        }
       }
     ]
   },
@@ -2434,7 +2758,13 @@
           "Same Torsen LSD chassis as Premium",
           "Power note: 205hp with manual from 2017"
         ],
-        "funFact": "The 2017 facelift gave manual-transmission Limiteds a 5hp bump to 205hp along with a stiffer chassis and retuned suspension."
+        "funFact": "The 2017 facelift gave manual-transmission Limiteds a 5hp bump to 205hp along with a stiffer chassis and retuned suspension.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/20_Subaru_BRZ_Limited.jpg/1280px-20_Subaru_BRZ_Limited.jpg",
+        "imageCredit": {
+          "author": "HJUdall",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:20_Subaru_BRZ_Limited.jpg"
+        }
       },
       {
         "id": "ts",
@@ -2455,7 +2785,13 @@
           "18-inch STI wheels with Michelin Pilot Sport 4 tires",
           "Flexible V-braces plus chassis and subframe draw stiffeners"
         ],
-        "funFact": "tS stands for 'tuned by STI' — the 2018 US run was capped at 500 cars, and the suspension was developed by Subaru Tecnica International."
+        "funFact": "tS stands for 'tuned by STI' — the 2018 US run was capped at 500 cars, and the suspension was developed by Subaru Tecnica International.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Subaru_BRZ_tS_%28ZC6%29_front.JPG/1280px-Subaru_BRZ_tS_%28ZC6%29_front.JPG",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Subaru_BRZ_tS_(ZC6)_front.JPG"
+        }
       }
     ]
   },
@@ -2534,7 +2870,13 @@
           "Optional viscous limited-slip differential",
           "Powerplant frame ties engine to differential for crisp throttle response"
         ],
-        "funFact": "The NA revived the affordable roadster formula in 1989 and put the entire segment back on the map."
+        "funFact": "The NA revived the affordable roadster formula in 1989 and put the entire segment back on the map.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/1989_Mazda_MX-5_1.6i.jpg/1280px-1989_Mazda_MX-5_1.6i.jpg",
+        "imageCredit": {
+          "author": "Calreyn88",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:1989_Mazda_MX-5_1.6i.jpg"
+        }
       },
       {
         "id": "1-8",
@@ -2555,7 +2897,13 @@
           "Optional Torsen limited-slip differential",
           "Standard dual airbags from 1994"
         ],
-        "funFact": "OBD-II-era engine updates for 1996 nudged output from 128hp to 133hp."
+        "funFact": "OBD-II-era engine updates for 1996 nudged output from 128hp to 133hp.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/1996_Mazda_MX-5_1.8.jpg/1280px-1996_Mazda_MX-5_1.8.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:1996_Mazda_MX-5_1.8.jpg"
+        }
       },
       {
         "id": "r-package",
@@ -2599,7 +2947,13 @@
           "Nardi wood shift knob and handbrake handle on later cars",
           "Power note: 133hp for 1996–97"
         ],
-        "funFact": "Each M Edition got a one-year-only color and wheel combo; the 1995 Merlot Mica car with 15-inch BBS wheels was the biggest run at roughly 3,500 units."
+        "funFact": "Each M Edition got a one-year-only color and wheel combo; the 1995 Merlot Mica car with 15-inch BBS wheels was the biggest run at roughly 3,500 units.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/1995_Mazda_MX-5_Miata_M_Edition%2C_front_left%2C_09-30-2023.jpg/1280px-1995_Mazda_MX-5_Miata_M_Edition%2C_front_left%2C_09-30-2023.jpg",
+        "imageCredit": {
+          "author": "MercurySable99",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:1995_Mazda_MX-5_Miata_M_Edition,_front_left,_09-30-2023.jpg"
+        }
       }
     ]
   },
@@ -2693,7 +3047,13 @@
           "Optional Brembo front brakes and forged BBS wheels",
           "Power note: 155hp before 2019"
         ],
-        "funFact": "The factory Brembo/BBS/Recaro package is exclusive to manual-transmission Club models in the US."
+        "funFact": "The factory Brembo/BBS/Recaro package is exclusive to manual-transmission Club models in the US.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/20_Mazda_MX-5_Miata_Club.jpg/1280px-20_Mazda_MX-5_Miata_Club.jpg",
+        "imageCredit": {
+          "author": "HJUdall",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:20_Mazda_MX-5_Miata_Club.jpg"
+        }
       },
       {
         "id": "grand-touring",
@@ -2714,7 +3074,13 @@
           "Navigation and premium audio",
           "Manual GTs gained the GT-S handling package option (LSD, Bilsteins, brace) in 2019"
         ],
-        "funFact": "The ND MX-5 won both 2016 World Car of the Year and World Car Design of the Year — the first car to take both titles in the same year."
+        "funFact": "The ND MX-5 won both 2016 World Car of the Year and World Car Design of the Year — the first car to take both titles in the same year.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/2021_Mazda_MX-5_Miata_RF_Grand_Touring%2C_front_right%2C_06-15-2024.jpg/1280px-2021_Mazda_MX-5_Miata_RF_Grand_Touring%2C_front_right%2C_06-15-2024.jpg",
+        "imageCredit": {
+          "author": "MercurySable99",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2021_Mazda_MX-5_Miata_RF_Grand_Touring,_front_right,_06-15-2024.jpg"
+        }
       }
     ]
   },
@@ -2847,7 +3213,13 @@
           "17-inch forged BBS wheels",
           "Two-seater layout with 5-speed manual only"
         ],
-        "funFact": "The Spirit R was the RX-7's 2002 send-off: 1,504 cars were built, 1,044 of them two-seat Type As, and 719 wore the exclusive Titanium Grey paint."
+        "funFact": "The Spirit R was the RX-7's 2002 send-off: 1,504 cars were built, 1,044 of them two-seat Type As, and 719 wore the exclusive Titanium Grey paint.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Mazda_RX-7_SPIRIT_R_Type_A_%28GF-FD3S%29_%281%29.jpg/1280px-Mazda_RX-7_SPIRIT_R_Type_A_%28GF-FD3S%29_%281%29.jpg",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mazda_RX-7_SPIRIT_R_Type_A_(GF-FD3S)_(1).jpg"
+        }
       }
     ]
   },
@@ -2925,7 +3297,13 @@
           "Electrically deploying rear spoiler",
           "Replaced by a 211hp 2.0 TFSI with the 2010 update"
         ],
-        "funFact": "The 8J's body is roughly 69% aluminium up front with steel at the rear, deliberately balancing weight distribution."
+        "funFact": "The 8J's body is roughly 69% aluminium up front with steel at the rear, deliberately balancing weight distribution.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Audi_TT_2.0_TFSI_quattro_8J_Ibis_White_%284%29.jpg/1280px-Audi_TT_2.0_TFSI_quattro_8J_Ibis_White_%284%29.jpg",
+        "imageCredit": {
+          "author": "Damian B Oh",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Audi_TT_2.0_TFSI_quattro_8J_Ibis_White_(4).jpg"
+        }
       },
       {
         "id": "tt-3-2-quattro",
@@ -2945,7 +3323,13 @@
           "quattro all-wheel drive standard on V6 models",
           "Optional Audi magnetic ride adaptive dampers"
         ],
-        "funFact": "The naturally aspirated VR6 was the only non-turbo petrol engine offered in the 8J TT and was dropped after 2010 as the lighter TTS outperformed it."
+        "funFact": "The naturally aspirated VR6 was the only non-turbo petrol engine offered in the 8J TT and was dropped after 2010 as the lighter TTS outperformed it.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2007_Audi_TT_%288J%29_3.2_quattro_coupe_%2813104068323%29.jpg/1280px-2007_Audi_TT_%288J%29_3.2_quattro_coupe_%2813104068323%29.jpg",
+        "imageCredit": {
+          "author": "FotoSleuth",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2007_Audi_TT_(8J)_3.2_quattro_coupe_(13104068323).jpg"
+        }
       },
       {
         "id": "tts",
@@ -2967,7 +3351,13 @@
           "Quad exhaust tips and TTS-specific styling",
           "S tronic cuts 0-100 km/h to around 5.2s"
         ],
-        "funFact": "The TTS launched in 2008 to mark the TT's 10th anniversary, a decade after the original 8N debuted."
+        "funFact": "The TTS launched in 2008 to mark the TT's 10th anniversary, a decade after the original 8N debuted.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/2014_Audi_TTS_%288J_MY14%29_quattro_coupe_%282015-12-07%29_01.jpg/1280px-2014_Audi_TTS_%288J_MY14%29_quattro_coupe_%282015-12-07%29_01.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2014_Audi_TTS_(8J_MY14)_quattro_coupe_(2015-12-07)_01.jpg"
+        }
       },
       {
         "id": "tt-rs",
@@ -2988,7 +3378,13 @@
           "250 km/h limiter could be optionally raised to 280 km/h",
           "TT RS plus (2012) upped output to 360hp and 465Nm"
         ],
-        "funFact": "Its 2.5 TFSI five-cylinder won the International Engine of the Year award in its class nine years in a row (2010–2018)."
+        "funFact": "Its 2.5 TFSI five-cylinder won the International Engine of the Year award in its class nine years in a row (2010–2018).",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/2012_Aud_TT_RS_--_2012_NYIAS.JPG/1280px-2012_Aud_TT_RS_--_2012_NYIAS.JPG",
+        "imageCredit": {
+          "author": "IFCAR",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2012_Aud_TT_RS_--_2012_NYIAS.JPG"
+        }
       }
     ]
   },
@@ -3057,7 +3453,13 @@
           "250 km/h limiter optionally raised to 280 km/h",
           "Sportback body only — no sedan pre-facelift"
         ],
-        "funFact": "Audi quoted 4.3s to 100 km/h, making it quicker off the line than many contemporary sports cars with twice the cylinders."
+        "funFact": "Audi quoted 4.3s to 100 km/h, making it quicker off the line than many contemporary sports cars with twice the cylinders.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/2016_Audi_RS3_Sportsback_NAV_Quattro_S-A_2.5_Front.jpg/1280px-2016_Audi_RS3_Sportsback_NAV_Quattro_S-A_2.5_Front.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2016_Audi_RS3_Sportsback_NAV_Quattro_S-A_2.5_Front.jpg"
+        }
       },
       {
         "id": "rs3-sportback-facelift",
@@ -3077,7 +3479,13 @@
           "Output raised to 400hp and 480Nm",
           "250 km/h limiter optionally raised to 280 km/h"
         ],
-        "funFact": "Despite gaining 33hp over the pre-facelift car, the lighter new engine helped trim overall kerb weight."
+        "funFact": "Despite gaining 33hp over the pre-facelift car, the lighter new engine helped trim overall kerb weight.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/2019_Audi_RS3_Sportback_Front.jpg/1280px-2019_Audi_RS3_Sportback_Front.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019_Audi_RS3_Sportback_Front.jpg"
+        }
       },
       {
         "id": "rs3-sedan",
@@ -3098,7 +3506,13 @@
           "Brought the RS3 to the US market for the first time",
           "Optional 280 km/h raised limiter"
         ],
-        "funFact": "At launch its 2.5 TFSI was the world's most powerful series-production five-cylinder engine."
+        "funFact": "At launch its 2.5 TFSI was the world's most powerful series-production five-cylinder engine.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2017_Audi_RS_3_Quattro_Front.jpg/1280px-2017_Audi_RS_3_Quattro_Front.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2017_Audi_RS_3_Quattro_Front.jpg"
+        }
       }
     ]
   },
@@ -3165,7 +3579,13 @@
           "Progressive-ratio steering standard",
           "2017 facelift raised standard output to 230PS"
         ],
-        "funFact": "The Mk7 GTI was up to 42 kg lighter than the Mk6 it replaced thanks to the MQB platform."
+        "funFact": "The Mk7 GTI was up to 42 kg lighter than the Mk6 it replaced thanks to the MQB platform.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/2013_Volkswagen_Golf_GTi_%28Mk7%2C_5-door%2C_Test_Drive_Car%29_in_Glenmarie%2C_Malaysia.jpg/1280px-2013_Volkswagen_Golf_GTi_%28Mk7%2C_5-door%2C_Test_Drive_Car%29_in_Glenmarie%2C_Malaysia.jpg",
+        "imageCredit": {
+          "author": "Aero777",
+          "license": "CC BY-SA 2.5 my",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2013_Volkswagen_Golf_GTi_(Mk7,_5-door,_Test_Drive_Car)_in_Glenmarie,_Malaysia.jpg"
+        }
       },
       {
         "id": "gti-performance",
@@ -3186,7 +3606,13 @@
           "Top speed raised from 246 to 250 km/h",
           "2017 facelift version bumped to 245PS and 370Nm"
         ],
-        "funFact": "The Performance Pack's VAQ diff was the first factory locking front differential ever fitted to a GTI."
+        "funFact": "The Performance Pack's VAQ diff was the first factory locking front differential ever fitted to a GTI.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/2015_Volkswagen_Golf_%285G_MY15%29_GTI_Performance_5-door_hatchback_%2817405221714%29.jpg/1280px-2015_Volkswagen_Golf_%285G_MY15%29_GTI_Performance_5-door_hatchback_%2817405221714%29.jpg",
+        "imageCredit": {
+          "author": "TuRbO_J from Adelaide, Australia",
+          "license": "CC BY 2.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2015_Volkswagen_Golf_(5G_MY15)_GTI_Performance_5-door_hatchback_(17405221714).jpg"
+        }
       },
       {
         "id": "gti-clubsport",
@@ -3207,7 +3633,13 @@
           "VAQ locking front differential standard",
           "Built to celebrate 40 years of the GTI"
         ],
-        "funFact": "Sold in the UK as the 'GTI Clubsport Edition 40' to mark the GTI's 40th anniversary in 2016."
+        "funFact": "Sold in the UK as the 'GTI Clubsport Edition 40' to mark the GTI's 40th anniversary in 2016.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/VW_Golf_VII_GTi_CS_Front.JPG/1280px-VW_Golf_VII_GTi_CS_Front.JPG",
+        "imageCredit": {
+          "author": "KarleHorn",
+          "license": "CC BY-SA 3.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:VW_Golf_VII_GTi_CS_Front.JPG"
+        }
       },
       {
         "id": "gti-clubsport-s",
@@ -3228,7 +3660,13 @@
           "Limited to 400 units worldwide",
           "Special Nürburgring suspension mode in the driving profile selector"
         ],
-        "funFact": "In May 2016 it lapped the Nürburgring Nordschleife in 7:49.21 with Benny Leuchter driving, a new record for front-wheel-drive production cars."
+        "funFact": "In May 2016 it lapped the Nürburgring Nordschleife in 7:49.21 with Benny Leuchter driving, a new record for front-wheel-drive production cars.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/2016_Volkswagen_Golf_GTi_Clubsport_S_BS_O24.jpg/1280px-2016_Volkswagen_Golf_GTi_Clubsport_S_BS_O24.jpg",
+        "imageCredit": {
+          "author": "MrWalkr",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2016_Volkswagen_Golf_GTi_Clubsport_S_BS_O24.jpg"
+        }
       }
     ]
   },
@@ -3296,7 +3734,13 @@
           "Shares its 300PS EA888 tune with the Audi S3 8V",
           "Quad exhaust and R-specific bumpers"
         ],
-        "funFact": "At launch it was the most powerful production Golf VW had ever built."
+        "funFact": "At launch it was the most powerful production Golf VW had ever built.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/2015_Volkswagen_Golf_%285G_MY15%29_R_4MOTION_5-door_hatchback_%282016-04-23%29_01.jpg/1280px-2015_Volkswagen_Golf_%285G_MY15%29_R_4MOTION_5-door_hatchback_%282016-04-23%29_01.jpg",
+        "imageCredit": {
+          "author": "EurovisionNim",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2015_Volkswagen_Golf_(5G_MY15)_R_4MOTION_5-door_hatchback_(2016-04-23)_01.jpg"
+        }
       },
       {
         "id": "golf-r-facelift",
@@ -3317,7 +3761,13 @@
           "0-100 km/h in 4.6s with DSG",
           "Optional Akrapovic titanium exhaust offered from the factory"
         ],
-        "funFact": "The optional Performance package removed the 250 km/h limiter, lifting top speed to around 267 km/h (166 mph)."
+        "funFact": "The optional Performance package removed the 250 km/h limiter, lifting top speed to around 267 km/h (166 mph).",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2017_Volkswagen_Golf_R_TSi_S-A_facelift_2.0_Front.jpg/1280px-2017_Volkswagen_Golf_R_TSi_S-A_facelift_2.0_Front.jpg",
+        "imageCredit": {
+          "author": "Vauxford",
+          "license": "CC BY-SA 4.0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2017_Volkswagen_Golf_R_TSi_S-A_facelift_2.0_Front.jpg"
+        }
       }
     ]
   },
@@ -3396,7 +3846,13 @@
           "Three-stage AMG Ride Control adaptive suspension",
           "2018 facelift brought the 9-speed MCT and AMG Dynamics modes"
         ],
-        "funFact": "Each M177 engine is assembled by a single technician in Affalterbach under AMG's 'one man, one engine' principle."
+        "funFact": "Each M177 engine is assembled by a single technician in Affalterbach under AMG's 'one man, one engine' principle.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/18_Mercedes-AMG_C63_Base.jpg/1280px-18_Mercedes-AMG_C63_Base.jpg",
+        "imageCredit": {
+          "author": "HJUdall",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:18_Mercedes-AMG_C63_Base.jpg"
+        }
       },
       {
         "id": "c63-s",
@@ -3417,7 +3873,13 @@
           "Higher boost pressure lifts output to 510hp and 700Nm",
           "AMG Driver's Package raises the limiter to 290 km/h"
         ],
-        "funFact": "The M177's 'hot inside V' layout places both turbochargers between the cylinder banks and is closely related to the M178 in the AMG GT."
+        "funFact": "The M177's 'hot inside V' layout places both turbochargers between the cylinder banks and is closely related to the M178 in the AMG GT.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Mercedes-AMG_C63_S_Edition_1_%28W205%29_front.JPG/1280px-Mercedes-AMG_C63_S_Edition_1_%28W205%29_front.JPG",
+        "imageCredit": {
+          "author": "Tokumeigakarinoaoshima",
+          "license": "CC0",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mercedes-AMG_C63_S_Edition_1_(W205)_front.JPG"
+        }
       }
     ]
   },
@@ -3485,7 +3947,13 @@
           "Hand-built M133 engine with twin-scroll turbocharger",
           "AMG's first transverse-engined compact performance car"
         ],
-        "funFact": "Its 181hp-per-litre specific output beat contemporary supercars at launch in 2013."
+        "funFact": "Its 181hp-per-litre specific output beat contemporary supercars at launch in 2013.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/2014_Mercedes-Benz_A_45_AMG_%28W_176%29_4MATIC_hatchback_%282015-07-10%29_01.jpg/1280px-2014_Mercedes-Benz_A_45_AMG_%28W_176%29_4MATIC_hatchback_%282015-07-10%29_01.jpg",
+        "imageCredit": {
+          "author": "OSX",
+          "license": "Public domain",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2014_Mercedes-Benz_A_45_AMG_(W_176)_4MATIC_hatchback_(2015-07-10)_01.jpg"
+        }
       },
       {
         "id": "a45-facelift",
@@ -3506,7 +3974,13 @@
           "Shorter ratios and faster shifts for the 7-speed DCT",
           "Optional AMG Dynamic Plus package with mechanical front axle locking differential"
         ],
-        "funFact": "At launch Mercedes billed the facelifted A45 as the world's most powerful compact sports model, with a specific output of roughly 191hp per litre."
+        "funFact": "At launch Mercedes billed the facelifted A45 as the world's most powerful compact sports model, with a specific output of roughly 191hp per litre.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Mercedes-AMG_A_45_4MATIC_%28W_176%2C_Facelift%29_%E2%80%93_Frontansicht%2C_7._Oktober_2018%2C_D%C3%BCsseldorf.jpg/1280px-Mercedes-AMG_A_45_4MATIC_%28W_176%2C_Facelift%29_%E2%80%93_Frontansicht%2C_7._Oktober_2018%2C_D%C3%BCsseldorf.jpg",
+        "imageCredit": {
+          "author": "M 93",
+          "license": "CC BY-SA 3.0 de",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mercedes-AMG_A_45_4MATIC_(W_176,_Facelift)_%E2%80%93_Frontansicht,_7._Oktober_2018,_D%C3%BCsseldorf.jpg"
+        }
       }
     ]
   }
