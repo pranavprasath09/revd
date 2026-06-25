@@ -19,7 +19,7 @@ const ALLOWED_PRICE_IDS = new Set(
 );
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": SITE_URL,
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
@@ -56,6 +56,7 @@ Deno.serve(async (req: Request) => {
     // than accepting any client-supplied price ID.
     const { priceId } = await req.json();
     if (!priceId || !ALLOWED_PRICE_IDS.has(priceId)) {
+      console.error("Price ID rejected. Received:", priceId, "| Allowed:", [...ALLOWED_PRICE_IDS]);
       return new Response(
         JSON.stringify({ error: "Invalid or missing priceId" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -110,7 +111,8 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({ url: session.url }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch {
+  } catch (err) {
+    console.error("create-checkout fatal error:", err);
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
