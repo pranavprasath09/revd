@@ -161,6 +161,7 @@ export default function CreateMeetPage() {
             <input
               type="text"
               value={name}
+              maxLength={200}
               onChange={(e) => setName(e.target.value)}
               placeholder='e.g. "Sunday Morning Cars & Coffee", "SoCal Canyon Cruise"'
               required
@@ -175,6 +176,7 @@ export default function CreateMeetPage() {
             </label>
             <textarea
               value={description}
+              maxLength={5000}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What's the vibe? Any rules? What to expect..."
               rows={4}
@@ -217,6 +219,7 @@ export default function CreateMeetPage() {
             <input
               type="text"
               value={locationName}
+              maxLength={300}
               onChange={(e) => setLocationName(e.target.value)}
               placeholder='e.g. "Pavilions Shopping Center, Scottsdale, AZ"'
               className="font-body w-full rounded-lg border border-border bg-bg-surface py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
@@ -254,6 +257,7 @@ export default function CreateMeetPage() {
             <input
               type="url"
               value={coverImageUrl}
+              maxLength={1000}
               onChange={(e) => setCoverImageUrl(e.target.value)}
               placeholder="https://example.com/image.jpg"
               className="font-body w-full rounded-lg border border-border bg-bg-surface py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"

@@ -310,6 +310,7 @@ export default function CreateBuildPage() {
                 <input
                   type="text"
                   value={title}
+                  maxLength={200}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder='e.g. "Project Track Weapon", "Daily to Weekend Warrior"'
                   required
@@ -324,6 +325,7 @@ export default function CreateBuildPage() {
                 </label>
                 <textarea
                   value={description}
+                  maxLength={5000}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="What's the vision for this build? Goals, timeline, budget..."
                   rows={4}

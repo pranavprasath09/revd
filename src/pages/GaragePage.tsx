@@ -173,6 +173,7 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
                 <input
                   type="text"
                   value={nickname}
+                  maxLength={100}
                   onChange={(e) => setNickname(e.target.value)}
                   placeholder='e.g. "Project Daily", "Track Beast"'
                   className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
@@ -186,6 +187,7 @@ function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps)
                 <input
                   type="text"
                   value={year}
+                  maxLength={10}
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="e.g. 2004"
                   className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"

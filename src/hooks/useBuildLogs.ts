@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase, isMissingColumn } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type {
   BuildLog,
@@ -10,10 +10,14 @@ import type {
 import { notifyOnBuildLike } from "@/lib/notifications";
 import { prepareImageForUpload } from "@/lib/upload";
 
-const BUILD_LOG_COLUMNS =
+const BUILD_LOG_BASE_COLUMNS =
   "id, owner_id, car_id, title, description, is_public, total_cost, created_at, updated_at";
+// like_count / entry_count are migration-015 counters; selected when present.
+const BUILD_LOG_COLUMNS = `${BUILD_LOG_BASE_COLUMNS}, like_count, entry_count`;
 const BUILD_ENTRY_COLUMNS =
   "id, build_log_id, title, body, cost, entry_date, images, created_at";
+// Most entries a build-detail page will render before it's clearly abusive.
+const MAX_ENTRIES = 200;
 // File size is validated by validateImageFile in upload.ts
 
 export default function useBuildLogs() {
@@ -25,15 +29,19 @@ export default function useBuildLogs() {
   const fetchBuildLogs = useCallback(async (): Promise<BuildLog[]> => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("build_logs")
-        .select(BUILD_LOG_COLUMNS)
-        .eq("is_public", true)
-        .order("created_at", { ascending: false })
-        .limit(50);
+      const run = (cols: string) =>
+        supabase
+          .from("build_logs")
+          .select(cols)
+          .eq("is_public", true)
+          .order("created_at", { ascending: false })
+          .limit(50);
+
+      let { data, error } = await run(BUILD_LOG_COLUMNS);
+      if (error && isMissingColumn(error)) ({ data, error } = await run(BUILD_LOG_BASE_COLUMNS));
 
       if (error) throw error;
-      return (data as BuildLog[]) ?? [];
+      return (data as unknown as BuildLog[]) ?? [];
     } catch (err) {
       console.error("Failed to fetch build logs:", (err as Error).message);
       return [];
@@ -46,14 +54,14 @@ export default function useBuildLogs() {
   const fetchBuildLog = useCallback(
     async (id: string): Promise<BuildLog | null> => {
       try {
-        const { data, error } = await supabase
-          .from("build_logs")
-          .select(BUILD_LOG_COLUMNS)
-          .eq("id", id)
-          .single();
+        const run = (cols: string) =>
+          supabase.from("build_logs").select(cols).eq("id", id).single();
+
+        let { data, error } = await run(BUILD_LOG_COLUMNS);
+        if (error && isMissingColumn(error)) ({ data, error } = await run(BUILD_LOG_BASE_COLUMNS));
 
         if (error) throw error;
-        return data as BuildLog;
+        return data as unknown as BuildLog;
       } catch (err) {
         console.error("Failed to fetch build log:", (err as Error).message);
         return null;
@@ -70,7 +78,8 @@ export default function useBuildLogs() {
           .from("build_entries")
           .select(BUILD_ENTRY_COLUMNS)
           .eq("build_log_id", buildLogId)
-          .order("entry_date", { ascending: false });
+          .order("entry_date", { ascending: false })
+          .limit(MAX_ENTRIES);
 
         if (error) throw error;
         return (data as BuildEntry[]) ?? [];
@@ -89,10 +98,12 @@ export default function useBuildLogs() {
     ): Promise<{ data: BuildLog | null; error?: string }> => {
       if (!user) return { data: null, error: "Not signed in" };
       try {
+        // Base columns only: a freshly inserted log has no counts to read, and
+        // this stays valid whether or not migration 015 has added the counters.
         const { data, error } = await supabase
           .from("build_logs")
           .insert({ ...input, owner_id: user.id })
-          .select(BUILD_LOG_COLUMNS)
+          .select(BUILD_LOG_BASE_COLUMNS)
           .single();
 
         if (error) throw error;

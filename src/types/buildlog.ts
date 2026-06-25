@@ -8,6 +8,9 @@ export interface BuildLog {
   total_cost: number;
   created_at: string;
   updated_at: string;
+  /** Denormalized counters (migration 015). Undefined until that migration is applied. */
+  like_count?: number;
+  entry_count?: number;
 }
 
 export interface BuildEntry {

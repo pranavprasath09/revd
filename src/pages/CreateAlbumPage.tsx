@@ -192,6 +192,7 @@ export default function CreateAlbumPage() {
             <input
               type="text"
               value={title}
+              maxLength={200}
               onChange={(e) => setTitle(e.target.value)}
               placeholder='e.g. "GT3 RS at Sunset", "Cars & Coffee March 2026"'
               required
@@ -206,6 +207,7 @@ export default function CreateAlbumPage() {
             </label>
             <textarea
               value={description}
+              maxLength={5000}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Tell the story behind these shots..."
               rows={3}
@@ -221,6 +223,7 @@ export default function CreateAlbumPage() {
             <input
               type="text"
               value={carTagsInput}
+              maxLength={500}
               onChange={(e) => setCarTagsInput(e.target.value)}
               placeholder='e.g. "Porsche 911, BMW M3, Nissan GTR"'
               className="font-body w-full rounded-lg border border-border bg-bg-surface py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"

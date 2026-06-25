@@ -4,6 +4,11 @@ import { useAuthContext } from "@/context/AuthContext";
 import type { Community, Post, Comment, CreateCommunityInput, CreatePostInput } from "@/types/forum";
 import { notifyOnComment } from "@/lib/notifications";
 
+const POST_COLUMNS =
+  "id, community_id, author_id, title, body, image_url, upvotes, comment_count, created_at, author:profiles(display_name, avatar_url)";
+const COMMENT_COLUMNS =
+  "id, post_id, author_id, body, upvotes, created_at, author:profiles(display_name, avatar_url)";
+
 export default function useForums() {
   const { user } = useAuthContext();
   // Starts true: every consumer fetches on mount, and initializing false
@@ -92,13 +97,13 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("posts")
-        .select("*, author:profiles(display_name, avatar_url)")
+        .select(POST_COLUMNS)
         .eq("community_id", communityId)
         .order("created_at", { ascending: false })
         .limit(100);
 
       if (error) throw error;
-      return (data as Post[]) ?? [];
+      return (data as unknown as Post[]) ?? [];
     } catch (err) {
       console.error("Failed to fetch posts:", (err as Error).message);
       return [];
@@ -112,12 +117,12 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("posts")
-        .select("*, author:profiles(display_name, avatar_url)")
+        .select(POST_COLUMNS)
         .eq("id", postId)
         .single();
 
       if (error) throw error;
-      return data as Post;
+      return data as unknown as Post;
     } catch (err) {
       console.error("Failed to fetch post:", (err as Error).message);
       return null;
@@ -133,11 +138,11 @@ export default function useForums() {
         const { data, error } = await supabase
           .from("posts")
           .insert({ ...input, author_id: user.id })
-          .select("*, author:profiles(display_name, avatar_url)")
+          .select(POST_COLUMNS)
           .single();
 
         if (error) throw error;
-        return data as Post;
+        return data as unknown as Post;
       } catch (err) {
         console.error("Failed to create post:", (err as Error).message);
         return null;
@@ -173,13 +178,13 @@ export default function useForums() {
     try {
       const { data, error } = await supabase
         .from("comments")
-        .select("*, author:profiles(display_name, avatar_url)")
+        .select(COMMENT_COLUMNS)
         .eq("post_id", postId)
         .order("created_at", { ascending: true })
         .limit(300);
 
       if (error) throw error;
-      return (data as Comment[]) ?? [];
+      return (data as unknown as Comment[]) ?? [];
     } catch (err) {
       console.error("Failed to fetch comments:", (err as Error).message);
       return [];
@@ -193,7 +198,7 @@ export default function useForums() {
         const { data, error } = await supabase
           .from("comments")
           .insert({ post_id: postId, author_id: user.id, body })
-          .select("*, author:profiles(display_name, avatar_url)")
+          .select(COMMENT_COLUMNS)
           .single();
 
         if (error) throw error;
@@ -203,7 +208,7 @@ export default function useForums() {
         // Notify post author via trusted RPC (non-blocking)
         notifyOnComment(postId).catch(() => {});
 
-        return data as Comment;
+        return data as unknown as Comment;
       } catch (err) {
         console.error("Failed to create comment:", (err as Error).message);
         return null;

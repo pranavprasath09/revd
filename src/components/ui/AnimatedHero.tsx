@@ -11,8 +11,13 @@ export default function AnimatedHero() {
   const [loaded, setLoaded] = useState(false);
   const [step, setStep] = useState(0); // 0=nothing, 1=badge, 2=line1, 3=line2, 4=subtitle, 5=buttons
 
-  // Staggered text reveal
+  // Staggered text reveal — skipped entirely for reduced-motion users, who
+  // get the fully-revealed hero immediately.
   useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setStep(5);
+      return;
+    }
     const timers = [
       setTimeout(() => setStep(1), 300),   // badge
       setTimeout(() => setStep(2), 450),   // line 1
@@ -39,6 +44,8 @@ export default function AnimatedHero() {
   }, []);
 
   useEffect(() => {
+    // No parallax for reduced-motion users.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);

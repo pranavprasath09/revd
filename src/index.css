@@ -358,3 +358,20 @@
     transform: translateY(0) scale(1.0);
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Accessibility: respect the user's reduced-motion preference.
+   Neutralizes every CSS animation/transition (parallax, infinite
+   pulses, staggered reveals, scan lines) for users who ask for it.
+   JS-driven motion (AnimatedHero parallax) is guarded separately.
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

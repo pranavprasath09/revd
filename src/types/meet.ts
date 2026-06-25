@@ -12,6 +12,8 @@ export interface Meet {
   cover_image_url: string | null;
   max_attendees: number | null;
   created_at: string;
+  /** Denormalized RSVP total (migration 015). Undefined until that migration is applied. */
+  rsvp_count?: number;
 }
 
 export interface MeetRsvp {

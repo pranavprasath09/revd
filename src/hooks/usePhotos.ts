@@ -55,7 +55,8 @@ export default function usePhotos() {
         .from("album_photos")
         .select("id, album_id, image_url, caption, car_tag, order_index, created_at")
         .eq("album_id", albumId)
-        .order("order_index", { ascending: true });
+        .order("order_index", { ascending: true })
+        .limit(300);
 
       if (error) throw error;
       return (data as AlbumPhoto[]) ?? [];
@@ -71,7 +72,8 @@ export default function usePhotos() {
         .from("albums")
         .select("id, creator_id, title, description, cover_image, car_tags, is_public, created_at")
         .eq("creator_id", userId)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .limit(60);
 
       if (error) throw error;
       return (data as Album[]) ?? [];

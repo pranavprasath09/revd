@@ -160,31 +160,40 @@ export default function BuildsPage() {
         garageMap[gc.id] = gc;
       });
 
-      // Fetch entry counts and first images
+      const ids = buildLogs.map((b) => b.id);
+
+      // Cover images come from the most recent entries. Bounded so a build with
+      // thousands of entries can't blow up this query under traffic.
       const { data: entries } = await supabase
         .from("build_entries")
         .select("build_log_id, images")
-        .in("build_log_id", buildLogs.map((b) => b.id))
-        .order("entry_date", { ascending: false });
+        .in("build_log_id", ids)
+        .order("entry_date", { ascending: false })
+        .limit(300);
 
-      const entryCountMap: Record<string, number> = {};
       const firstImageMap: Record<string, string | null> = {};
+      const entryCountFallback: Record<string, number> = {};
       (entries ?? []).forEach((e) => {
-        entryCountMap[e.build_log_id] = (entryCountMap[e.build_log_id] ?? 0) + 1;
+        entryCountFallback[e.build_log_id] = (entryCountFallback[e.build_log_id] ?? 0) + 1;
         if (!firstImageMap[e.build_log_id] && e.images?.length > 0) {
           firstImageMap[e.build_log_id] = e.images[0];
         }
       });
 
-      // Fetch like counts
-      const { data: likes } = await supabase
-        .from("build_likes")
-        .select("build_log_id")
-        .in("build_log_id", buildLogs.map((b) => b.id));
-      const likeCountMap: Record<string, number> = {};
-      (likes ?? []).forEach((l) => {
-        likeCountMap[l.build_log_id] = (likeCountMap[l.build_log_id] ?? 0) + 1;
-      });
+      // Counts come from the denormalized build_logs.like_count / entry_count
+      // columns (migration 015). Only if those aren't present yet do we run a
+      // BOUNDED like-count fallback rather than pulling every like row.
+      const likeCountFallback: Record<string, number> = {};
+      if (buildLogs.some((b) => b.like_count === undefined)) {
+        const { data: likes } = await supabase
+          .from("build_likes")
+          .select("build_log_id")
+          .in("build_log_id", ids)
+          .limit(5000);
+        (likes ?? []).forEach((l) => {
+          likeCountFallback[l.build_log_id] = (likeCountFallback[l.build_log_id] ?? 0) + 1;
+        });
+      }
 
       const enriched: BuildCardData[] = buildLogs.map((log) => {
         const gc = garageMap[log.car_id];
@@ -204,8 +213,8 @@ export default function BuildsPage() {
           ownerName: ownerMap[log.owner_id] ?? "Anonymous",
           carName,
           coverImage,
-          entryCount: entryCountMap[log.id] ?? 0,
-          likeCount: likeCountMap[log.id] ?? 0,
+          entryCount: log.entry_count ?? entryCountFallback[log.id] ?? 0,
+          likeCount: log.like_count ?? likeCountFallback[log.id] ?? 0,
         };
       });
 

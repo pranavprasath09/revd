@@ -144,17 +144,24 @@ export default function MeetsPage() {
     fetchMeets().then(setMeets);
   }, [fetchMeets]);
 
-  // Fetch RSVP counts for all meets
+  // RSVP counts come from the denormalized meets.rsvp_count column (migration
+  // 015) — O(1) per meet, no row fanout. Only if that column isn't present yet
+  // (migration not applied) do we fall back to a BOUNDED aggregation query so a
+  // viral meet can never ship tens of thousands of RSVP rows to the browser.
   useEffect(() => {
     if (meets.length === 0) return;
+    const needsFallback = meets.some((m) => m.rsvp_count === undefined);
+    if (!needsFallback) return;
 
+    let stale = false;
     import("@/lib/supabase").then(({ supabase }) => {
       supabase
         .from("meet_rsvps")
         .select("meet_id")
         .in("meet_id", meets.map((m) => m.id))
+        .limit(2000)
         .then(({ data }) => {
-          if (!data) return;
+          if (stale || !data) return;
           const counts: Record<string, number> = {};
           data.forEach((r) => {
             counts[r.meet_id] = (counts[r.meet_id] || 0) + 1;
@@ -162,6 +169,9 @@ export default function MeetsPage() {
           setRsvpCounts(counts);
         });
     });
+    return () => {
+      stale = true;
+    };
   }, [meets]);
 
   const filteredMeets = useMemo(() => {
@@ -249,7 +259,7 @@ export default function MeetsPage() {
                 <MeetCard
                   key={meet.id}
                   meet={meet}
-                  rsvpCount={rsvpCounts[meet.id] || 0}
+                  rsvpCount={meet.rsvp_count ?? rsvpCounts[meet.id] ?? 0}
                 />
               ))}
             </div>

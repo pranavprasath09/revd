@@ -8,3 +8,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+/**
+ * True when a PostgREST error is "column does not exist" (Postgres 42703).
+ * Lets a query optimistically request a newly-added column (e.g. a migration-015
+ * counter) and fall back to the base columns if the migration isn't applied yet,
+ * so a deploy can never break the page on the column's absence.
+ */
+export function isMissingColumn(error: { code?: string; message?: string } | null): boolean {
+  if (!error) return false
+  return error.code === '42703' || /column .* does not exist/i.test(error.message ?? '')
+}

@@ -231,6 +231,7 @@ export default function CreatePostPage() {
               <input
                 type="text"
                 value={title}
+                maxLength={300}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="What's on your mind?"
                 required
@@ -245,6 +246,7 @@ export default function CreatePostPage() {
               </label>
               <textarea
                 value={body}
+                maxLength={20000}
                 onChange={(e) => setBody(e.target.value)}
                 placeholder="Share more details..."
                 rows={6}

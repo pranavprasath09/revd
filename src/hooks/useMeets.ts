@@ -1,7 +1,12 @@
 import { useState, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase, isMissingColumn } from "@/lib/supabase";
 import { useAuthContext } from "@/context/AuthContext";
 import type { Meet, CreateMeetInput } from "@/types/meet";
+
+const MEET_BASE_COLUMNS =
+  "id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at";
+// rsvp_count is a migration-015 counter; selected when present, gracefully absent otherwise.
+const MEET_COLUMNS = `${MEET_BASE_COLUMNS}, rsvp_count`;
 
 export default function useMeets() {
   const { user } = useAuthContext();
@@ -12,15 +17,19 @@ export default function useMeets() {
     setLoading(true);
     try {
       const today = new Date().toISOString().split("T")[0];
-      const { data, error } = await supabase
-        .from("meets")
-        .select("id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at")
-        .gte("date", today)
-        .order("date", { ascending: true })
-        .limit(100);
+      const run = (cols: string) =>
+        supabase
+          .from("meets")
+          .select(cols)
+          .gte("date", today)
+          .order("date", { ascending: true })
+          .limit(100);
+
+      let { data, error } = await run(MEET_COLUMNS);
+      if (error && isMissingColumn(error)) ({ data, error } = await run(MEET_BASE_COLUMNS));
 
       if (error) throw error;
-      return (data as Meet[]) ?? [];
+      return (data as unknown as Meet[]) ?? [];
     } catch (err) {
       console.error("Failed to fetch meets:", (err as Error).message);
       return [];
@@ -32,14 +41,14 @@ export default function useMeets() {
   const fetchMeet = useCallback(async (id: string): Promise<Meet | null> => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("meets")
-        .select("id, creator_id, name, description, location_name, location_lat, location_lng, date, time, meet_type, cover_image_url, max_attendees, created_at")
-        .eq("id", id)
-        .single();
+      const run = (cols: string) =>
+        supabase.from("meets").select(cols).eq("id", id).single();
+
+      let { data, error } = await run(MEET_COLUMNS);
+      if (error && isMissingColumn(error)) ({ data, error } = await run(MEET_BASE_COLUMNS));
 
       if (error) throw error;
-      return data as Meet;
+      return data as unknown as Meet;
     } catch (err) {
       console.error("Failed to fetch meet:", (err as Error).message);
       return null;

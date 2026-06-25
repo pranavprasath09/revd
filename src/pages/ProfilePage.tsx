@@ -118,6 +118,7 @@ export default function ProfilePage() {
       .from("garage_cars")
       .select("id, car_id, nickname, year, notes, mods")
       .eq("user_id", profile.id)
+      .limit(60)
       .then(({ data, error }) => {
         if (stale) return;
         if (error) console.error("Failed to load garage:", error.message);
@@ -129,6 +130,8 @@ export default function ProfilePage() {
       .from("meet_rsvps")
       .select("meet_id, meets(id, name, date, meet_type, cover_image_url)")
       .eq("user_id", profile.id)
+      .order("created_at", { ascending: false })
+      .limit(60)
       .then(({ data, error }) => {
         if (stale) return;
         if (error) {

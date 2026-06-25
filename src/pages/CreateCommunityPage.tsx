@@ -131,6 +131,7 @@ export default function CreateCommunityPage() {
               <input
                 type="text"
                 value={name}
+                maxLength={100}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Rotary Enthusiasts"
                 required
@@ -150,6 +151,7 @@ export default function CreateCommunityPage() {
               </label>
               <textarea
                 value={description}
+                maxLength={2000}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="What's this community about?"
                 rows={3}

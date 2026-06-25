@@ -436,6 +436,7 @@ export default function PostDetailPage() {
                 <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
                   <textarea
                     value={commentBody}
+                    maxLength={10000}
                     onChange={(e) => setCommentBody(e.target.value)}
                     placeholder="Add a comment..."
                     rows={3}

@@ -54,6 +54,9 @@ interface Attendee {
   avatar_url: string | null;
 }
 
+// Cap the avatar wall; the true total comes from a head COUNT, not this list.
+const MAX_ATTENDEE_AVATARS = 100;
+
 export default function MeetDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuthContext();
@@ -63,6 +66,7 @@ export default function MeetDetailPage() {
   const [meet, setMeet] = useState<Meet | null>(null);
   const [loading, setLoading] = useState(true);
   const [attendees, setAttendees] = useState<Attendee[]>([]);
+  const [totalAttendees, setTotalAttendees] = useState(0);
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpStatusLoaded, setRsvpStatusLoaded] = useState(false);
   const [rsvpLoading, setRsvpLoading] = useState(false);
@@ -92,18 +96,32 @@ export default function MeetDetailPage() {
   // a PostgREST embed: on databases where meet_rsvps.user_id still points at
   // auth.users instead of profiles (the table predates migration 001), the
   // embed fails with PGRST200 and the attendee list silently renders empty.
-  const loadAttendees = useCallback(async (): Promise<Attendee[]> => {
-    if (!id) return [];
+  // Returns a BOUNDED avatar list (≤ MAX_ATTENDEE_AVATARS) plus an exact total
+  // from a cheap head COUNT. A meet shared to a huge audience never ships its
+  // full RSVP set to the browser — only the head count and a capped avatar list.
+  const loadAttendees = useCallback(async (): Promise<{
+    list: Attendee[];
+    total: number;
+  }> => {
+    if (!id) return { list: [], total: 0 };
+
+    const { count } = await supabase
+      .from("meet_rsvps")
+      .select("*", { count: "exact", head: true })
+      .eq("meet_id", id);
+
     const { data: rsvps, error } = await supabase
       .from("meet_rsvps")
       .select("user_id")
-      .eq("meet_id", id);
+      .eq("meet_id", id)
+      .order("created_at", { ascending: true })
+      .limit(MAX_ATTENDEE_AVATARS);
 
     if (error) {
       console.error("Failed to load attendees:", error.message);
-      return [];
+      return { list: [], total: count ?? 0 };
     }
-    if (!rsvps || rsvps.length === 0) return [];
+    if (!rsvps || rsvps.length === 0) return { list: [], total: count ?? 0 };
 
     const userIds = rsvps.map((r) => r.user_id);
     const { data: profiles, error: profilesError } = await supabase
@@ -121,17 +139,20 @@ export default function MeetDetailPage() {
       ])
     );
 
-    return userIds.map((userId) => ({
+    const list = userIds.map((userId) => ({
       user_id: userId,
       display_name: byId.get(userId)?.display_name ?? null,
       avatar_url: byId.get(userId)?.avatar_url ?? null,
     }));
+    return { list, total: count ?? list.length };
   }, [id]);
 
   useEffect(() => {
     let stale = false;
-    loadAttendees().then((list) => {
-      if (!stale) setAttendees(list);
+    loadAttendees().then(({ list, total }) => {
+      if (stale) return;
+      setAttendees(list);
+      setTotalAttendees(total);
     });
     return () => {
       stale = true;
@@ -179,7 +200,9 @@ export default function MeetDetailPage() {
       const success = await unrsvpFromMeet(id);
       if (success) {
         setHasRsvped(false);
-        setAttendees(await loadAttendees());
+        const { list, total } = await loadAttendees();
+        setAttendees(list);
+        setTotalAttendees(total);
       } else {
         setRsvpError("Couldn't cancel your RSVP. Please try again.");
       }
@@ -190,13 +213,17 @@ export default function MeetDetailPage() {
           .insert({ meet_id: id, user_id: user.id });
         if (error) throw error;
         setHasRsvped(true);
-        setAttendees(await loadAttendees());
+        const { list, total } = await loadAttendees();
+        setAttendees(list);
+        setTotalAttendees(total);
       } catch (err) {
         const message = (err as Error).message;
         console.error("Failed to RSVP:", message);
         if (message.includes("This meet is full")) {
           setRsvpError("This meet is full.");
-          setAttendees(await loadAttendees());
+          const { list, total } = await loadAttendees();
+          setAttendees(list);
+          setTotalAttendees(total);
         } else {
           setRsvpError(message || "Couldn't RSVP. Please try again.");
         }
@@ -261,18 +288,18 @@ export default function MeetDetailPage() {
 
   const isPast = new Date(meet.date + "T23:59:59") < new Date();
   const isFull =
-    meet.max_attendees !== null && attendees.length >= meet.max_attendees;
+    meet.max_attendees !== null && totalAttendees >= meet.max_attendees;
   const isCreator = user?.id === meet.creator_id;
   const spotsLeft =
     meet.max_attendees !== null
-      ? meet.max_attendees - attendees.length
+      ? meet.max_attendees - totalAttendees
       : null;
 
   return (
     <div className="page-enter">
       <SEOHead
         title={`${meet.name} — Car Meet on RevD`}
-        description={`${meet.meet_type ? meet.meet_type + " · " : ""}${formatFullDate(meet.date)}${meet.location_name ? " · " + meet.location_name : ""}. ${attendees.length} attending. Join the meet on RevD.`}
+        description={`${meet.meet_type ? meet.meet_type + " · " : ""}${formatFullDate(meet.date)}${meet.location_name ? " · " + meet.location_name : ""}. ${totalAttendees} attending. Join the meet on RevD.`}
         ogImage={meet.cover_image_url || fallbackImage}
       />
 
@@ -407,7 +434,7 @@ export default function MeetDetailPage() {
                   Attending
                 </p>
                 <p className="font-body text-sm font-semibold text-text-primary">
-                  {attendees.length}
+                  {totalAttendees}
                   {meet.max_attendees && (
                     <span className="text-text-muted"> / {meet.max_attendees}</span>
                   )}
@@ -525,7 +552,7 @@ export default function MeetDetailPage() {
             {/* Attendees list */}
             <section>
               <h2 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-3">
-                Who's Going ({attendees.length})
+                Who's Going ({totalAttendees})
               </h2>
               <div className="rounded-xl border border-border bg-bg-surface p-6">
                 {attendees.length > 0 ? (
@@ -555,6 +582,13 @@ export default function MeetDetailPage() {
                         </span>
                       </div>
                     ))}
+                    {totalAttendees > attendees.length && (
+                      <div className="flex items-center rounded-full bg-bg-elevated border border-border px-4 py-2">
+                        <span className="font-body text-sm font-medium text-text-secondary">
+                          +{totalAttendees - attendees.length} more
+                        </span>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <p className="font-body text-sm text-text-muted text-center py-4">

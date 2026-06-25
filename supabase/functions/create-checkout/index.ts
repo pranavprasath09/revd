@@ -18,12 +18,30 @@ const ALLOWED_PRICE_IDS = new Set(
   (Deno.env.get("ALLOWED_STRIPE_PRICE_IDS") ?? "").split(",").filter(Boolean)
 );
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// Allowlist of browser origins permitted to call this function. SITE_URL is
+// matched with and without a trailing slash so a dashboard typo can't silently
+// break checkout (the failure mode we hit before). Local dev ports included.
+const NORMALIZED_SITE_URL = SITE_URL.replace(/\/$/, "");
+const ALLOWED_ORIGINS = new Set([
+  NORMALIZED_SITE_URL,
+  `${NORMALIZED_SITE_URL}/`,
+  "http://localhost:1572",
+  "http://localhost:5173",
+]);
+
+function corsHeadersFor(req: Request): Record<string, string> {
+  const origin = req.headers.get("Origin") ?? "";
+  const allowOrigin = ALLOWED_ORIGINS.has(origin) ? origin : NORMALIZED_SITE_URL;
+  return {
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
 
 Deno.serve(async (req: Request) => {
+  const corsHeaders = corsHeadersFor(req);
+
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }

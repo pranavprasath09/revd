@@ -213,6 +213,7 @@ export default function AddBuildEntryPage() {
             <input
               type="text"
               value={title}
+              maxLength={200}
               onChange={(e) => setTitle(e.target.value)}
               placeholder='e.g. "Installed coilovers", "Full respray — Nardo Grey"'
               required
@@ -227,6 +228,7 @@ export default function AddBuildEntryPage() {
             </label>
             <textarea
               value={body}
+              maxLength={20000}
               onChange={(e) => setBody(e.target.value)}
               placeholder="What did you do? Parts used, time spent, tips for others..."
               rows={5}

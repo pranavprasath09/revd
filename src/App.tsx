@@ -42,7 +42,8 @@ const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 export default function App() {
   return (
-    <AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
       <NotificationsProvider>
       <div className="min-h-screen flex">
         <Sidebar />
@@ -94,5 +95,6 @@ export default function App() {
       </div>
       </NotificationsProvider>
     </AuthProvider>
+    </ErrorBoundary>
   );
 }
