@@ -235,7 +235,8 @@ export default function MeetDetailPage() {
   function handleShare() {
     const url = window.location.href;
     if (navigator.share) {
-      navigator.share({ title: meet?.name ?? "Car Meet on RevD", url });
+      // Ignore rejection when the user dismisses the native share sheet.
+      navigator.share({ title: meet?.name ?? "Car Meet on RevD", url }).catch(() => {});
     } else {
       navigator.clipboard.writeText(url);
       setCopied(true);

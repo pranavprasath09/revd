@@ -79,10 +79,13 @@ export default function ProfilePage() {
         });
     } else {
       const decoded = decodeURIComponent(username).replace(/-/g, " ");
+      // Escape LIKE wildcards so a display name containing % or _ can't match
+      // unrelated rows (ilike treats them as patterns).
+      const escaped = decoded.replace(/[\\%_]/g, (m) => `\\${m}`);
       supabase
         .from("profiles")
         .select("id, display_name, avatar_url, bio, tier, is_premium")
-        .ilike("display_name", decoded)
+        .ilike("display_name", escaped)
         .limit(1)
         .single()
         .then(({ data, error }) => {
