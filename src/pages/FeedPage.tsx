@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useFeed from "@/hooks/useFeed";
+import useMeets from "@/hooks/useMeets";
+import PageHeader from "@/components/pitwall/PageHeader";
+import PWButton, { ToggleButton } from "@/components/pitwall/Button";
 import type { FeedEvent } from "@/types/notification";
 
 function timeAgo(dateStr: string): string {
-  const seconds = Math.floor(
-    (Date.now() - new Date(dateStr).getTime()) / 1000
-  );
+  const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
   if (seconds < 60) return "just now";
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes}m ago`;
@@ -17,22 +17,35 @@ function timeAgo(dateStr: string): string {
   if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
   if (days < 30) return `${days}d ago`;
-  const months = Math.floor(days / 30);
-  return `${months}mo ago`;
+  return `${Math.floor(days / 30)}mo ago`;
 }
+
+/** created_at → session-log stamp HH:MM:SS. */
+function stamp(dateStr: string): string {
+  const d = new Date(dateStr);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
+const EVENT_CODES: Record<string, string> = {
+  new_album: "ALBUM",
+  new_build_entry: "BUILD",
+  new_meet: "MEET",
+  new_post: "POST",
+};
 
 function eventDescription(event: FeedEvent): string {
   switch (event.event_type) {
     case "new_album":
-      return "posted a new photo album";
+      return "posted a photo album";
     case "new_build_entry":
-      return "added a new build entry";
+      return "added a build entry";
     case "new_meet":
-      return "created a new meet";
+      return "created a meet";
     case "new_post":
-      return "published a new post";
+      return "published a post";
     default:
-      return "did something";
+      return "logged an event";
   }
 }
 
@@ -56,265 +69,211 @@ function eventLink(event: FeedEvent): string | null {
   }
 }
 
-function eventIcon(type: string) {
-  switch (type) {
-    case "new_album":
-      return (
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
-        </svg>
-      );
-    case "new_build_entry":
-      return (
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-        </svg>
-      );
-    case "new_meet":
-      return (
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-        </svg>
-      );
-    case "new_post":
-      return (
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
-
-function FeedCard({ event }: { event: FeedEvent }) {
+function LogLine({
+  event,
+  rsvped,
+  onToggleRsvp,
+}: {
+  event: FeedEvent;
+  rsvped: boolean;
+  onToggleRsvp: (meetId: string) => void;
+}) {
+  const navigate = useNavigate();
   const link = eventLink(event);
-  const title = (event.metadata?.title as string) ?? null;
+  const title = (event.metadata?.title as string) ?? eventDescription(event);
   const previewImage = (event.metadata?.preview_image as string) ?? null;
+  const isMeet = event.event_type === "new_meet" && !!event.entity_id;
 
-  const cardContent = (
-    <div className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5">
-      <div className="flex gap-4 p-4">
-        {/* Actor avatar */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-border">
-          <span className="font-mono text-sm font-bold text-text-muted">
-            {event.actor?.display_name?.charAt(0)?.toUpperCase() ?? "?"}
-          </span>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <p className="font-body text-sm text-text-primary leading-relaxed">
-            <span className="font-bold">
-              {event.actor?.display_name ?? "Someone"}
-            </span>{" "}
-            <span className="text-text-secondary">
-              {eventDescription(event)}
-            </span>
-          </p>
-
-          {title && (
-            <p className="mt-1 font-display text-lg uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
-              {title}
-            </p>
-          )}
-
-          <div className="mt-2 flex items-center gap-2 text-text-muted">
-            <span className="text-accent-red">
-              {eventIcon(event.event_type)}
-            </span>
-            <span className="font-body text-xs">{timeAgo(event.created_at)}</span>
-          </div>
-        </div>
-
-        {/* Preview image */}
+  return (
+    <div
+      onClick={link ? () => navigate(link) : undefined}
+      className={`grid min-h-[62px] grid-cols-[96px_1fr] items-center gap-y-1 border-b border-border-hair px-6 py-2 transition-colors duration-100 hover:bg-bg-elevated md:grid-cols-[96px_132px_1fr_168px_132px] md:px-11 md:py-0 ${
+        link ? "cursor-pointer" : ""
+      }`}
+    >
+      <span className="font-mono text-[11px] text-text-muted">
+        {stamp(event.created_at)}
+      </span>
+      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
+        [{EVENT_CODES[event.event_type] ?? "EVENT"}]
+      </span>
+      <span className="col-span-2 flex min-w-0 flex-col gap-0.5 md:col-span-1 md:pr-6">
+        <span className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-semibold tracking-[-0.015em] text-text-primary">
+          {title}
+        </span>
+        <span className="font-mono text-[10px] text-text-secondary">
+          {event.actor?.display_name ?? "Someone"} · {eventDescription(event)}
+        </span>
+      </span>
+      <span className="hidden items-center gap-2.5 md:flex">
         {previewImage && (
-          <div className="hidden sm:block h-20 w-28 shrink-0 overflow-hidden rounded-lg">
-            <img
-              src={previewImage}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <img
+            src={previewImage}
+            alt=""
+            loading="lazy"
+            className="h-10 w-[84px] object-cover grayscale-[0.4]"
+          />
         )}
-      </div>
+        <span className="font-mono text-[10px] text-text-muted">
+          {timeAgo(event.created_at)}
+        </span>
+      </span>
+      <span className="hidden justify-end md:flex">
+        {isMeet && (
+          <ToggleButton
+            on={rsvped}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleRsvp(event.entity_id!);
+            }}
+          >
+            {rsvped ? "Going" : "RSVP"}
+          </ToggleButton>
+        )}
+      </span>
     </div>
-  );
-
-  return link ? (
-    <Link to={link}>{cardContent}</Link>
-  ) : (
-    cardContent
   );
 }
 
 export default function FeedPage() {
   const { user, loading: authLoading } = useAuthContext();
   const { events, loading, hasMore, fetchFeed } = useFeed();
+  const { rsvpToMeet, unrsvpFromMeet, getUserRsvps } = useMeets();
   const [initialLoaded, setInitialLoaded] = useState(false);
+  const [rsvps, setRsvps] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (user && !initialLoaded) {
       fetchFeed(0).then(() => setInitialLoaded(true));
+      getUserRsvps().then((ids) => setRsvps(new Set(ids)));
     }
-  }, [user, fetchFeed, initialLoaded]);
+  }, [user, fetchFeed, getUserRsvps, initialLoaded]);
 
-  // Wait for session restore before gating — otherwise a signed-in user
-  // hard-refreshing sees "Sign In Required" flash
+  // Optimistic RSVP — update immediately, revert on error
+  const toggleRsvp = async (meetId: string) => {
+    const going = rsvps.has(meetId);
+    setRsvps((prev) => {
+      const next = new Set(prev);
+      if (going) next.delete(meetId);
+      else next.add(meetId);
+      return next;
+    });
+    const ok = going ? await unrsvpFromMeet(meetId) : await rsvpToMeet(meetId);
+    if (!ok) {
+      setRsvps((prev) => {
+        const next = new Set(prev);
+        if (going) next.add(meetId);
+        else next.delete(meetId);
+        return next;
+      });
+    }
+  };
+
   if (authLoading) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-          </div>
-        </PageWrapper>
+      <div className="page-enter px-6 py-[34px] md:px-11">
+        <div className="h-12 w-1/3 animate-pulse bg-bg-surface" />
+        <div className="mt-6 h-64 animate-pulse bg-bg-surface" />
       </div>
     );
   }
 
-  // Auth gate
   if (!user) {
     return (
       <div className="page-enter">
         <SEOHead title="Feed" description="Your personalized activity feed on RevD." />
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-            <svg
-              className="h-10 w-10 text-text-muted"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-              />
-            </svg>
-          </div>
-          <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-            Sign In Required
-          </h2>
-          <p className="font-body text-sm text-text-secondary max-w-md mb-6">
-            Sign in to see activity from people you follow.
+        <PageHeader kicker="Session log" title="ACTIVITY" />
+        <div className="px-6 md:px-11">
+          <p className="max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            The session log records what the people you follow do — albums,
+            build entries, meets, posts. Sign in to read yours.
           </p>
-          <Link
-            to="/sign-in?redirect=/feed"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Sign In
-          </Link>
+          <div className="mt-6">
+            <Link to="/sign-in?redirect=/feed">
+              <PWButton>Sign in</PWButton>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-enter">
+    <div className="page-enter pb-14">
       <SEOHead
         title="Feed"
         description="See what people you follow are up to — new photos, builds, meets, and posts."
       />
 
-      {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-              Your Feed
-            </p>
-            <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-              Activity
-            </h1>
-            <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-              Updates from people you follow — new photos, build entries, meets, and posts.
-            </p>
+      <PageHeader
+        kicker="Session log"
+        title="ACTIVITY"
+        right={
+          <div className="text-right font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+            <div>{events.length} events</div>
+            <div className="mt-1">Newest first</div>
           </div>
-        </PageWrapper>
-      </div>
+        }
+      />
 
-      {/* Content */}
-      <PageWrapper>
-        <div className="max-w-2xl py-8">
-          {loading && !initialLoaded ? (
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="h-24 animate-pulse rounded-xl bg-bg-surface"
-                />
-              ))}
-            </div>
-          ) : events.length > 0 ? (
-            <div className="space-y-4">
-              {events.map((event) => (
-                <FeedCard key={event.id} event={event} />
-              ))}
-
-              {hasMore && (
-                <button
+      <div className="border-t border-accent">
+        {loading && !initialLoaded ? (
+          <div className="space-y-px p-6 md:p-11">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-[62px] animate-pulse bg-bg-surface" />
+            ))}
+          </div>
+        ) : events.length > 0 ? (
+          <>
+            {events.map((event) => (
+              <LogLine
+                key={event.id}
+                event={event}
+                rsvped={!!event.entity_id && rsvps.has(event.entity_id)}
+                onToggleRsvp={toggleRsvp}
+              />
+            ))}
+            {hasMore && (
+              <div className="flex items-center gap-4 px-6 py-5 md:px-11">
+                <PWButton
+                  variant="secondary"
                   onClick={() => fetchFeed(events.length)}
                   disabled={loading}
-                  className="w-full rounded-lg border border-border bg-bg-surface py-3 font-body text-sm text-text-secondary transition-colors hover:border-accent-red/30 hover:text-text-primary disabled:opacity-50 cursor-pointer"
                 >
-                  {loading ? "Loading..." : "Load More"}
-                </button>
-              )}
+                  {loading ? "Loading…" : "Load more"}
+                </PWButton>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="px-6 py-10 md:px-11">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              No events on the log
+            </p>
+            <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-text-secondary">
+              Follow photographers, builders, and community members to see
+              their activity here.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Link to="/photos">
+                <PWButton variant="secondary">Discover photographers</PWButton>
+              </Link>
+              <Link
+                to="/builds"
+                className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary transition-colors duration-100 hover:text-accent"
+              >
+                Browse builds
+              </Link>
+              <Link
+                to="/meets"
+                className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary transition-colors duration-100 hover:text-accent"
+              >
+                Find meets
+              </Link>
             </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-                <svg
-                  className="h-10 w-10 text-text-muted"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"
-                  />
-                </svg>
-              </div>
-              <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-                Your Feed Is Empty
-              </h2>
-              <p className="font-body text-sm text-text-secondary max-w-md mb-6">
-                Follow photographers, builders, and community members to see their activity here.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <Link
-                  to="/photos"
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  Discover Photographers
-                </Link>
-                <Link
-                  to="/builds"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-surface px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-text-primary transition-colors hover:border-accent-red/30"
-                >
-                  Browse Builds
-                </Link>
-              </div>
-              <div className="mt-6 flex items-center gap-4">
-                <Link to="/meets" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Find Meets
-                </Link>
-                <span className="text-text-muted">·</span>
-                <Link to="/communities" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Communities
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </PageWrapper>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

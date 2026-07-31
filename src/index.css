@@ -4,7 +4,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* RevD Design System — Intelligent Dark Command Center */
+/* RevD Design System — Pit Wall + Margin
+   Every color resolves through a CSS variable emitted by src/lib/themes.ts.
+   The literals below are the amber defaults; applyTheme() overrides them. */
 @theme {
   --color-bg-base: #0A0B0D;
   --color-bg-surface: #111214;
@@ -12,16 +14,23 @@
   --color-text-primary: #E8E8ED;
   --color-text-secondary: #6B6F76;
   --color-text-muted: #3D4047;
+  --color-accent: #F5A623;
   --color-accent-amber: #F5A623;
   --color-accent-hover: #D4910F;
   --color-accent-dim: #F5A62320;
   --color-signal-green: #00D4AA;
   --color-signal-red: #FF4757;
-  /* Keep old token names as aliases for existing components that reference them */
-  --color-accent-red: #F5A623;
-  --font-display: 'Instrument Sans', sans-serif;
+  /* Structural rules / hairlines — light palettes get black equivalents via themes.ts */
+  --color-border-alpha: rgba(255, 255, 255, 0.08);
+  --color-border-hair: rgba(255, 255, 255, 0.06);
+  --color-border-rule: rgba(255, 255, 255, 0.12);
+  /* Marquee scrim stops — derived from bgBase by themes.ts, never hardcoded dark */
+  --color-scrim-mid: rgba(10, 11, 13, 0.55);
+  --color-scrim-end: rgba(10, 11, 13, 0.1);
   --font-body: 'Instrument Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  /* Margin's identity — Instrument Serif at print scale */
+  --font-editorial: 'Instrument Serif', serif;
 }
 
 @layer base {
@@ -41,11 +50,10 @@
     @apply bg-background text-foreground;
   }
 
+  /* Headings carry their own face per format (Pit Wall mono display,
+     Margin serif) — the base layer only resets spacing. */
   h1, h2, h3, h4 {
-    font-family: 'Instrument Sans', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.15;
+    margin: 0;
   }
 
   * {
@@ -75,70 +83,14 @@
 }
 
 @layer utilities {
-  .font-display {
-    font-family: 'Instrument Sans', sans-serif;
-    font-weight: 700;
-  }
   .font-body {
     font-family: 'Instrument Sans', sans-serif;
   }
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
-  .text-editorial {
-    letter-spacing: -0.035em;
-    line-height: 1.1;
-  }
-  /* Section header — amber left border, no uppercase display font */
-  .section-label {
-    font-family: 'Instrument Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: -0.025em;
-    color: var(--color-text-primary);
-    padding-left: 1rem;
-    border-left: 2px solid #F5A623;
-    line-height: 1.2;
-  }
-  /* Accent corner on cards — amber */
-  .card-corner::before,
-  .card-corner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #F5A623;
-    opacity: 0;
-    transition: opacity 0.12s ease;
-  }
-  .card-corner::before {
-    width: 1px;
-    height: 16px;
-  }
-  .card-corner::after {
-    width: 16px;
-    height: 1px;
-  }
-  .card-corner:hover::before,
-  .card-corner:hover::after {
-    opacity: 1;
-  }
-
-  /* Command center nav section label */
-  .nav-section-label {
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    padding: 0 12px;
-    margin-bottom: 4px;
-  }
-
-  /* Live pulse for metrics */
-  .pulse-live {
-    animation: pulse-live 3s ease-in-out infinite;
+  .font-editorial {
+    font-family: 'Instrument Serif', serif;
   }
 }
 
@@ -198,7 +150,6 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -236,17 +187,7 @@
   animation: page-enter 0.15s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
-/* Live metric pulse */
-@keyframes pulse-live {
-  0%, 100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* Smooth fade-in — no vertical movement */
+/* Smooth fade-in — no vertical movement. Also used for the 400ms plate crossfade. */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -260,75 +201,13 @@
   animation: fade-in 0.15s ease both;
 }
 
-/* Counter tick — for metric animations */
-@keyframes counter-tick {
-  from {
-    opacity: 0.5;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-counter-tick {
-  animation: counter-tick 0.3s ease-out both;
-}
-
-/* Keep legacy animation classes functional but faster */
-@keyframes fade-up-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fade-up-in 0.2s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.15s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-.animate-word {
-  animation: fade-up-in 0.2s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-/* Scroll indicator */
-@keyframes scroll-mouse {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateX(-50%) translateY(4px);
-    opacity: 0.7;
-  }
-}
-
-.animate-scroll-mouse {
-  animation: scroll-mouse 2s ease-in-out infinite;
-}
-
-/* Scanning line — subtler, amber */
-@keyframes scan-line {
+/* ─────────────────────────────────────────────────────────────
+   Ambient loops — the three canonical animations (FORMATS.md).
+   scan: 1px accent line sweeping a marquee image top to bottom.
+   pulse: live dots and the wordmark square.
+   sweep: 1px accent line crossing the telemetry strip.
+   ───────────────────────────────────────────────────────────── */
+@keyframes rd-scan {
   0% {
     top: -2px;
     opacity: 0;
@@ -345,18 +224,35 @@
   }
 }
 
-.scan-line {
-  animation: scan-line 6s linear infinite;
+@keyframes rd-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
-/* Hero zoom — kept for compatibility, tightened */
-@keyframes hero-zoom-in {
-  from {
-    transform: translateY(0) scale(1.05);
+@keyframes rd-sweep {
+  0% {
+    transform: translateX(-100%);
   }
-  to {
-    transform: translateY(0) scale(1.0);
+  100% {
+    transform: translateX(400%);
   }
+}
+
+.anim-scan {
+  animation: rd-scan 6s linear infinite;
+}
+
+.anim-pulse {
+  animation: rd-pulse 2s ease-in-out infinite;
+}
+
+.anim-sweep {
+  animation: rd-sweep 4s linear infinite;
 }
 
 /* ─────────────────────────────────────────────────────────────

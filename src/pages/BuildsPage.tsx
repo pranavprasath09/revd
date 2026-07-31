@@ -1,20 +1,24 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useBuildLogs from "@/hooks/useBuildLogs";
 import { supabase } from "@/lib/supabase";
+import PageHeader from "@/components/pitwall/PageHeader";
+import PWButton from "@/components/pitwall/Button";
+import Sheet, {
+  PosCell,
+  type SheetColumn,
+} from "@/components/pitwall/Sheet";
+import { useSheetSort } from "@/components/pitwall/useSheetSort";
+import { CARS, money } from "@/lib/carData";
 import type { BuildLog } from "@/types/buildlog";
-import carsData from "@/data/cars.json";
-import type { Car } from "@/types/car";
 
-const cars = carsData as Car[];
-
-interface BuildCardData {
+interface BuildRow {
   log: BuildLog;
   ownerName: string;
   carName: string;
+  carGen: string;
   coverImage: string | null;
   entryCount: number;
   likeCount: number;
@@ -23,112 +27,50 @@ interface BuildCardData {
 const fallbackImage =
   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80";
 
-function formatCost(cost: number): string {
-  if (cost === 0) return "$0";
-  return `$${cost.toLocaleString()}`;
-}
-
-function BuildCard({ data }: { data: BuildCardData }) {
-  return (
-    <Link
-      to={`/builds/${data.log.id}`}
-      className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
-    >
-      {/* Cover image */}
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <img
-          src={data.coverImage || fallbackImage}
-          alt={data.log.title}
-          loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = fallbackImage;
-          }}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/20 to-transparent" />
-
-        {/* Cost badge */}
-        {data.log.total_cost > 0 && (
-          <div className="absolute top-3 right-3 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
-            <span className="font-mono text-sm font-bold text-accent-red">
-              {formatCost(data.log.total_cost)}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Card body */}
-      <div className="p-4">
-        <h3 className="font-display text-xl uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
-          {data.log.title}
-        </h3>
-
-        <p className="mt-1.5 font-body text-xs text-text-secondary">
-          by{" "}
-          <span className="text-text-primary font-medium">{data.ownerName}</span>
-          {" · "}
-          <span className="text-text-muted">{data.carName}</span>
-        </p>
-
-        {/* Stats row */}
-        <div className="mt-3 flex items-center gap-4">
-          <div className="flex items-center gap-1.5">
-            <svg
-              className="h-3.5 w-3.5 text-accent-red"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-            </svg>
-            <span className="font-mono text-xs font-bold text-text-primary">
-              {data.entryCount}
-            </span>
-            <span className="font-body text-xs text-text-muted">
-              {data.entryCount === 1 ? "entry" : "entries"}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <svg
-              className="h-3.5 w-3.5 text-accent-red"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-            </svg>
-            <span className="font-mono text-xs font-bold text-text-primary">
-              {data.likeCount}
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
+type SortKey = "entries" | "cost" | "likes";
+const SORT_LABELS: Record<SortKey, string> = {
+  entries: "entries",
+  cost: "spend",
+  likes: "likes",
+};
 
 export default function BuildsPage() {
   const { user } = useAuthContext();
-  const { loading, fetchBuildLogs } = useBuildLogs();
+  const navigate = useNavigate();
+  const { loading, fetchBuildLogs, toggleLike } = useBuildLogs();
   const [buildLogs, setBuildLogs] = useState<BuildLog[]>([]);
-  const [cardData, setCardData] = useState<BuildCardData[]>([]);
+  const [rows, setRows] = useState<BuildRow[]>([]);
   const [enriching, setEnriching] = useState(false);
+  const [liked, setLiked] = useState<Set<string>>(new Set());
+  // Optimistic like deltas per build id
+  const [likeDelta, setLikeDelta] = useState<Record<string, number>>({});
+  const sort = useSheetSort<SortKey>("cost");
 
   useEffect(() => {
     fetchBuildLogs().then(setBuildLogs);
   }, [fetchBuildLogs]);
 
-  // Enrich build logs with owner names, car info, counts
+  // The current user's likes drive the ○/● toggles
+  useEffect(() => {
+    if (!user || buildLogs.length === 0) return;
+    let stale = false;
+    supabase
+      .from("build_likes")
+      .select("build_log_id")
+      .eq("user_id", user.id)
+      .in("build_log_id", buildLogs.map((b) => b.id))
+      .then(({ data }) => {
+        if (!stale && data) setLiked(new Set(data.map((l) => l.build_log_id)));
+      });
+    return () => {
+      stale = true;
+    };
+  }, [user, buildLogs]);
+
+  // Enrich with owner names, car info, counts (same sources as before)
   useEffect(() => {
     if (buildLogs.length === 0) {
-      setCardData([]);
+      setRows([]);
       setEnriching(false);
       return;
     }
@@ -140,7 +82,6 @@ export default function BuildsPage() {
       const ownerIds = [...new Set(buildLogs.map((b) => b.owner_id))];
       const carIds = [...new Set(buildLogs.map((b) => b.car_id))];
 
-      // Fetch owner names
       const { data: profiles } = await supabase
         .from("profiles")
         .select("id, display_name")
@@ -150,20 +91,21 @@ export default function BuildsPage() {
         ownerMap[p.id] = p.display_name ?? "Anonymous";
       });
 
-      // Fetch garage car info for car names
       const { data: garageCars } = await supabase
         .from("garage_cars")
         .select("id, car_id, nickname, year")
         .in("id", carIds);
-      const garageMap: Record<string, { car_id: string; nickname: string | null; year: string | null }> = {};
+      const garageMap: Record<
+        string,
+        { car_id: string; nickname: string | null; year: string | null }
+      > = {};
       (garageCars ?? []).forEach((gc) => {
         garageMap[gc.id] = gc;
       });
 
       const ids = buildLogs.map((b) => b.id);
 
-      // Cover images come from the most recent entries. Bounded so a build with
-      // thousands of entries can't blow up this query under traffic.
+      // Cover images from the most recent entries — bounded query
       const { data: entries } = await supabase
         .from("build_entries")
         .select("build_log_id, images")
@@ -174,15 +116,14 @@ export default function BuildsPage() {
       const firstImageMap: Record<string, string | null> = {};
       const entryCountFallback: Record<string, number> = {};
       (entries ?? []).forEach((e) => {
-        entryCountFallback[e.build_log_id] = (entryCountFallback[e.build_log_id] ?? 0) + 1;
+        entryCountFallback[e.build_log_id] =
+          (entryCountFallback[e.build_log_id] ?? 0) + 1;
         if (!firstImageMap[e.build_log_id] && e.images?.length > 0) {
           firstImageMap[e.build_log_id] = e.images[0];
         }
       });
 
-      // Counts come from the denormalized build_logs.like_count / entry_count
-      // columns (migration 015). Only if those aren't present yet do we run a
-      // BOUNDED like-count fallback rather than pulling every like row.
+      // Denormalized counters preferred; bounded fallback otherwise
       const likeCountFallback: Record<string, number> = {};
       if (buildLogs.some((b) => b.like_count === undefined)) {
         const { data: likes } = await supabase
@@ -191,35 +132,35 @@ export default function BuildsPage() {
           .in("build_log_id", ids)
           .limit(5000);
         (likes ?? []).forEach((l) => {
-          likeCountFallback[l.build_log_id] = (likeCountFallback[l.build_log_id] ?? 0) + 1;
+          likeCountFallback[l.build_log_id] =
+            (likeCountFallback[l.build_log_id] ?? 0) + 1;
         });
       }
 
-      const enriched: BuildCardData[] = buildLogs.map((log) => {
+      const enriched: BuildRow[] = buildLogs.map((log) => {
         const gc = garageMap[log.car_id];
         const staticCar = gc
-          ? cars.find((c) => c.id === gc.car_id || c.slug === gc.car_id)
+          ? CARS.find((c) => c.id === gc.car_id || c.slug === gc.car_id)
           : undefined;
         const carName = gc?.nickname
           ? gc.nickname
           : staticCar
             ? `${gc?.year ?? ""} ${staticCar.make} ${staticCar.model}`.trim()
-            : "Unknown Car";
-        const coverImage =
-          firstImageMap[log.id] ?? staticCar?.heroImage ?? null;
+            : "Unknown car";
 
         return {
           log,
           ownerName: ownerMap[log.owner_id] ?? "Anonymous",
           carName,
-          coverImage,
+          carGen: staticCar?.generation ?? "—",
+          coverImage: firstImageMap[log.id] ?? staticCar?.heroImage ?? null,
           entryCount: log.entry_count ?? entryCountFallback[log.id] ?? 0,
           likeCount: log.like_count ?? likeCountFallback[log.id] ?? 0,
         };
       });
 
       if (stale) return;
-      setCardData(enriched);
+      setRows(enriched);
       setEnriching(false);
     }
 
@@ -229,129 +170,215 @@ export default function BuildsPage() {
     };
   }, [buildLogs]);
 
+  const handleLike = async (buildLogId: string) => {
+    if (!user) {
+      navigate("/sign-in?redirect=/builds");
+      return;
+    }
+    const isLiked = liked.has(buildLogId);
+    // Optimistic — update immediately, revert on error
+    setLiked((prev) => {
+      const next = new Set(prev);
+      if (isLiked) next.delete(buildLogId);
+      else next.add(buildLogId);
+      return next;
+    });
+    setLikeDelta((prev) => ({
+      ...prev,
+      [buildLogId]: (prev[buildLogId] ?? 0) + (isLiked ? -1 : 1),
+    }));
+    const ok = await toggleLike(buildLogId);
+    if (!ok) {
+      setLiked((prev) => {
+        const next = new Set(prev);
+        if (isLiked) next.add(buildLogId);
+        else next.delete(buildLogId);
+        return next;
+      });
+      setLikeDelta((prev) => ({
+        ...prev,
+        [buildLogId]: (prev[buildLogId] ?? 0) + (isLiked ? 1 : -1),
+      }));
+    }
+  };
+
+  const maxEntries = Math.max(1, ...rows.map((r) => r.entryCount));
+  const sorted = useMemo(
+    () =>
+      sort.sortRows(rows, (r, key) =>
+        key === "entries"
+          ? r.entryCount
+          : key === "cost"
+            ? r.log.total_cost
+            : r.likeCount + (likeDelta[r.log.id] ?? 0),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [rows, sort.sortKey, sort.sortDir, likeDelta],
+  );
+
+  const columns: SheetColumn<BuildRow>[] = [
+    { key: "no", label: "No", width: "44px", render: (_, i) => <PosCell index={i} /> },
+    {
+      key: "build",
+      label: "Build",
+      width: "1fr",
+      render: (r) => (
+        <span className="flex min-w-0 items-center gap-3.5 py-2 pr-6">
+          <img
+            src={r.coverImage || fallbackImage}
+            alt=""
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = fallbackImage;
+            }}
+            className="h-10 w-[66px] shrink-0 object-cover grayscale-[0.35]"
+          />
+          <span className="flex min-w-0 flex-col gap-0.5">
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-semibold tracking-[-0.02em] text-text-primary">
+              {r.log.title}
+            </span>
+            <span className="font-mono text-[10px] text-text-secondary">
+              {r.carName} · {r.carGen}
+            </span>
+          </span>
+        </span>
+      ),
+    },
+    {
+      key: "owner",
+      label: "Owner",
+      width: "158px",
+      optional: true,
+      render: (r) => (
+        <span className="text-[13px] text-text-secondary">{r.ownerName}</span>
+      ),
+    },
+    {
+      key: "entries",
+      label: <>Entries{sort.arrow("entries")}</>,
+      width: "176px",
+      sortable: true,
+      optional: true,
+      render: (r) => (
+        <span className="flex items-center gap-3 pr-7">
+          <span className="relative h-[3px] flex-1 bg-bg-elevated">
+            <span
+              className="absolute inset-y-0 left-0 bg-accent"
+              style={{ width: `${Math.round((r.entryCount / maxEntries) * 100)}%` }}
+            />
+          </span>
+          <span className="font-mono text-xs text-text-primary">{r.entryCount}</span>
+        </span>
+      ),
+    },
+    {
+      key: "cost",
+      label: <>Spend{sort.arrow("cost")}</>,
+      width: "116px",
+      sortable: true,
+      render: (r) => (
+        <span className="font-mono text-[13px] text-text-primary">
+          {money(r.log.total_cost)}
+        </span>
+      ),
+    },
+    {
+      key: "likes",
+      label: <>Likes{sort.arrow("likes")}</>,
+      width: "104px",
+      align: "right",
+      sortable: true,
+      render: (r) => {
+        const isLiked = liked.has(r.log.id);
+        const count = r.likeCount + (likeDelta[r.log.id] ?? 0);
+        return (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLike(r.log.id);
+            }}
+            aria-pressed={isLiked}
+            aria-label={isLiked ? "Unlike build" : "Like build"}
+            className={`flex cursor-pointer items-center gap-[7px] border px-2.5 py-1.5 font-mono text-[11px] transition-colors duration-100 ${
+              isLiked
+                ? "border-accent text-accent"
+                : "border-border-alpha text-text-secondary hover:border-accent hover:text-accent"
+            }`}
+          >
+            <span>{isLiked ? "●" : "○"}</span>
+            <span>{count}</span>
+          </button>
+        );
+      },
+    },
+  ];
+
   return (
-    <div className="page-enter">
+    <div className="page-enter pb-14">
       <SEOHead
         title="Build Logs"
         description="Follow car builds from the RevD community. Mods, costs, progress photos — every step documented."
       />
 
-      {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-                  Showcase
-                </p>
-                <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-                  Build Logs
-                </h1>
-                <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-                  Follow builds from the community. Every mod, every dollar, every step — documented.
-                </p>
-              </div>
+      <PageHeader
+        kicker="Showcase"
+        title="BUILD LOGS"
+        support="Every mod, every dollar, every step — documented. Sorted by spend, entries or likes."
+        right={
+          user ? (
+            <Link to="/builds/create">
+              <PWButton>Start a build</PWButton>
+            </Link>
+          ) : (
+            <Link to="/sign-in?redirect=/builds/create">
+              <PWButton variant="secondary">Sign in to build</PWButton>
+            </Link>
+          )
+        }
+      />
 
-              {user && (
-                <Link
-                  to="/builds/create"
-                  className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 5v14M5 12h14"
-                    />
-                  </svg>
-                  Start a Build
-                </Link>
-              )}
+      <div className="px-6 md:px-11">
+        {loading || enriching ? (
+          <div className="space-y-px">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-[62px] animate-pulse bg-bg-surface" />
+            ))}
+          </div>
+        ) : sorted.length > 0 ? (
+          <Sheet
+            columns={columns}
+            rows={sorted}
+            rowKey={(r) => r.log.id}
+            rowHeight={62}
+            onSort={(key) => sort.toggle(key as SortKey)}
+            onRowClick={(r) => navigate(`/builds/${r.log.id}`)}
+          />
+        ) : (
+          <div className="border-t border-accent py-10">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              No builds on the programme
+            </p>
+            <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-text-secondary">
+              Nobody has published a build yet. Document yours — every mod,
+              every dollar, every step.
+            </p>
+            <div className="mt-6">
+              <Link to={user ? "/builds/create" : "/sign-in?redirect=/builds/create"}>
+                <PWButton>Start the first build</PWButton>
+              </Link>
             </div>
           </div>
-        </PageWrapper>
+        )}
       </div>
 
-      {/* Content */}
-      <PageWrapper>
-        <div className="py-8">
-          {loading || enriching ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="aspect-[16/10] animate-pulse rounded-xl bg-bg-surface"
-                />
-              ))}
-            </div>
-          ) : cardData.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {cardData.map((d) => (
-                <BuildCard key={d.log.id} data={d} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-                <svg
-                  className="h-10 w-10 text-text-muted"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-                  />
-                </svg>
-              </div>
-              <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-                No Builds Yet
-              </h2>
-              <p className="font-body text-sm text-text-secondary max-w-md mb-6">
-                Be the first to document your build. Add a car to your garage, then start logging every mod.
-              </p>
-              {user ? (
-                <Link
-                  to="/builds/create"
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  Start the First Build
-                </Link>
-              ) : (
-                <Link
-                  to="/sign-in?redirect=/builds"
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  Sign In to Start Building
-                </Link>
-              )}
-              <div className="mt-6 flex items-center gap-4">
-                <Link to="/photos" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Browse Photos
-                </Link>
-                <span className="text-text-muted">·</span>
-                <Link to="/meets" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Find Meets
-                </Link>
-                <span className="text-text-muted">·</span>
-                <Link to="/garage" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  My Garage
-                </Link>
-              </div>
-            </div>
-          )}
+      {/* Sorted-by note (parity with the filter bar count line) */}
+      {sorted.length > 0 && (
+        <div className="px-6 pt-3 md:px-11">
+          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+            {sorted.length} builds · sorted by {SORT_LABELS[sort.sortKey]}
+          </span>
         </div>
-      </PageWrapper>
+      )}
     </div>
   );
 }

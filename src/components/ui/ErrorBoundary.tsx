@@ -35,22 +35,25 @@ export default class ErrorBoundary extends Component<Props, State> {
 
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 text-center">
-        <p className="font-display text-6xl uppercase tracking-tight text-accent-red">
+        <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-signal-red">
+          Error
+        </p>
+        <p className="mt-2 font-mono text-5xl font-bold uppercase leading-none tracking-[-0.035em] text-text-primary">
           Something broke
         </p>
-        <p className="font-body mt-4 max-w-md text-sm text-text-secondary">
+        <p className="mt-4 max-w-md text-sm text-text-secondary">
           This page hit an unexpected error. Try again, or head back home.
         </p>
         <div className="mt-8 flex gap-3">
           <button
             onClick={this.handleReset}
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
+            className="cursor-pointer border border-accent bg-accent px-5 py-[11px] font-mono text-[10px] uppercase tracking-[0.18em] text-bg-base transition-colors duration-100 hover:border-accent-hover hover:bg-accent-hover"
           >
             Try again
           </button>
           <a
             href="/"
-            className="rounded-lg border border-border px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-text-primary transition-colors hover:bg-bg-elevated cursor-pointer"
+            className="cursor-pointer border border-border-rule px-5 py-[11px] font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary transition-colors duration-100 hover:border-accent hover:text-accent"
           >
             Go home
           </a>

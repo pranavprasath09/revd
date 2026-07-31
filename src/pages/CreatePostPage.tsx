@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
 import { supabase } from "@/lib/supabase";
+import { prepareImageForUpload, validateImageFile } from "@/lib/upload";
+import PageHeader from "@/components/pitwall/PageHeader";
+import PWButton from "@/components/pitwall/Button";
+import Field, { FormSection, TextareaField } from "@/components/pitwall/Field";
 import type { Community } from "@/types/forum";
-import { validateImageFile, prepareImageForUpload } from "@/lib/upload";
 
 export default function CreatePostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +24,7 @@ export default function CreatePostPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [triedSubmit, setTriedSubmit] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -47,14 +50,13 @@ export default function CreatePostPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setTriedSubmit(true);
     if (!community || !user || !title.trim()) return;
     setSubmitting(true);
     setError(null);
 
     try {
       let imageUrl: string | undefined;
-
-      // Upload image if provided (downscaled to 2048px WebP)
       if (imageFile) {
         const prepared = await prepareImageForUpload(imageFile);
         const ext = prepared.name.split(".").pop();
@@ -62,13 +64,8 @@ export default function CreatePostPage() {
         const { error: uploadError } = await supabase.storage
           .from("posts")
           .upload(path, prepared);
-
         if (uploadError) throw uploadError;
-
-        const { data: urlData } = supabase.storage
-          .from("posts")
-          .getPublicUrl(path);
-
+        const { data: urlData } = supabase.storage.from("posts").getPublicUrl(path);
         imageUrl = urlData.publicUrl;
       }
 
@@ -92,69 +89,54 @@ export default function CreatePostPage() {
     }
   }
 
-  // Wait for session restore before gating — otherwise a signed-in user
-  // hard-refreshing sees "Sign In Required" flash
-  if (authLoading) {
+  if (authLoading || loading) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-          </div>
-        </PageWrapper>
+      <div className="page-enter px-6 py-[34px] md:px-11">
+        <div className="h-12 w-1/3 animate-pulse bg-bg-surface" />
+        <div className="mt-6 h-64 animate-pulse bg-bg-surface" />
       </div>
     );
   }
 
-  // Auth gate
   if (!user) {
     return (
       <div className="page-enter">
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
-            Sign In Required
-          </h1>
-          <p className="font-body text-sm text-text-secondary mb-6">
-            You need to be signed in to create a post.
+        <PageHeader
+          breadcrumb={[{ label: "Departments" }, { label: "New post", accent: true }]}
+          title="NEW POST"
+        />
+        <div className="px-6 md:px-11">
+          <p className="max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            Sign in to post to the department.
           </p>
-          <Link
-            to={`/sign-in?redirect=/communities/${slug}/create`}
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Sign In
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
+          <div className="mt-6">
+            <Link to={`/sign-in?redirect=/communities/${slug}/create`}>
+              <PWButton>Sign in</PWButton>
+            </Link>
           </div>
-        </PageWrapper>
+        </div>
       </div>
     );
   }
 
   if (!community) {
     return (
-      <div className="page-enter">
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <div className="font-mono text-6xl font-black text-text-muted">404</div>
-          <h1 className="font-display mt-4 text-2xl uppercase tracking-wide text-text-primary">
-            Community not found
-          </h1>
+      <div className="page-enter px-6 pb-[72px] pt-[34px] md:px-11">
+        <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-signal-red">
+          Error
+        </div>
+        <h1 className="mt-2 font-mono text-[56px] font-bold leading-[0.9] tracking-[-0.045em] md:text-[96px]">
+          404
+        </h1>
+        <p className="mt-4 max-w-[460px] text-[15px] leading-relaxed text-text-secondary">
+          No department at that address.
+        </p>
+        <div className="mt-7">
           <Link
             to="/communities"
-            className="mt-6 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
+            className="border-b border-accent pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-accent"
           >
-            Browse Communities
+            Browse departments
           </Link>
         </div>
       </div>
@@ -166,172 +148,119 @@ export default function CreatePostPage() {
   if (community.is_premium_only && tierLoaded && !isPremium) {
     return (
       <div className="page-enter">
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
-            PRO Members Only
-          </h1>
-          <p className="font-body text-sm text-text-secondary mb-6 max-w-md">
-            {community.name} is a premium community. Upgrade to RevD PRO to post here.
+        <PageHeader kicker="Pro members only" title="LOCKED" />
+        <div className="px-6 md:px-11">
+          <p className="max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            {community.name} is a premium department. Upgrade to RevD PRO to
+            post here.
           </p>
-          <Link
-            to="/premium"
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Upgrade to PRO
-          </Link>
+          <div className="mt-6">
+            <Link to="/premium">
+              <PWButton>Go Pro</PWButton>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-enter">
+    <div className="page-enter pb-[72px]">
       <SEOHead
         title={`New Post — ${community.name}`}
         description={`Create a new post in the ${community.name} community.`}
       />
 
-      {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-8 sm:py-10">
-            <div className="flex items-center gap-2 mb-3">
-              <Link
-                to="/communities"
-                className="font-body text-xs text-text-muted hover:text-text-secondary transition-colors"
-              >
-                Communities
-              </Link>
-              <span className="text-text-muted">/</span>
-              <Link
-                to={`/communities/${slug}`}
-                className="font-body text-xs text-text-muted hover:text-text-secondary transition-colors"
-              >
-                {community.name}
-              </Link>
-              <span className="text-text-muted">/</span>
-              <span className="font-body text-xs text-text-secondary">New Post</span>
-            </div>
-            <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
-              Create a Post
-            </h1>
-          </div>
-        </PageWrapper>
-      </div>
+      <PageHeader
+        breadcrumb={[
+          { label: "Departments" },
+          { label: community.name },
+          { label: "New post", accent: true },
+        ]}
+        title="NEW POST"
+      />
 
-      {/* Form */}
-      <PageWrapper>
-        <div className="py-8 max-w-2xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Title */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Title *
-              </label>
-              <input
-                type="text"
-                value={title}
-                maxLength={300}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="What's on your mind?"
-                required
-                className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Body */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Body <span className="text-text-muted">(optional)</span>
-              </label>
-              <textarea
-                value={body}
-                maxLength={20000}
-                onChange={(e) => setBody(e.target.value)}
-                placeholder="Share more details..."
-                rows={6}
-                className="w-full resize-none rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Image upload */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Image <span className="text-text-muted">(optional)</span>
-              </label>
-
-              {imagePreview ? (
-                <div className="relative rounded-xl overflow-hidden border border-border">
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="w-full max-h-64 object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setImageFile(null);
-                      setImagePreview(null);
-                    }}
-                    className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-bg-base/80 text-white backdrop-blur-sm hover:bg-bg-base transition-colors cursor-pointer"
-                  >
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ) : (
-                <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-border bg-bg-surface py-8 transition-colors hover:border-accent-red/30">
-                  <svg
-                    className="h-8 w-8 text-text-muted mb-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"
-                    />
-                  </svg>
-                  <span className="font-body text-sm text-text-muted">Click to upload an image</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-                </label>
-              )}
-            </div>
-
-            {/* Error */}
-            {error && (
-              <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3">
-                <p className="font-body text-sm text-red-400">{error}</p>
-              </div>
-            )}
-
-            {/* Submit */}
-            <div className="flex items-center gap-3">
-              <button
-                type="submit"
-                disabled={!title.trim() || submitting}
-                className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {submitting ? "Posting..." : "Post"}
-              </button>
-              <Link
-                to={`/communities/${slug}`}
-                className="rounded-lg border border-border px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
-              >
-                Cancel
-              </Link>
-            </div>
-          </form>
+      <form onSubmit={handleSubmit} className="max-w-[780px] px-6 md:px-11">
+        <FormSection label="The post" />
+        <div className="grid gap-5">
+          <Field
+            label="Title"
+            value={title}
+            maxLength={300}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Is the FD's apex seal fear overblown?"
+            error={
+              triedSubmit && !title.trim()
+                ? "Required — give the post a title"
+                : undefined
+            }
+          />
+          <TextareaField
+            label="Body"
+            value={body}
+            maxLength={20000}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Make the argument"
+            rows={6}
+          />
         </div>
-      </PageWrapper>
+
+        <FormSection label="Image" />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
+          id="post-image-upload"
+        />
+        <label
+          htmlFor="post-image-upload"
+          className="block cursor-pointer border border-border-alpha px-5 py-6 text-center transition-colors duration-100 hover:border-accent"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary">
+            {imageFile ? "Change image" : "+ Add an image"}
+          </span>
+        </label>
+        {imagePreview && (
+          <div className="relative mt-4 w-fit">
+            <img
+              src={imagePreview}
+              alt="Post preview"
+              className="max-h-64 border border-border-alpha object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                URL.revokeObjectURL(imagePreview);
+                setImageFile(null);
+                setImagePreview(null);
+              }}
+              aria-label="Remove image"
+              className="absolute right-1.5 top-1.5 flex h-6 w-6 cursor-pointer items-center justify-center bg-bg-base/80 font-mono text-[11px] text-text-primary"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
+        {error && (
+          <p className="mt-5 border border-signal-red px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-signal-red">
+            {error}
+          </p>
+        )}
+
+        <div className="mt-10 flex items-center gap-[18px] border-t border-border-alpha pt-[22px]">
+          <PWButton type="submit" disabled={submitting}>
+            {submitting ? "Posting…" : "Post it"}
+          </PWButton>
+          <Link
+            to={`/communities/${slug}`}
+            className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary transition-colors duration-100 hover:text-text-primary"
+          >
+            Cancel
+          </Link>
+        </div>
+      </form>
     </div>
   );
 }

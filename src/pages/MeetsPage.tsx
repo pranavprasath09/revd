@@ -1,186 +1,126 @@
-import { useState, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
-import CategoryFilter from "@/components/ui/CategoryFilter";
 import { useAuthContext } from "@/context/AuthContext";
 import useMeets from "@/hooks/useMeets";
+import { supabase } from "@/lib/supabase";
+import PWButton, { ToggleButton } from "@/components/pitwall/Button";
 import type { Meet } from "@/types/meet";
 
 const MEET_TYPES = ["All", "Cars & Coffee", "Track Day", "Cruise", "Show", "Private"];
 
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr + "T00:00:00");
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
+const fallbackImage =
+  "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80";
+
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function meetDay(dateStr: string) {
+  const d = new Date(dateStr + "T00:00:00");
+  return {
+    day: String(d.getDate()).padStart(2, "0"),
+    weekday: d.toLocaleDateString("en-US", { weekday: "short" }),
+    monthKey: `${d.getFullYear()}-${d.getMonth()}`,
+    monthLabel: `${MONTH_NAMES[d.getMonth()]} ${d.getFullYear() !== new Date().getFullYear() ? d.getFullYear() : ""}`.trim(),
+  };
 }
 
-// ─── Meet Card ──────────────────────────────────────────────────
-interface MeetCardProps {
-  meet: Meet;
-  rsvpCount: number;
-}
-
-function MeetCard({ meet, rsvpCount }: MeetCardProps) {
-  const fallbackImage =
-    "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80";
-
-  return (
-    <Link
-      to={`/meets/${meet.id}`}
-      className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
-    >
-      {/* Cover image */}
-      <div className="relative h-44 overflow-hidden">
-        <img
-          src={meet.cover_image_url || fallbackImage}
-          alt={meet.name}
-          loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = fallbackImage;
-          }}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/20 to-transparent" />
-
-        {/* Meet type badge */}
-        {meet.meet_type && (
-          <div className="absolute top-3 left-3 rounded-full bg-accent-red/90 px-3 py-1 backdrop-blur-sm">
-            <span className="font-body text-[10px] font-bold uppercase tracking-wider text-white">
-              {meet.meet_type}
-            </span>
-          </div>
-        )}
-
-        {/* Attendee count */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
-          <svg
-            className="h-3.5 w-3.5 text-accent-red"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          </svg>
-          <span className="font-mono text-sm font-bold text-text-primary">
-            {rsvpCount}
-          </span>
-        </div>
-      </div>
-
-      {/* Card body */}
-      <div className="p-4">
-        <h3 className="font-display text-xl uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
-          {meet.name}
-        </h3>
-
-        <div className="mt-2 flex flex-col gap-1.5">
-          {/* Date */}
-          <div className="flex items-center gap-2">
-            <svg
-              className="h-3.5 w-3.5 shrink-0 text-accent-red"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-              <line x1="16" x2="16" y1="2" y2="6" />
-              <line x1="8" x2="8" y1="2" y2="6" />
-              <line x1="3" x2="21" y1="10" y2="10" />
-            </svg>
-            <span className="font-body text-sm text-text-secondary">
-              {formatDate(meet.date)}
-              {meet.time && ` · ${meet.time.slice(0, 5)}`}
-            </span>
-          </div>
-
-          {/* Location */}
-          {meet.location_name && (
-            <div className="flex items-center gap-2">
-              <svg
-                className="h-3.5 w-3.5 shrink-0 text-accent-red"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span className="font-body text-sm text-text-secondary truncate">
-                {meet.location_name}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-// ─── Main Page ──────────────────────────────────────────────────
 export default function MeetsPage() {
   const { user } = useAuthContext();
-  const { loading, fetchMeets } = useMeets();
+  const navigate = useNavigate();
+  const { loading, fetchMeets, rsvpToMeet, unrsvpFromMeet, getUserRsvps } =
+    useMeets();
   const [meets, setMeets] = useState<Meet[]>([]);
   const [rsvpCounts, setRsvpCounts] = useState<Record<string, number>>({});
+  const [myRsvps, setMyRsvps] = useState<Set<string>>(new Set());
+  // Optimistic count deltas per meet
+  const [deltas, setDeltas] = useState<Record<string, number>>({});
   const [activeType, setActiveType] = useState("All");
 
   useEffect(() => {
     fetchMeets().then(setMeets);
   }, [fetchMeets]);
 
-  // RSVP counts come from the denormalized meets.rsvp_count column (migration
-  // 015) — O(1) per meet, no row fanout. Only if that column isn't present yet
-  // (migration not applied) do we fall back to a BOUNDED aggregation query so a
-  // viral meet can never ship tens of thousands of RSVP rows to the browser.
+  useEffect(() => {
+    if (user) getUserRsvps().then((ids) => setMyRsvps(new Set(ids)));
+  }, [user, getUserRsvps]);
+
+  // Counts come from the denormalized meets.rsvp_count column (migration 015);
+  // bounded fallback aggregation only when it isn't present yet.
   useEffect(() => {
     if (meets.length === 0) return;
-    const needsFallback = meets.some((m) => m.rsvp_count === undefined);
-    if (!needsFallback) return;
+    if (!meets.some((m) => m.rsvp_count === undefined)) return;
 
     let stale = false;
-    import("@/lib/supabase").then(({ supabase }) => {
-      supabase
-        .from("meet_rsvps")
-        .select("meet_id")
-        .in("meet_id", meets.map((m) => m.id))
-        .limit(2000)
-        .then(({ data }) => {
-          if (stale || !data) return;
-          const counts: Record<string, number> = {};
-          data.forEach((r) => {
-            counts[r.meet_id] = (counts[r.meet_id] || 0) + 1;
-          });
-          setRsvpCounts(counts);
+    supabase
+      .from("meet_rsvps")
+      .select("meet_id")
+      .in("meet_id", meets.map((m) => m.id))
+      .limit(2000)
+      .then(({ data }) => {
+        if (stale || !data) return;
+        const counts: Record<string, number> = {};
+        data.forEach((r) => {
+          counts[r.meet_id] = (counts[r.meet_id] || 0) + 1;
         });
-    });
+        setRsvpCounts(counts);
+      });
     return () => {
       stale = true;
     };
   }, [meets]);
 
-  const filteredMeets = useMemo(() => {
-    if (activeType === "All") return meets;
-    return meets.filter((m) => m.meet_type === activeType);
-  }, [meets, activeType]);
+  const toggleRsvp = async (meet: Meet) => {
+    if (!user) {
+      navigate("/sign-in?redirect=/meets");
+      return;
+    }
+    const going = myRsvps.has(meet.id);
+    // Optimistic — flip immediately, revert on error
+    setMyRsvps((prev) => {
+      const next = new Set(prev);
+      if (going) next.delete(meet.id);
+      else next.add(meet.id);
+      return next;
+    });
+    setDeltas((prev) => ({ ...prev, [meet.id]: (prev[meet.id] ?? 0) + (going ? -1 : 1) }));
+    const ok = going ? await unrsvpFromMeet(meet.id) : await rsvpToMeet(meet.id);
+    if (!ok) {
+      setMyRsvps((prev) => {
+        const next = new Set(prev);
+        if (going) next.add(meet.id);
+        else next.delete(meet.id);
+        return next;
+      });
+      setDeltas((prev) => ({ ...prev, [meet.id]: (prev[meet.id] ?? 0) + (going ? 1 : -1) }));
+    }
+  };
+
+  const filtered = useMemo(
+    () =>
+      activeType === "All" ? meets : meets.filter((m) => m.meet_type === activeType),
+    [meets, activeType],
+  );
+
+  // Group by month, preserving date order
+  const months = useMemo(() => {
+    const out: { key: string; label: string; items: Meet[] }[] = [];
+    for (const meet of filtered) {
+      const { monthKey, monthLabel } = meetDay(meet.date);
+      const last = out[out.length - 1];
+      if (last && last.key === monthKey) last.items.push(meet);
+      else out.push({ key: monthKey, label: monthLabel, items: [meet] });
+    }
+    return out;
+  }, [filtered]);
+
+  const countFor = (m: Meet) =>
+    (m.rsvp_count ?? rsvpCounts[m.id] ?? 0) + (deltas[m.id] ?? 0);
 
   return (
-    <div className="page-enter">
+    <div className="page-enter px-6 pb-20 pt-12 md:px-14">
       <SEOHead
         title="Car Meets"
         description="Find and join car meets near you. Cars & Coffee, track days, cruises, shows, and more."
@@ -188,156 +128,143 @@ export default function MeetsPage() {
       />
 
       {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-                  Community
-                </p>
-                <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-                  Car Meets
-                </h1>
-                <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-                  Find your next meet. RSVP, share with friends, and show up with your build.
-                </p>
-              </div>
-
-              {user && (
-                <Link
-                  to="/meets/create"
-                  className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 5v14M5 12h14"
-                    />
-                  </svg>
-                  Create Meet
-                </Link>
-              )}
-            </div>
-
-            {/* Type filter */}
-            <div className="mt-8">
-              <CategoryFilter
-                categories={MEET_TYPES}
-                active={activeType}
-                onChange={setActiveType}
-              />
-            </div>
+      <div className="flex flex-col gap-6 pb-[22px] md:flex-row md:items-end md:justify-between">
+        <div>
+          <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
+            The calendar
           </div>
-        </PageWrapper>
+          <h1 className="mt-2.5 font-editorial text-[44px] font-normal leading-none tracking-[-0.015em] text-text-primary md:text-[66px]">
+            Meets
+          </h1>
+          <p className="mt-3.5 max-w-[520px] font-editorial text-lg italic text-text-secondary">
+            Where people are actually going, in the order they are going there.
+          </p>
+        </div>
+        <Link to={user ? "/meets/create" : "/sign-in?redirect=/meets/create"}>
+          <PWButton variant="secondary">Host a meet</PWButton>
+        </Link>
       </div>
 
-      {/* Content */}
-      <PageWrapper>
-        <div className="py-8">
-          {loading ? (
-            /* Loading skeleton */
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="h-72 animate-pulse rounded-xl bg-bg-surface"
-                />
-              ))}
-            </div>
-          ) : filteredMeets.length > 0 ? (
-            /* Meet grid */
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredMeets.map((meet) => (
-                <MeetCard
-                  key={meet.id}
-                  meet={meet}
-                  rsvpCount={meet.rsvp_count ?? rsvpCounts[meet.id] ?? 0}
-                />
-              ))}
-            </div>
-          ) : (
-            /* Empty state */
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-                <svg
-                  className="h-10 w-10 text-text-muted"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                  />
-                </svg>
-              </div>
-              <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-                No Meets Yet
-              </h2>
-              <p className="font-body text-sm text-text-secondary max-w-md mb-6">
-                Be the first to organize a meet. Bring the car community together
-                — it only takes a minute.
-              </p>
-              {user ? (
-                <Link
-                  to="/meets/create"
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 5v14M5 12h14"
-                    />
-                  </svg>
-                  Create the First Meet
-                </Link>
-              ) : (
-                <Link
-                  to="/sign-in?redirect=/meets"
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  Sign In to Create a Meet
-                </Link>
-              )}
-              <div className="mt-6 flex items-center gap-4">
-                <Link to="/photos" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Browse Photos
-                </Link>
-                <span className="text-text-muted">·</span>
-                <Link to="/communities" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Communities
-                </Link>
-                <span className="text-text-muted">·</span>
-                <Link to="/cars" className="font-body text-sm text-text-secondary hover:text-accent-red transition-colors">
-                  Explore Cars
-                </Link>
-              </div>
-            </div>
-          )}
+      {/* Type words */}
+      <div className="flex flex-wrap items-baseline gap-5 pb-2">
+        {MEET_TYPES.map((t) => (
+          <button
+            key={t}
+            onClick={() => setActiveType(t)}
+            aria-pressed={activeType === t}
+            className={`cursor-pointer border-b pb-[3px] font-mono text-[10px] uppercase tracking-[0.16em] transition-colors duration-100 ${
+              activeType === t
+                ? "border-accent text-accent"
+                : "border-transparent text-text-secondary hover:text-accent"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {loading ? (
+        <div className="space-y-px pt-8">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-32 animate-pulse bg-bg-surface" />
+          ))}
         </div>
-      </PageWrapper>
+      ) : months.length === 0 ? (
+        <div className="border-t border-accent pt-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+            Nothing on the calendar
+            {activeType !== "All" ? ` for ${activeType}` : ""}
+          </p>
+          <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            Put something on it — the first meet listed here sets the pace.
+          </p>
+        </div>
+      ) : (
+        months.map((month) => (
+          <div key={month.key} className="mt-[30px] border-t border-accent">
+            <h2 className="mb-2 mt-4 font-editorial text-[34px] font-normal leading-none text-text-primary md:text-[46px]">
+              {month.label}
+            </h2>
+            {month.items.map((meet) => {
+              const { day, weekday } = meetDay(meet.date);
+              const going = myRsvps.has(meet.id);
+              const count = countFor(meet);
+              const cap = meet.max_attendees;
+              const spots = cap ? Math.max(0, cap - count) : null;
+              return (
+                <div
+                  key={meet.id}
+                  className="grid grid-cols-[64px_1fr] items-start gap-x-5 border-t border-border-alpha py-[26px] md:grid-cols-[108px_1fr_208px] md:gap-x-8"
+                >
+                  <div>
+                    <div className="font-editorial text-[32px] leading-none text-text-primary md:text-[44px]">
+                      {day}
+                    </div>
+                    <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-text-secondary">
+                      {weekday}
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <Link to={`/meets/${meet.id}`}>
+                      <h3 className="font-editorial text-[24px] font-normal leading-[1.12] text-text-primary transition-colors duration-150 hover:text-accent md:text-[30px]">
+                        {meet.name}
+                      </h3>
+                    </Link>
+                    {meet.location_name && (
+                      <p className="mt-1.5 font-editorial text-[15px] italic text-text-secondary">
+                        {meet.location_name}
+                      </p>
+                    )}
+                    <div className="mt-3 flex flex-wrap gap-x-[18px] gap-y-1 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+                      {meet.time && <span>{meet.time.slice(0, 5)}</span>}
+                      <span>
+                        {count}
+                        {cap ? ` / ${cap}` : " going"}
+                      </span>
+                      {spots !== null && (
+                        <span
+                          style={{
+                            color:
+                              spots === 0
+                                ? "var(--color-signal-red)"
+                                : spots < 8
+                                  ? "var(--color-accent)"
+                                  : undefined,
+                          }}
+                        >
+                          {spots === 0 ? "Waitlist" : `${spots} spots left`}
+                        </span>
+                      )}
+                      {meet.meet_type && <span>{meet.meet_type}</span>}
+                    </div>
+                  </div>
+                  <div className="col-span-2 mt-4 md:col-span-1 md:mt-0">
+                    <Link to={`/meets/${meet.id}`} className="block max-md:hidden">
+                      <img
+                        src={meet.cover_image_url || fallbackImage}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = fallbackImage;
+                        }}
+                        className="block w-full object-cover"
+                        style={{ aspectRatio: "4 / 3" }}
+                      />
+                    </Link>
+                    <ToggleButton
+                      on={going}
+                      onClick={() => toggleRsvp(meet)}
+                      className="mt-2.5 w-full py-2.5"
+                    >
+                      {going ? "Going" : "RSVP"}
+                    </ToggleButton>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))
+      )}
     </div>
   );
 }

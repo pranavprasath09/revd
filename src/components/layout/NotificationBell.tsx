@@ -94,12 +94,12 @@ export default function NotificationBell() {
       {/* Bell button */}
       <button
         onClick={handleToggle}
-        className="relative flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-surface hover:text-white cursor-pointer"
+        className="relative flex h-9 w-9 cursor-pointer items-center justify-center text-text-muted transition-colors duration-100 hover:text-text-primary"
         aria-label="Notifications"
       >
-        <Bell size={20} />
+        <Bell size={15} strokeWidth={1.5} />
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-red px-1 font-mono text-[10px] font-bold text-white">
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center bg-accent px-1 font-mono text-[9px] font-semibold text-bg-base">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
@@ -107,16 +107,16 @@ export default function NotificationBell() {
 
       {/* Dropdown panel */}
       {open && (
-        <div className="absolute left-0 top-12 z-50 w-80 rounded-xl border border-border bg-bg-surface shadow-2xl md:left-12 md:top-0">
+        <div className="absolute left-0 top-11 z-50 w-80 border border-border-rule bg-bg-surface md:left-11 md:top-0">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-border px-4 py-3">
-            <h3 className="font-display text-sm uppercase tracking-wide text-text-primary">
+          <div className="flex items-center justify-between border-b border-accent px-4 py-3">
+            <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-text-primary">
               Notifications
             </h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="font-body text-[11px] text-accent-red hover:text-accent-hover transition-colors cursor-pointer"
+                className="cursor-pointer font-mono text-[9px] uppercase tracking-[0.14em] text-accent transition-colors duration-100 hover:text-accent-hover"
               >
                 Mark all read
               </button>
@@ -127,7 +127,7 @@ export default function NotificationBell() {
           <div className="max-h-80 overflow-y-auto">
             {notifications.length === 0 ? (
               <div className="px-4 py-8 text-center">
-                <p className="font-body text-sm text-text-muted">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
                   No notifications yet
                 </p>
               </div>
@@ -138,7 +138,7 @@ export default function NotificationBell() {
                   const content = (
                     <div
                       className={`flex items-start gap-3 px-4 py-3 transition-colors hover:bg-bg-elevated ${
-                        !n.is_read ? "bg-accent-red/5" : ""
+                        !n.is_read ? "bg-accent-dim" : ""
                       }`}
                       onClick={() => {
                         if (!n.is_read) markAsRead(n.id);
@@ -146,27 +146,27 @@ export default function NotificationBell() {
                       }}
                     >
                       {/* Actor avatar */}
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-elevated border border-border">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-border-alpha bg-bg-elevated">
                         <span className="font-mono text-xs font-bold text-text-muted">
                           {n.actor?.display_name?.charAt(0)?.toUpperCase() ?? "?"}
                         </span>
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <p className="font-body text-xs text-text-primary leading-relaxed">
+                        <p className="text-xs leading-relaxed text-text-primary">
                           <span className="font-bold">
                             {n.actor?.display_name ?? "Someone"}
                           </span>{" "}
                           {n.message ?? notificationIcon(n.type)}
                         </p>
-                        <p className="font-body text-[10px] text-text-muted mt-0.5">
+                        <p className="mt-0.5 font-mono text-[10px] text-text-muted">
                           {timeAgo(n.created_at)}
                         </p>
                       </div>
 
                       {/* Unread dot */}
                       {!n.is_read && (
-                        <div className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent-red" />
+                        <div className="mt-1.5 h-2 w-2 shrink-0 bg-accent" />
                       )}
                     </div>
                   );

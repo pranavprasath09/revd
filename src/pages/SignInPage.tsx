@@ -1,8 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
+import PWButton from "@/components/pitwall/Button";
+import Field from "@/components/pitwall/Field";
+import { SHEET_CARS } from "@/lib/carData";
 
 /** Validate redirect param: must start with / and not // (prevents open redirect) */
 function safeRedirect(raw: string | null): string {
@@ -14,7 +16,10 @@ export default function SignInPage() {
   const { signIn, signUp, resetPassword, isSignedIn } = useAuthContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const redirectTo = useMemo(() => safeRedirect(searchParams.get("redirect")), [searchParams]);
+  const redirectTo = useMemo(
+    () => safeRedirect(searchParams.get("redirect")),
+    [searchParams],
+  );
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +28,12 @@ export default function SignInPage() {
   const [successMsg, setSuccessMsg] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Redirect if already signed in (in useEffect, not during render)
+  // The photograph — the most popular car on file
+  const heroCar = useMemo(
+    () => SHEET_CARS.slice().sort((a, b) => b.pop - a.pop)[0],
+    [],
+  );
+
   useEffect(() => {
     if (isSignedIn) navigate(redirectTo, { replace: true });
   }, [isSignedIn, redirectTo, navigate]);
@@ -73,138 +83,144 @@ export default function SignInPage() {
     }
   }
 
+  const switchMode = (next: "signin" | "signup" | "forgot") => {
+    setMode(next);
+    setError("");
+    setSuccessMsg("");
+  };
+
   return (
-    <div className="page-enter">
-      <SEOHead title={mode === "signin" ? "Sign In" : mode === "signup" ? "Sign Up" : "Reset Password"} description="Sign in to your RevD account." />
+    <div className="page-enter grid min-h-[calc(100vh-120px)] lg:grid-cols-2">
+      <SEOHead
+        title={
+          mode === "signin" ? "Sign In" : mode === "signup" ? "Sign Up" : "Reset Password"
+        }
+        description="Sign in to your RevD account."
+      />
 
-      <PageWrapper>
-        <div className="flex min-h-[80vh] items-center justify-center">
-          <div className="w-full max-w-md">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <p className="font-display text-4xl uppercase tracking-tight text-white mb-2">
-                REV<span className="text-accent-red">D</span>
+      {/* Left — the form, Pit Wall fields inside Margin confidence */}
+      <div className="flex items-center justify-center px-6 py-14 md:px-14">
+        <div className="w-full max-w-[400px]">
+          <div className="font-editorial text-[40px] uppercase leading-none tracking-[0.16em] text-text-primary">
+            Rev<span className="text-accent">d</span>
+          </div>
+          <h1 className="mt-[30px] font-editorial text-[36px] font-normal leading-[1.06] text-text-primary md:text-[44px]">
+            The home base for car culture.
+          </h1>
+          <p className="mt-3.5 font-editorial text-[17px] italic text-text-secondary">
+            Free forever. Premium when you want it.
+          </p>
+
+          <form onSubmit={handleSubmit} className="mt-[34px] flex flex-col gap-[18px]">
+            {mode === "signup" && (
+              <Field
+                label="Display name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Your name"
+                required
+              />
+            )}
+            <Field
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+            />
+            {mode !== "forgot" && (
+              <Field
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            )}
+
+            {successMsg && (
+              <p className="font-mono text-[10px] tracking-[0.08em] text-signal-green">
+                {successMsg}
               </p>
-              <p className="font-body text-sm text-text-secondary">
-                {mode === "signin"
-                  ? "Sign in to access your garage and premium content."
+            )}
+            {error && (
+              <p className="font-mono text-[10px] tracking-[0.08em] text-signal-red">
+                {error}
+              </p>
+            )}
+
+            <PWButton
+              type="submit"
+              disabled={submitting}
+              className="w-full py-[13px] tracking-[0.2em]"
+            >
+              {submitting
+                ? "…"
+                : mode === "signin"
+                  ? "Sign in"
                   : mode === "signup"
-                  ? "Create an account to get started."
-                  : "Enter your email and we'll send you a reset link."}
-              </p>
-            </div>
+                    ? "Create account"
+                    : "Send reset link"}
+            </PWButton>
+          </form>
 
-            {/* Form */}
-            <div className="rounded-2xl border border-border bg-bg-surface p-6 sm:p-8">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {mode === "signup" && (
-                  <div>
-                    <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                      Display Name
-                    </label>
-                    <input
-                      type="text"
-                      value={displayName}
-                      onChange={(e) => setDisplayName(e.target.value)}
-                      placeholder="Your name"
-                      required
-                      className="font-body w-full rounded-lg border border-border bg-bg-base py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                    />
-                  </div>
-                )}
-
-                <div>
-                  <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    required
-                    className="font-body w-full rounded-lg border border-border bg-bg-base py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                  />
-                </div>
-
-                {mode !== "forgot" && (
-                  <div>
-                    <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••"
-                      required
-                      className="font-body w-full rounded-lg border border-border bg-bg-base py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                    />
-                  </div>
-                )}
-
-                {mode === "signin" && (
-                  <div className="text-right">
-                    <button
-                      type="button"
-                      onClick={() => { setMode("forgot"); setError(""); setSuccessMsg(""); }}
-                      className="font-body text-xs text-accent-red hover:text-accent-hover cursor-pointer"
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
-                )}
-
-                {successMsg && (
-                  <div className="rounded-lg bg-emerald-400/10 border border-emerald-400/20 px-4 py-3">
-                    <p className="font-body text-sm text-emerald-400">{successMsg}</p>
-                  </div>
-                )}
-
-                {error && (
-                  <div className="rounded-lg bg-red-400/10 border border-red-400/20 px-4 py-3">
-                    <p className="font-body text-sm text-red-400">{error}</p>
-                  </div>
-                )}
-
+          <div className="mt-[26px] flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.14em] text-text-secondary">
+            {mode === "signin" ? (
+              <>
+                <span>
+                  No account?{" "}
+                  <button
+                    onClick={() => switchMode("signup")}
+                    className="cursor-pointer border-b border-accent pb-0.5 text-text-primary hover:text-accent"
+                  >
+                    Create one
+                  </button>
+                </span>
                 <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full rounded-lg bg-accent-red py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  onClick={() => switchMode("forgot")}
+                  className="cursor-pointer text-text-muted transition-colors duration-100 hover:text-accent"
                 >
-                  {submitting ? "..." : mode === "signin" ? "Sign In" : mode === "signup" ? "Sign Up" : "Send Reset Link"}
+                  Forgot password?
                 </button>
-              </form>
-            </div>
-
-            {/* Mode toggle */}
-            <p className="text-center mt-6 font-body text-sm text-text-secondary">
-              {mode === "signin" ? (
-                <>
-                  Don't have an account?{" "}
-                  <button
-                    onClick={() => { setMode("signup"); setError(""); setSuccessMsg(""); }}
-                    className="text-accent-red hover:text-accent-hover font-semibold cursor-pointer"
-                  >
-                    Sign up
-                  </button>
-                </>
-              ) : (
-                <>
-                  {mode === "forgot" ? "Remember your password?" : "Already have an account?"}{" "}
-                  <button
-                    onClick={() => { setMode("signin"); setError(""); setSuccessMsg(""); }}
-                    className="text-accent-red hover:text-accent-hover font-semibold cursor-pointer"
-                  >
-                    Sign in
-                  </button>
-                </>
-              )}
-            </p>
-
+              </>
+            ) : (
+              <span>
+                {mode === "forgot" ? "Remember it after all?" : "Already on file?"}{" "}
+                <button
+                  onClick={() => switchMode("signin")}
+                  className="cursor-pointer border-b border-accent pb-0.5 text-text-primary hover:text-accent"
+                >
+                  Sign in
+                </button>
+              </span>
+            )}
           </div>
         </div>
-      </PageWrapper>
+      </div>
+
+      {/* Right — full-bleed photograph. Fixed dark scrim over photography is
+          deliberate; it never sits over page background. */}
+      <div className="relative hidden overflow-hidden lg:block">
+        {heroCar && (
+          <img
+            src={heroCar.hero}
+            alt={`${heroCar.name} ${heroCar.gen}`}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        <div
+          className="absolute inset-x-0 bottom-0 px-9 py-[30px]"
+          style={{
+            background: "linear-gradient(to top, rgba(10,11,13,0.92), transparent)",
+          }}
+        >
+          <p className="font-editorial text-[17px] italic text-white/[0.82]">
+            Every spec, every mod, every story — on file.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,84 +1,12 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
+import PWButton from "@/components/pitwall/Button";
+import { TextareaField } from "@/components/pitwall/Field";
+import { timeAgo } from "@/lib/time";
 import type { Community, Post, Comment } from "@/types/forum";
-
-function timeAgo(dateStr: string): string {
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  const diff = Math.floor((now - then) / 1000);
-  if (diff < 60) return "just now";
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
-
-function CommentItem({
-  comment,
-  hasVoted,
-  voteOffset,
-  onVote,
-}: {
-  comment: Comment;
-  hasVoted: boolean;
-  voteOffset: number;
-  onVote: (id: string) => void;
-}) {
-  const authorName = comment.author?.display_name ?? "Anonymous";
-  const authorInitial = authorName[0]?.toUpperCase() ?? "?";
-
-  return (
-    <div className="flex gap-3 py-4 border-b border-border last:border-0">
-      {/* Avatar */}
-      {comment.author?.avatar_url ? (
-        <img
-          src={comment.author.avatar_url}
-          alt=""
-          className="h-8 w-8 shrink-0 rounded-full object-cover"
-        />
-      ) : (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-red/20">
-          <span className="font-body text-xs font-bold text-accent-red">{authorInitial}</span>
-        </div>
-      )}
-
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="font-body text-sm font-semibold text-text-primary">{authorName}</span>
-          <span className="font-body text-xs text-text-muted">{timeAgo(comment.created_at)}</span>
-        </div>
-        <p className="mt-1 font-body text-sm text-text-secondary leading-relaxed whitespace-pre-line">
-          {comment.body}
-        </p>
-        <button
-          onClick={() => onVote(comment.id)}
-          className={`mt-2 inline-flex items-center gap-1 rounded-md px-2 py-1 font-body text-xs transition-colors cursor-pointer ${
-            hasVoted
-              ? "text-accent-red bg-accent-red/10"
-              : "text-text-muted hover:text-text-secondary hover:bg-bg-elevated/50"
-          }`}
-        >
-          <svg
-            className="h-3 w-3"
-            viewBox="0 0 24 24"
-            fill={hasVoted ? "currentColor" : "none"}
-            stroke="currentColor"
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m18 15-6-6-6 6" />
-          </svg>
-          {comment.upvotes + voteOffset}
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export default function PostDetailPage() {
   const { slug, postId } = useParams<{ slug: string; postId: string }>();
@@ -111,12 +39,10 @@ export default function PostDetailPage() {
   const postVoteInFlight = useRef(false);
   const commentVotesInFlight = useRef<Set<string>>(new Set());
 
-  // Load everything
   useEffect(() => {
     if (!slug || !postId) return;
     let stale = false;
     setPageLoading(true);
-
     Promise.all([
       fetchCommunityBySlug(slug),
       fetchPost(postId),
@@ -128,13 +54,11 @@ export default function PostDetailPage() {
       setComments(cmts);
       setPageLoading(false);
     });
-
     return () => {
       stale = true;
     };
   }, [slug, postId, fetchCommunityBySlug, fetchPost, fetchComments]);
 
-  // Load user votes
   useEffect(() => {
     if (!postId || !user) return;
     getUserPostVotes([postId]).then((votes) => {
@@ -148,7 +72,11 @@ export default function PostDetailPage() {
   }, [comments, user, getUserCommentVotes]);
 
   const handlePostVote = useCallback(async () => {
-    if (!user || !postId || postVoteInFlight.current) return;
+    if (!postId || postVoteInFlight.current) return;
+    if (!user) {
+      navigate(`/sign-in?redirect=/communities/${slug}/post/${postId}`);
+      return;
+    }
     postVoteInFlight.current = true;
     try {
       const result = await togglePostVote(postId);
@@ -162,7 +90,7 @@ export default function PostDetailPage() {
     } finally {
       postVoteInFlight.current = false;
     }
-  }, [user, postId, togglePostVote]);
+  }, [user, postId, togglePostVote, navigate, slug]);
 
   const handleCommentVote = useCallback(
     async (commentId: string) => {
@@ -191,7 +119,7 @@ export default function PostDetailPage() {
         commentVotesInFlight.current.delete(commentId);
       }
     },
-    [user, toggleCommentVote]
+    [user, toggleCommentVote],
   );
 
   const handleSubmitComment = async (e: React.FormEvent) => {
@@ -206,43 +134,36 @@ export default function PostDetailPage() {
     setSubmitting(false);
   };
 
-  // While the tier is still resolving for a premium community, keep showing the
-  // skeleton instead of flashing a 404 or a false lock screen.
   if (pageLoading || (community?.is_premium_only && !isPremium && !tierLoaded)) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="space-y-4 py-12">
-            <div className="h-8 w-2/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-48 w-full animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-32 w-full animate-pulse rounded-lg bg-bg-surface" />
-          </div>
-        </PageWrapper>
+      <div className="page-enter px-6 py-12 md:px-14">
+        <div className="mx-auto max-w-[700px] space-y-5">
+          <div className="h-10 w-2/3 animate-pulse bg-bg-surface" />
+          <div className="h-48 animate-pulse bg-bg-surface" />
+        </div>
       </div>
     );
   }
 
-  // Premium gate — RLS already hides the post server-side (it may be null here),
-  // this is the friendly UX instead of a 404.
   if (community?.is_premium_only && tierLoaded && !isPremium) {
     return (
-      <div className="page-enter">
+      <div className="page-enter px-6 pb-20 pt-12 md:px-14">
         <SEOHead
           title={`${community.name} — PRO Community`}
           description="This post is in a PRO-only community."
         />
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
-            PRO Members Only
-          </h1>
-          <p className="font-body text-sm text-text-secondary mb-6 max-w-md">
-            This post is in {community.name}, a premium community. Upgrade to RevD PRO to view it.
-          </p>
-          <Link
-            to="/premium"
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Upgrade to PRO
+        <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
+          Pro members only
+        </div>
+        <h1 className="mt-3 font-editorial text-[54px] font-normal leading-none text-text-primary">
+          {community.name}
+        </h1>
+        <p className="mt-4 max-w-[460px] font-editorial text-lg italic text-text-secondary">
+          This thread lives in a premium room.
+        </p>
+        <div className="mt-7">
+          <Link to="/premium">
+            <PWButton>Go Pro</PWButton>
           </Link>
         </div>
       </div>
@@ -251,242 +172,235 @@ export default function PostDetailPage() {
 
   if (!post || !community) {
     return (
-      <div className="page-enter">
+      <div className="page-enter px-6 pb-20 pt-12 md:px-14">
         <SEOHead title="Post Not Found" description="This post doesn't exist." />
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <div className="font-mono text-6xl font-black text-text-muted">404</div>
-          <h1 className="font-display mt-4 text-2xl uppercase tracking-wide text-text-primary">
-            Post not found
-          </h1>
-          <Link
-            to="/communities"
-            className="mt-6 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Browse Communities
-          </Link>
-        </div>
+        <h1 className="font-editorial text-[62px] font-normal leading-none text-text-primary">
+          Not found
+        </h1>
+        <p className="mt-4 max-w-[460px] font-editorial text-lg italic text-text-secondary">
+          This thread may have been removed, or the link is wrong.
+        </p>
+        <Link
+          to="/communities"
+          className="mt-7 inline-block border-b border-accent pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-text-primary hover:text-accent"
+        >
+          Back to the departments →
+        </Link>
       </div>
     );
   }
 
-  const authorName = post.author?.display_name ?? "Anonymous";
-  const authorInitial = authorName[0]?.toUpperCase() ?? "?";
+  const isAuthor = user?.id === post.author_id;
+  const postScore = post.upvotes + localUpvoteOffset;
 
   return (
-    <div className="page-enter">
+    <div className="page-enter grid gap-11 px-6 pb-20 pt-12 md:px-14 lg:grid-cols-[200px_1fr_200px]">
       <SEOHead
-        title={`${post.title} — ${community.name}`}
-        description={post.body?.slice(0, 160) ?? `Post in ${community.name} community on RevD.`}
+        title={post.title}
+        description={post.body?.slice(0, 160) ?? `A discussion in ${community.name} on RevD.`}
       />
 
-      <PageWrapper>
-        <div className="py-8 max-w-3xl mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-6">
-            <Link
-              to="/communities"
-              className="font-body text-xs text-text-muted hover:text-text-secondary transition-colors"
+      {/* Left margin */}
+      <div className="font-mono text-[9px] uppercase leading-[2.2] tracking-[0.2em] text-text-muted max-lg:hidden">
+        r/{community.slug}
+        <br />
+        Discussion
+        <br />
+        {comments.length} {comments.length === 1 ? "reply" : "replies"}
+      </div>
+
+      {/* Measure — serif headline over a Pit Wall thread */}
+      <div className="mx-auto w-full max-w-[700px]">
+        <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+          <Link to="/communities" className="hover:text-accent-hover">
+            Departments
+          </Link>
+          <span className="text-text-muted">/</span>
+          <Link to={`/communities/${community.slug}`} className="hover:text-accent-hover">
+            {community.name}
+          </Link>
+        </div>
+
+        <div className="mt-4 flex items-start gap-6">
+          {/* Post vote cluster — this schema is upvote-only */}
+          <div className="flex shrink-0 flex-col items-center gap-1 border border-border-rule px-1 py-1.5">
+            <button
+              onClick={handlePostVote}
+              aria-pressed={hasVotedPost}
+              aria-label={hasVotedPost ? "Remove upvote" : "Upvote"}
+              className={`cursor-pointer px-2 py-0.5 text-xs transition-colors duration-100 hover:text-accent ${
+                hasVotedPost ? "text-accent" : "text-text-muted"
+              }`}
             >
-              Communities
-            </Link>
-            <span className="text-text-muted">/</span>
-            <Link
-              to={`/communities/${slug}`}
-              className="font-body text-xs text-text-muted hover:text-text-secondary transition-colors"
-            >
-              {community.name}
-            </Link>
+              ▲
+            </button>
+            <span className="font-mono text-sm font-semibold text-text-primary">
+              {postScore}
+            </span>
+          </div>
+          <div className="min-w-0">
+            <h1 className="font-editorial text-[30px] font-normal leading-[1.08] text-text-primary md:text-[44px]">
+              {post.title}
+            </h1>
+            <p className="mt-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary">
+              {post.author?.display_name ?? "Anonymous"} · {timeAgo(post.created_at)} ·{" "}
+              {comments.length} {comments.length === 1 ? "reply" : "replies"}
+            </p>
+          </div>
+        </div>
+
+        {post.body && (
+          <p
+            className="mt-6 whitespace-pre-line text-[17px] leading-[1.75] text-text-primary"
+            style={{ textWrap: "pretty" }}
+          >
+            {post.body}
+          </p>
+        )}
+        {post.image_url && (
+          <img
+            src={post.image_url}
+            alt=""
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = "none";
+            }}
+            className="mt-6 block max-h-[520px] w-full object-cover"
+          />
+        )}
+
+        {isAuthor && (
+          <div className="mt-5">
+            {!confirmDelete ? (
+              <button
+                onClick={() => setConfirmDelete(true)}
+                className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.16em] text-text-muted transition-colors duration-100 hover:text-signal-red"
+              >
+                Delete post
+              </button>
+            ) : (
+              <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em]">
+                <span className="text-text-muted">Sure?</span>
+                <button
+                  disabled={deleting}
+                  onClick={async () => {
+                    setDeleting(true);
+                    const ok = await deletePost(post.id);
+                    if (ok) navigate(`/communities/${community.slug}`);
+                    else setDeleting(false);
+                  }}
+                  className="cursor-pointer text-signal-red hover:opacity-80"
+                >
+                  {deleting ? "Deleting…" : "Yes, delete"}
+                </button>
+                <button
+                  onClick={() => setConfirmDelete(false)}
+                  className="cursor-pointer text-text-secondary hover:text-text-primary"
+                >
+                  Cancel
+                </button>
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* The thread — Pit Wall from here down */}
+        <div className="mt-[34px] border-t border-accent">
+          <div className="flex items-center justify-between py-3.5">
+            <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-text-secondary">
+              Thread
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted">
+              Oldest first
+            </span>
           </div>
 
-          {/* Post */}
-          <article className="rounded-xl border border-border bg-bg-surface p-6 sm:p-8">
-            <div className="flex gap-4">
-              {/* Vote column */}
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={handlePostVote}
-                  disabled={!user}
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors cursor-pointer disabled:cursor-default ${
-                    hasVotedPost
-                      ? "bg-accent-red/10 text-accent-red"
-                      : "text-text-muted hover:bg-bg-elevated/50 hover:text-text-secondary"
-                  }`}
-                >
-                  <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill={hasVotedPost ? "currentColor" : "none"}
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+          {comments.length === 0 && (
+            <p className="border-t border-border-hair py-5 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              Nobody has replied yet
+            </p>
+          )}
+          {comments.map((comment) => {
+            const voted = votedComments.has(comment.id);
+            const count = comment.upvotes + (commentVoteOffsets[comment.id] ?? 0);
+            return (
+              <div
+                key={comment.id}
+                className="grid grid-cols-[96px_1fr] gap-4 border-t border-border-hair py-4 transition-colors duration-100 hover:bg-bg-elevated"
+              >
+                <span className="flex h-[26px] items-center gap-1.5">
+                  <button
+                    onClick={() => handleCommentVote(comment.id)}
+                    aria-pressed={voted}
+                    aria-label={voted ? "Remove upvote" : "Upvote reply"}
+                    className={`cursor-pointer px-1 font-mono text-[10px] transition-colors duration-100 hover:text-accent ${
+                      voted ? "text-accent" : "text-text-muted"
+                    }`}
                   >
-                    <path d="m18 15-6-6-6 6" />
-                  </svg>
-                </button>
-                <span className="font-mono text-lg font-bold text-text-primary">
-                  {post.upvotes + localUpvoteOffset}
+                    ▲
+                  </button>
+                  <span className="min-w-[22px] text-center font-mono text-xs font-semibold text-text-primary">
+                    {count}
+                  </span>
+                </span>
+                <span className="flex min-w-0 flex-col gap-[5px]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-secondary">
+                    {comment.author?.display_name ?? "Anonymous"} ·{" "}
+                    {timeAgo(comment.created_at)}
+                  </span>
+                  <span className="whitespace-pre-line text-[15px] leading-[1.65] text-text-primary">
+                    {comment.body}
+                  </span>
                 </span>
               </div>
+            );
+          })}
 
-              {/* Content */}
-              <div className="min-w-0 flex-1">
-                <h1 className="font-display text-2xl sm:text-3xl uppercase tracking-wide text-text-primary leading-tight">
-                  {post.title}
-                </h1>
-
-                {/* Author info */}
-                <div className="mt-3 flex items-center gap-2">
-                  {post.author?.avatar_url ? (
-                    <img
-                      src={post.author.avatar_url}
-                      alt=""
-                      className="h-6 w-6 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-red/20">
-                      <span className="font-body text-[10px] font-bold text-accent-red">
-                        {authorInitial}
-                      </span>
-                    </div>
-                  )}
-                  <span className="font-body text-sm text-text-secondary">{authorName}</span>
-                  <span className="text-text-muted">·</span>
-                  <span className="font-body text-sm text-text-muted">
-                    {timeAgo(post.created_at)}
-                  </span>
-                </div>
-
-                {/* Body */}
-                {post.body && (
-                  <div className="mt-5">
-                    <p className="font-body text-base text-text-secondary leading-relaxed whitespace-pre-line">
-                      {post.body}
-                    </p>
-                  </div>
-                )}
-
-                {/* Image */}
-                {post.image_url && (
-                  <div className="mt-5 overflow-hidden rounded-lg">
-                    <img
-                      src={post.image_url}
-                      alt=""
-                      loading="lazy"
-                      className="w-full object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-              </div>
+          {/* Reply box — a form is a form */}
+          <div className="mt-2 border-t border-border-rule pt-[22px]">
+            <div className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-text-secondary">
+              Reply
             </div>
-          </article>
-
-          {/* Delete post — only for author */}
-          {user && post.author_id === user.id && (
-            <div className="mt-4 flex items-center gap-3">
-              {!confirmDelete ? (
-                <button
-                  onClick={() => setConfirmDelete(true)}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-body text-xs text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
-                >
-                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  Delete post
-                </button>
-              ) : (
-                <>
-                  <span className="font-body text-xs text-red-400">Delete this post?</span>
-                  <button
-                    onClick={async () => {
-                      setDeleting(true);
-                      const ok = await deletePost(post.id);
-                      if (ok) {
-                        navigate(`/communities/${slug}`);
-                      } else {
-                        setDeleting(false);
-                        setConfirmDelete(false);
-                      }
-                    }}
-                    disabled={deleting}
-                    className="font-body text-xs font-bold text-red-400 hover:text-red-300 transition-colors cursor-pointer disabled:opacity-50"
-                  >
-                    {deleting ? "Deleting..." : "Yes, delete"}
-                  </button>
-                  <button
-                    onClick={() => setConfirmDelete(false)}
-                    className="font-body text-xs text-text-muted hover:text-white transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-
-          {/* Comments Section */}
-          <section className="mt-6">
-            <h2 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
-              Comments ({comments.length})
-            </h2>
-
-            {/* Comment form */}
             {user ? (
-              <form onSubmit={handleSubmitComment} className="mb-6">
-                <div className="rounded-xl border border-border bg-bg-surface overflow-hidden">
-                  <textarea
-                    value={commentBody}
-                    maxLength={10000}
-                    onChange={(e) => setCommentBody(e.target.value)}
-                    placeholder="Add a comment..."
-                    rows={3}
-                    className="w-full resize-none bg-transparent px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
-                  />
-                  <div className="flex justify-end border-t border-border px-4 py-2">
-                    <button
-                      type="submit"
-                      disabled={!commentBody.trim() || submitting}
-                      className="rounded-lg bg-accent-red px-4 py-2 font-body text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                    >
-                      {submitting ? "Posting..." : "Post Comment"}
-                    </button>
-                  </div>
-                </div>
+              <form onSubmit={handleSubmitComment}>
+                <TextareaField
+                  label=""
+                  value={commentBody}
+                  maxLength={10000}
+                  onChange={(e) => setCommentBody(e.target.value)}
+                  placeholder="Add to the thread"
+                  rows={3}
+                />
+                <PWButton
+                  type="submit"
+                  disabled={submitting || !commentBody.trim()}
+                  className="mt-3"
+                >
+                  {submitting ? "Posting…" : "Post reply"}
+                </PWButton>
               </form>
             ) : (
-              <div className="mb-6 rounded-xl border border-border bg-bg-surface p-4 text-center">
-                <Link
-                  to={`/sign-in?redirect=/communities/${slug}/post/${postId}`}
-                  className="font-body text-sm text-accent-red hover:text-accent-hover transition-colors"
-                >
-                  Sign in to comment
-                </Link>
-              </div>
+              <Link to={`/sign-in?redirect=/communities/${slug}/post/${postId}`}>
+                <PWButton variant="secondary">Sign in to reply</PWButton>
+              </Link>
             )}
-
-            {/* Comments list */}
-            {comments.length > 0 ? (
-              <div className="rounded-xl border border-border bg-bg-surface px-5">
-                {comments.map((comment) => (
-                  <CommentItem
-                    key={comment.id}
-                    comment={comment}
-                    hasVoted={votedComments.has(comment.id)}
-                    voteOffset={commentVoteOffsets[comment.id] ?? 0}
-                    onVote={handleCommentVote}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">
-                <p className="font-body text-sm text-text-muted">
-                  No comments yet. Be the first to share your thoughts.
-                </p>
-              </div>
-            )}
-          </section>
+          </div>
         </div>
-      </PageWrapper>
+      </div>
+
+      {/* Right margin */}
+      <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted max-lg:hidden lg:text-right lg:leading-[2.2]">
+        <Link
+          to={`/communities/${community.slug}`}
+          className="transition-colors duration-100 hover:text-accent"
+        >
+          The room
+        </Link>
+        <br />
+        <Link to="/communities" className="transition-colors duration-100 hover:text-accent">
+          All departments
+        </Link>
+      </div>
     </div>
   );
 }

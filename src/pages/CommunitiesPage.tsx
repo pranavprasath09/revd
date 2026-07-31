@@ -1,165 +1,227 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
+import { supabase } from "@/lib/supabase";
+import PWButton, { ToggleButton } from "@/components/pitwall/Button";
+import { PullQuote } from "@/components/margin/SectionRule";
 import type { Community } from "@/types/forum";
 
-function CommunityCard({ community, isPremiumUser }: { community: Community; isPremiumUser: boolean }) {
-  const locked = community.is_premium_only && !isPremiumUser;
-
-  return (
-    <Link
-      to={locked ? "/premium" : `/communities/${community.slug}`}
-      className={`group rounded-xl border bg-bg-surface p-6 transition-all duration-300 hover:shadow-lg ${
-        locked
-          ? "border-accent-red/20 opacity-80 hover:border-accent-red/40 hover:shadow-accent-red/5"
-          : "border-border hover:border-accent-red/30 hover:shadow-accent-red/5"
-      }`}
-    >
-      <div className="flex items-start gap-4">
-        {/* Icon */}
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-bg-elevated border border-border text-2xl">
-          {locked ? (
-            <svg className="h-6 w-6 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-            </svg>
-          ) : (
-            community.icon || "💬"
-          )}
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="font-display text-xl uppercase tracking-wide text-text-primary leading-tight group-hover:text-accent-red transition-colors">
-              {community.name}
-            </h3>
-            {community.is_premium_only && (
-              <span className="rounded-full bg-accent-red/10 px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-wider text-accent-red">
-                PRO
-              </span>
-            )}
-          </div>
-          {community.description && (
-            <p className="mt-1.5 font-body text-sm text-text-secondary leading-relaxed line-clamp-2">
-              {community.description}
-            </p>
-          )}
-          <div className="mt-3 flex items-center gap-1.5">
-            <svg
-              className="h-3.5 w-3.5 text-text-muted"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            <span className="font-mono text-xs font-bold text-text-muted">
-              {community.member_count} members
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
+interface TopPost {
+  title: string;
+  upvotes: number;
+  comment_count: number;
+  community_id: string;
 }
 
 export default function CommunitiesPage() {
   const { user, isPremium } = useAuthContext();
-  const { loading, fetchCommunities } = useForums();
+  const navigate = useNavigate();
+  const { loading, fetchCommunities, joinCommunity, leaveCommunity } = useForums();
   const [communities, setCommunities] = useState<Community[]>([]);
+  const [joined, setJoined] = useState<Set<string>>(new Set());
+  const [topPost, setTopPost] = useState<TopPost | null>(null);
 
   useEffect(() => {
     fetchCommunities().then(setCommunities);
   }, [fetchCommunities]);
 
+  // One query for the user's memberships across every room
+  useEffect(() => {
+    if (!user || communities.length === 0) return;
+    let stale = false;
+    supabase
+      .from("community_members")
+      .select("community_id")
+      .eq("user_id", user.id)
+      .in("community_id", communities.map((c) => c.id))
+      .then(({ data }) => {
+        if (!stale && data) setJoined(new Set(data.map((m) => m.community_id)));
+      });
+    return () => {
+      stale = true;
+    };
+  }, [user, communities]);
+
+  // Most argued over — the highest-voted post on file
+  useEffect(() => {
+    let stale = false;
+    supabase
+      .from("posts")
+      .select("title, upvotes, comment_count, community_id")
+      .order("upvotes", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        if (!stale && data?.[0]) setTopPost(data[0] as TopPost);
+      });
+    return () => {
+      stale = true;
+    };
+  }, []);
+
+  const toggleJoin = async (community: Community) => {
+    if (!user) {
+      navigate("/sign-in?redirect=/communities");
+      return;
+    }
+    const isIn = joined.has(community.id);
+    // Optimistic — update immediately, revert on error
+    setJoined((prev) => {
+      const next = new Set(prev);
+      if (isIn) next.delete(community.id);
+      else next.add(community.id);
+      return next;
+    });
+    const ok = isIn
+      ? await leaveCommunity(community.id)
+      : await joinCommunity(community.id);
+    if (!ok) {
+      setJoined((prev) => {
+        const next = new Set(prev);
+        if (isIn) next.add(community.id);
+        else next.delete(community.id);
+        return next;
+      });
+    }
+  };
+
+  const topPostRoom = topPost
+    ? communities.find((c) => c.id === topPost.community_id)
+    : null;
+
   return (
-    <div className="page-enter">
+    <div className="page-enter px-6 pb-[72px] pt-12 md:px-14">
       <SEOHead
         title="Communities"
         description="Join car communities on RevD. JDM, European, American Muscle, and more."
         canonicalUrl="https://revhub.com/communities"
       />
 
-      {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-                  Forums
-                </p>
-                <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-                  Communities
-                </h1>
-                <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-                  Find your people. Join a community, start a conversation, and connect with enthusiasts who share your passion.
-                </p>
-              </div>
-
-              {user && (
-                <Link
-                  to="/communities/create"
-                  className="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                  </svg>
-                  Create Community
-                </Link>
-              )}
+      <div className="grid items-start gap-14 lg:grid-cols-[1fr_380px]">
+        {/* Department list */}
+        <div>
+          <div className="border-b border-accent pb-[18px]">
+            <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
+              Forums
             </div>
+            <h1 className="mt-2.5 font-editorial text-[44px] font-normal leading-none tracking-[-0.015em] text-text-primary md:text-[66px]">
+              Departments
+            </h1>
+            <p
+              className="mt-4 max-w-[520px] text-base leading-[1.65] text-text-secondary"
+              style={{ textWrap: "pretty" }}
+            >
+              Find your people. Every room has its own weather.
+            </p>
           </div>
-        </PageWrapper>
-      </div>
 
-      {/* Content */}
-      <PageWrapper>
-        <div className="py-8">
           {loading ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div
-                  key={i}
-                  className="h-36 animate-pulse rounded-xl bg-bg-surface"
-                />
+            <div className="space-y-px py-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-24 animate-pulse bg-bg-surface" />
               ))}
             </div>
-          ) : communities.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {communities.map((community) => (
-                <CommunityCard key={community.id} community={community} isPremiumUser={isPremium} />
-              ))}
-            </div>
+          ) : communities.length === 0 ? (
+            <p className="py-10 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              No departments founded yet
+            </p>
           ) : (
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-                <span className="text-3xl">💬</span>
-              </div>
-              <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-                No Communities Yet
-              </h2>
-              <p className="font-body text-sm text-text-secondary max-w-md">
-                Communities are coming soon. Check back later.
-              </p>
-            </div>
+            communities.map((c, i) => {
+              const locked = c.is_premium_only && !isPremium;
+              const isIn = joined.has(c.id);
+              return (
+                <div
+                  key={c.id}
+                  onClick={() =>
+                    navigate(locked ? "/premium" : `/communities/${c.slug}`)
+                  }
+                  className="grid cursor-pointer grid-cols-[52px_1fr] items-start gap-y-2 border-b border-border-alpha py-6 md:grid-cols-[52px_1fr_132px_128px]"
+                >
+                  <span className="pt-2.5 font-mono text-[10px] text-text-muted">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-1.5 md:pr-7">
+                    <span className="flex items-baseline gap-3">
+                      <span className="font-editorial text-[24px] leading-[1.1] text-text-primary transition-colors duration-150 hover:text-accent md:text-[30px]">
+                        {c.name}
+                      </span>
+                      {c.is_premium_only && (
+                        <span className="border border-accent px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+                          Pro
+                        </span>
+                      )}
+                    </span>
+                    {c.description && (
+                      <span className="font-editorial text-[15px] italic leading-[1.5] text-text-secondary">
+                        {c.description}
+                      </span>
+                    )}
+                    <span className="font-mono text-[10px] tracking-[0.12em] text-text-muted">
+                      r/{c.slug}
+                    </span>
+                  </span>
+                  <span className="pt-2.5 font-mono text-xs text-text-secondary max-md:hidden">
+                    {c.member_count.toLocaleString()} members
+                  </span>
+                  <span
+                    className="flex pt-1.5 md:justify-end"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {locked ? (
+                      <Link to="/premium">
+                        <PWButton variant="secondary">Unlock</PWButton>
+                      </Link>
+                    ) : (
+                      <ToggleButton on={isIn} onClick={() => toggleJoin(c)}>
+                        {isIn ? "Joined" : "Join"}
+                      </ToggleButton>
+                    )}
+                  </span>
+                </div>
+              );
+            })
           )}
         </div>
-      </PageWrapper>
+
+        {/* Sidebar */}
+        <div className="border-border-alpha lg:border-l lg:pl-9">
+          {topPost && (
+            <>
+              <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+                Most argued over
+              </div>
+              <div className="mt-5">
+                <PullQuote
+                  attribution={`${topPostRoom ? `r/${topPostRoom.slug} · ` : ""}${topPost.upvotes} votes · ${topPost.comment_count} replies`}
+                >
+                  “{topPost.title}”
+                </PullQuote>
+              </div>
+            </>
+          )}
+          <div
+            className={`${topPost ? "mt-8 border-t border-border-alpha pt-6" : ""}`}
+          >
+            <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-text-secondary">
+              Your rooms
+            </div>
+            <p className="mt-3 font-editorial text-[22px] text-text-primary">
+              {user
+                ? `${joined.size} of ${communities.length} joined`
+                : "Sign in to join"}
+            </p>
+          </div>
+          <Link
+            to={user ? "/communities/create" : "/sign-in?redirect=/communities/create"}
+            className="mt-7 block"
+          >
+            <PWButton variant="secondary" className="w-full">
+              Found a department
+            </PWButton>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,579 +1,510 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useGarage from "@/hooks/useGarage";
-import carsData from "@/data/cars.json";
+import PageHeader, { StatCluster } from "@/components/pitwall/PageHeader";
+import PWButton from "@/components/pitwall/Button";
+import Field, { TextareaField } from "@/components/pitwall/Field";
+import { Ledger, type LedgerColumn } from "@/components/pitwall/Sheet";
+import { CARS, money } from "@/lib/carData";
 import type { Car } from "@/types/car";
-import type { GarageCar } from "@/types/garage";
-
-const cars = carsData as Car[];
+import type { GarageCar, GarageMod } from "@/types/garage";
 
 function carById(carId: string): Car | undefined {
-  return cars.find((c) => c.id === carId || c.slug === carId);
+  return CARS.find((c) => c.id === carId || c.slug === carId);
 }
 
-// ─── Add Car Modal ─────────────────────────────────────────────
-interface AddCarModalProps {
-  open: boolean;
+/** "$1,240" / "1240" → 1240. Unparseable costs count as zero. */
+function parseCost(cost?: string): number {
+  if (!cost) return 0;
+  const n = Number(cost.replace(/[^0-9.]/g, ""));
+  return Number.isFinite(n) ? n : 0;
+}
+
+const bayTotal = (gc: GarageCar) =>
+  gc.mods.reduce((sum, m) => sum + parseCost(m.cost), 0);
+
+const addedLabel = (iso: string) => {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? "—"
+    : d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+};
+
+/* ── Pit Wall modal frame ─────────────────────────────────────── */
+function Modal({
+  title,
+  onClose,
+  children,
+}: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        className="relative w-full max-w-lg border border-border-rule bg-bg-base"
+      >
+        <div className="flex items-center justify-between border-b border-accent px-5 py-4">
+          <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
+            {title}
+          </h2>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="cursor-pointer font-mono text-[13px] text-text-secondary transition-colors duration-100 hover:text-text-primary"
+          >
+            ×
+          </button>
+        </div>
+        <div className="max-h-[70vh] overflow-y-auto p-5">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Add Car (bay) modal ──────────────────────────────────────── */
+function AddBayModal({
+  onClose,
+  onAdd,
+  existingCarIds,
+}: {
   onClose: () => void;
   onAdd: (carId: string, nickname?: string, year?: string) => void | Promise<void>;
   existingCarIds: string[];
-}
-
-function AddCarModal({ open, onClose, onAdd, existingCarIds }: AddCarModalProps) {
+}) {
   const [search, setSearch] = useState("");
-  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+  const [selected, setSelected] = useState<Car | null>(null);
   const [nickname, setNickname] = useState("");
   const [year, setYear] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      setSearch("");
-      setSelectedCar(null);
-      setNickname("");
-      setYear("");
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
 
   const results = useMemo(() => {
     if (search.length < 1) return [];
     const q = search.toLowerCase();
-    return cars
-      .filter((c) => {
-        const hay = `${c.make} ${c.model} ${c.generation}`.toLowerCase();
-        return hay.includes(q);
-      })
-      .slice(0, 8);
+    return CARS.filter((c) =>
+      `${c.make} ${c.model} ${c.generation}`.toLowerCase().includes(q),
+    ).slice(0, 8);
   }, [search]);
 
-  async function handleSubmit() {
-    if (!selectedCar) return;
-    await onAdd(selectedCar.id, nickname.trim() || undefined, year.trim() || undefined);
-    onClose();
-  }
-
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-2xl border border-border bg-bg-base shadow-2xl shadow-black/50">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-border p-5">
-          <h2 className="font-display text-xl uppercase tracking-wide text-text-primary">Add Car to Garage</h2>
-          <button
-            onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors cursor-pointer"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="p-5 space-y-4">
-          {!selectedCar ? (
-            <>
-              {/* Search for a car */}
-              <div>
-                <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                  Search Our Database
-                </label>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Type make, model, or generation..."
-                  className="font-body w-full rounded-lg border border-border bg-bg-surface py-3 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                />
-              </div>
-
-              {/* Results */}
-              {results.length > 0 && (
-                <div className="max-h-64 overflow-y-auto rounded-xl border border-border bg-bg-surface">
-                  {results.map((car) => {
-                    const alreadyAdded = existingCarIds.includes(car.id);
-                    return (
-                      <button
-                        key={car.id}
-                        type="button"
-                        disabled={alreadyAdded}
-                        onClick={() => setSelectedCar(car)}
-                        className={`flex w-full items-center gap-4 px-4 py-3 text-left transition-colors border-b border-border last:border-0 ${
-                          alreadyAdded
-                            ? "opacity-40 cursor-not-allowed"
-                            : "hover:bg-bg-elevated/50 cursor-pointer"
-                        }`}
-                      >
-                        <img
-                          src={car.heroImage}
-                          alt={`${car.make} ${car.model}`}
-                          loading="lazy"
-                          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
-                          className="h-10 w-14 rounded-lg object-cover"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <p className="font-display text-base uppercase tracking-wide text-text-primary truncate">
-                            {car.make} {car.model}{" "}
-                            <span className="text-accent-red">{car.generation}</span>
-                          </p>
-                          <p className="font-mono text-xs text-text-muted">{car.years}</p>
-                        </div>
-                        {alreadyAdded && (
-                          <span className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                            In garage
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {search.length >= 1 && results.length === 0 && (
-                <p className="text-center text-sm text-text-muted py-6">No cars found matching "{search}"</p>
-              )}
-            </>
-          ) : (
-            <>
-              {/* Selected car confirmation */}
-              <div className="flex items-center gap-4 rounded-xl border border-border bg-bg-surface p-4">
-                <img
-                  src={selectedCar.heroImage}
-                  alt={`${selectedCar.make} ${selectedCar.model}`}
-                  onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
-                  className="h-14 w-20 rounded-lg object-cover"
-                />
-                <div className="flex-1">
-                  <p className="font-display text-lg uppercase tracking-wide text-text-primary">
-                    {selectedCar.make} {selectedCar.model}
-                  </p>
-                  <p className="font-mono text-xs text-text-muted">
-                    {selectedCar.generation} · {selectedCar.years}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedCar(null)}
-                  className="text-xs text-accent-red hover:text-accent-hover transition-colors cursor-pointer"
-                >
-                  Change
-                </button>
-              </div>
-
-              {/* Optional fields */}
-              <div>
-                <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                  Nickname <span className="text-text-muted/50">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  value={nickname}
-                  maxLength={100}
-                  onChange={(e) => setNickname(e.target.value)}
-                  placeholder='e.g. "Project Daily", "Track Beast"'
-                  className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                />
-              </div>
-
-              <div>
-                <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                  Year <span className="text-text-muted/50">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  value={year}
-                  maxLength={10}
-                  onChange={(e) => setYear(e.target.value)}
-                  placeholder="e.g. 2004"
-                  className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-                />
-              </div>
-
-              <button
-                onClick={handleSubmit}
-                className="w-full rounded-lg bg-accent-red py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
-              >
-                Add to Garage
-              </button>
-            </>
+    <Modal title="Open a bay" onClose={onClose}>
+      {!selected ? (
+        <div className="flex flex-col gap-4">
+          <Field
+            label="Search the database"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Make, model, or generation"
+            autoFocus
+          />
+          {results.length > 0 && (
+            <div className="border-t border-border-rule">
+              {results.map((car) => {
+                const added = existingCarIds.includes(car.id);
+                return (
+                  <button
+                    key={car.id}
+                    type="button"
+                    disabled={added}
+                    onClick={() => setSelected(car)}
+                    className={`grid w-full grid-cols-[46px_1fr_auto] items-center gap-3 border-b border-border-hair py-2.5 text-left transition-colors duration-100 ${
+                      added
+                        ? "cursor-not-allowed opacity-40"
+                        : "cursor-pointer hover:bg-bg-elevated"
+                    }`}
+                  >
+                    <img
+                      src={car.heroImage}
+                      alt=""
+                      loading="lazy"
+                      className="h-7 w-[46px] object-cover grayscale-[0.4]"
+                    />
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold tracking-[-0.015em] text-text-primary">
+                        {car.make} {car.model}{" "}
+                        <span className="font-mono text-xs text-accent">
+                          {car.generation}
+                        </span>
+                      </span>
+                      <span className="font-mono text-[10px] text-text-muted">
+                        {car.years}
+                      </span>
+                    </span>
+                    {added && (
+                      <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-text-muted">
+                        In garage
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {search.length >= 1 && results.length === 0 && (
+            <p className="py-4 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              No cars match “{search}”
+            </p>
           )}
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-4 border border-border-alpha p-3.5">
+            <img
+              src={selected.heroImage}
+              alt=""
+              className="h-10 w-16 object-cover grayscale-[0.35]"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[15px] font-semibold tracking-[-0.015em] text-text-primary">
+                {selected.make} {selected.model}
+              </p>
+              <p className="font-mono text-[10px] text-text-secondary">
+                {selected.generation} · {selected.years}
+              </p>
+            </div>
+            <button
+              onClick={() => setSelected(null)}
+              className="cursor-pointer font-mono text-[9px] uppercase tracking-[0.18em] text-accent hover:text-accent-hover"
+            >
+              Change
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-5">
+            <Field
+              label="Nickname"
+              value={nickname}
+              maxLength={100}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="Track Rat"
+            />
+            <Field
+              label="Year"
+              value={year}
+              maxLength={10}
+              onChange={(e) => setYear(e.target.value)}
+              placeholder="2003"
+            />
+          </div>
+          <PWButton
+            onClick={async () => {
+              await onAdd(
+                selected.id,
+                nickname.trim() || undefined,
+                year.trim() || undefined,
+              );
+              onClose();
+            }}
+          >
+            Open bay
+          </PWButton>
+        </div>
+      )}
+    </Modal>
   );
 }
 
-// ─── Add Mod Modal ─────────────────────────────────────────────
-interface AddModModalProps {
-  open: boolean;
+/* ── Add Mod modal ────────────────────────────────────────────── */
+function AddModModal({
+  onClose,
+  onAdd,
+}: {
   onClose: () => void;
-  onAdd: (mod: { name: string; description: string; cost?: string; date?: string }) => void;
-}
-
-function AddModModal({ open, onClose, onAdd }: AddModModalProps) {
+  onAdd: (mod: Omit<GarageMod, "id">) => void;
+}) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [cost, setCost] = useState("");
   const [date, setDate] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      setName("");
-      setDescription("");
-      setCost("");
-      setDate("");
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!name.trim()) return;
-    onAdd({
-      name: name.trim(),
-      description: description.trim(),
-      cost: cost.trim() || undefined,
-      date: date.trim() || undefined,
-    });
-    onClose();
-  }
-
-  if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-2xl border border-border bg-bg-base shadow-2xl shadow-black/50">
-        <div className="flex items-center justify-between border-b border-border p-5">
-          <h2 className="font-display text-xl uppercase tracking-wide text-text-primary">Add Mod</h2>
-          <button
-            onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted hover:bg-bg-elevated hover:text-white transition-colors cursor-pointer"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
+    <Modal title="Log a mod" onClose={onClose}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!name.trim()) return;
+          onAdd({
+            name: name.trim(),
+            description: description.trim(),
+            cost: cost.trim() || undefined,
+            date: date.trim() || undefined,
+          });
+          onClose();
+        }}
+        className="flex flex-col gap-5"
+      >
+        <Field
+          label="Item"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Bilstein B14 coilovers"
+          required
+          autoFocus
+        />
+        <TextareaField
+          label="Detail"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Part numbers, brand, install notes"
+          rows={3}
+        />
+        <div className="grid grid-cols-2 gap-5">
+          <Field
+            label="Cost"
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
+            placeholder="$450"
+          />
+          <Field
+            label="Fitted"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            placeholder="Mar 2024"
+          />
         </div>
-
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
-          <div>
-            <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-              Mod Name *
-            </label>
-            <input
-              ref={inputRef}
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder='e.g. "Cold Air Intake", "Coilovers", "Full Exhaust"'
-              required
-              className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-            />
-          </div>
-
-          <div>
-            <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Part numbers, brand, what it does, install notes..."
-              rows={3}
-              className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25 resize-none"
-            />
-          </div>
-
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                Cost <span className="text-text-muted/50">(optional)</span>
-              </label>
-              <input
-                type="text"
-                value={cost}
-                onChange={(e) => setCost(e.target.value)}
-                placeholder="e.g. $450"
-                className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-              />
-            </div>
-            <div className="flex-1">
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5 block">
-                Date <span className="text-text-muted/50">(optional)</span>
-              </label>
-              <input
-                type="text"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                placeholder="e.g. Mar 2024"
-                className="font-body w-full rounded-lg border border-border bg-bg-surface py-2.5 px-4 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-accent-red py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
-          >
-            Add Mod
-          </button>
-        </form>
-      </div>
-    </div>
+        <PWButton type="submit">Log mod</PWButton>
+      </form>
+    </Modal>
   );
 }
 
-// ─── Garage Car Card ───────────────────────────────────────────
-interface GarageCarCardProps {
-  garageCar: GarageCar;
+/* ── Expanded bay panel ───────────────────────────────────────── */
+function BayPanel({
+  gc,
+  car,
+  onUpdate,
+  onAddMod,
+  onRemoveMod,
+  onRemove,
+}: {
+  gc: GarageCar;
   car: Car;
-  onRemove: () => void;
   onUpdate: (updates: Partial<Pick<GarageCar, "nickname" | "year" | "notes">>) => void;
   onAddMod: () => void;
   onRemoveMod: (modId: string) => void;
-}
-
-function GarageCarCard({ garageCar, car, onRemove, onUpdate, onAddMod, onRemoveMod }: GarageCarCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  onRemove: () => void;
+}) {
   const [editingNotes, setEditingNotes] = useState(false);
-  const [notesValue, setNotesValue] = useState(garageCar.notes);
+  const [notesValue, setNotesValue] = useState(gc.notes);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  function saveNotes() {
-    onUpdate({ notes: notesValue.trim() });
-    setEditingNotes(false);
-  }
+  const slug = (s: string) => s.toLowerCase().replace(/\s+/g, "-");
+  const linkClass =
+    "font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary transition-colors duration-100 hover:text-accent";
+
+  const ledgerColumns: LedgerColumn<GarageMod>[] = [
+    {
+      key: "n",
+      label: "#",
+      width: "40px",
+      render: (_, i) => (
+        <span className="font-mono text-[10px] text-text-secondary">
+          {String(i + 1).padStart(2, "0")}
+        </span>
+      ),
+    },
+    {
+      key: "item",
+      label: "Item",
+      width: "minmax(160px, 268px)",
+      render: (m) => (
+        <span className="text-sm font-medium text-text-primary">{m.name}</span>
+      ),
+    },
+    {
+      key: "detail",
+      label: "Detail",
+      width: "1fr",
+      render: (m) => (
+        <span className="block truncate pr-6 text-[13px] text-text-secondary">
+          {m.description || "—"}
+        </span>
+      ),
+    },
+    {
+      key: "date",
+      label: "Fitted",
+      width: "108px",
+      render: (m) => (
+        <span className="font-mono text-[11px] text-text-secondary">
+          {m.date ?? "—"}
+        </span>
+      ),
+    },
+    {
+      key: "cost",
+      label: "Cost",
+      width: "108px",
+      align: "right",
+      render: (m) => (
+        <span className="font-mono text-[13px] text-text-primary">
+          {m.cost ?? "—"}
+        </span>
+      ),
+    },
+    {
+      key: "remove",
+      label: "",
+      width: "36px",
+      align: "right",
+      render: (m) => (
+        <button
+          onClick={() => onRemoveMod(m.id)}
+          title="Remove mod"
+          aria-label={`Remove ${m.name}`}
+          className="cursor-pointer font-mono text-[11px] text-text-muted transition-colors duration-100 hover:text-signal-red"
+        >
+          ×
+        </button>
+      ),
+    },
+  ];
 
   return (
-    <div className="card-corner rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 animate-fade-up">
-      {/* Hero */}
-      <div className="relative h-44 sm:h-52 overflow-hidden cursor-pointer" onClick={() => setExpanded(!expanded)}>
-        <img
-          src={car.heroImage}
-          alt={`${car.make} ${car.model}`}
-          loading="lazy"
-          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"; }}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/30 to-transparent" />
-
-        {/* Nickname / title overlay */}
-        <div className="absolute bottom-4 left-4 right-4">
-          {garageCar.nickname && (
-            <p className="font-body text-xs font-bold uppercase tracking-wider text-accent-red mb-1">
-              {garageCar.nickname}
-            </p>
-          )}
-          <h3 className="font-display text-2xl uppercase tracking-wide text-white leading-tight">
-            {garageCar.year ?? ""} {car.make} {car.model}
-          </h3>
-          <p className="font-mono text-xs text-white/60 mt-0.5">{car.generation} · {car.performance.drivetrain} · {car.engines[0].power}</p>
-        </div>
-
-        {/* Mod count badge */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
-          <svg className="h-3.5 w-3.5 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-          </svg>
-          <span className="font-mono text-sm font-bold text-text-primary">{garageCar.mods.length}</span>
-        </div>
-
-        {/* Expand indicator */}
-        <div className="absolute top-3 left-3">
-          <svg
-            className={`h-5 w-5 text-white/50 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    <div className="border-b border-border-hair bg-bg-surface px-6 pb-[30px] pt-[26px] md:px-11">
+      {/* Notes */}
+      <div className="mb-[22px] flex items-baseline gap-3.5">
+        <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.2em] text-text-secondary">
+          Notes
+        </span>
+        {editingNotes ? (
+          <div className="flex w-full max-w-[720px] flex-col gap-2">
+            <TextareaField
+              label=""
+              value={notesValue}
+              onChange={(e) => setNotesValue(e.target.value)}
+              placeholder="Goals, current state, plans"
+              rows={2}
+              autoFocus
+            />
+            <div className="flex gap-3">
+              <PWButton
+                variant="secondary"
+                type="button"
+                onClick={() => {
+                  onUpdate({ notes: notesValue.trim() });
+                  setEditingNotes(false);
+                }}
+              >
+                Save
+              </PWButton>
+              <button
+                onClick={() => setEditingNotes(false)}
+                className={`${linkClass} cursor-pointer`}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              setNotesValue(gc.notes);
+              setEditingNotes(true);
+            }}
+            className="max-w-[720px] cursor-pointer text-left text-sm leading-[1.55] text-text-primary hover:text-accent"
+            title="Edit notes"
           >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
+            {gc.notes || (
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+                + Add notes
+              </span>
+            )}
+          </button>
+        )}
       </div>
 
-      {/* Expanded content */}
-      {expanded && (
-        <div className="border-t border-border">
-          {/* Quick actions */}
-          <div className="flex items-center gap-2 p-4 border-b border-border">
-            <Link
-              to={`/cars/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}/${car.years.split("–")[0]}`}
-              className="font-body text-xs font-semibold text-accent-red hover:text-accent-hover transition-colors"
-            >
-              View Specs
-            </Link>
-            <span className="text-text-muted">·</span>
-            <Link
-              to={`/mods/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}`}
-              className="font-body text-xs font-semibold text-accent-red hover:text-accent-hover transition-colors"
-            >
-              Mod Guide
-            </Link>
-            <span className="text-text-muted">·</span>
-            <Link
-              to={`/reliability/${car.make.toLowerCase()}/${car.model.toLowerCase().replace(/\s+/g, "-")}`}
-              className="font-body text-xs font-semibold text-accent-red hover:text-accent-hover transition-colors"
-            >
-              Reliability
-            </Link>
-            <div className="flex-1" />
-            {!confirmDelete ? (
-              <button
-                onClick={() => setConfirmDelete(true)}
-                className="font-body text-xs font-semibold text-text-muted hover:text-red-400 transition-colors cursor-pointer"
-              >
-                Remove
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <span className="font-body text-xs text-text-muted">Sure?</span>
-                <button
-                  onClick={onRemove}
-                  className="font-body text-xs font-bold text-red-400 hover:text-red-300 transition-colors cursor-pointer"
-                >
-                  Yes, remove
-                </button>
-                <button
-                  onClick={() => setConfirmDelete(false)}
-                  className="font-body text-xs text-text-muted hover:text-white transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Notes */}
-          <div className="p-4 border-b border-border">
-            <div className="flex items-center justify-between mb-2">
-              <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">Build Notes</p>
-              {!editingNotes && (
-                <button
-                  onClick={() => { setNotesValue(garageCar.notes); setEditingNotes(true); }}
-                  className="font-body text-[10px] font-semibold text-accent-red hover:text-accent-hover transition-colors cursor-pointer"
-                >
-                  {garageCar.notes ? "Edit" : "Add notes"}
-                </button>
-              )}
-            </div>
-            {editingNotes ? (
-              <div className="space-y-2">
-                <textarea
-                  value={notesValue}
-                  onChange={(e) => setNotesValue(e.target.value)}
-                  placeholder="Describe your build — goals, current state, plans..."
-                  rows={3}
-                  className="font-body w-full rounded-lg border border-border bg-bg-base py-2.5 px-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-red/50 focus:ring-1 focus:ring-accent-red/25 resize-none"
-                  autoFocus
-                />
-                <div className="flex justify-end gap-2">
-                  <button
-                    onClick={() => setEditingNotes(false)}
-                    className="rounded-lg border border-border px-3 py-1.5 font-body text-xs font-semibold text-text-secondary hover:bg-bg-elevated transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={saveNotes}
-                    className="rounded-lg bg-accent-red px-3 py-1.5 font-body text-xs font-bold text-white hover:bg-accent-hover transition-colors cursor-pointer"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <p className="font-body text-sm text-text-secondary leading-relaxed">
-                {garageCar.notes || <span className="text-text-muted italic">No build notes yet.</span>}
-              </p>
-            )}
-          </div>
-
-          {/* Mods list */}
-          <div className="p-4">
-            <div className="flex items-center justify-between mb-3">
-              <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                Mods & Modifications ({garageCar.mods.length})
-              </p>
-              <button
-                onClick={onAddMod}
-                className="inline-flex items-center gap-1 rounded-lg bg-accent-red/10 px-3 py-1.5 font-body text-xs font-bold text-accent-red hover:bg-accent-red/20 transition-colors cursor-pointer"
-              >
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                </svg>
-                Add Mod
-              </button>
-            </div>
-
-            {garageCar.mods.length > 0 ? (
-              <div className="space-y-2">
-                {garageCar.mods.map((mod) => (
-                  <div
-                    key={mod.id}
-                    className="group flex items-start gap-3 rounded-lg bg-white/[0.02] p-3 border border-border"
-                  >
-                    <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-accent-red" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="font-display text-sm uppercase tracking-wide text-text-primary">{mod.name}</p>
-                        {mod.cost && (
-                          <span className="font-mono text-[11px] text-accent-red">{mod.cost}</span>
-                        )}
-                        {mod.date && (
-                          <span className="font-mono text-[11px] text-text-muted">{mod.date}</span>
-                        )}
-                      </div>
-                      {mod.description && (
-                        <p className="font-body text-xs text-text-secondary mt-0.5 leading-relaxed">{mod.description}</p>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => onRemoveMod(mod.id)}
-                      className="opacity-0 group-hover:opacity-100 shrink-0 text-text-muted hover:text-red-400 transition-all cursor-pointer"
-                      title="Remove mod"
-                    >
-                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-text-muted text-center py-6">
-                No mods added yet. Track everything you've done to your build.
-              </p>
-            )}
-          </div>
-        </div>
+      {/* Mod ledger */}
+      {gc.mods.length > 0 ? (
+        <Ledger
+          columns={ledgerColumns}
+          rows={gc.mods}
+          rowKey={(m) => m.id}
+          total={{ label: "Total", value: money(bayTotal(gc)) }}
+        />
+      ) : (
+        <p className="border-t border-border-rule py-4 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+          No mods logged for this bay yet
+        </p>
       )}
+
+      {/* Actions */}
+      <div className="mt-5 flex flex-wrap items-center gap-5">
+        <PWButton variant="secondary" onClick={onAddMod}>
+          + Log mod
+        </PWButton>
+        <Link to={`/cars/${slug(car.make)}/${slug(car.model)}/${car.years.split("–")[0]}`} className={linkClass}>
+          Specs
+        </Link>
+        <Link to={`/mods/${slug(car.make)}/${slug(car.model)}`} className={linkClass}>
+          Mod guide
+        </Link>
+        <Link to={`/reliability/${slug(car.make)}/${slug(car.model)}`} className={linkClass}>
+          Reliability
+        </Link>
+        <span className="flex-1" />
+        {!confirmDelete ? (
+          <button
+            onClick={() => setConfirmDelete(true)}
+            className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.16em] text-text-muted transition-colors duration-100 hover:text-signal-red"
+          >
+            Close bay
+          </button>
+        ) : (
+          <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em]">
+            <span className="text-text-muted">Sure?</span>
+            <button
+              onClick={onRemove}
+              className="cursor-pointer text-signal-red hover:opacity-80"
+            >
+              Yes, close it
+            </button>
+            <button
+              onClick={() => setConfirmDelete(false)}
+              className="cursor-pointer text-text-secondary hover:text-text-primary"
+            >
+              Cancel
+            </button>
+          </span>
+        )}
+      </div>
     </div>
   );
 }
 
-// ─── Main Page ─────────────────────────────────────────────────
+/* ── Page ─────────────────────────────────────────────────────── */
 export default function GaragePage() {
   const { user, loading: authLoading } = useAuthContext();
-  const { cars: garageCars, loading: garageLoading, addCar, removeCar, updateCar, addMod, removeMod } = useGarage();
-  const [addCarOpen, setAddCarOpen] = useState(false);
+  const {
+    cars: garageCars,
+    loading: garageLoading,
+    addCar,
+    removeCar,
+    updateCar,
+    addMod,
+    removeMod,
+  } = useGarage();
+  const [addBayOpen, setAddBayOpen] = useState(false);
   const [addModTarget, setAddModTarget] = useState<string | null>(null);
+  // Single-open accordion — clicking the open bay closes it
+  const [openBay, setOpenBay] = useState<string | null>(null);
 
-  // Wait for session restore before gating — otherwise a signed-in user
-  // hard-refreshing sees "Sign In Required" flash
   if (authLoading) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-          </div>
-        </PageWrapper>
+      <div className="page-enter px-6 py-[34px] md:px-11">
+        <div className="h-12 w-1/3 animate-pulse bg-bg-surface" />
+        <div className="mt-6 h-64 animate-pulse bg-bg-surface" />
       </div>
     );
   }
@@ -581,143 +512,165 @@ export default function GaragePage() {
   if (!user) {
     return (
       <div className="page-enter">
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
-            Sign In Required
-          </h1>
-          <p className="font-body text-sm text-text-secondary mb-6">
-            You need to be signed in to access your garage.
+        <PageHeader kicker="Personal workshop" title="GARAGE" />
+        <div className="px-6 md:px-11">
+          <p className="max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            The garage is your workshop — bays, ledgers, and every dollar
+            logged. Sign in to open yours.
           </p>
-          <Link
-            to="/sign-in?redirect=/garage"
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Sign In
-          </Link>
+          <div className="mt-6">
+            <Link to="/sign-in?redirect=/garage">
+              <PWButton>Sign in</PWButton>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   const totalMods = garageCars.reduce((sum, c) => sum + c.mods.length, 0);
+  const totalSpend = garageCars.reduce((sum, c) => sum + bayTotal(c), 0);
   const existingCarIds = garageCars.map((c) => c.carId);
 
   return (
-    <div className="page-enter">
+    <div className="page-enter pb-14">
       <SEOHead
         title="My Garage"
         description="Track your car builds, mods, and modifications. Your personal automotive workshop."
         canonicalUrl="https://revhub.com/garage"
       />
 
-      {/* Hero header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <p className="font-body text-[11px] font-bold uppercase tracking-widest text-accent-red mb-3">
-              Personal Workshop
-            </p>
-            <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide text-text-primary leading-none">
-              My Garage
-            </h1>
-            <p className="font-body mt-3 max-w-2xl text-base text-text-secondary leading-relaxed">
-              Track your builds, log every mod, and document your automotive journey.
-              Everything saves automatically to your account.
-            </p>
+      <PageHeader
+        kicker="Personal workshop"
+        title="GARAGE"
+        right={
+          <StatCluster
+            stats={[
+              { label: "Bays", value: String(garageCars.length) },
+              { label: "Mods logged", value: String(totalMods) },
+              {
+                label: "Spend",
+                value: money(totalSpend),
+                color: "var(--color-accent)",
+              },
+            ]}
+          />
+        }
+      />
 
-            {/* Stats */}
-            <div className="mt-8 flex flex-wrap gap-6">
-              <div className="rounded-xl border border-border bg-bg-base px-5 py-3">
-                <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">Cars</p>
-                <p className="font-mono text-2xl font-bold text-text-primary">{garageCars.length}</p>
-              </div>
-              <div className="rounded-xl border border-border bg-bg-base px-5 py-3">
-                <p className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted">Total Mods</p>
-                <p className="font-mono text-2xl font-bold text-accent-red">{totalMods}</p>
-              </div>
-              <div className="flex-1" />
-              <button
-                onClick={() => setAddCarOpen(true)}
-                className="self-center inline-flex items-center gap-2 rounded-lg bg-accent-red px-5 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
-              >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                </svg>
-                Add Car
-              </button>
-            </div>
+      <div className="border-t border-accent">
+        {garageLoading ? (
+          <div className="space-y-px p-6 md:p-11">
+            {[1, 2].map((i) => (
+              <div key={i} className="h-[74px] animate-pulse bg-bg-surface" />
+            ))}
           </div>
-        </PageWrapper>
+        ) : (
+          <>
+            {garageCars.map((gc, i) => {
+              const car = carById(gc.carId);
+              if (!car) return null;
+              const open = openBay === gc.id;
+              return (
+                <div key={gc.id}>
+                  <button
+                    onClick={() => setOpenBay(open ? null : gc.id)}
+                    aria-expanded={open}
+                    className="grid min-h-[74px] w-full cursor-pointer grid-cols-[56px_92px_1fr_40px] items-center px-6 text-left transition-colors duration-100 hover:bg-bg-elevated md:grid-cols-[56px_92px_1fr_132px_108px_120px_40px] md:px-11 border-b border-border-hair"
+                  >
+                    <span className="font-mono text-[11px] text-text-secondary">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <img
+                      src={car.heroImage}
+                      alt=""
+                      loading="lazy"
+                      className="h-[46px] w-[76px] object-cover grayscale-[0.35]"
+                    />
+                    <span className="flex min-w-0 flex-col gap-[3px] pl-5">
+                      {gc.nickname && (
+                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+                          {gc.nickname}
+                        </span>
+                      )}
+                      <span className="truncate text-[17px] font-semibold tracking-[-0.02em] text-text-primary">
+                        {gc.year ? `${gc.year} ` : ""}
+                        {car.make} {car.model}
+                      </span>
+                      <span className="font-mono text-[10px] text-text-secondary">
+                        {car.generation} · {car.performance.drivetrain} ·{" "}
+                        {car.engines[0]?.power}
+                      </span>
+                    </span>
+                    <span className="hidden flex-col gap-[3px] md:flex">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-text-secondary">
+                        Mods
+                      </span>
+                      <span className="font-mono text-[15px] font-semibold text-text-primary">
+                        {gc.mods.length}
+                      </span>
+                    </span>
+                    <span className="hidden flex-col gap-[3px] md:flex">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-text-secondary">
+                        Logged
+                      </span>
+                      <span className="font-mono text-[15px] font-semibold text-accent">
+                        {money(bayTotal(gc))}
+                      </span>
+                    </span>
+                    <span className="hidden font-mono text-[9px] uppercase tracking-[0.18em] text-text-secondary md:block">
+                      {addedLabel(gc.addedAt)}
+                    </span>
+                    <span className="text-right font-mono text-[13px] text-accent">
+                      {open ? "−" : "+"}
+                    </span>
+                  </button>
+                  {open && (
+                    <BayPanel
+                      gc={gc}
+                      car={car}
+                      onUpdate={(updates) => updateCar(gc.id, updates)}
+                      onAddMod={() => setAddModTarget(gc.id)}
+                      onRemoveMod={(modId) => removeMod(gc.id, modId)}
+                      onRemove={() => {
+                        setOpenBay(null);
+                        removeCar(gc.id);
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
+
+            <div className="flex items-center gap-4 border-b border-border-hair px-6 py-5 md:px-11">
+              <PWButton variant="secondary" onClick={() => setAddBayOpen(true)}>
+                + Add bay
+              </PWButton>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-secondary max-md:hidden">
+                {garageCars.length > 0
+                  ? "Click a bay to open its ledger"
+                  : "Open your first bay to start the ledger"}
+              </span>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Garage content */}
-      <PageWrapper>
-        <div className="py-8">
-          {garageLoading ? (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {[1, 2].map((i) => (
-                <div key={i} className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-              ))}
-            </div>
-          ) : garageCars.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {garageCars.map((gc) => {
-                const car = carById(gc.carId);
-                if (!car) return null;
-                return (
-                  <GarageCarCard
-                    key={gc.id}
-                    garageCar={gc}
-                    car={car}
-                    onRemove={() => removeCar(gc.id)}
-                    onUpdate={(updates) => updateCar(gc.id, updates)}
-                    onAddMod={() => setAddModTarget(gc.id)}
-                    onRemoveMod={(modId) => removeMod(gc.id, modId)}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bg-surface border border-border">
-                <svg className="h-10 w-10 text-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                </svg>
-              </div>
-              <h2 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-2">
-                Your Garage is Empty
-              </h2>
-              <p className="font-body text-sm text-text-secondary max-w-md mb-6">
-                Add your first car to start tracking your build. Log mods, notes, costs — everything in one place.
-              </p>
-              <button
-                onClick={() => setAddCarOpen(true)}
-                className="inline-flex items-center gap-2 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover cursor-pointer"
-              >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                </svg>
-                Add Your First Car
-              </button>
-            </div>
-          )}
-        </div>
-      </PageWrapper>
-
-      {/* Modals */}
-      <AddCarModal
-        open={addCarOpen}
-        onClose={() => setAddCarOpen(false)}
-        onAdd={async (carId: string, nickname?: string, year?: string) => { await addCar(carId, nickname, year); }}
-        existingCarIds={existingCarIds}
-      />
-      <AddModModal
-        open={addModTarget !== null}
-        onClose={() => setAddModTarget(null)}
-        onAdd={(mod) => {
-          if (addModTarget) addMod(addModTarget, mod);
-        }}
-      />
+      {addBayOpen && (
+        <AddBayModal
+          onClose={() => setAddBayOpen(false)}
+          onAdd={async (carId, nickname, year) => {
+            await addCar(carId, nickname, year);
+          }}
+          existingCarIds={existingCarIds}
+        />
+      )}
+      {addModTarget && (
+        <AddModModal
+          onClose={() => setAddModTarget(null)}
+          onAdd={(mod) => addMod(addModTarget, mod)}
+        />
+      )}
     </div>
   );
 }

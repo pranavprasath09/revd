@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import useForums from "@/hooks/useForums";
+import PageHeader from "@/components/pitwall/PageHeader";
+import PWButton from "@/components/pitwall/Button";
+import Field, { FormSection, TextareaField } from "@/components/pitwall/Field";
 
 function slugify(text: string): string {
   return text
@@ -23,9 +25,11 @@ export default function CreateCommunityPage() {
   const [description, setDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [triedSubmit, setTriedSubmit] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setTriedSubmit(true);
     if (!name.trim()) return;
     setSubmitting(true);
     setError(null);
@@ -47,7 +51,7 @@ export default function CreateCommunityPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong.";
       if (msg.includes("duplicate") || msg.includes("unique")) {
-        setError("A community with that name already exists. Try a different name.");
+        setError("A department with that name already exists. Try a different name.");
       } else {
         setError(msg);
       }
@@ -55,17 +59,11 @@ export default function CreateCommunityPage() {
     }
   }
 
-  // Wait for session restore before gating — otherwise a signed-in user
-  // hard-refreshing sees "Sign In Required" flash
   if (authLoading) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-12 space-y-4">
-            <div className="h-8 w-1/3 animate-pulse rounded-lg bg-bg-surface" />
-            <div className="h-64 animate-pulse rounded-xl bg-bg-surface" />
-          </div>
-        </PageWrapper>
+      <div className="page-enter px-6 py-[34px] md:px-11">
+        <div className="h-12 w-1/3 animate-pulse bg-bg-surface" />
+        <div className="mt-6 h-64 animate-pulse bg-bg-surface" />
       </div>
     );
   }
@@ -73,118 +71,84 @@ export default function CreateCommunityPage() {
   if (!user) {
     return (
       <div className="page-enter">
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-2xl uppercase tracking-wide text-text-primary mb-4">
-            Sign In Required
-          </h1>
-          <p className="font-body text-sm text-text-secondary mb-6">
-            You need to be signed in to create a community.
+        <PageHeader
+          breadcrumb={[{ label: "Departments" }, { label: "New", accent: true }]}
+          title="FOUND A DEPARTMENT"
+          titleSize={38}
+        />
+        <div className="px-6 md:px-11">
+          <p className="max-w-[460px] text-sm leading-relaxed text-text-secondary">
+            Sign in to found a department.
           </p>
-          <Link
-            to="/sign-in?redirect=/communities/create"
-            className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Sign In
-          </Link>
+          <div className="mt-6">
+            <Link to="/sign-in?redirect=/communities/create">
+              <PWButton>Sign in</PWButton>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-enter">
+    <div className="page-enter pb-[72px]">
       <SEOHead
         title="Create a Community"
         description="Start a new car community on RevD."
       />
 
-      {/* Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-8 sm:py-10">
-            <div className="flex items-center gap-2 mb-3">
-              <Link
-                to="/communities"
-                className="font-body text-xs text-text-muted hover:text-text-secondary transition-colors"
-              >
-                Communities
-              </Link>
-              <span className="text-text-muted">/</span>
-              <span className="font-body text-xs text-text-secondary">New Community</span>
-            </div>
-            <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
-              Create a Community
-            </h1>
-          </div>
-        </PageWrapper>
-      </div>
+      <PageHeader
+        breadcrumb={[{ label: "Departments" }, { label: "New", accent: true }]}
+        title="FOUND A DEPARTMENT"
+        titleSize={38}
+      />
 
-      {/* Form */}
-      <PageWrapper>
-        <div className="py-8 max-w-2xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Name *
-              </label>
-              <input
-                type="text"
-                value={name}
-                maxLength={100}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Rotary Enthusiasts"
-                required
-                className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
-              />
-              {name.trim() && (
-                <p className="mt-1.5 font-body text-xs text-text-muted">
-                  Slug: <span className="text-text-secondary">/communities/{slugify(name)}</span>
-                </p>
-              )}
-            </div>
-
-            {/* Description */}
-            <div>
-              <label className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-2 block">
-                Description <span className="text-text-muted">(optional)</span>
-              </label>
-              <textarea
-                value={description}
-                maxLength={2000}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="What's this community about?"
-                rows={3}
-                className="w-full resize-none rounded-xl border border-border bg-bg-surface px-4 py-3 font-body text-sm text-text-primary placeholder:text-text-muted focus:border-accent-red/50 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Error */}
-            {error && (
-              <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3">
-                <p className="font-body text-sm text-red-400">{error}</p>
-              </div>
-            )}
-
-            {/* Submit */}
-            <div className="flex items-center gap-3">
-              <button
-                type="submit"
-                disabled={!name.trim() || submitting}
-                className="rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {submitting ? "Creating..." : "Create Community"}
-              </button>
-              <Link
-                to="/communities"
-                className="rounded-lg border border-border px-6 py-3 font-body text-sm font-semibold text-text-secondary transition-colors hover:bg-bg-surface"
-              >
-                Cancel
-              </Link>
-            </div>
-          </form>
+      <form onSubmit={handleSubmit} className="max-w-[780px] px-6 md:px-11">
+        <FormSection label="The room" />
+        <div className="grid gap-5">
+          <Field
+            label="Name"
+            value={name}
+            maxLength={100}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Rotary"
+            hint={
+              name.trim() ? `Slug · /communities/${slugify(name)}` : undefined
+            }
+            error={
+              triedSubmit && !name.trim()
+                ? "Required — name the department"
+                : undefined
+            }
+          />
+          <TextareaField
+            label="Description"
+            value={description}
+            maxLength={2000}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Its own weather — what is this room about?"
+            rows={3}
+          />
         </div>
-      </PageWrapper>
+
+        {error && (
+          <p className="mt-5 border border-signal-red px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-signal-red">
+            {error}
+          </p>
+        )}
+
+        <div className="mt-10 flex items-center gap-[18px] border-t border-border-alpha pt-[22px]">
+          <PWButton type="submit" disabled={submitting}>
+            {submitting ? "Founding…" : "Found it"}
+          </PWButton>
+          <Link
+            to="/communities"
+            className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary transition-colors duration-100 hover:text-text-primary"
+          >
+            Cancel
+          </Link>
+        </div>
+      </form>
     </div>
   );
 }

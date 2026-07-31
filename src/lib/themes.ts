@@ -12,6 +12,10 @@ export interface ThemePalette {
   textMuted: string;
   // Borders
   borderAlpha: string; // e.g. "rgba(255,255,255,0.08)" or "rgba(0,0,0,0.08)"
+  /** Row separators inside a table (hairline). Derived per mode when omitted. */
+  borderHair?: string;
+  /** Section rules under a heading. Derived per mode when omitted. */
+  borderRule?: string;
   // Accent
   accent: string;
   accentHover: string;
@@ -269,6 +273,21 @@ export function getThemeById(id: string): ThemePalette {
   return THEMES.find((t) => t.id === id) ?? THEMES[0];
 }
 
+/** Convert a #rrggbb (or #rgb) hex to an rgba() string at the given alpha. */
+export function hexToRgba(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const n = parseInt(full, 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+}
+
+/** Data-driven reliability color: >= 80 green, 65–79 accent, < 65 red. */
+export function reliabilityColor(score: number): string {
+  if (score >= 80) return "var(--color-signal-green)";
+  if (score >= 65) return "var(--color-accent)";
+  return "var(--color-signal-red)";
+}
+
 /** Apply full theme palette to CSS custom properties on :root */
 export function applyTheme(theme: ThemePalette) {
   const root = document.documentElement;
@@ -284,8 +303,8 @@ export function applyTheme(theme: ThemePalette) {
   root.style.setProperty("--color-text-muted", theme.textMuted);
 
   // Accents
+  root.style.setProperty("--color-accent", theme.accent);
   root.style.setProperty("--color-accent-amber", theme.accent);
-  root.style.setProperty("--color-accent-red", theme.accent); // alias for backward compat
   root.style.setProperty("--color-accent-hover", theme.accentHover);
   root.style.setProperty("--color-accent-dim", theme.accentDim);
 
@@ -293,9 +312,23 @@ export function applyTheme(theme: ThemePalette) {
   root.style.setProperty("--color-signal-green", theme.signalGreen);
   root.style.setProperty("--color-signal-red", theme.signalRed);
 
-  // Borders — components use border-white/[0.08] or border-black/[0.08] via Tailwind
-  // We set a CSS var that can be picked up by the border utility
+  // Borders — structural rules, table hairlines, and heading rules.
+  // Light palettes get black-based equivalents, same as borderAlpha does.
+  const hair =
+    theme.borderHair ??
+    (theme.mode === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)");
+  const rule =
+    theme.borderRule ??
+    (theme.mode === "dark" ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)");
+  root.style.setProperty("--color-border-alpha", theme.borderAlpha);
+  root.style.setProperty("--color-border-hair", hair);
+  root.style.setProperty("--color-border-rule", rule);
   root.style.setProperty("--theme-border", theme.borderAlpha);
+
+  // Marquee scrim — derives from the theme base so it works on light palettes.
+  // Never a hardcoded dark literal (see FORMATS.md § Letterbox marquee).
+  root.style.setProperty("--color-scrim-mid", hexToRgba(theme.bgBase, 0.55));
+  root.style.setProperty("--color-scrim-end", hexToRgba(theme.bgBase, 0.1));
 
   // Scrollbar
   root.style.setProperty("--scrollbar-thumb", theme.accent + "40");

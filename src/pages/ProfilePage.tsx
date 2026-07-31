@@ -1,18 +1,30 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
-import PageWrapper from "@/components/layout/PageWrapper";
 import { useAuthContext } from "@/context/AuthContext";
 import usePhotos from "@/hooks/usePhotos";
 import { supabase } from "@/lib/supabase";
-import carsData from "@/data/cars.json";
+import OpeningSpread from "@/components/margin/OpeningSpread";
+import FolioStats from "@/components/margin/FolioStats";
+import SectionRule from "@/components/margin/SectionRule";
+import IndexList, {
+  IdxAccent,
+  IdxMono,
+  IdxMuted,
+  IdxName,
+  IdxNum,
+} from "@/components/margin/IndexList";
+import { ToggleButton } from "@/components/pitwall/Button";
+import { CARS, carPath } from "@/lib/carData";
+import { longDate } from "@/lib/time";
 import type { Car } from "@/types/car";
 import type { Album } from "@/types/photo";
 
-const cars = carsData as Car[];
+const fallbackImage =
+  "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80";
 
 function carById(carId: string): Car | undefined {
-  return cars.find((c) => c.id === carId || c.slug === carId);
+  return CARS.find((c) => c.id === carId || c.slug === carId);
 }
 
 interface Profile {
@@ -44,7 +56,8 @@ interface MeetRow {
 export default function ProfilePage() {
   const { username } = useParams<{ username: string }>();
   const { user } = useAuthContext();
-  const { fetchUserAlbums, followUser, unfollowUser, isFollowing, getFollowerCount } = usePhotos();
+  const { fetchUserAlbums, followUser, unfollowUser, isFollowing, getFollowerCount } =
+    usePhotos();
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -52,7 +65,6 @@ export default function ProfilePage() {
   const [rsvpMeets, setRsvpMeets] = useState<MeetRow[]>([]);
   const [followerCount, setFollowerCount] = useState(0);
   const [following, setFollowing] = useState(false);
-  const [followStatusLoaded, setFollowStatusLoaded] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -62,8 +74,10 @@ export default function ProfilePage() {
     let stale = false;
     setLoading(true);
 
-    // Try UUID lookup first (direct id link)
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(username);
+    const isUuid =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        username,
+      );
 
     if (isUuid) {
       supabase
@@ -73,7 +87,8 @@ export default function ProfilePage() {
         .single()
         .then(({ data, error }) => {
           if (stale) return;
-          if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
+          if (error && error.code !== "PGRST116")
+            console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
         });
@@ -90,7 +105,8 @@ export default function ProfilePage() {
         .single()
         .then(({ data, error }) => {
           if (stale) return;
-          if (error && error.code !== "PGRST116") console.error("Profile fetch error:", error.message);
+          if (error && error.code !== "PGRST116")
+            console.error("Profile fetch error:", error.message);
           setProfile(data as Profile | null);
           setLoading(false);
         });
@@ -101,22 +117,17 @@ export default function ProfilePage() {
     };
   }, [username]);
 
-  // Load profile data once profile is found
+  // Load contributor data once the profile is found
   useEffect(() => {
     if (!profile) return;
     let stale = false;
 
-    // Albums
     fetchUserAlbums(profile.id).then((data) => {
       if (!stale) setAlbums(data);
     });
-
-    // Follower count
     getFollowerCount(profile.id).then((count) => {
       if (!stale) setFollowerCount(count);
     });
-
-    // Garage cars
     supabase
       .from("garage_cars")
       .select("id, car_id, nickname, year, notes, mods")
@@ -127,8 +138,6 @@ export default function ProfilePage() {
         if (error) console.error("Failed to load garage:", error.message);
         setGarageCars((data as GarageCarRow[]) ?? []);
       });
-
-    // Meets RSVPed to
     supabase
       .from("meet_rsvps")
       .select("meet_id, meets(id, name, date, meet_type, cover_image_url)")
@@ -148,13 +157,9 @@ export default function ProfilePage() {
         setRsvpMeets(meets);
       });
 
-    // Follow status
     if (user) {
-      setFollowStatusLoaded(false);
       isFollowing(profile.id).then((f) => {
-        if (stale) return;
-        setFollowing(f);
-        setFollowStatusLoaded(true);
+        if (!stale) setFollowing(f);
       });
     }
 
@@ -172,7 +177,6 @@ export default function ProfilePage() {
         setFollowing(false);
         setFollowerCount((c) => Math.max(0, c - 1));
       } else {
-        // Re-sync with the server rather than guessing
         setFollowing(await isFollowing(profile.id));
       }
     } else {
@@ -187,358 +191,246 @@ export default function ProfilePage() {
     setFollowLoading(false);
   }
 
-  const fallbackImage =
-    "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80";
+  const garageIndex = useMemo(
+    () =>
+      garageCars.map((gc, i) => {
+        const car = carById(gc.car_id);
+        return {
+          key: gc.id,
+          image: car?.heroImage ?? fallbackImage,
+          to: car ? carPath(car) : undefined,
+          num: String(i + 1).padStart(2, "0"),
+          name: gc.nickname
+            ? gc.nickname
+            : car
+              ? `${car.make} ${car.model}`
+              : "Unknown car",
+          gen: car?.generation ?? "—",
+          years: gc.year ?? car?.years ?? "",
+          power: car?.engines[0]?.power ?? "",
+          car,
+          gc,
+        };
+      }),
+    [garageCars],
+  );
 
-  // Loading
   if (loading) {
     return (
-      <div className="page-enter">
-        <PageWrapper>
-          <div className="py-16 space-y-6">
-            <div className="flex items-center gap-6">
-              <div className="h-24 w-24 animate-pulse rounded-full bg-bg-surface" />
-              <div className="space-y-3">
-                <div className="h-8 w-48 animate-pulse rounded-lg bg-bg-surface" />
-                <div className="h-4 w-32 animate-pulse rounded-lg bg-bg-surface" />
-              </div>
+      <div className="page-enter px-6 py-12 md:px-14">
+        <div className="h-14 w-1/2 animate-pulse bg-bg-surface" />
+        <div className="mt-8 h-72 animate-pulse bg-bg-surface" />
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="page-enter px-6 pb-20 pt-12 md:px-14">
+        <SEOHead title="Profile Not Found" description="This member doesn't exist." />
+        <h1 className="font-editorial text-[62px] font-normal leading-none text-text-primary">
+          Not found
+        </h1>
+        <p className="mt-4 max-w-[460px] font-editorial text-lg italic text-text-secondary">
+          No contributor by that name.
+        </p>
+        <Link
+          to="/photos"
+          className="mt-7 inline-block border-b border-accent pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-text-primary hover:text-accent"
+        >
+          Back to the plates →
+        </Link>
+      </div>
+    );
+  }
+
+  const displayName = profile.display_name ?? "Anonymous";
+  const isOwnProfile = user?.id === profile.id;
+  const bestImage =
+    albums.find((a) => a.cover_image)?.cover_image ??
+    garageIndex[0]?.image ??
+    fallbackImage;
+
+  return (
+    <div className="page-enter pb-20">
+      <SEOHead
+        title={displayName}
+        description={profile.bio ?? `${displayName}'s portfolio on RevD.`}
+        ogImage={bestImage}
+      />
+
+      <OpeningSpread
+        kicker={profile.is_premium ? "Contributor · PRO" : "Contributor"}
+        headline={displayName}
+        standfirst={
+          <>
+            <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary">
+              {followerCount.toLocaleString()} followers · {albums.length}{" "}
+              albums · {garageCars.length}{" "}
+              {garageCars.length === 1 ? "car" : "cars"}
+            </span>
+            {profile.bio && (
+              <span className="mt-5 block font-editorial text-[19px] italic leading-[1.5] text-text-primary">
+                “{profile.bio}”
+              </span>
+            )}
+          </>
+        }
+        actions={
+          !isOwnProfile ? (
+            <ToggleButton
+              on={following}
+              disabled={followLoading}
+              onClick={() => {
+                if (!user) return;
+                handleFollow();
+              }}
+              className="px-6 py-3 text-[10px] tracking-[0.2em]"
+            >
+              {user ? (following ? "Following" : "Follow") : "Sign in to follow"}
+            </ToggleButton>
+          ) : (
+            <Link
+              to="/garage"
+              className="border-b border-accent pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-text-primary hover:text-accent"
+            >
+              Open your garage →
+            </Link>
+          )
+        }
+        image={bestImage}
+        alt={`Work by ${displayName}`}
+        caption={
+          albums[0] ? `Plate one, ${albums[0].title}.` : undefined
+        }
+      />
+
+      <FolioStats
+        stats={[
+          { value: followerCount.toLocaleString(), label: "Followers" },
+          { value: String(albums.length), label: "Albums" },
+          { value: String(garageCars.length), label: "Cars on file" },
+          { value: String(rsvpMeets.length), label: "Meets attended" },
+        ]}
+      />
+
+      <div className="pl-6 md:pl-14 lg:pr-14">
+        {/* The Garage — the index pattern */}
+        <div className="pr-6 pt-11 lg:pr-0">
+          <SectionRule
+            title="The Garage"
+            note={
+              garageIndex.length
+                ? `${garageIndex.length} ${garageIndex.length === 1 ? "car" : "cars"} on file`
+                : "Empty"
+            }
+          />
+        </div>
+        {garageIndex.length === 0 ? (
+          <p className="py-6 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+            No cars on file
+          </p>
+        ) : (
+          <IndexList
+            items={garageIndex}
+            gridTemplate="46px 1fr 74px 116px 74px"
+            rowPadding={15}
+            renderCells={(r) => (
+              <>
+                <IdxNum>{r.num}</IdxNum>
+                <IdxName size={27}>{r.name}</IdxName>
+                <IdxAccent>{r.gen}</IdxAccent>
+                <IdxMuted>{r.years}</IdxMuted>
+                <IdxMono right>{r.power}</IdxMono>
+              </>
+            )}
+            renderPanel={(r) => (
+              <>
+                <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+                  In the garage
+                </div>
+                <p className="mt-2.5 font-editorial text-[28px] leading-[1.12] text-text-primary">
+                  {r.car ? `${r.car.make} ${r.car.model}` : r.name}
+                </p>
+                <p className="mt-1.5 font-editorial text-[15px] italic text-text-secondary">
+                  {r.car
+                    ? `${r.car.generation}, ${r.car.years} — ${r.car.engines[0]?.code ?? ""}.`
+                    : "Not in the database."}
+                </p>
+                {r.gc.mods && r.gc.mods.length > 0 && (
+                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+                    {r.gc.mods.length} mods logged
+                  </p>
+                )}
+              </>
+            )}
+          />
+        )}
+
+        {/* Recent albums as plates */}
+        <div className="pr-6 pt-11 lg:pr-0">
+          <SectionRule title="Recent Albums" note={albums.length ? undefined : "None yet"} />
+          {albums.length === 0 ? (
+            <p className="py-6 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
+              No albums published
+            </p>
+          ) : (
+            <div className="grid grid-cols-2 gap-5 pt-5 md:grid-cols-4">
+              {albums.slice(0, 4).map((album) => (
+                <Link key={album.id} to={`/photos/${album.id}`} className="group block">
+                  <img
+                    src={album.cover_image || fallbackImage}
+                    alt={album.title}
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = fallbackImage;
+                    }}
+                    className="block w-full object-cover transition-opacity duration-200 group-hover:opacity-75"
+                    style={{ aspectRatio: "4 / 3" }}
+                  />
+                  <p className="mt-2 font-editorial text-base leading-[1.2] text-text-primary transition-colors duration-150 group-hover:text-accent">
+                    {album.title}
+                  </p>
+                  <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-text-muted">
+                    {longDate(album.created_at)}
+                  </p>
+                </Link>
+              ))}
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-48 animate-pulse rounded-xl bg-bg-surface" />
+          )}
+        </div>
+
+        {/* Meets — mono-metadata editorial rows */}
+        {rsvpMeets.length > 0 && (
+          <div className="pr-6 pt-11 lg:pr-0">
+            <SectionRule title="On the Calendar" />
+            <div className="pt-2">
+              {rsvpMeets.slice(0, 6).map((meet) => (
+                <Link
+                  key={meet.id}
+                  to={`/meets/${meet.id}`}
+                  className="group grid grid-cols-[96px_1fr_auto] items-baseline gap-4 border-b border-border-hair py-3.5"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted">
+                    {new Date(meet.date + "T00:00:00").toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                  <span className="font-editorial text-[21px] leading-[1.15] text-text-primary transition-colors duration-150 group-hover:text-accent">
+                    {meet.name}
+                  </span>
+                  {meet.meet_type && (
+                    <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-text-secondary max-md:hidden">
+                      {meet.meet_type}
+                    </span>
+                  )}
+                </Link>
               ))}
             </div>
           </div>
-        </PageWrapper>
+        )}
       </div>
-    );
-  }
-
-  // Not found
-  if (!profile) {
-    return (
-      <div className="page-enter">
-        <SEOHead title="Profile Not Found" description="This user doesn't exist." />
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <div className="font-mono text-6xl font-black text-text-muted">404</div>
-          <h1 className="font-display mt-4 text-2xl uppercase tracking-wide text-text-primary">
-            User not found
-          </h1>
-          <p className="mt-2 text-sm text-text-secondary">
-            This profile doesn't exist or may have been removed.
-          </p>
-          <Link
-            to="/photos"
-            className="mt-6 rounded-lg bg-accent-red px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-accent-hover"
-          >
-            Browse Photos
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const isOwnProfile = user?.id === profile.id;
-  const displayName = profile.display_name ?? "Anonymous";
-
-  return (
-    <div className="page-enter">
-      <SEOHead
-        title={`${displayName} — RevD`}
-        description={profile.bio || `${displayName}'s profile on RevD. ${albums.length} albums, ${garageCars.length} cars.`}
-      />
-
-      {/* Profile Header */}
-      <div className="border-b border-border bg-bg-surface/50">
-        <PageWrapper>
-          <div className="py-10 sm:py-14">
-            <div className="flex flex-col sm:flex-row items-start gap-6">
-              {/* Avatar */}
-              <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-accent-red/20 border-2 border-accent-red/30">
-                {profile.avatar_url ? (
-                  <img
-                    src={profile.avatar_url}
-                    alt={displayName}
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                    className="h-full w-full rounded-full object-cover"
-                  />
-                ) : (
-                  <span className="font-display text-3xl text-accent-red">
-                    {displayName[0].toUpperCase()}
-                  </span>
-                )}
-              </div>
-
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <h1 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-text-primary leading-none">
-                    {displayName}
-                  </h1>
-                  {(profile.is_premium || profile.tier === "premium") && (
-                    <span className="rounded-full bg-accent-red/10 px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-accent-red">
-                      PRO
-                    </span>
-                  )}
-                </div>
-
-                {profile.bio && (
-                  <p className="mt-2 font-body text-base text-text-secondary max-w-xl leading-relaxed">
-                    {profile.bio}
-                  </p>
-                )}
-
-                {/* Stats */}
-                <div className="mt-4 flex items-center gap-6">
-                  <div>
-                    <span className="font-mono text-lg font-bold text-text-primary">{followerCount}</span>
-                    <span className="ml-1.5 font-body text-sm text-text-secondary">
-                      {followerCount === 1 ? "follower" : "followers"}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-lg font-bold text-text-primary">{albums.length}</span>
-                    <span className="ml-1.5 font-body text-sm text-text-secondary">
-                      {albums.length === 1 ? "album" : "albums"}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-lg font-bold text-text-primary">{garageCars.length}</span>
-                    <span className="ml-1.5 font-body text-sm text-text-secondary">
-                      {garageCars.length === 1 ? "car" : "cars"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Follow button */}
-                {user && !isOwnProfile && (
-                  <button
-                    onClick={handleFollow}
-                    disabled={followLoading || !followStatusLoaded}
-                    className={`mt-4 rounded-lg px-6 py-2.5 font-body text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                      following
-                        ? "border border-border text-text-secondary hover:border-accent-red/40 hover:text-accent-red"
-                        : "bg-accent-red text-white hover:bg-accent-hover"
-                    }`}
-                  >
-                    {followLoading ? "..." : following ? "Following" : "Follow"}
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </PageWrapper>
-      </div>
-
-      <PageWrapper>
-        <div className="py-8 space-y-12">
-          {/* Albums section */}
-          <section>
-            <h2 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
-              Albums ({albums.length})
-            </h2>
-            {albums.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {albums.map((album) => (
-                  <Link
-                    key={album.id}
-                    to={`/photos/${album.id}`}
-                    className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
-                  >
-                    <div className="relative h-44 overflow-hidden">
-                      <img
-                        src={album.cover_image || fallbackImage}
-                        alt={album.title}
-                        loading="lazy"
-                        onError={(e) => { (e.target as HTMLImageElement).src = fallbackImage; }}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-display text-lg uppercase tracking-wide text-text-primary group-hover:text-accent-red transition-colors">
-                        {album.title}
-                      </h3>
-                      {album.car_tags.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1.5">
-                          {album.car_tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full bg-accent-red/10 px-2 py-0.5 font-body text-[10px] font-bold uppercase tracking-wider text-accent-red"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">
-                <p className="font-body text-sm text-text-muted">No albums yet.</p>
-              </div>
-            )}
-          </section>
-
-          {/* Garage section */}
-          <section>
-            {isOwnProfile ? (
-              <Link
-                to="/garage"
-                className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4 inline-flex items-center gap-1.5 hover:text-accent-red transition-colors"
-              >
-                Garage ({garageCars.length})
-                <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            ) : (
-              <h3 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
-                Garage ({garageCars.length})
-              </h3>
-            )}
-            {garageCars.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {garageCars.map((gc) => {
-                  const car = carById(gc.car_id);
-                  const modCount = Array.isArray(gc.mods) ? gc.mods.length : 0;
-                  const carFallback = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80";
-
-                  return (
-                    <div
-                      key={gc.id}
-                      className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30 hover:shadow-lg hover:shadow-accent-red/5"
-                    >
-                      {/* Car hero image */}
-                      <div className="relative h-44 overflow-hidden">
-                        <img
-                          src={car?.heroImage || carFallback}
-                          alt={car ? `${car.make} ${car.model}` : gc.car_id}
-                          loading="lazy"
-                          onError={(e) => { (e.target as HTMLImageElement).src = carFallback; }}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/30 to-transparent" />
-
-                        {/* Mod count badge */}
-                        {modCount > 0 && (
-                          <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-bg-base/90 px-3 py-1.5 backdrop-blur-sm">
-                            <svg className="h-3.5 w-3.5 text-accent-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-                            </svg>
-                            <span className="font-mono text-sm font-bold text-text-primary">{modCount}</span>
-                          </div>
-                        )}
-
-                        {/* Name overlay */}
-                        <div className="absolute bottom-4 left-4 right-4">
-                          {gc.nickname && (
-                            <p className="font-body text-xs font-bold uppercase tracking-wider text-accent-red mb-1">
-                              {gc.nickname}
-                            </p>
-                          )}
-                          <h3 className="font-display text-xl uppercase tracking-wide text-white leading-tight">
-                            {gc.year ?? ""} {car ? `${car.make} ${car.model}` : gc.car_id}
-                          </h3>
-                        </div>
-                      </div>
-
-                      {/* Card body */}
-                      <div className="p-4 space-y-2">
-                        {/* Specs row */}
-                        {car && (
-                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                            <span className="font-mono text-xs text-text-secondary">{car.generation}</span>
-                            <span className="text-text-muted">·</span>
-                            <span className="font-mono text-xs text-text-secondary">{car.performance.drivetrain}</span>
-                            <span className="text-text-muted">·</span>
-                            <span className="font-mono text-xs text-text-secondary">{car.engines[0]?.power}</span>
-                          </div>
-                        )}
-
-                        {/* Notes preview */}
-                        {gc.notes && (
-                          <p className="font-body text-sm text-text-secondary leading-relaxed line-clamp-2">
-                            {gc.notes}
-                          </p>
-                        )}
-
-                        {/* Mods preview */}
-                        {modCount > 0 && Array.isArray(gc.mods) && (
-                          <div className="flex flex-wrap gap-1.5 pt-1">
-                            {gc.mods.slice(0, 3).map((mod) => (
-                              <span
-                                key={mod.id}
-                                className="rounded-full bg-bg-elevated/50 border border-border px-2.5 py-0.5 font-body text-[10px] font-medium text-text-secondary"
-                              >
-                                {mod.name}
-                              </span>
-                            ))}
-                            {modCount > 3 && (
-                              <span className="rounded-full bg-accent-red/10 px-2.5 py-0.5 font-body text-[10px] font-bold text-accent-red">
-                                +{modCount - 3} more
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">
-                <p className="font-body text-sm text-text-muted">No cars in the garage yet.</p>
-              </div>
-            )}
-          </section>
-
-          {/* Meets RSVP section */}
-          <section>
-            <h2 className="font-body text-[10px] font-bold uppercase tracking-wider text-text-muted mb-4">
-              Meets ({rsvpMeets.length})
-            </h2>
-            {rsvpMeets.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {rsvpMeets.map((meet) => (
-                  <Link
-                    key={meet.id}
-                    to={`/meets/${meet.id}`}
-                    className="group rounded-xl border border-border bg-bg-surface overflow-hidden transition-all duration-300 hover:border-accent-red/30"
-                  >
-                    <div className="relative h-32 overflow-hidden">
-                      <img
-                        src={meet.cover_image_url || fallbackImage}
-                        alt={meet.name}
-                        loading="lazy"
-                        onError={(e) => { (e.target as HTMLImageElement).src = fallbackImage; }}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {meet.meet_type && (
-                        <div className="absolute top-2 left-2 rounded-full bg-accent-red/90 px-2.5 py-0.5 backdrop-blur-sm">
-                          <span className="font-body text-[9px] font-bold uppercase tracking-wider text-white">
-                            {meet.meet_type}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-display text-base uppercase tracking-wide text-text-primary group-hover:text-accent-red transition-colors">
-                        {meet.name}
-                      </h3>
-                      <p className="mt-1 font-body text-xs text-text-secondary">{meet.date}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-xl border border-border bg-bg-surface p-8 text-center">
-                <p className="font-body text-sm text-text-muted">No meets yet.</p>
-              </div>
-            )}
-          </section>
-        </div>
-      </PageWrapper>
     </div>
   );
 }
