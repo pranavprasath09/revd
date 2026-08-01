@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SEOHead from "@/components/ui/SEOHead";
 import Marquee from "@/components/pitwall/Marquee";
@@ -28,6 +28,13 @@ const SORT_LABELS: Record<SortKey, string> = {
 const RECORD_KEY = "revd-record-car";
 const BY_POP = SHEET_CARS.slice().sort((a, b) => b.pop - a.pop);
 
+// Marquee height — draggable from the bottom edge, persisted locally
+const HEIGHT_KEY = "revd-record-height";
+const MIN_H = 268;
+const MAX_H = 720;
+const DEFAULT_H = 440;
+const clampH = (h: number) => Math.min(MAX_H, Math.max(MIN_H, Math.round(h)));
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [tag, setTag] = useState("All");
@@ -47,6 +54,41 @@ export default function HomePage() {
       localStorage.setItem(RECORD_KEY, BY_POP[next].id);
       return next;
     });
+  };
+
+  // Marquee height — drag the bottom edge; saved on release
+  const [marqueeH, setMarqueeH] = useState(() => {
+    const saved = Number(localStorage.getItem(HEIGHT_KEY));
+    return Number.isFinite(saved) && saved >= MIN_H && saved <= MAX_H
+      ? saved
+      : DEFAULT_H;
+  });
+  const drag = useRef<{ startY: number; startH: number } | null>(null);
+  const liveH = useRef(marqueeH);
+
+  const setHeight = (h: number, persist = false) => {
+    const clamped = clampH(h);
+    liveH.current = clamped;
+    setMarqueeH(clamped);
+    if (persist) localStorage.setItem(HEIGHT_KEY, String(clamped));
+  };
+
+  const onHandleDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    drag.current = { startY: e.clientY, startH: liveH.current };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onHandleMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current) return;
+    setHeight(drag.current.startH + (e.clientY - drag.current.startY));
+  };
+  const onHandleUp = () => {
+    if (!drag.current) return;
+    drag.current = null;
+    localStorage.setItem(HEIGHT_KEY, String(liveH.current));
+  };
+  const onHandleKey = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") setHeight(liveH.current + 20, true);
+    else if (e.key === "ArrowUp") setHeight(liveH.current - 20, true);
   };
 
   const rows = useMemo(() => {
@@ -133,9 +175,10 @@ export default function HomePage() {
       />
 
       {record && (
-        <Marquee
-          height={440}
-          image={record.hero}
+        <div className="relative">
+          <Marquee
+            height={marqueeH}
+            image={record.hero}
           alt={`${record.name} ${record.gen}`}
           kicker={<span>Car of record</span>}
           kickerInfo={`${record.years} · ${record.engine}`}
@@ -169,7 +212,31 @@ export default function HomePage() {
               </button>
             </div>
           }
-        />
+          />
+
+          {/* Drag rail — resize the marquee from its bottom edge */}
+          <div
+            role="slider"
+            aria-label="Marquee height — drag or use arrow keys"
+            aria-valuemin={MIN_H}
+            aria-valuemax={MAX_H}
+            aria-valuenow={marqueeH}
+            aria-orientation="vertical"
+            tabIndex={0}
+            onPointerDown={onHandleDown}
+            onPointerMove={onHandleMove}
+            onPointerUp={onHandleUp}
+            onPointerCancel={onHandleUp}
+            onKeyDown={onHandleKey}
+            onDoubleClick={() => setHeight(DEFAULT_H, true)}
+            title="Drag to resize · double-click to reset"
+            className="group absolute inset-x-0 bottom-0 z-20 flex h-4 translate-y-1/2 cursor-ns-resize touch-none select-none items-center justify-center outline-none"
+          >
+            <span className="flex h-[9px] w-14 items-center justify-center border border-border-rule bg-bg-base transition-colors duration-100 group-hover:border-accent group-focus-visible:border-accent">
+              <span className="h-px w-8 bg-text-muted transition-colors duration-100 group-hover:bg-accent group-focus-visible:bg-accent" />
+            </span>
+          </div>
+        </div>
       )}
 
       <FilterBar

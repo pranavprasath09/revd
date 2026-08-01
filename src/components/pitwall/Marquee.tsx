@@ -40,7 +40,7 @@ export default function Marquee({
   return (
     <div
       className="relative overflow-hidden border-b border-border-alpha"
-      style={{ height: `min(${height}px, 60vh)` }}
+      style={{ height: `min(${height}px, 80vh)` }}
     >
       {/* Keyed on src so a backdrop change crossfades in fast */}
       <img
